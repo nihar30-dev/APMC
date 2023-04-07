@@ -1,0 +1,13 @@
+<div *ngIf="isLogIn">
+    <div class="container">Hello</div>
+    <div class="container">Name : {{userInfo?.info?.name}}</div>
+    <div class="container">E-mail : {{userInfo?.info?.email}}</div>
+    <div class="container"><img src= "{{userInfo?.info?.picture}}"></div>
+    <div class="container">
+        <button (click)="logout()">Logout</button>
+    </div>
+</div>
+
+<div *ngIf="!isLogIn" class="container">
+    <button class="btn btn-primary"  (click)="logIn()">Login</button>
+</div>
