@@ -7,9 +7,9 @@
 /bazel-out
 
 # angular
-/apmcAngular/node_modules
-/apmcAngular/.angular/*
-/apmcAngular/*-lock.*
+apmcAngular/node_modules/*
+apmcAngular/.angular/*
+apmcAngular/*-lock.*
 
 npm-debug.log
 yarn-error.log
