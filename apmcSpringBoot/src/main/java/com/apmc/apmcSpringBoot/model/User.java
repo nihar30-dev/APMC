@@ -1,6 +1,9 @@
 package com.apmc.apmcSpringBoot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.springframework.lang.NonNull;
+
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,17 +16,18 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     private String username;
     private String password;
     private boolean enabled;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany( fetch = FetchType.LAZY)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<Role> roles = new HashSet<>();
+    private Set<Role> roles ;
 
     public Long getId() {
         return id;
@@ -43,4 +47,36 @@ public class User {
     public Set<Role> getRoles() {
         return roles;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        System.out.println("Hii I am attemping to inject the roles"+roles);
+        this.roles = roles;
+    }
+
+//    @Override
+//    public String toString() {
+//        return "User{" +
+//                "id=" + id +
+//                ", username='" + username + '\'' +
+//                ", password='" + password + '\'' +
+//                ", enabled=" + enabled +
+//                ", roles=" + roles +
+//                '}';
+//    }
 }

@@ -1,5 +1,6 @@
 package com.apmc.apmcSpringBoot.config;
 
+import com.apmc.apmcSpringBoot.model.Role;
 import com.apmc.apmcSpringBoot.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -7,26 +8,31 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class MyUserDetails implements UserDetails {
 
 
+
+    private Long id;
     private String username;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
-
-    public MyUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+    public MyUserDetails(Long id, String username, String password, Collection<? extends GrantedAuthority> authorities) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.authorities = authorities;
     }
 
-    public static MyUserDetails buid(User user){
-        List<GrantedAuthority> authorities = user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
 
-        return new MyUserDetails(user.getUsername(), user.getPassword(), authorities);
+    public static MyUserDetails build(User user){
+        Set<Role> authorities2 = user.getRoles();
+        List<GrantedAuthority> authorities = user.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
+                .collect(Collectors.toList());
+        return new MyUserDetails(user.getId(),user.getUsername(), user.getPassword(), authorities);
     }
 
     @Override
@@ -42,6 +48,10 @@ public class MyUserDetails implements UserDetails {
     @Override
     public String getUsername() {
         return username;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     @Override

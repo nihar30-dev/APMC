@@ -5,18 +5,23 @@ import jakarta.persistence.*;
 
 //Authentication model for ROLES
 @Entity
-@Table(name="role_id")
+@Table(name="roles")
 public class Role {
     @Id
     @Column(name = "role_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String name;
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    private Erole name;
 
-    public String getName() {
-
+    public Erole getName() {
         return name;
+    }
+
+    public Role(){
+        System.out.println("Hii I am initialised ");
     }
 
     public Integer getId() {
