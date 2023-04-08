@@ -1,7 +1,6 @@
-package com.apmc.apmcSpringBoot.jwt;
+package com.apmc.apmcSpringBoot.security.jwt;
 
-import com.apmc.apmcSpringBoot.config.CustomUserDetailService;
-import com.apmc.apmcSpringBoot.config.MyUserDetails;
+import com.apmc.apmcSpringBoot.security.config.CustomUserDetailService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,11 +1,8 @@
-package com.apmc.apmcSpringBoot.model;
+package com.apmc.apmcSpringBoot.security.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import org.springframework.lang.NonNull;
 
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -28,6 +25,16 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles ;
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+
+    }
+
+    public User(){
+
+    }
 
     public Long getId() {
         return id;

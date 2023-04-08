@@ -1,4 +1,4 @@
-package com.apmc.apmcSpringBoot.payload.request;
+package com.apmc.apmcSpringBoot.security.payload.request;
 
 public class LoginRequest {
 

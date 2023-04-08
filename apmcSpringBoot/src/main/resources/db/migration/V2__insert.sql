@@ -1,6 +1,6 @@
 INSERT INTO `roles` (`name`) VALUES ('USER');
-INSERT INTO `roles` (`name`) VALUES ('CREATOR');
-INSERT INTO `roles` (`name`) VALUES ('EDITOR');
+INSERT INTO `roles` (`name`) VALUES ('EMPLOYEE');
+INSERT INTO `roles` (`name`) VALUES ('AGENT');
 INSERT INTO `roles` (`name`) VALUES ('ADMIN');
 
 INSERT INTO `users` (`username`, `password`, `enabled`) VALUES ('patrick', '$2a$10$cTUErxQqYVyU2qmQGIktpup5chLEdhD2zpzNEyYqmxrHHJbSNDOG.', '1');

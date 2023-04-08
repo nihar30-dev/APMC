@@ -1,7 +1,7 @@
-package com.apmc.apmcSpringBoot.config;
+package com.apmc.apmcSpringBoot.security.config;
 
-import com.apmc.apmcSpringBoot.jwt.AuthEntryPointJwt;
-import com.apmc.apmcSpringBoot.jwt.AuthTokenFilter;
+import com.apmc.apmcSpringBoot.security.jwt.AuthEntryPointJwt;
+import com.apmc.apmcSpringBoot.security.jwt.AuthTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,14 +11,8 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -48,22 +42,15 @@ public class SecurityConfig {
     public AuthTokenFilter authenticationJwtTokenFilter() {
         return new AuthTokenFilter();
     }
-//    @Bean
-//    public UserDetailsService userDetailsService(){
-//        UserDetails normalUser = User.withUsername("ridham").password(passwordEncoder().encode("ridham")).roles("NORMAL").build();
-//
-//        UserDetails adminUser = User.withUsername("admin").password(passwordEncoder().encode("admin")).roles("ADMIN").build();
-//
-//        InMemoryUserDetailsManager inMemoryUserDetailsManager =  new InMemoryUserDetailsManager(normalUser,adminUser);
-//
-//        return inMemoryUserDetailsManager;
-//
-////        return new CustomUserDetailService();
-//
-//    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+        return authConfig.getAuthenticationManager();
+    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        System.out.println("I'm here");
+//        System.out.println("I'm here");
         http.cors().disable().csrf().disable().formLogin().disable()
 //                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
@@ -80,9 +67,6 @@ public class SecurityConfig {
     }
 
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
-        return authConfig.getAuthenticationManager();
-    }
+
 
 }

@@ -1,12 +1,11 @@
-package com.apmc.apmcSpringBoot.jwt;
+package com.apmc.apmcSpringBoot.security.jwt;
 
-import com.apmc.apmcSpringBoot.config.MyUserDetails;
+import com.apmc.apmcSpringBoot.security.config.MyUserDetails;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.Authentication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -16,10 +15,10 @@ public class JwtUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-//    @Value("${bezkoder.app.jwtSecret}")
-    private String jwtSecret="ridhaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaam";
+//    @Value("${app.jwtSecret}")
+    private String jwtSecret="secretKeyssssssssssssssssssssssssssssssssfdfffffffffffdfdfdfdfdfbnnnnnnnnnnnnnnnnnnnmbhjjjjjjjjjjjjjhhhhhhhhhhhhhhhhhgfgjhghgjgjggjgjgjhgytfytjyfkfj";
 
-//    @Value("${bezkoder.app.jwtExpirationMs}")
+//    @Value("${app.jwtExpirationMs}")
     private int jwtExpirationMs=123455;
 
     public String generateJwtToken(Authentication authentication) {

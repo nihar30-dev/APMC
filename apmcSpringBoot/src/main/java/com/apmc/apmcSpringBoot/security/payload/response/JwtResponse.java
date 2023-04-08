@@ -1,4 +1,4 @@
-package com.apmc.apmcSpringBoot.payload.response;
+package com.apmc.apmcSpringBoot.security.payload.response;
 
 public class JwtResponse {
     private String token;

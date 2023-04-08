@@ -1,4 +1,4 @@
-package com.apmc.apmcSpringBoot.jwt;
+package com.apmc.apmcSpringBoot.security.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;

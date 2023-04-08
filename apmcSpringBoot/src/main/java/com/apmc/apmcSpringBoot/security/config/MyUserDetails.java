@@ -1,7 +1,7 @@
-package com.apmc.apmcSpringBoot.config;
+package com.apmc.apmcSpringBoot.security.config;
 
-import com.apmc.apmcSpringBoot.model.Role;
-import com.apmc.apmcSpringBoot.model.User;
+import com.apmc.apmcSpringBoot.security.model.Role;
+import com.apmc.apmcSpringBoot.security.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
