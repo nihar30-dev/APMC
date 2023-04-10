@@ -18,20 +18,20 @@ export class UsernameLoginComponent implements OnInit{
   }
 
   signIn(){
- 
     this.googleApi.signIn();
-    console.log('hello');
     this.googleApi.userProfileSubject.subscribe( info => {
       this.userInfo = info;
     });
     this.isLogIn = this.isLoggedIn();
+
   }
 
   isLoggedIn(): boolean{
-  
     return this.googleApi.isLoggedIn();
   }
+
   logout(){
     this.googleApi.signOut();
   }
+
 }

@@ -1,16 +1,5 @@
 
 
-<div *ngIf="isLogIn">
-  <div class="container">Hello</div>
-  <div class="container">Name : {{userInfo?.info?.name}}</div>
-  <div class="container">E-mail : {{userInfo?.info?.email}}</div>
-  <div class="container"><img src= "{{userInfo?.info?.picture}}"></div>
-  <div class="container">
-      <button (click)="logout()">Logout</button>
-  </div>
-</div>
-
-
 <form>
   <div class="container">
     <!-- Email input -->
@@ -36,6 +25,7 @@
     <div *ngIf="!isLogIn" >
       <button class="btn btn-primary btn-block mb-4">Login</button>
     </div>
+
   
     <!-- Register buttons -->
     <div class="text-center">
@@ -43,7 +33,7 @@
       <p>or sign up with:</p>
 
       <button type="button" class="btn btn-link btn-floating mx-1" (click)="signIn()">
-          <div class="g-signin2" data-onsuccess="onSignIn"></div>
+          <div class="g-signin2" data-onsuccess="onSignIn">Google</div>
       </button>
       
     </div>

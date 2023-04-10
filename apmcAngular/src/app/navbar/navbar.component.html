@@ -38,10 +38,16 @@
         <!-- Left links -->
   
         <div class="d-flex align-items-center">
-          <button class="btn  px-3 me-2"  (click)="logIn()">Login</button>
-          <button type="button" class="btn me-3">
+          <button *ngIf="!isLogIn" class="btn  px-3 me-2"  (click)="logIn()">Login</button>
+
+        <div *ngIf="isLogIn">
+          <button (click)="logout()">Logout</button>
+        </div>
+
+          <button *ngIf="!isLogIn" type="button" class="btn me-3">
             Sign up 
           </button>
+
         </div>
       </div>
       <!-- Collapsible wrapper -->
@@ -49,3 +55,4 @@
     <!-- Container wrapper -->
   </nav>
   <!-- Navbar -->
+  

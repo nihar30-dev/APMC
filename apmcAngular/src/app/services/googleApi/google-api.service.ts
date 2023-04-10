@@ -48,7 +48,7 @@ export class GoogleApiService {
   }
 
    isLoggedIn(){
-    return this.oAuthService.hasValidAccessToken()
+    return this.oAuthService.hasValidAccessToken();
    }
 
    signOut(){
