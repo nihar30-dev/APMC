@@ -1,13 +1,3 @@
-<div *ngIf="isLogIn">
-    <div class="container">Hello</div>
-    <div class="container">Name : {{userInfo?.info?.name}}</div>
-    <div class="container">E-mail : {{userInfo?.info?.email}}</div>
-    <div class="container"><img src= "{{userInfo?.info?.picture}}"></div>
-    <div class="container">
-        <button (click)="logout()">Logout</button>
-    </div>
-</div>
-
 
 
 <!-- Navbar -->
@@ -42,15 +32,13 @@
         <!-- Left links -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="#">APMC Gondal  </a>
+            <a class="nav-link" href="#">APMC Gondal</a>
           </li>
         </ul>
         <!-- Left links -->
   
         <div class="d-flex align-items-center">
-            <div *ngIf="!isLogIn" >
-                <button class="btn  px-3 me-2"  (click)="logIn()">Login</button>
-            </div>
+          <button class="btn  px-3 me-2"  (click)="logIn()">Login</button>
           <button type="button" class="btn me-3">
             Sign up 
           </button>

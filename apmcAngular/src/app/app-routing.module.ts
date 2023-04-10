@@ -1,12 +1,12 @@
+import { AuthModule } from './authorisation/loginManagment/auth.module';
 import { NgModule } from '@angular/core';
+// import { GoogleLoginComponent } from './authorisation/loginManagment/google-login/google-login.component';
+import { UsernameLoginComponent } from './authorisation/loginManagment/username-login/username-login.component';
 import { RouterModule, Routes } from '@angular/router';
-import { GoogleLoginComponent } from './components/loginManagment/google-login/google-login.component';
-import { AuthModule } from './components/loginManagment/auth.module';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path : 'login', component:GoogleLoginComponent }
-  // { path: 'login', loadChildren: () => import('./components/loginManagment/auth.module').then(m => m.AuthModule) }
+  { path : 'form', component : UsernameLoginComponent }
 ];
 
 
