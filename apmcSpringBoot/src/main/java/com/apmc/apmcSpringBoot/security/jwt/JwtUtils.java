@@ -3,6 +3,7 @@ package com.apmc.apmcSpringBoot.security.jwt;
 import com.apmc.apmcSpringBoot.security.config.MyUserDetails;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,12 +16,14 @@ public class JwtUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-//    @Value("${app.jwtSecret}")
-    private String jwtSecret="secretKeyssssssssssssssssssssssssssssssssfdfffffffffffdfdfdfdfdfbnnnnnnnnnnnnnnnnnnnmbhjjjjjjjjjjjjjhhhhhhhhhhhhhhhhhgfgjhghgjgjggjgjgjhgytfytjyfkfj";
+    @Value("${app.jwtSecret}")
+    private String jwtSecret;
 
-//    @Value("${app.jwtExpirationMs}")
-    private int jwtExpirationMs=123455;
+//    @Value("#{new Integer('Integer.parse(${app.jwtExpirationMs})')}")
+    @Value("13455")
+    private Integer jwtExpirationMs;
 
+    // This is used for generating JwtTokem.
     public String generateJwtToken(Authentication authentication) {
 
         MyUserDetails userPrincipal = (MyUserDetails) authentication.getPrincipal();
@@ -37,6 +40,7 @@ public class JwtUtils {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
 
+    // validating token got from response
     public boolean validateJwtToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);

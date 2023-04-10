@@ -20,7 +20,7 @@ public class CustomUserDetailService implements UserDetailsService {
 
         try{
         Optional<User> user = userRepository.getUserByUsername(username);
-//        System.out.println("Hii Request gas reacged here"+user.get());
+
         if(user==null){
             throw new UsernameNotFoundException("User not found");
         }
@@ -28,12 +28,11 @@ public class CustomUserDetailService implements UserDetailsService {
             return MyUserDetails.build(user.get());
         }}catch (Exception e){
             e.printStackTrace();
-//            return null;
+            return null;
         }finally {
-            System.out.println("Finnaly is called");
-//            return null;
-        }
-        return null;
+
+            return null;
+            }
 
     }
 }
