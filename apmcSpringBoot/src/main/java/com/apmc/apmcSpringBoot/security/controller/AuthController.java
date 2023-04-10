@@ -62,7 +62,9 @@ public class AuthController {
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok(new JwtResponse(jwt));
+        return ResponseEntity.ok(new JwtResponse(jwt ,  userDetails.getId(),
+                userDetails.getUsername(),
+                roles));
     }
 
 
@@ -90,6 +92,7 @@ public class AuthController {
             strRoles.forEach(role -> {
                 switch (role) {
                     case "admin":
+                        System.out.println(roleRepository.findByName(Erole.ADMIN));
                         Role adminRole = roleRepository.findByName(Erole.ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(adminRole);

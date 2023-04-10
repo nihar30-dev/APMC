@@ -4,6 +4,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UsernameLoginComponent } from './authorisation/loginManagment/username-login/username-login.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import {FormsModule} from "@angular/forms";
+import {CommonModule} from "@angular/common";
+import { SignupComponent } from './authorisation/signup/signup.component';
 
 
 
@@ -11,10 +14,13 @@ import { NavbarComponent } from './navbar/navbar.component';
   declarations: [
     AppComponent,
     NavbarComponent,
+      SignupComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule, 
+    AppRoutingModule,
+      FormsModule,
+      CommonModule
   ],
   bootstrap: [AppComponent],
   providers :[],

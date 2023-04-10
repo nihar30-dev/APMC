@@ -12,5 +12,8 @@ export class NavbarComponent {
   logIn(){
     this.router.navigate(['form'])
   }
+  signup():void{
+    this.router.navigate(['signup']);
+  }
  
 }

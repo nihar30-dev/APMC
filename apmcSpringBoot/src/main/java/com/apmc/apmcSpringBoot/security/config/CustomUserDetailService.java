@@ -29,10 +29,7 @@ public class CustomUserDetailService implements UserDetailsService {
         }}catch (Exception e){
             e.printStackTrace();
             return null;
-        }finally {
-
-            return null;
-            }
+        }
 
     }
 }
