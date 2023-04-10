@@ -18,11 +18,10 @@ export class GoogleLoginComponent implements OnInit{
   constructor(private readonly googleApi : GoogleApiService){ }
 
   logIn(){
+    this.isLogIn = this.isLoggedIn()
     this.googleApi.signIn();
     this.googleApi.userProfileSubject.subscribe( info => {
       this.userInfo = info
-      this.isLogIn = this.isLoggedIn()
-      
     })
   }
   isLoggedIn():Boolean{
