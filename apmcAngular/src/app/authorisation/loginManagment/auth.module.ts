@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { HttpClientModule } from '@angular/common/http';
 import { UsernameLoginComponent } from './username-login/username-login.component';
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { UsernameLoginComponent } from './username-login/username-login.componen
     CommonModule,
     HttpClientModule,
     OAuthModule.forRoot(),
+    FormsModule,
 
   ],
   exports:[],

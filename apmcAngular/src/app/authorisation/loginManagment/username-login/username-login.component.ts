@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GoogleApiService, UserInfo } from '../../../services/googleApi/google-api.service';
+import {AuthService} from "../../service/auth.service";
+import {StorageService} from "../../service/storage.service";
 
 @Component({
   selector: 'app-username-login',
@@ -8,10 +10,19 @@ import { GoogleApiService, UserInfo } from '../../../services/googleApi/google-a
 })
 export class UsernameLoginComponent implements OnInit{
 
+  form: any = {
+    username: null,
+    password: null
+  };
   userInfo? : UserInfo;
   isLogIn = false;
+  isLoggedInuser = false;
+  isLoginFailed = false;
+  errorMessage = '';
+  roles: string[] = [];
 
-  constructor(private readonly googleApi : GoogleApiService){}
+  constructor(private readonly googleApi : GoogleApiService , private authService : AuthService ,
+              private storageService : StorageService){}
 
   ngOnInit(): void {
     this.isLogIn = this.isLoggedIn();
@@ -27,11 +38,36 @@ export class UsernameLoginComponent implements OnInit{
     this.isLogIn = this.isLoggedIn();
   }
 
+  onSubmit(){
+    const { username, password } = this.form;
+    console.log(this.form);
+
+    this.authService.login(username, password).subscribe({
+      next: data => {
+        this.storageService.saveUser(data);
+
+        this.isLoginFailed = false;
+        this.isLoggedInuser = true;
+        this.roles = this.storageService.getUser().roles;
+        this.reloadPage();
+      },
+      error: err => {
+        this.errorMessage = err.error.message;
+        this.isLoginFailed = true;
+      }
+    });
+
+  }
+
   isLoggedIn(): boolean{
   
     return this.googleApi.isLoggedIn();
   }
   logout(){
     this.googleApi.signOut();
+  }
+
+  reloadPage(): void {
+    window.location.reload();
   }
 }
