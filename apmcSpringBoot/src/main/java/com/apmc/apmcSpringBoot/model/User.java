@@ -42,8 +42,8 @@ public class User {
     private Set<Role> roles;
 
 
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-//    private List<Shop> shops;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Shop> shops;
 
 
     public Set<Role> getRoles() {
@@ -58,13 +58,13 @@ public class User {
         System.out.printf("inside User Constructor======================================");
     }
 
-    public User(Long id, String username, String password, String contact, Set<Role> roles) {
+    public User(Long id, String username, String password, String contact, Set<Role> roles, List<Shop> shops) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.contact = contact;
         this.roles = roles;
-//        this.shops = shops;
+        this.shops = shops;
     }
 
     public User(String username, String password) {
@@ -110,13 +110,13 @@ public class User {
         this.contact = contact;
     }
 
-//    public List<Shop> getShops() {
-//        return shops;
-//    }
-//
-//    public void setShops(List<Shop> shops) {
-//        this.shops = shops;
-//    }
+    public List<Shop> getShops() {
+        return shops;
+    }
+
+    public void setShops(List<Shop> shops) {
+        this.shops = shops;
+    }
 
     @Override
     public String toString() {

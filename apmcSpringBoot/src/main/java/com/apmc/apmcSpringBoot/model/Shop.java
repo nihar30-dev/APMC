@@ -1,18 +1,16 @@
 package com.apmc.apmcSpringBoot.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import org.springframework.lang.NonNull;
 
-@JsonIgnoreType
+
 @Entity
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "shopId")
 @Table(name="shops")
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class Shop {
 
     @Id
@@ -24,9 +22,9 @@ public class Shop {
     @Column(name="shop_no")
     private String shopNo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name="user_id")
-    private User user;
+    private User user ;
 
     public int getShopId() {
         return shopId;
