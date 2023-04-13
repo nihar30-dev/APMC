@@ -1,11 +1,22 @@
 package com.apmc.apmcSpringBoot.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+import org.hibernate.engine.internal.Cascade;
 
+import java.util.List;
 import java.util.Set;
+
+//@JsonIgnoreType
 
 @Entity
 @Table(name="users")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class User {
 
     @Id
@@ -30,6 +41,11 @@ public class User {
     )
     private Set<Role> roles;
 
+
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+//    private List<Shop> shops;
+
+
     public Set<Role> getRoles() {
         return roles;
     }
@@ -39,7 +55,16 @@ public class User {
     }
 
     public User(){
+        System.out.printf("inside User Constructor======================================");
+    }
 
+    public User(Long id, String username, String password, String contact, Set<Role> roles) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.contact = contact;
+        this.roles = roles;
+//        this.shops = shops;
     }
 
     public User(String username, String password) {
@@ -83,5 +108,25 @@ public class User {
 
     public void setContact(String contact) {
         this.contact = contact;
+    }
+
+//    public List<Shop> getShops() {
+//        return shops;
+//    }
+//
+//    public void setShops(List<Shop> shops) {
+//        this.shops = shops;
+//    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", contact='" + contact + '\'' +
+                ", roles=" + roles +
+
+                '}';
     }
 }
