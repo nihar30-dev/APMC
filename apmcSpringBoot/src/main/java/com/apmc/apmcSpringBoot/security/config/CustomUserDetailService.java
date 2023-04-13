@@ -1,7 +1,7 @@
 package com.apmc.apmcSpringBoot.security.config;
 
-import com.apmc.apmcSpringBoot.security.dao.UserRepository;
-import com.apmc.apmcSpringBoot.security.model.User;
+import com.apmc.apmcSpringBoot.dao.UserRepository;
+import com.apmc.apmcSpringBoot.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

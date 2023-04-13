@@ -2,11 +2,11 @@
 package com.apmc.apmcSpringBoot.security.controller;
 
 import com.apmc.apmcSpringBoot.security.config.MyUserDetails;
-import com.apmc.apmcSpringBoot.security.dao.RoleRepository;
-import com.apmc.apmcSpringBoot.security.dao.UserRepository;
+import com.apmc.apmcSpringBoot.dao.RoleRepository;
+import com.apmc.apmcSpringBoot.dao.UserRepository;
 import com.apmc.apmcSpringBoot.security.jwt.JwtUtils;
-import com.apmc.apmcSpringBoot.security.model.Role;
-import com.apmc.apmcSpringBoot.security.model.User;
+import com.apmc.apmcSpringBoot.model.Role;
+import com.apmc.apmcSpringBoot.model.User;
 import com.apmc.apmcSpringBoot.security.payload.request.LoginRequest;
 import com.apmc.apmcSpringBoot.security.payload.request.SignupRequest;
 import com.apmc.apmcSpringBoot.security.payload.response.JwtResponse;
@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
-import com.apmc.apmcSpringBoot.security.model.Erole;
+import com.apmc.apmcSpringBoot.model.Erole;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;

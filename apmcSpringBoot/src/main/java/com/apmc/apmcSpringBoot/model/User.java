@@ -1,4 +1,4 @@
-package com.apmc.apmcSpringBoot.security.model;
+package com.apmc.apmcSpringBoot.model;
 
 import jakarta.persistence.*;
 

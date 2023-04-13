@@ -1,7 +1,7 @@
-package com.apmc.apmcSpringBoot.security.dao;
+package com.apmc.apmcSpringBoot.dao;
 
-import com.apmc.apmcSpringBoot.security.model.Role;
-import com.apmc.apmcSpringBoot.security.model.Erole;
+import com.apmc.apmcSpringBoot.model.Role;
+import com.apmc.apmcSpringBoot.model.Erole;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
