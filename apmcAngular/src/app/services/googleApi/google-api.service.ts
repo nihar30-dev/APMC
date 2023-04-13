@@ -32,7 +32,6 @@ export class GoogleApiService {
 
   signIn(){
     this.oAuthService.configure(oAuthConfig)
-    this.oAuthService.logoutUrl = 'https://www.google.com/accounts/Logout'
     this.oAuthService.loadDiscoveryDocument().then(()=> {
       this.oAuthService.tryLoginImplicitFlow().then(() => {
         if(!this.oAuthService.hasValidAccessToken()){

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GoogleApiService, UserInfo } from '../../../services/googleApi/google-api.service';
+import { SocialAuthService } from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-username-login',
@@ -23,7 +24,7 @@ export class UsernameLoginComponent implements OnInit{
       this.userInfo = info;
     });
     this.isLogIn = this.isLoggedIn();
-
+    console.log(this.isLogIn);
   }
 
   isLoggedIn(): boolean{
