@@ -15,4 +15,8 @@ public interface AgentService  {
     public Agent addAgent(Agent agent);
 
     public String deleteAgentById(int agentId);
+
+    Agent editAgent(int agentId, Agent agent);
+
+    Agent getAgentByCompanyName(String companyName);
 }

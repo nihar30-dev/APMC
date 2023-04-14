@@ -1,10 +1,15 @@
 package com.apmc.apmcSpringBoot.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name="agent")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "agentId")
 public class Agent {
 
     @Id
@@ -28,6 +33,7 @@ public class Agent {
 
     @ManyToOne()
     @JoinColumn(name = "shop_id")
+    @JsonIgnoreProperties({"user"})
     private Shop shop;
 
     public Agent(){
