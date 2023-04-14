@@ -1,21 +1,35 @@
 
-app-root {
+// app-root {
 
-    height: 100%;
+//     height: 100%;
     
-    position: relative;
+//     position: relative;
     
-    padding-bottom: 56px; // height of the footer
+//     padding-bottom: 56px; // height of the footer
     
-    }
+//     }
     
-app-footer {
+// app-footer {
         
-    height: 10%;
-    position: absolute;
+//     height: 10%;
+//     position: absolute;
     
-    bottom: 0;
+//     bottom: 0;
     
-    width: 100%;
+//     width: 100%;
     
-    }
+//     }
+
+
+    .app-container {
+        min-height: 100%;
+        position: relative;
+      }
+      
+      .app-footer {
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 60px; /* Adjust the height of the footer to your liking */
+      }
+

@@ -2,9 +2,9 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { HttpClientModule } from '@angular/common/http';
-import { UsernameLoginComponent } from './username-login/username-login.component';
+import { UsernameLoginComponent } from './loginManagment/username-login/username-login.component';
 import {FormsModule} from "@angular/forms";
-import { SignupComponent } from '../signup/signup.component';
+import { SignupComponent } from './signup/signup.component';
 import { Routes } from '@angular/router';
 import { RouterModule} from '@angular/router'
 
@@ -15,7 +15,8 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    UsernameLoginComponent
+    UsernameLoginComponent,
+    SignupComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -23,7 +24,6 @@ const routes: Routes = [
     HttpClientModule,
     OAuthModule.forRoot(),
     FormsModule,
-
   ],
   exports:[],
   schemas : [CUSTOM_ELEMENTS_SCHEMA]

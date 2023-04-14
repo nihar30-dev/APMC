@@ -4,27 +4,23 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
-import { SignupComponent } from './authorisation/signup/signup.component';
-import { HeaderComponent } from './header/header.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { BaseComponent } from './base/base.component';
-import { FooterComponent } from './footer/footer.component';
+import { SharedModule } from './shared/shared.module';
+import { AuthModule } from './authorisation/auth.module';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-      SignupComponent,
-      HeaderComponent,
-      SidebarComponent,
-      BaseComponent,
-      FooterComponent
+    HomeComponent,
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
       FormsModule,
-      CommonModule
+      CommonModule,
+      AuthModule,
+      SharedModule
   ],
   bootstrap: [AppComponent],
   providers :[],
