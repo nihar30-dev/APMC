@@ -1,3 +1,4 @@
+
 <div class="container my-4">
   <h2 class="text-center mb-4">Add Agents</h2>
   <form [formGroup]="agentForm" (ngSubmit)="onSubmit()">
@@ -7,41 +8,39 @@
           <div class="card-body p-4">
             <div class="row">
 
-              <div class="form-group">
-                <label for="shops">Shop Number : </label>
-                <select name="" id="shopNo" formControlName="shops">
-                      <option [value]="j" *ngFor="let shop_no of shops; let j=index">{{shop_no}}</option>
+              <div class="col-md-6 form-group">
+                <label for="shops">Shop Number:</label>
+                <select name="shopNo" id="shopNo" class="form-control" formControlName="shops">
+                  <option [value]="j" *ngFor="let shop_no of shops; let j=index">{{shop_no}}</option>
                 </select>
               </div>
-           
-                <div class="form-group">
-                  <label for="agentName">Agent Name : </label>
-                  <input type="text" class="form-control" formControlName="agentName" placeholder="Agent Name">
-                </div>
 
-                <div class="form-group">
-                  <label for="company">Company</label>
-                  <input type="text" class="form-control" formControlName="companyName" placeholder="Company Name">
-                </div>
+              <div class="col-md-6 form-group">
+                <label for="agentName">Agent Name:</label>
+                <input type="text" class="form-control" formControlName="agentName" placeholder="Agent Name">
+              </div>
 
-                <div class="form-group">
-                  <label for="contact">Contact : </label>
-                  <input type="text" class="form-control" formControlName="contact" placeholder="Contact">
-                </div>
-   
-                
+              <div class="col-md-6 form-group">
+                <label for="company">Company:</label>
+                <input type="text" class="form-control" formControlName="companyName" placeholder="Company Name">
+              </div>
 
-                <div class="form-group">
-                  <button type="button" class="btn btn-danger" (click)="removeAgent(i)">x</button>
-                </div>
+              <div class="col-md-6 form-group">
+                <label for="contact">Contact:</label>
+                <input type="text" class="form-control" formControlName="contact" placeholder="Contact">
+              </div>
+
+              <div class="col-md-12 form-group text-right">
+                <button type="button" class="btn btn-danger" (click)="removeAgent(i)">Delete</button>
               </div>
               
             </div>
           </div>
         </div>
       </div>
+    </div>
     <div class="form-group text-center">
-      <button type="button" class="btn btn-success mr-2" (click)="addAgent()"><i class="fa fa-plus"></i> Add Agent</button>
+      <button type="button" class="btn btn-success mr-2" (click)="addAgent()"><i class="fa fa-plus"></i> Add More</button>
       <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save Agents</button>
     </div>
   </form>

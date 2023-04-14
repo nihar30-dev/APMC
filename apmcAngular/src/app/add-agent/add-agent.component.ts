@@ -50,8 +50,8 @@ export class AddAgentComponent implements OnInit {
     for(let i=0; i<this.agents.length; i++){
       this.userName = this.agentForm.value.agents[i].agentName + (String)(Date.now() / 1000).slice(-4);
       this.password = this.userName;
-      console.log(this.userName);
-      console.log(this.password);
+      console.log("usernme : ", this.userName);
+      console.log("password : ",this.password);
     }
 
     console.log(this.agentForm.value);
