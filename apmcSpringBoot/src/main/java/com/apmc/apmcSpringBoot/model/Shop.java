@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import org.springframework.lang.NonNull;
 
+import java.util.List;
+
 
 @Entity
 @JsonIdentityInfo(
@@ -24,7 +26,19 @@ public class Shop {
 
     @ManyToOne()
     @JoinColumn(name="user_id")
+    @JsonIgnoreProperties({"username","password","contact","roles","shops"})
     private User user ;
+
+//    @OneToMany()
+//    @JoinColumn(name="shop_id")
+//    private List<Agent> agent;
+
+    public Shop(int shopId, @NonNull String shopNo, User user, List<Agent> agent) {
+        this.shopId = shopId;
+        this.shopNo = shopNo;
+        this.user = user;
+//        this.agent = agent;
+    }
 
     public int getShopId() {
         return shopId;
@@ -51,11 +65,6 @@ public class Shop {
         this.user = user;
     }
 
-    public Shop(int shopId, @NonNull String shopNo, User user) {
-        this.shopId = shopId;
-        this.shopNo = shopNo;
-        this.user = user;
-    }
 
     public Shop() {
     }

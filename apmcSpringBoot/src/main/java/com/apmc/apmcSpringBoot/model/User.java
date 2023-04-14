@@ -1,9 +1,7 @@
 package com.apmc.apmcSpringBoot.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.apmc.apmcSpringBoot.service.AgentService;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import org.hibernate.engine.internal.Cascade;
 
@@ -43,7 +41,12 @@ public class User {
 
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+//    @JsonIgnoreProperties({"shopId","user"})
+    @JsonIgnore
     private List<Shop> shops;
+
+    @OneToOne(mappedBy = "userId")
+    private Agent agent;
 
 
     public Set<Role> getRoles() {
@@ -58,13 +61,14 @@ public class User {
         System.out.printf("inside User Constructor======================================");
     }
 
-    public User(Long id, String username, String password, String contact, Set<Role> roles, List<Shop> shops) {
+    public User(Long id, String username, String password, String contact, Set<Role> roles, List<Shop> shops, Agent agent) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.contact = contact;
         this.roles = roles;
         this.shops = shops;
+//        this.agent = agent;
     }
 
     public User(String username, String password) {
@@ -118,6 +122,14 @@ public class User {
         this.shops = shops;
     }
 
+//    public Agent getAgent() {
+//        return agent;
+//    }
+//
+//    public void setAgent(Agent agent) {
+//        this.agent = agent;
+//    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -126,7 +138,8 @@ public class User {
                 ", password='" + password + '\'' +
                 ", contact='" + contact + '\'' +
                 ", roles=" + roles +
-
+                ", shops=" + shops +
+//                ", agent=" + agent +
                 '}';
     }
 }
