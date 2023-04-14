@@ -3,7 +3,6 @@ package com.apmc.apmcSpringBoot.controller;
 
 import com.apmc.apmcSpringBoot.model.Shop;
 import com.apmc.apmcSpringBoot.service.ShopService;
-import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,15 +22,15 @@ public class ShopController {
 
     @GetMapping("/shops")
     public ResponseEntity<List<Shop>> getAllShops(){
-        Shop s = shopService.getShopById(1);
-        return ResponseEntity.ok(shopService.geAllShops());
+        List<Shop> s = shopService.getAllShops();
+        return ResponseEntity.ok(shopService.getAllShops());
     }
 
     @GetMapping("/shop")
-    public Shop getshopById(){
-        Shop s = shopService.getShopById(2);
-        System.out.println(shopService.getShopById(2));
-        return shopService.getShopById(2);
+    public Optional<Shop> getshopById(){
+//        Shop s = shopService.getShopById(1);
+//        System.out.println(shopService.getShopById(1));
+        return shopService.getShopById(1);
     }
 
     @GetMapping("/all")

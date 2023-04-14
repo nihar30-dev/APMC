@@ -23,7 +23,7 @@ public class Agent {
 
     @OneToOne()
     @JoinColumn(name = "user_id")
-    @JsonIgnoreProperties({"username","password","contact","roles",})
+    @JsonIgnoreProperties({"username","password","contact","roles"})
     private User userId;
 
     @ManyToOne()

@@ -25,9 +25,9 @@ public class Shop {
     private String shopNo;
 
     @ManyToOne()
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="owner_id")
     @JsonIgnoreProperties({"username","password","contact","roles","shops"})
-    private User user ;
+    private User owner ;
 
 //    @OneToMany()
 //    @JoinColumn(name="shop_id")
@@ -36,7 +36,7 @@ public class Shop {
     public Shop(int shopId, @NonNull String shopNo, User user, List<Agent> agent) {
         this.shopId = shopId;
         this.shopNo = shopNo;
-        this.user = user;
+        this.owner = user;
 //        this.agent = agent;
     }
 
@@ -58,24 +58,16 @@ public class Shop {
     }
 
     public User getUser() {
-        return user;
+        return owner;
     }
 
     public void setUser(User user) {
-        this.user = user;
+        this.owner = user;
     }
 
 
     public Shop() {
     }
 
-    @Override
-    public String toString() {
-        return "Shop{" +
-                "shopId=" + shopId +
-                ", shopNo='" + shopNo + '\'' +
-                ", user=" + user +
-                '}';
-    }
 }
 

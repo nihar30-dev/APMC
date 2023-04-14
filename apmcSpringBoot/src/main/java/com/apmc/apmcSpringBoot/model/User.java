@@ -40,9 +40,9 @@ public class User {
     private Set<Role> roles;
 
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-//    @JsonIgnoreProperties({"shopId","user"})
-    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+    @JsonIgnoreProperties({"shopId","owner"})
+//    @JsonIgnore
     private List<Shop> shops;
 
     @OneToOne(mappedBy = "userId")
@@ -129,17 +129,4 @@ public class User {
 //    public void setAgent(Agent agent) {
 //        this.agent = agent;
 //    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", contact='" + contact + '\'' +
-                ", roles=" + roles +
-                ", shops=" + shops +
-//                ", agent=" + agent +
-                '}';
-    }
 }

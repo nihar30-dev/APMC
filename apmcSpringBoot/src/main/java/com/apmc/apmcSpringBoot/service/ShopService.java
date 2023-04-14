@@ -1,18 +1,17 @@
 package com.apmc.apmcSpringBoot.service;
 
-import com.apmc.apmcSpringBoot.dao.ShopRepository;
 import com.apmc.apmcSpringBoot.model.Shop;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface ShopService {
 
-    public List<Shop> geAllShops();
+    public List<Shop> getAllShops();
 
-    public Shop getShopById(int shopId);
+    public Optional<Shop> getShopById(int shopId);
 
 
 }
