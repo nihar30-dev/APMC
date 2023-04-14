@@ -1,0 +1,72 @@
+/* Agent form container */
+.form-container {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  /* Form header */
+  .form-header {
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+  
+  /* Agent section */
+  .agent-section {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Agent header */
+  .agent-header {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  
+  /* Form control */
+  input.form-control {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+  
+  /* Add agent button */
+  .add-agent-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  /* Remove agent button */
+  .remove-agent-button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
+  /* Save agents button */
+  .save-agents-button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
