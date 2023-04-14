@@ -38,6 +38,7 @@ export class UsernameLoginComponent implements OnInit{
       this.userInfo = info;
     });
     this.isLogIn = this.isLoggedIn();
+    
   }
 
   onSubmit(){

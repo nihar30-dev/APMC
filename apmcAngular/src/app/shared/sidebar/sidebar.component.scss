@@ -1,22 +1,27 @@
 
 
 .content {
-    position: relative;
+    position: sticky;
+    
   
     .sidebar {
-      position: absolute;
+      position: sticky;
       top: 100%;
       left: 0;
-
-      background-color: #fff;
+      align-items: center;
+      
+      background-color: #325c32;
   
       &__nav {
         list-style: none;
         margin: 0;
         padding: 20px;
+       
   
         li {
           margin-bottom: 10px;
+          
+        
   
           &:last-child {
             margin-bottom: 0;
@@ -25,10 +30,13 @@
           a {
             display: block;
             padding: 10px;
+      
             border-radius: 4px;
-            color: #333;
+            color: white;
             text-decoration: none;
+        
             transition: background-color 0.3s ease;
+          
   
             &:hover,
             &.active {
