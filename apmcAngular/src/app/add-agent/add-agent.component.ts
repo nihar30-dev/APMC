@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { EmptyError } from 'rxjs';
 
 @Component({
   selector: 'app-add-agent',
@@ -7,7 +8,11 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
   styleUrls: ['./add-agent.component.scss']
 })
 export class AddAgentComponent implements OnInit {
+
   agentForm!: FormGroup;
+  shops : String[] = ['A-12', 'B-13', 'A-16', 'A-26', 'B-05'];
+  userName : String= '';
+  password : String = '';
 
   constructor(private fb: FormBuilder) {}
 
@@ -21,9 +26,10 @@ export class AddAgentComponent implements OnInit {
 
   createAgentFormGroup(): FormGroup {
     return this.fb.group({
+      shops : ['', Validators.required],
       agentName: ['', Validators.required],
+      companyName: ['', Validators.required],
       contact: ['', Validators.required],
-      companyName: ['', Validators.required]
     });
   }
 
@@ -40,7 +46,17 @@ export class AddAgentComponent implements OnInit {
   }
 
   onSubmit() {
+
+    for(let i=0; i<this.agents.length; i++){
+      this.userName = this.agentForm.value.agents[i].agentName + (String)(Date.now() / 1000).slice(-4);
+      this.password = this.userName;
+      console.log(this.userName);
+      console.log(this.password);
+    }
+
     console.log(this.agentForm.value);
+    
     // add agent logic here
+
   }
 }

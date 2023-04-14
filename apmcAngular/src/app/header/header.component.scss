@@ -2,6 +2,15 @@ $header-height: 80px; // Set the height of the header
 $header-padding: 20px;
 .header {
 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+
   height: $header-height;
   background-color: #325c32;
   border-bottom: 1px solid #ccc;
@@ -87,4 +96,6 @@ $header-padding: 20px;
     text-decoration: none; 
     color: white;
 }
+
+
 
