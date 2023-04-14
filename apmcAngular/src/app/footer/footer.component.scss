@@ -1,0 +1,28 @@
+.footer {
+    width: 100%;
+    position: fixed;
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    bottom: 0px;
+  
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  
+    &__left,
+    &__right {
+      flex: 1;
+    }
+  
+    &__left {
+      text-align: left;
+    }
+  
+    &__right {
+      text-align: right;
+    }
+  }
+  

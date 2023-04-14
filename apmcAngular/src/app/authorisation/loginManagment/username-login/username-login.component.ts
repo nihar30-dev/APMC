@@ -3,6 +3,8 @@ import { GoogleApiService, UserInfo } from '../../../services/googleApi/google-a
 import {AuthService} from "../../service/auth.service";
 import {StorageService} from "../../service/storage.service";
 
+
+
 @Component({
   selector: 'app-username-login',
   templateUrl: './username-login.component.html',
@@ -60,7 +62,7 @@ export class UsernameLoginComponent implements OnInit{
   }
 
   isLoggedIn(): boolean{
-  
+    
     return this.googleApi.isLoggedIn();
   }
   logout(){

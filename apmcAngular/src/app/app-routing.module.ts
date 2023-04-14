@@ -6,11 +6,10 @@ import { RouterModule, Routes } from '@angular/router';
 import {SignupComponent} from "./authorisation/signup/signup.component";
 import {NgClass} from "@angular/common";
 import {FormsModule} from "@angular/forms";
+import { BaseComponent } from './base/base.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path : 'form', component : UsernameLoginComponent },
-  {path : 'signup' , component : SignupComponent}
+  {path: 'home', component: BaseComponent}
 ];
 
 

@@ -6,6 +6,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
     providedIn:'root'
 })
 export class AuthService{
+    private isloggedin = false;
     constructor(private http: HttpClient) {}
     private AUTH_API :string= 'http://localhost:8099/api/auth/';
     private httpOptions = {
@@ -13,6 +14,7 @@ export class AuthService{
     };
 
     login(username: string, password: string): Observable<any> {
+        this.isloggedin = true;
         return this.http.post(
             this.AUTH_API + 'signin',
             {
@@ -24,6 +26,7 @@ export class AuthService{
     }
 
     register(username: string, password: string): Observable<any> {
+        this.isloggedin = true;
         return this.http.post(
             this.AUTH_API + 'signup',
             {
