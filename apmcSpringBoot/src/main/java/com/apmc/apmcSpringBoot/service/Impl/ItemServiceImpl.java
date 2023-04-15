@@ -16,8 +16,6 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     private ItemRepository itemRepository;
 
-//    @Autowired
-//    private ItemTypeRepository itemTypeRepository;
     @Override
     public List<Item> getAllItems(){
         return itemRepository.findAll();
@@ -28,11 +26,11 @@ public class ItemServiceImpl implements ItemService {
         return itemRepository.findById(itemId).get();
     }
 
-//    ---------------------------
-//    @Override
-//    public List<Item> getItemByItemType(int itemTypeId){
-//        return itemRepository.findItemByItemTypeId(itemTypeId);
-//    }
+
+    @Override
+    public List<Item> getItemByItemType(int itemTypeId){
+        return itemRepository.findItemByItemTypeId(itemTypeId);
+    }
 
     @Override
     public Item addItem(Item item) {
