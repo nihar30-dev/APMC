@@ -6,8 +6,12 @@ import com.apmc.apmcSpringBoot.service.DailyRateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
 
 @Service
 public class DailyRateServiceImpl implements DailyRateService {
@@ -20,7 +24,31 @@ public class DailyRateServiceImpl implements DailyRateService {
     }
 
     @Override
-    public void addDailyItemRates(DailyRates dailyRate) {
-//        DailyRates dailyRates2 = dailyRateRepository.checkIfParticularItemIsPresentForADate(dailyRate.getItem())
+    public DailyRates addDailyItemRates(DailyRates dailyRate) throws ParseException {
+        System.out.println(dailyRate.getDay());
+
+        DailyRates dailyRates =  dailyRateRepository.checkIfParticularItemIsPresentForADate(dailyRate.getItem().getItemId(), dailyRate.getDay());
+        if(dailyRates == null){
+            return dailyRateRepository.save(dailyRate);
+        }else{
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date date = dateFormat.parse(dailyRates.getDay().toString());
+                System.out.println(date);
+                if(dailyRate.getDay().compareTo(date)==0){
+
+                    if(dailyRate.getItem().getItemId() == dailyRates.getItem().getItemId()){
+                    dailyRate.setRateId(dailyRates.getRateId());
+                }
+                return dailyRateRepository.save(dailyRate);
+            }
+        }
+        return null;
     }
+
+    @Override
+    public DailyRates getDailyRatesById(int rateId) {
+        return dailyRateRepository.findById(rateId).get();
+    }
+
+
 }

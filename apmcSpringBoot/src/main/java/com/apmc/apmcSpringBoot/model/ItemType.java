@@ -30,6 +30,7 @@ public class ItemType {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "itemType")
 //    @JsonIgnoreProperties({"itemName"})
+    @JsonIgnore
     private List<Item> items;
 
     public ItemType(){

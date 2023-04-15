@@ -1,6 +1,7 @@
 package com.apmc.apmcSpringBoot.controller;
 
 import com.apmc.apmcSpringBoot.model.ItemType;
+import com.apmc.apmcSpringBoot.response.ResponseException;
 import com.apmc.apmcSpringBoot.service.AgentService;
 import com.apmc.apmcSpringBoot.service.ItemTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,22 +17,24 @@ public class ItemTypeController {
     private ItemTypeService itemTypeService;
 
     @GetMapping("/all")
-    public ResponseEntity<?> getAllItemTypes(){
+    public ResponseEntity<?> getAllItemTypes()  throws ResponseException {
         return ResponseEntity.ok(itemTypeService.getAllItemTypes());
     }
 
     @GetMapping("/ItemTypeById/{item_Type_Id}")
-    public ResponseEntity<?> getItemTypeById(@PathVariable int item_Type_Id){
-        return ResponseEntity.ok(itemTypeService.getItemTypesById(item_Type_Id));
+    public ResponseEntity<?> getItemTypeById(@PathVariable int item_Type_Id) throws ResponseException {
+
+            return ResponseEntity.ok(itemTypeService.getItemTypesById(item_Type_Id));
+
     }
 
     @PostMapping("/addItemType")
-    public ResponseEntity<?> addItemTypes(@RequestBody ItemType itemType){
+    public ResponseEntity<?> addItemTypes(@RequestBody ItemType itemType)  throws ResponseException {
         return ResponseEntity.ok(itemTypeService.addItemType(itemType));
     }
 
     @DeleteMapping("/deleteItemType/{item_Type_Id}")
-    public ResponseEntity<?> deleteItemType(@PathVariable int item_Type_Id){
+    public ResponseEntity<?> deleteItemType(@PathVariable int item_Type_Id)  throws ResponseException {
         return ResponseEntity.ok(itemTypeService.deleteItemType(item_Type_Id));
     }
 }

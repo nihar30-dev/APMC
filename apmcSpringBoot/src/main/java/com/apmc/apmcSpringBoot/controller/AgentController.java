@@ -2,6 +2,7 @@ package com.apmc.apmcSpringBoot.controller;
 
 import com.apmc.apmcSpringBoot.model.Agent;
 import com.apmc.apmcSpringBoot.model.Shop;
+import com.apmc.apmcSpringBoot.response.ResponseException;
 import com.apmc.apmcSpringBoot.service.AgentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +21,13 @@ public class AgentController {
     }
 
     @GetMapping("/{agentId}")
-    public ResponseEntity<Agent> getAgentById(@PathVariable("agentId") int agentId){
+    public ResponseEntity<Agent> getAgentById(@PathVariable("agentId") int agentId) throws ResponseException {
         Agent a = agentService.getAgentById(2);
         return ResponseEntity.ok(agentService.getAgentById(agentId));
     }
 
     @GetMapping("/name/{companyName}")
-    public Agent getAgentByCompanyName(@PathVariable("companyName") String companyName){
+    public Agent getAgentByCompanyName(@PathVariable("companyName") String companyName) throws ResponseException {
         Agent a  = agentService.getAgentByCompanyName(companyName);
 //        System.out.println("controller : "+a.getAgentId()+" "+a.getAgentName()+" "+a.getCompanyName());
 
@@ -34,19 +35,18 @@ public class AgentController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Agent> addAgent(@RequestBody Agent agent){
+    public ResponseEntity<Agent> addAgent(@RequestBody Agent agent) throws ResponseException {
         return ResponseEntity.ok(agentService.addAgent(agent));
     }
 
     @PutMapping("/{agentId}")
-    public ResponseEntity<Agent> editAgent(@PathVariable("agentId") int agentId , @RequestBody Agent agent){
+    public ResponseEntity<Agent> editAgent(@PathVariable("agentId") int agentId , @RequestBody Agent agent) throws ResponseException {
           return ResponseEntity.ok(agentService.editAgent(agentId,agent));
     }
 
     @DeleteMapping("/{agentId}")
-    public String deleteAgent(@PathVariable("agentId") int agentId){
+    public String deleteAgent(@PathVariable("agentId") int agentId) throws ResponseException {
         return agentService.deleteAgentById(agentId);
     }
-
 
 }

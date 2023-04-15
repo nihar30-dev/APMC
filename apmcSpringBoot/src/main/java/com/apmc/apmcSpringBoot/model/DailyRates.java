@@ -1,6 +1,7 @@
 package com.apmc.apmcSpringBoot.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -17,7 +18,7 @@ public class DailyRates {
 
     @ManyToOne()
     @JoinColumn(name="item_id")
-    @JsonIgnore
+    @JsonIgnoreProperties({"itemName", "itemType"})
     private Item item;
 
     @Column(name = "min_price")
@@ -37,7 +38,6 @@ public class DailyRates {
     private Date day;
 
     public DailyRates() {
-
     }
 
     public DailyRates(int rateId, Item item, int minPrice, int maxPrice, int avgPrice, int quantity, Date day) {
