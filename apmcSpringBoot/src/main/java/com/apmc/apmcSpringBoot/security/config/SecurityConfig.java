@@ -51,8 +51,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http.cors().disable().csrf().disable().formLogin().disable()
-//                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+        http.cors().and().csrf().disable().formLogin().disable()
+                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/test/**").permitAll()

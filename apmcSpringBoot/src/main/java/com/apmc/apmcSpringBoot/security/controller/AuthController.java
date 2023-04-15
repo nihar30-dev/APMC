@@ -18,6 +18,7 @@ import org.springframework.security.core.Authentication;
 import com.apmc.apmcSpringBoot.model.Erole;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
@@ -56,6 +57,7 @@ public class AuthController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
+
 
         MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()

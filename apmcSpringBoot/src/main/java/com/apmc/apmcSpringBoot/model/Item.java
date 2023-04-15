@@ -26,10 +26,11 @@ public class Item {
 
     @ManyToOne()
     @JoinColumn(name="item_type_id")
-    @JsonIgnore
+    @JsonIgnoreProperties({"itemTypeName", "hibernateLazyInitializer", "handler"})
     private ItemType itemType;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "item")
+    @JsonIgnore
     private List<DailyRates> dailyRates;
 
     public Item() {

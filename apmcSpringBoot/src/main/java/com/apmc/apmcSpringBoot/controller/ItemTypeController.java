@@ -15,22 +15,22 @@ public class ItemTypeController {
     @Autowired
     private ItemTypeService itemTypeService;
 
-    @GetMapping("/all")
+    @GetMapping("")
     public ResponseEntity<?> getAllItemTypes(){
         return ResponseEntity.ok(itemTypeService.getAllItemTypes());
     }
 
-    @GetMapping("/ItemTypeById/{item_Type_Id}")
-    public ResponseEntity<?> getAllItemTypes(@PathVariable int item_Type_Id){
+    @GetMapping("/{item_Type_Id}")
+    public ResponseEntity<?> GetItemTypeById(@PathVariable int item_Type_Id){
         return ResponseEntity.ok(itemTypeService.getItemTypesById(item_Type_Id));
     }
 
-    @PostMapping("/addItemType")
+    @PostMapping("")
     public ResponseEntity<?> addItemTypes(@RequestBody ItemType itemType){
         return ResponseEntity.ok(itemTypeService.addItemType(itemType));
     }
 
-    @DeleteMapping("/deleteItemType/{item_Type_Id}")
+    @DeleteMapping("/{item_Type_Id}")
     public ResponseEntity<?> deleteItemType(@PathVariable int item_Type_Id){
         return ResponseEntity.ok(itemTypeService.deleteItemType(item_Type_Id));
     }

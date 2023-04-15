@@ -20,7 +20,7 @@ public class JwtUtils {
     private String jwtSecret;
 
 //    @Value("#{new Integer('Integer.parse(${app.jwtExpirationMs})')}")
-    @Value("13455")
+    @Value("13455454")
     private Integer jwtExpirationMs;
 
     // This is used for generating JwtTokem.

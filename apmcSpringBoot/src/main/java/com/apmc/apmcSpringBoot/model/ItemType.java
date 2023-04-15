@@ -24,6 +24,7 @@ public class ItemType {
     private String itemTypeName;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "itemType")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler","itemType"})
     private List<Item> items;
 
     public ItemType(){

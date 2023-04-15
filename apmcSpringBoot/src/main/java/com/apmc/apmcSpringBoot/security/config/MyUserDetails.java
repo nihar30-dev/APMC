@@ -5,6 +5,7 @@ import com.apmc.apmcSpringBoot.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
@@ -27,8 +28,9 @@ public class MyUserDetails implements UserDetails {
     }
 
 
+//    @Transactional
     public static MyUserDetails build(User user){
-        Set<Role> authorities2 = user.getRoles();
+//        Set<Role> authorities2 = user.getRoles();
         List<GrantedAuthority> authorities = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());

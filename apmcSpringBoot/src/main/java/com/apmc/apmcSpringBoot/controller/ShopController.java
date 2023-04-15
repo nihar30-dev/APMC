@@ -21,7 +21,7 @@ public class ShopController {
     @GetMapping("")
     public ResponseEntity<List<Shop>> getAllShops(){
         List<Shop> s = shopService.getAllShops();
-        return ResponseEntity.ok(shopService.getAllShops());
+            return ResponseEntity.ok(shopService.getAllShops());
     }
 
     @GetMapping("/{shopId}")
@@ -30,8 +30,12 @@ public class ShopController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Shop> addShop(@RequestBody Shop shop){
-       return ResponseEntity.ok(shopService.addShop(shop));
+    public ResponseEntity<List<Shop>> addShop(@RequestBody List<Shop> shops){
+        for(int i=0;i<shops.size();i++){
+            Shop shop = shops.get(i);
+            shopService.addShop(shop);
+        }
+       return ResponseEntity.ok(shops);
     }
 
     @PutMapping("/{shopId}")

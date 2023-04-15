@@ -26,17 +26,17 @@ public class Shop {
 
     @ManyToOne()
     @JoinColumn(name="owner_id")
-    @JsonIgnoreProperties({"username","password","contact","roles","shops","user"})
+    @JsonIgnoreProperties({"username","password","contact","roles","shops","user","agent"})
     private User owner ;
 
 //    @OneToMany()
 //    @JoinColumn(name="shop_id")
 //    private List<Agent> agent;
 
-    public Shop(int shopId, @NonNull String shopNo, User user, List<Agent> agent) {
+    public Shop(int shopId, @NonNull String shopNo, User owner, List<Agent> agent) {
         this.shopId = shopId;
         this.shopNo = shopNo;
-        this.owner = user;
+        this.owner = owner;
 //        this.agent = agent;
     }
 

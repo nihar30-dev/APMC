@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/item")
 public class ItemController {
@@ -25,7 +27,7 @@ public class ItemController {
     }
 
     @GetMapping("/itemType/{itemTypeId}")
-    public ResponseEntity<?> getItemByTypeId(@PathVariable int itemTypeId){
+    public ResponseEntity<List<Item>> getItemByTypeId(@PathVariable int itemTypeId){
         return ResponseEntity.ok(itemService.getItemByItemType(itemTypeId));
     }
 

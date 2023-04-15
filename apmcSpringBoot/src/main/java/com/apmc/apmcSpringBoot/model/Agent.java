@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+import org.aspectj.bridge.Message;
+import org.springframework.lang.NonNull;
 
 @Entity
 @Table(name="agent")
@@ -28,12 +30,12 @@ public class Agent {
 
     @OneToOne()
     @JoinColumn(name = "user_id")
-    @JsonIgnoreProperties({"username","password","contact","roles"})
-    private User userId;
+    @JsonIgnoreProperties({"username","password","contact","roles","agent","shops"})
+    private User user;
 
     @ManyToOne()
     @JoinColumn(name = "shop_id")
-    @JsonIgnoreProperties({"user"})
+    @JsonIgnoreProperties({"owner","user"})
     private Shop shop;
 
     public Agent(){
@@ -45,7 +47,7 @@ public class Agent {
         this.companyName = companyName;
         this.contact = contact;
         this.agentName = agentName;
-        this.userId = user;
+        this.user = user;
         this.shop = shop;
     }
 
@@ -81,12 +83,12 @@ public class Agent {
         this.agentName = agentName;
     }
 
-    public User getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Shop getShop() {

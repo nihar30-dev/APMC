@@ -47,7 +47,7 @@ public class AgentServiceImpl implements AgentService {
         a.setAgentName(agent.getAgentName());
         a.setContact(agent.getContact());
         a.setShop(agent.getShop());
-        a.setUserId(agent.getUserId());
+        a.setUser(agent.getUser());
         a.setCompanyName(agent.getCompanyName());
         agentRepository.save(a);
         return a;

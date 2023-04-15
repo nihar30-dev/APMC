@@ -31,21 +31,22 @@ public class User {
     @Column(name="contact")
     private String contact;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name="role_id")
     )
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Set<Role> roles;
 
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
-    @JsonIgnoreProperties({"shopId","owner"})
-//    @JsonIgnore
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<Shop> shops;
 
-    @OneToOne(mappedBy = "userId")
+    @OneToOne(mappedBy = "user")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Agent agent;
 
 
@@ -68,7 +69,7 @@ public class User {
         this.contact = contact;
         this.roles = roles;
         this.shops = shops;
-//        this.agent = agent;
+        this.agent = agent;
     }
 
     public User(String username, String password) {
@@ -122,11 +123,11 @@ public class User {
         this.shops = shops;
     }
 
-//    public Agent getAgent() {
-//        return agent;
-//    }
-//
-//    public void setAgent(Agent agent) {
-//        this.agent = agent;
-//    }
+    public Agent getAgent() {
+        return agent;
+    }
+
+    public void setAgent(Agent agent) {
+        this.agent = agent;
+    }
 }
