@@ -30,11 +30,9 @@ public class ItemServiceImpl implements ItemService {
 
 //    ---------------------------
 //    @Override
-    public List<Item> getItemByItemType(int itemTypeId){
-//        ItemType itemType = itemTypeRepository.findById(itemTypeId).get();
-//        return itemRepository.findItemByItemTypeId(itemType);
-        return itemRepository.findItemByItemTypeId(itemTypeId);
-    }
+//    public List<Item> getItemByItemType(int itemTypeId){
+//        return itemRepository.findItemByItemTypeId(itemTypeId);
+//    }
 
     @Override
     public Item addItem(Item item) {
