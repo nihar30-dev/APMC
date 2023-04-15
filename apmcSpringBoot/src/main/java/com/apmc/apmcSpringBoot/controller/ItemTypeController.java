@@ -17,13 +17,11 @@ public class ItemTypeController {
 
     @GetMapping("/all")
     public ResponseEntity<?> getAllItemTypes(){
-        System.out.println("in controller ======================");
         return ResponseEntity.ok(itemTypeService.getAllItemTypes());
     }
 
     @GetMapping("/ItemTypeById/{item_Type_Id}")
     public ResponseEntity<?> getAllItemTypes(@PathVariable int item_Type_Id){
-        System.out.println("in controller ======================");
         return ResponseEntity.ok(itemTypeService.getItemTypesById(item_Type_Id));
     }
 

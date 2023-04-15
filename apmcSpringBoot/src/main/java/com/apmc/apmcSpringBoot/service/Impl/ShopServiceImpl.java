@@ -24,8 +24,24 @@ public class ShopServiceImpl implements ShopService {
         return shopRepository.findById(shopId);
     }
 
+    @Override
+    public Shop addShop(Shop shop) {
+        return shopRepository.save(shop);
+    }
 
+    @Override
+    public String deleteShop(int shopId) {
+        shopRepository.delete(getShopById(shopId).get());
+        return "deleted";
+    }
 
-
+    @Override
+    public Shop editShop(int shopId, Shop shop) {
+        Shop s = shopRepository.findById(shopId).get();
+        s.setShopNo(shop.getShopNo());
+        s.setUser(shop.getUser());
+        s.setUser(shop.getUser());
+        return s;
+    }
 }
 

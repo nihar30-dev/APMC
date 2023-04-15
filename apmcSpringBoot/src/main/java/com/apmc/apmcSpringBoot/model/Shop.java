@@ -26,7 +26,7 @@ public class Shop {
 
     @ManyToOne()
     @JoinColumn(name="owner_id")
-    @JsonIgnoreProperties({"username","password","contact","roles","shops"})
+    @JsonIgnoreProperties({"username","password","contact","roles","shops","user"})
     private User owner ;
 
 //    @OneToMany()

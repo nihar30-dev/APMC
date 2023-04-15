@@ -21,7 +21,7 @@ public class AgentController {
 
     @GetMapping("/{agentId}")
     public ResponseEntity<Agent> getAgentById(@PathVariable("agentId") int agentId){
-        Agent a = agentService.getAgentById(agentId);
+        Agent a = agentService.getAgentById(2);
         return ResponseEntity.ok(agentService.getAgentById(agentId));
     }
 
@@ -41,11 +41,12 @@ public class AgentController {
     @PutMapping("/{agentId}")
     public ResponseEntity<Agent> editAgent(@PathVariable("agentId") int agentId , @RequestBody Agent agent){
           return ResponseEntity.ok(agentService.editAgent(agentId,agent));
-
     }
 
     @DeleteMapping("/{agentId}")
     public String deleteAgent(@PathVariable("agentId") int agentId){
         return agentService.deleteAgentById(agentId);
     }
+
+
 }

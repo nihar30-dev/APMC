@@ -24,17 +24,24 @@ public class ShopController {
         return ResponseEntity.ok(shopService.getAllShops());
     }
 
-    @GetMapping("/{agentId}")
-    public ResponseEntity<Shop> getshopById(@PathVariable("agentId") int agentId){
-
-        return ResponseEntity.ok(shopService.getAllShops().get(agentId));
+    @GetMapping("/{shopId}")
+    public ResponseEntity<Shop> getshopById(@PathVariable("shopId") int shopId){
+        return ResponseEntity.ok(shopService.getShopById(shopId).get());
     }
 
     @PostMapping("")
     public ResponseEntity<Shop> addShop(@RequestBody Shop shop){
+       return ResponseEntity.ok(shopService.addShop(shop));
+    }
 
-       return null;
+    @PutMapping("/{shopId}")
+    public ResponseEntity<Shop> editShop(@PathVariable("shopId") int shopId , @RequestBody Shop shop){
+         return ResponseEntity.ok(shopService.editShop(shopId , shop));
+    }
 
+    @DeleteMapping("/{shopId}")
+    public String deleteShop(@PathVariable("shopId") int shopId){
+        return shopService.deleteShop(shopId);
     }
 
 }

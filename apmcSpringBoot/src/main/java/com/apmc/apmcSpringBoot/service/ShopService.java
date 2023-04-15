@@ -13,5 +13,11 @@ public interface ShopService {
 
     public Optional<Shop> getShopById(int shopId);
 
+    public Shop addShop(Shop shop);
+
+    public String deleteShop(int agentId);
+
+    public Shop editShop(int shopId , Shop shop);
+
 
 }

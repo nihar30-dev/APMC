@@ -29,7 +29,6 @@ public class ItemController {
         return ResponseEntity.ok(itemService.getItemByItemType(itemTypeId));
     }
 
-
     @PostMapping("")
     public ResponseEntity<?> addItem(@RequestBody Item item){
         return ResponseEntity.ok(itemService.addItem(item));

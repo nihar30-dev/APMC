@@ -27,4 +27,5 @@ public class DailyRatesController {
         Date date = dateFormat.parse(day);
         return dailyRateService.getAllItemsByDate(date);
     }
+
 }
