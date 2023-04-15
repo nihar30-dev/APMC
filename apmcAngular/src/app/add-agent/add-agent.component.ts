@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { EmptyError } from 'rxjs';
+
+import { ShopService } from '../services/shop.service';
+
+import { Shop } from '../models/shop.model';
+
+
 
 @Component({
   selector: 'app-add-agent',
@@ -9,12 +14,17 @@ import { EmptyError } from 'rxjs';
 })
 export class AddAgentComponent implements OnInit {
 
+
+
   agentForm!: FormGroup;
-  shops : String[] = ['A-12', 'B-13', 'A-16', 'A-26', 'B-05'];
+  // shops : String{}[] = ['A-12', 'B-13', 'A-16', 'A-26', 'B-05'];
+  shops: Shop[] = [];
   userName : String= '';
   password : String = '';
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private shopService: ShopService) {}
+
+
 
   ngOnInit() {
     this.agentForm = this.fb.group({
@@ -22,6 +32,10 @@ export class AddAgentComponent implements OnInit {
         this.createAgentFormGroup()
       ])
     });
+    this.shopService.getAllShops().subscribe((data: Shop[]) => {
+      this.shops = data;
+    });
+    console.log(this.shops);
   }
 
   createAgentFormGroup(): FormGroup {
@@ -48,7 +62,7 @@ export class AddAgentComponent implements OnInit {
   onSubmit() {
 
     for(let i=0; i<this.agents.length; i++){
-      this.userName = this.agentForm.value.agents[i].agentName + (String)(Date.now() / 1000).slice(-4);
+      this.userName = this.agentForm.value.agents[i].agentName + (String)(Date.now()).slice(-4);
       this.password = this.userName;
       console.log("usernme : ", this.userName);
       console.log("password : ",this.password);

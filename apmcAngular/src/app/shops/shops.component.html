@@ -1,1 +1,102 @@
-<p>shops works!</p>
+<div class="container mt-5">
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <div class="form-group">
+      <h3 class="text-center">Add New Shop</h3>
+      <label for="shopNumber">Shop Number:</label>
+      <input type="text"
+             class="form-control"
+             id="shopNumber"
+             name="shopNumber"
+             [(ngModel)]="shop.shopNumber"
+             required
+             pattern="[A-Z]-\d{1,3}"
+             #shopNumber="ngModel">
+      <div *ngIf="shopNumber.invalid && (shopNumber.dirty || shopNumber.touched)" class="invalid-feedback">
+        <div *ngIf="shopNumber.errors?.['required']">Shop number is required</div>
+        <div *ngIf="shopNumber.errors?.['pattern']">Shop number should be in the format of A-12, B-123, C-16, F-37</div>
+      </div>
+    </div>
+    
+    <div class="row justify-content-center">
+      <div class="col-6">
+        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+      </div>
+      <div class="col-6">
+        <button type="button" class="btn btn-secondary btn-block" (click)="clearForm(f)">Clear</button>
+      </div>
+    </div>
+  </form>
+  
+  
+    <!-- <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+      <div class="form-group">
+        <h3 class="text-center">Add New Shop</h3>
+        <label for="shopNumber">Shop Number:</label>
+        <input type="text"
+               class="form-control"
+               id="shopNumber"
+               name="shopNumber"
+               [(ngModel)]="shop.shopNumber"
+               required
+               pattern="[A-Z]-\d{1,3}"
+               #shopNumber="ngModel">
+        <div *ngIf="shopNumber.invalid && (shopNumber.dirty || shopNumber.touched)" class="invalid-feedback">
+          <div *ngIf="shopNumber.errors?.['required']">Shop number is required</div>
+          <div *ngIf="shopNumber.errors?.['pattern']">Shop number should be in the format of A-12, B-123, C-16, F-37</div>
+        </div>
+      </div>
+      
+      
+      <div class="row justify-content-center">
+        <div class="col-6">
+          <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </div>
+        <div class="col-6">
+          <button type="button" class="btn btn-secondary btn-block" (click)="clearForm(f)">Clear</button>
+        </div>
+      </div>
+    </form> -->
+
+  </div>
+  
+  <hr/>
+
+  <div class="container listContainer">
+    <div class="card-body card">
+
+      <div class="row ">
+        <div class="col text-center title">
+          <h5>Sr. No.</h5>
+        </div>
+        <div class="col text-center title">
+          <h5>Shop Number</h5>
+        </div>
+        <div class="col text-center title">
+          <h5>Company Name</h5>
+        </div>
+        <div class="col text-center title">
+          <h5>Agent Name</h5>
+        </div>
+        <div class="col text-center title">
+          <h5>Contact No.</h5>
+        </div>
+      </div>
+    <div class="card-body card bg-light mb-3" *ngFor="let shop of shops; let i= index">
+      <div class="row">
+        <div class="col text-center">
+          <p>{{ i + 1 }}</p>
+        </div>
+        <div class="col text-center">
+          <p>{{shop.getShopNo()}}</p>
+        </div>
+        <div class="col text-center">
+          <p>{{shop.getCompanyName()}}</p>
+        </div>
+        <div class="col text-center">
+          <p>{{shop.getAgentName()}}</p>
+        </div>
+        <div class="col text-center">
+          <p>{{shop.getContact()}}</p>
+        </div>
+    </div>
+  </div>

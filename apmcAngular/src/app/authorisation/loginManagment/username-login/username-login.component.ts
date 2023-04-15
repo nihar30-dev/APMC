@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GoogleApiService, UserInfo } from '../../../services/googleApi/google-api.service';
 import {AuthService} from "../../service/auth.service";
 import {StorageService} from "../../service/storage.service";
+import { NgForm } from '@angular/forms';
 
 
 
@@ -41,9 +42,10 @@ export class UsernameLoginComponent implements OnInit{
     
   }
 
-  onSubmit(){
+  onSubmit(f: NgForm){
     const { username, password } = this.form;
-    console.log(this.form);
+    console.log("this.form: " ,this.form);
+    console.log("f ", f);
 
     this.authService.login(username, password).subscribe({
       next: data => {

@@ -11,7 +11,7 @@
               <div class="col-md-6 form-group">
                 <label for="shops">Shop Number:</label>
                 <select name="shopNo" id="shopNo" class="form-control" formControlName="shops">
-                  <option [value]="j" *ngFor="let shop_no of shops; let j=index">{{shop_no}}</option>
+                  <option [value]="shop.getShopId()" *ngFor="let shop of shops">{{ shop.getShopNo() }}</option>
                 </select>
               </div>
 
