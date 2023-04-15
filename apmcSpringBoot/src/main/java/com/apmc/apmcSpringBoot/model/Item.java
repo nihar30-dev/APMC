@@ -26,8 +26,9 @@ public class Item {
 
     @ManyToOne()
     @JoinColumn(name="item_type_id")
-    @JsonIgnore
+//    @JsonIgnore()
     private ItemType itemType;
+
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "item")
     private List<DailyRates> dailyRates;

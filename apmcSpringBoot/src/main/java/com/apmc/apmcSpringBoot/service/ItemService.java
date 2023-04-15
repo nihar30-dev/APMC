@@ -12,7 +12,7 @@ public interface ItemService {
 
     public Item getItemById(int itemId);
 
-    public List<Item> getItemByItemType(int itemTypeId);
+//    public List<Item> getItemByItemType(int itemTypeId);
 
     public Item addItem(Item item);
 

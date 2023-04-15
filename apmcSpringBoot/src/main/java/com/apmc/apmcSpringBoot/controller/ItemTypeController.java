@@ -21,7 +21,7 @@ public class ItemTypeController {
     }
 
     @GetMapping("/ItemTypeById/{item_Type_Id}")
-    public ResponseEntity<?> getAllItemTypes(@PathVariable int item_Type_Id){
+    public ResponseEntity<?> getItemTypeById(@PathVariable int item_Type_Id){
         return ResponseEntity.ok(itemTypeService.getItemTypesById(item_Type_Id));
     }
 

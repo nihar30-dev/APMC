@@ -21,6 +21,6 @@ public class DailyRateServiceImpl implements DailyRateService {
 
     @Override
     public void addDailyItemRates(DailyRates dailyRate) {
-
+//        DailyRates dailyRates2 = dailyRateRepository.checkIfParticularItemIsPresentForADate(dailyRate.getItem())
     }
 }

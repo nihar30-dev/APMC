@@ -24,10 +24,10 @@ public class ItemController {
         return ResponseEntity.ok(itemService.getItemById(itemId));
     }
 
-    @GetMapping("/itemType/{itemTypeId}")
-    public ResponseEntity<?> getItemByTypeId(@PathVariable int itemTypeId){
-        return ResponseEntity.ok(itemService.getItemByItemType(itemTypeId));
-    }
+//    @GetMapping("/itemType/{itemTypeId}")
+//    public ResponseEntity<?> getItemByTypeId(@PathVariable int itemTypeId){
+//        return ResponseEntity.ok(itemService.getItemByItemType(itemTypeId));
+//    }
 
     @PostMapping("")
     public ResponseEntity<?> addItem(@RequestBody Item item){

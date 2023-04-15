@@ -1,9 +1,6 @@
 package com.apmc.apmcSpringBoot.model;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -23,7 +20,16 @@ public class ItemType {
     @Column(name = "item_type_name")
     private String itemTypeName;
 
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "itemType")
+//    @JsonIgnoreProperties({"itemName"})
     private List<Item> items;
 
     public ItemType(){
