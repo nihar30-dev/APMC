@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ShopService } from '../services/shop.service';
 import { Shop } from '../models/shop.model';
 
@@ -11,21 +11,19 @@ import { Shop } from '../models/shop.model';
 
 export class ShopsComponent implements OnInit {
   shops: Shop[] = [];
-  shop = {
-    shopNumber: '',
-  };
-  onSubmit(f: NgForm) {
-    console.log(f);
-    if (f.valid) {
-      console.log('Shop number submitted: ' + this.shop.shopNumber);
+  f!: FormGroup;
+
+  onSubmit(f : FormGroup) {
+    // console.log(f);
+    // console.log(f.controls?.['shopNumber'].invalid);
+    // console.log(f.get('shopNumber')?.invalid && f.get('shopNumber')?.dirty && f.get('shopNumber')?.touched);
+    if(f.valid){
+      console.log("form is submitted.")
     }
   }
 
-  clearForm(f: NgForm) {
-    f.reset();
-  }
-
-  constructor(private shopService : ShopService){
+ 
+  constructor(private shopService : ShopService, private formBuilder: FormBuilder){
 
   }
 
@@ -33,7 +31,14 @@ export class ShopsComponent implements OnInit {
     this.shopService.getAllShops().subscribe((data: Shop[]) => {
       this.shops = data;
     });
+
+    this.f = this.formBuilder.group({
+      shopNumber : ['', [Validators.required, Validators.pattern('[A-Z]-[0-9]{1,3}')]]
+    })
     console.log(this.shops);
   }
+
+
+
 }
 

@@ -28,5 +28,5 @@ export class ShopService {
         // return this.http.get('http://example.com/api/shops').subscribe((data: any) => {
         //   this.shops = data;
         // });
-    }
+    }   
 }

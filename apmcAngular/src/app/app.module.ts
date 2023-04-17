@@ -12,6 +12,9 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ShopsComponent } from './shops/shops.component';
+import { AdminRatesComponent } from './dailyRates/admin-rates/admin-rates.component';
+import { UserRatesComponent } from './dailyRates/user-rates/user-rates.component';
+
 
 @NgModule({
   declarations: [
@@ -22,6 +25,8 @@ import { ShopsComponent } from './shops/shops.component';
     HomeComponent,
     AddAgentComponent,
     ShopsComponent,
+    AdminRatesComponent,
+    UserRatesComponent
   ],
   imports: [
     ReactiveFormsModule,

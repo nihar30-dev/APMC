@@ -1,0 +1,64 @@
+<div class="container mt-5">
+    <div class="container">
+        <div class="card-body card">
+            <table class="text-center">
+
+                <div class="row ">
+                    <div class="col text-center title">
+                        <h5>Sr. No.</h5>
+                    </div>
+                    <div class="col text-center title">
+                        <h5>Item Name</h5>
+                    </div>
+                    <div class="col text-center title">
+                        <h5>Min Price</h5>
+                    </div>
+                    <div class="col text-center title">
+                        <h5>Max Price</h5>
+                    </div>
+                    <div class="col text-center title">
+                        <h5>Average Price</h5>
+                    </div>
+                    <div class="col text-center title">
+                        <h5>Quantity</h5>
+                    </div>
+                    <div class="col text-center title">
+                        <h5>Quantity(quintel)</h5>
+                    </div>
+                    <div class="col text-center title">
+                        <h5>Income</h5>
+                    </div>
+                </div>
+          
+                <div class="card-body card bg-light mb-3" *ngFor="let item of items; let i= index">
+                    <div class="row">
+                        <div class="col text-center">
+                            <p>{{ i + 1 }}</p>
+                        </div>
+                        <div class="col text-center">
+                            <p>{{item.getItemName()}}</p>
+                        </div>
+                        <div class="col text-center">
+                            <p>{{item.getMinPrice()}}</p>
+                        </div>
+                        <div class="col text-center">
+                            <p>{{item.getMaxPrice()}}</p>
+                        </div>
+                        <div class="col text-center">
+                            <p>{{item.getAverage()}}</p>
+                        </div>
+                        <div class="col text-center">
+                            <p>{{item.getQuantity()}}</p>
+                        </div>
+                        <div class="col text-center">
+                            <p>{{item.getQuantity() * 20}}</p>
+                        </div>
+                        <div class="col text-center">
+                            <p> $ {{item.getIncome()}}</p>
+                        </div>
+                    </div>
+                </div>
+            </table>
+        </div>
+    </div>
+</div>

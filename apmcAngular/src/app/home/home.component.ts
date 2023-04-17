@@ -24,7 +24,6 @@ ngOnInit(): void {
   }
   
   
-  console.log(myCarousel);
 }
 
 }

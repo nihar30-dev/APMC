@@ -6,6 +6,9 @@ import { UsernameLoginComponent } from './authorisation/loginManagment/username-
 import { SignupComponent } from './authorisation/signup/signup.component';
 import { AddAgentComponent } from './add-agent/add-agent.component';
 import { ShopsComponent } from './shops/shops.component';
+import { AdminRatesComponent } from './dailyRates/admin-rates/admin-rates.component';
+import { UserRatesComponent } from './dailyRates/user-rates/user-rates.component';
+
 
 const routes: Routes = [
   {path: '', redirectTo : 'home', pathMatch : 'full'},
@@ -13,7 +16,10 @@ const routes: Routes = [
   {path : 'signup', component: SignupComponent},
   {path : 'home', component : HomeComponent},
   {path : 'agent', component: AddAgentComponent},
-  {path : 'shops', component: ShopsComponent}
+  {path : 'shops', component: ShopsComponent},
+  { path: 'userRates', component: UserRatesComponent },
+  { path: 'adminRates', component: AdminRatesComponent }
+  
 ];
 
 
