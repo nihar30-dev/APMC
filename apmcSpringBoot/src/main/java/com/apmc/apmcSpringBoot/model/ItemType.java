@@ -10,9 +10,9 @@ import java.util.List;
 
 @Entity
 @Table(name="item_type")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "itemTypeId")
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "itemTypeId")
 public class ItemType {
 
     @Id

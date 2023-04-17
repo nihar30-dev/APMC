@@ -1,6 +1,9 @@
 package com.apmc.apmcSpringBoot.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -8,6 +11,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "daily_rates")
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "rateId")
 public class DailyRates {
 
     @Id
@@ -17,7 +23,7 @@ public class DailyRates {
 
     @ManyToOne()
     @JoinColumn(name="item_id")
-    @JsonIgnore
+    @JsonIgnoreProperties({"itemName", "itemType","dailyRates"})
     private Item item;
 
     @Column(name = "min_price")
@@ -37,7 +43,6 @@ public class DailyRates {
     private Date day;
 
     public DailyRates() {
-
     }
 
     public DailyRates(int rateId, Item item, int minPrice, int maxPrice, int avgPrice, int quantity, Date day) {

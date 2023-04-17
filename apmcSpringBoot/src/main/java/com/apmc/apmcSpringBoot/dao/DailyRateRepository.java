@@ -15,6 +15,9 @@ public interface DailyRateRepository extends JpaRepository<DailyRates, Integer> 
     public List<DailyRates> getDailyRatesForAllItems(Date date);
 
 
-    @Query("SELECT dr FROM DailyRates dr WHERE dr.item = ?1 AND dr.day = ?2")
+
+    @Query("SELECT dr FROM DailyRates dr WHERE dr.item.itemId = ?1 AND dr.day = ?2")
     public DailyRates checkIfParticularItemIsPresentForADate(int item_id, Date date);
+
+
 }

@@ -10,9 +10,9 @@ import java.util.List;
 
 @Entity
 @Table(name="items")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "itemId")
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "itemId")
 public class Item {
 
 
@@ -64,5 +64,13 @@ public class Item {
 
     public void setItemType(ItemType itemType) {
         this.itemType = itemType;
+    }
+
+    public List<DailyRates> getDailyRates() {
+        return dailyRates;
+    }
+
+    public void setDailyRates(List<DailyRates> dailyRates) {
+        this.dailyRates = dailyRates;
     }
 }

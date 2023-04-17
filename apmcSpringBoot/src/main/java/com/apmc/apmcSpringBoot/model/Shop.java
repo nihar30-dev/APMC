@@ -8,11 +8,7 @@ import java.util.List;
 
 
 @Entity
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "shopId")
 @Table(name="shops")
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class Shop {
 
     @Id
@@ -29,15 +25,12 @@ public class Shop {
     @JsonIgnoreProperties({"username","password","contact","roles","shops","user","agent"})
     private User owner ;
 
-//    @OneToMany()
-//    @JoinColumn(name="shop_id")
-//    private List<Agent> agent;
+
 
     public Shop(int shopId, @NonNull String shopNo, User owner, List<Agent> agent) {
         this.shopId = shopId;
         this.shopNo = shopNo;
         this.owner = owner;
-//        this.agent = agent;
     }
 
     public int getShopId() {

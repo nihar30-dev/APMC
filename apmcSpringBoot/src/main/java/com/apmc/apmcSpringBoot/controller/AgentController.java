@@ -28,9 +28,9 @@ public class AgentController {
     }
 
     @GetMapping("/name/{companyName}")
-    public Agent getAgentByCompanyName(@PathVariable("companyName") String companyName){
+    public ResponseEntity<Agent> getAgentByCompanyName(@PathVariable("companyName") String companyName){
         Agent a  = agentService.getAgentByCompanyName(companyName);
-          return agentService.getAgentByCompanyName(companyName);
+          return ResponseEntity.ok(agentService.getAgentByCompanyName(companyName));
     }
 
     @PostMapping("")
