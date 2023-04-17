@@ -1,6 +1,7 @@
 package com.apmc.apmcSpringBoot.service.Impl;
 
 import com.apmc.apmcSpringBoot.dao.ShopRepository;
+import com.apmc.apmcSpringBoot.dto.ShopDTO;
 import com.apmc.apmcSpringBoot.model.Shop;
 import com.apmc.apmcSpringBoot.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,10 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public Shop addShop(Shop shop) {
-        return shopRepository.save(shop);
+    public Shop addShop(Shop shopDTO) {
+//        Shop shop = new Shop(shopDTO.getShopId(),shopDTO.getShopNo(),shopDTO.getOwner());
+        return shopRepository.save(shopDTO);
+
     }
 
     @Override
@@ -39,8 +42,8 @@ public class ShopServiceImpl implements ShopService {
     public Shop editShop(int shopId, Shop shop) {
         Shop s = shopRepository.findById(shopId).get();
         s.setShopNo(shop.getShopNo());
-        s.setUser(shop.getUser());
-        s.setUser(shop.getUser());
+        s.setOwner(shop.getOwner());
+        s.setOwner(shop.getOwner());
         return s;
     }
 }

@@ -59,7 +59,7 @@ public class User {
     }
 
     public User(){
-        System.out.printf("inside User Constructor======================================");
+        System.out.printf("inside User Constructor==========================");
     }
 
     public User(Long id, String username, String password, String contact, Set<Role> roles, List<Shop> shops, Agent agent) {

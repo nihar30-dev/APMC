@@ -1,12 +1,16 @@
 package com.apmc.apmcSpringBoot.controller;
 
 
+import com.apmc.Exception.response.ResponseException;
+import com.apmc.apmcSpringBoot.dto.ShopDTO;
 import com.apmc.apmcSpringBoot.model.Shop;
 import com.apmc.apmcSpringBoot.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,13 +33,16 @@ public class ShopController {
         return ResponseEntity.ok(shopService.getShopById(shopId).get());
     }
 
-    @PostMapping("")
-    public ResponseEntity<List<Shop>> addShop(@RequestBody List<Shop> shops){
+    @PostMapping("/add")
+    public ResponseEntity<?> addShop(@RequestBody List<Shop> shops) throws ResponseException {
+        System.out.println("in controller ---------------------------------");
+        List<Shop> newShops = new ArrayList<>();
         for(int i=0;i<shops.size();i++){
             Shop shop = shops.get(i);
             shopService.addShop(shop);
+            newShops.add(shops.get(i));
         }
-       return ResponseEntity.ok(shops);
+        return ResponseEntity.ok(newShops);
     }
 
     @PutMapping("/{shopId}")

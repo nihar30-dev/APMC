@@ -3,12 +3,15 @@ package com.apmc.apmcSpringBoot.model;
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import org.springframework.lang.NonNull;
-
+//import org.codehaus.jackson.annotate.JsonIgnore;
 import java.util.List;
 
 
 @Entity
 @Table(name="shops")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "shopId")
 public class Shop {
 
     @Id
@@ -23,13 +26,21 @@ public class Shop {
     @ManyToOne()
     @JoinColumn(name="owner_id")
     @JsonIgnoreProperties({"username","password","contact","roles","shops","user","agent"})
-    private User owner ;
+    private User owner;
 
 
-
-    public Shop(int shopId, @NonNull String shopNo, User owner, List<Agent> agent) {
+    public Shop(int shopId, @NonNull String shopNo, User owner) {
         this.shopId = shopId;
         this.shopNo = shopNo;
+        this.owner = owner;
+    }
+
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
         this.owner = owner;
     }
 
@@ -49,15 +60,6 @@ public class Shop {
     public void setShopNo(@NonNull String shopNo) {
         this.shopNo = shopNo;
     }
-
-    public User getUser() {
-        return owner;
-    }
-
-    public void setUser(User user) {
-        this.owner = user;
-    }
-
 
     public Shop() {
     }
