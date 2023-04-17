@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Item } from "../models/item.model";
 import { of } from "rxjs";
+import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 
 @Injectable({
     providedIn: 'root'
@@ -29,7 +30,8 @@ export class ItemService {
         this.items.push(item);
     }
 
-    getAllItems() {
+    getAllItems(day : NgbDateStruct) {
+        console.log(day);
         return of(this.items.slice());
         // return this.http.get('http://example.com/api/shops').subscribe((data: any) => {
         //   this.shops = data;

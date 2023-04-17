@@ -14,6 +14,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { ShopsComponent } from './shops/shops.component';
 import { AdminRatesComponent } from './dailyRates/admin-rates/admin-rates.component';
 import { UserRatesComponent } from './dailyRates/user-rates/user-rates.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { UserRatesComponent } from './dailyRates/user-rates/user-rates.component
     UserRatesComponent
   ],
   imports: [
+    NgbModule,
     ReactiveFormsModule,
     AppRoutingModule,
     BrowserModule,

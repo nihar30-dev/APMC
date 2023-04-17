@@ -1,4 +1,17 @@
 <div class="container mt-5">
+    <input type="text" class="form-control" placeholder="yyyy-mm-dd"
+      [(ngModel)]="date" ngbDatepicker #dp="ngbDatepicker" 
+      (dateSelect)="onDateSelect(dp)">
+    <button (click)="dp.toggle()" class="btn btn-outline-secondary calendar-btn">
+      <i class="bi bi-calendar"></i>
+    </button>
+  </div>
+
+
+
+
+
+<div class="container mt-5">
     <div class="container">
         <div class="card-body card">
             <table class="text-center">
