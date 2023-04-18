@@ -1,4 +1,4 @@
-package com.apmc.Exception.response;
+package com.apmc.apmcSpringBoot.Exception;
 
 
 

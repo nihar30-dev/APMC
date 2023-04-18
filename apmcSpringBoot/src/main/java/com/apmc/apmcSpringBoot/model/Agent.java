@@ -37,7 +37,7 @@ public class Agent {
 
     @ManyToOne()
     @JoinColumn(name = "shop_id")
-    @JsonIgnoreProperties({"owner","user"})
+    @JsonIgnoreProperties({"user"})
     private Shop shop;
 
     public Agent(){

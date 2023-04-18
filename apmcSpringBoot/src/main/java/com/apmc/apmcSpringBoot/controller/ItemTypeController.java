@@ -1,8 +1,10 @@
 package com.apmc.apmcSpringBoot.controller;
 
+import com.apmc.apmcSpringBoot.dto.converter.ItemTypeConverter;
+import com.apmc.apmcSpringBoot.dto.ItemTypeDTO;
 import com.apmc.apmcSpringBoot.model.ItemType;
-import com.apmc.apmcSpringBoot.service.AgentService;
 import com.apmc.apmcSpringBoot.service.ItemTypeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,9 @@ public class ItemTypeController {
     @Autowired
     private ItemTypeService itemTypeService;
 
+    @Autowired
+    private ItemTypeConverter itemTypeConverter;
+
     @GetMapping("")
     public ResponseEntity<?> getAllItemTypes(){
         return ResponseEntity.ok(itemTypeService.getAllItemTypes());
@@ -26,8 +31,11 @@ public class ItemTypeController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> addItemTypes(@RequestBody ItemType itemType){
-        return ResponseEntity.ok(itemTypeService.addItemType(itemType));
+    public ResponseEntity<?> addItemTypes(@Valid @RequestBody ItemTypeDTO itemTypeDTO){
+
+        ItemType itemType = itemTypeConverter.DtoToEntity(itemTypeDTO);
+        itemType = itemTypeService.addItemType(itemType);
+        return ResponseEntity.ok(itemType);
     }
 
     @DeleteMapping("/{item_Type_Id}")

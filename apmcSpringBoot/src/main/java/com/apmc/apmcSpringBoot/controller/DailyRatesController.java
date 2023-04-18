@@ -1,7 +1,7 @@
 package com.apmc.apmcSpringBoot.controller;
 
 
-import com.apmc.Exception.response.ResponseException;
+import com.apmc.apmcSpringBoot.Exception.ResponseException;
 import com.apmc.apmcSpringBoot.model.DailyRates;
 import com.apmc.apmcSpringBoot.service.DailyRateService;
 import org.springframework.beans.factory.annotation.Autowired;

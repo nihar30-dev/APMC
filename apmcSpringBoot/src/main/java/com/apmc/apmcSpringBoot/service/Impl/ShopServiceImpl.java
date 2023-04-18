@@ -26,9 +26,9 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public Shop addShop(Shop shopDTO) {
-//        Shop shop = new Shop(shopDTO.getShopId(),shopDTO.getShopNo(),shopDTO.getOwner());
-        return shopRepository.save(shopDTO);
+    public Shop addShop(Shop shop) {
+
+        return shopRepository.save(shop);
 
     }
 

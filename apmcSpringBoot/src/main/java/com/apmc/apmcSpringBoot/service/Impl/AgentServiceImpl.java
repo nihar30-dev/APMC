@@ -1,6 +1,7 @@
 package com.apmc.apmcSpringBoot.service.Impl;
 
 import com.apmc.apmcSpringBoot.dao.AgentRepository;
+import com.apmc.apmcSpringBoot.dao.ShopRepository;
 import com.apmc.apmcSpringBoot.model.Agent;
 import com.apmc.apmcSpringBoot.model.Shop;
 import com.apmc.apmcSpringBoot.service.AgentService;
@@ -16,6 +17,9 @@ public class AgentServiceImpl implements AgentService {
 
     @Autowired
     private AgentRepository agentRepository;
+
+    @Autowired
+    private ShopRepository shopRepository;
     @Override
     @Transactional
     public List<Agent> getAllAgent() {
@@ -31,6 +35,9 @@ public class AgentServiceImpl implements AgentService {
     @Override
     @Transactional
     public Agent addAgent(Agent agent) {
+        Shop s = shopRepository.findById(agent.getShop().getShopId()).get();
+        s.setOwner(agent.getUser());
+        shopRepository.save(s);
         return agentRepository.save(agent);
     }
 

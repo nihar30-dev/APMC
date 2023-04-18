@@ -1,8 +1,11 @@
 package com.apmc.apmcSpringBoot.controller;
 
-import com.apmc.Exception.response.ResponseException;
+import com.apmc.apmcSpringBoot.Exception.ResponseException;
+import com.apmc.apmcSpringBoot.dto.ItemDTO;
+import com.apmc.apmcSpringBoot.dto.converter.ItemConverter;
 import com.apmc.apmcSpringBoot.model.Item;
 import com.apmc.apmcSpringBoot.service.ItemService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +19,9 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
 
+    @Autowired
+    private ItemConverter itemConverter;
+
     @GetMapping("")
     public ResponseEntity<?> getAllItem() throws ResponseException {
         return ResponseEntity.ok(itemService.getAllItems());
@@ -23,7 +29,6 @@ public class ItemController {
 
     @GetMapping("/{itemId}")
     public ResponseEntity<?> getItemById(@PathVariable int itemId) throws ResponseException {
-        System.out.println("in controller ======================");
         return ResponseEntity.ok(itemService.getItemById(itemId));
     }
 
@@ -33,8 +38,11 @@ public class ItemController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> addItem(@RequestBody Item item) throws ResponseException {
-        return ResponseEntity.ok(itemService.addItem(item));
+    public ResponseEntity<?> addItem(@Valid @RequestBody ItemDTO itemDTO){
+
+        Item item = itemConverter.DtoToEntity(itemDTO);
+        item = itemService.addItem(item);
+        return ResponseEntity.ok(item);
     }
 
     @DeleteMapping("/{itemId}")
