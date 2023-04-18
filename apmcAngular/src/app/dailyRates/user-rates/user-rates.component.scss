@@ -1,3 +1,21 @@
+//datepicker styling
+
+.parent {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.dateContainer{
+  max-width: 30%;
+  margin: 0 0;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  text-align: left;
+}
+
+//list content styling
+
 .container {
     max-width: auto;
     margin: 0 auto;
@@ -60,4 +78,16 @@
     p{
       margin-bottom: 0px;
       white-space: nowrap;
+    }
+
+    //navbar styling
+    #ulContainer {
+      display: flex;
+      justify-content: center;
+    }
+    
+    #navbarNav {
+      flex: 1;
+      display: flex;
+      justify-content: center;
     }

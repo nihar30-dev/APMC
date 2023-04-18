@@ -1,22 +1,40 @@
+<div class="parent">
+    <div class="container dateContainer mt-5">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="yyyy-mm-dd" [(ngModel)]="date" ngbDatepicker
+                #dp="ngbDatepicker" (dateSelect)="onDateSelect(dp)" [maxDate]="maxDate"/>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" (click)="dp.toggle()" type="button">
+                    <i class="bi bi-calendar"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container mt-5">
-    <input type="text" class="form-control" placeholder="yyyy-mm-dd"
-      [(ngModel)]="date" ngbDatepicker #dp="ngbDatepicker" 
-      (dateSelect)="onDateSelect(dp)">
-    <button (click)="dp.toggle()" class="btn btn-outline-secondary calendar-btn">
-      <i class="bi bi-calendar"></i>
-    </button>
-  </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <div class="row w-100">
+            <div class="col-md-4 text-center">
+              <a class="navbar-brand nav-link" style="cursor: pointer;" (click)="showContainer(1)">Commodities</a>
+            </div>
+            <div class="col-md-4 text-center">
+              <a class="navbar-brand nav-link" style="cursor: pointer;" (click)="showContainer(2)">Vegetables</a>
+            </div>
+            <div class="col-md-4 text-center">
+              <a class="navbar-brand nav-link" style="cursor: pointer;" (click)="showContainer(3)">Fruit</a>
+            </div>
+          </div>
+        </div>
+      </nav>
 
 
 
-
-
-<div class="container mt-5">
     <div class="container">
         <div class="card-body card">
             <table class="text-center">
-
-                <div class="row ">
+                <div class="row">
                     <div class="col text-center title">
                         <h5>Sr. No.</h5>
                     </div>
@@ -42,32 +60,31 @@
                         <h5>Income</h5>
                     </div>
                 </div>
-          
-                <div class="card-body card bg-light mb-3" *ngFor="let item of items; let i= index">
+                <div class="card-body card bg-light mb-3" *ngFor="let item of items; let i = index">
                     <div class="row">
                         <div class="col text-center">
                             <p>{{ i + 1 }}</p>
                         </div>
                         <div class="col text-center">
-                            <p>{{item.getItemName()}}</p>
+                            <p>{{ item.getItemName() }}</p>
                         </div>
                         <div class="col text-center">
-                            <p>{{item.getMinPrice()}}</p>
+                            <p>{{ item.getMinPrice() }}</p>
                         </div>
                         <div class="col text-center">
-                            <p>{{item.getMaxPrice()}}</p>
+                            <p>{{ item.getMaxPrice() }}</p>
                         </div>
                         <div class="col text-center">
-                            <p>{{item.getAverage()}}</p>
+                            <p>{{ item.getAverage() }}</p>
                         </div>
                         <div class="col text-center">
-                            <p>{{item.getQuantity()}}</p>
+                            <p>{{ item.getQuantity() }}</p>
                         </div>
                         <div class="col text-center">
-                            <p>{{item.getQuantity() * 20}}</p>
+                            <p>{{ item.getQuantity() * 20 }}</p>
                         </div>
                         <div class="col text-center">
-                            <p> $ {{item.getIncome()}}</p>
+                            <p>$ {{ item.getIncome() }}</p>
                         </div>
                     </div>
                 </div>

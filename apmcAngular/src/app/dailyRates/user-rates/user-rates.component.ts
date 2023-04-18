@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Item } from 'src/app/models/item.model';
 import { ItemService } from 'src/app/services/item.service';
-import { NgbDateParserFormatter, NgbDateStruct, NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateParserFormatter, NgbDateStruct, NgbInputDatepicker, NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -14,30 +14,32 @@ export class UserRatesComponent implements OnInit{
   items: Item[] = [];
 
   ngOnInit(){
-      // this.itemService.getAllItems(this.date).subscribe((data: Item[]) => {
-      //   this.items = data;
-      // })
+
   }
 
   date: NgbDateStruct | null = null;
+  selectedDate: string = '';
+  maxDate: NgbDate;
 
-  constructor(private ngbDateParserFormatter: NgbDateParserFormatter, private itemService : ItemService) {}
+  constructor(private ngbDateParserFormatter: NgbDateParserFormatter, private itemService : ItemService, private calendar : NgbCalendar) {
+    this.maxDate = calendar.getToday();
+  }
 
   onDateSelect(dp: NgbInputDatepicker) {
     console.log(this.date);
+    this.selectedDate = `${this.date?.year}/${(this.date?.month+'').padStart(2, '0')}/${(this.date?.day+'').padStart(2, '0')}`;
+  }
 
-    const selectedDate = this.date;
-    if (selectedDate) {
-      console.log('Selected date:', selectedDate);
-      // Add your logic here to handle the selected date
-
+  showContainer(typeId: number){
+    if (this.selectedDate) {
+      console.log('Selected date:', this.selectedDate);
+        this.itemService.getAllItems(this.selectedDate, typeId).subscribe((data: Item[]) => {
+        this.items = data;
+        })
 
     } else {
       console.log('No date selected');
     }
   }
 
-  // getDate(): Date | null {
-  //   return this.date ? new Date(this.date.year, this.date.month - 1, this.date.day) : null;
-  // }
 }
