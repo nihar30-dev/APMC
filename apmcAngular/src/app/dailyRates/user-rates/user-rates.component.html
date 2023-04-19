@@ -1,5 +1,5 @@
 <div class="parent">
-    <div class="container dateContainer mt-5">
+    <div class="dateContainer mt-5">
         <div class="input-group">
             <input type="text" class="form-control" placeholder="yyyy-mm-dd" [(ngModel)]="date" ngbDatepicker
                 #dp="ngbDatepicker" (dateSelect)="onDateSelect(dp)" [maxDate]="maxDate"/>
@@ -12,7 +12,7 @@
     </div>
 </div>
 
-<div class="container mt-5">
+<div class="container mt-5 navContainer">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
           <div class="row w-100">
@@ -27,7 +27,7 @@
             </div>
           </div>
         </div>
-      </nav>
+    </nav>
 
 
 
@@ -36,28 +36,28 @@
             <table class="text-center">
                 <div class="row">
                     <div class="col text-center title">
-                        <h5>Sr. No.</h5>
+                        <h6>Sr. No.</h6>
                     </div>
                     <div class="col text-center title">
-                        <h5>Item Name</h5>
+                        <h6>Item Name</h6>
                     </div>
                     <div class="col text-center title">
-                        <h5>Min Price</h5>
+                        <h6>Min Price</h6>
                     </div>
                     <div class="col text-center title">
-                        <h5>Max Price</h5>
+                        <h6>Max Price</h6>
                     </div>
                     <div class="col text-center title">
-                        <h5>Average Price</h5>
+                        <h6>Average Price</h6>
                     </div>
                     <div class="col text-center title">
-                        <h5>Quantity</h5>
+                        <h6>Quantity</h6>
                     </div>
                     <div class="col text-center title">
-                        <h5>Quantity(quintel)</h5>
+                        <h6>Quantity(quintel)</h6>
                     </div>
                     <div class="col text-center title">
-                        <h5>Income</h5>
+                        <h6>Income</h6>
                     </div>
                 </div>
                 <div class="card-body card bg-light mb-3" *ngFor="let item of items; let i = index">

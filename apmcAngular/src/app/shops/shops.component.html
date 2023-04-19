@@ -1,12 +1,11 @@
 <div class="container mt-5">
-  <form [formGroup]="f" (ngSubmit)="onSubmit(f)" novalidate>
+  <!-- <form [formGroup]="f" (ngSubmit)="onSubmit(f)" novalidate>
     <div class="form-group">
       <h3 class="text-center">Add New Shop</h3>
       <label for="shopNumber">Shop Number:</label>
       <input type="text" class="form-control" formControlName="shopNumber" id="shopNumber" name="shopNumber">
   
       <div *ngIf="f.controls['shopNumber']?.invalid && f.controls['shopNumber']?.touched && f.controls['shopNumber']?.dirty" class="alert alert-danger">Shop number should be in the format of A-12, B-123, C-16, F-37.</div>
-        <!-- <div *ngIf="f.get('shopNumber').invalid">Shop number should be in the format of A-12, B-123, C-16, F-37</div> -->
       </div>
   
     <div class="row justify-content-center">
@@ -17,11 +16,16 @@
         <button type="reset" class="btn btn-secondary btn-block">Clear</button>
       </div>
     </div>
-  </form>
-  
-  
+  </form> -->
+
+  <app-agent-form>
+</app-agent-form>
+  <button (click)="onClickModel()">Open Modal</button>
+
+  <button id="modelButton" [hidden]="true" data-bs-toggle="modal" data-bs-target="#agentModel">Hello</button>
+
   </div>
-  
+<!--   
   <hr/>
 
   <div class="container listContainer">
@@ -63,3 +67,11 @@
         </div>
     </div>
   </div>
+ -->
+
+<!-- 
+<div class="modal" id="agentModel" >
+
+  <div class="modal-content">Hello world
+    </div>
+    </div> -->

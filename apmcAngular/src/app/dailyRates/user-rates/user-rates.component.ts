@@ -14,7 +14,7 @@ export class UserRatesComponent implements OnInit{
   items: Item[] = [];
 
   ngOnInit(){
-
+ 
   }
 
   date: NgbDateStruct | null = null;

@@ -12,6 +12,7 @@ import { Shop } from '../models/shop.model';
 export class ShopsComponent implements OnInit {
   shops: Shop[] = [];
   f!: FormGroup;
+  showModal: boolean = false;
 
   onSubmit(f : FormGroup) {
     // console.log(f);
@@ -38,7 +39,14 @@ export class ShopsComponent implements OnInit {
     console.log(this.shops);
   }
 
+    onModalClose() {
+      this.showModal = false;
+    }
 
+    onClickModel(){
+      this.showModal = true;
+      document.getElementById("modelButton")?.click();
+    }
 
 }
 

@@ -15,6 +15,7 @@ import { ShopsComponent } from './shops/shops.component';
 import { AdminRatesComponent } from './dailyRates/admin-rates/admin-rates.component';
 import { UserRatesComponent } from './dailyRates/user-rates/user-rates.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AgentFormComponent } from './agent-form/agent-form.component';
 
 
 @NgModule({
@@ -27,16 +28,18 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AddAgentComponent,
     ShopsComponent,
     AdminRatesComponent,
-    UserRatesComponent
+    UserRatesComponent,
+    AgentFormComponent,
+    AgentFormComponent
   ],
   imports: [
     NgbModule,
     ReactiveFormsModule,
     AppRoutingModule,
     BrowserModule,
-      FormsModule,
-      CommonModule,
-      AuthModule,
+    FormsModule,
+    CommonModule,
+    AuthModule,
   ],
   bootstrap: [AppComponent],
   providers :[],
