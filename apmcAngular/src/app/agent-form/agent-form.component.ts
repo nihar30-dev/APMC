@@ -1,5 +1,6 @@
-import { Component, ElementRef, EventEmitter, Input, Output, Renderer2, ViewChild } from '@angular/core';
+import { Component} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { Shop } from '../models/shop.model';
 import { ShopService } from '../services/shop.service';
 
@@ -9,19 +10,15 @@ import { ShopService } from '../services/shop.service';
   styleUrls: ['./agent-form.component.scss']
 })
 export class AgentFormComponent {
-  
-  constructor(private fb: FormBuilder, private shopService: ShopService) {}
- 
-//methos for modal panel
-
-
-// methods for agent form 
   agentForm!: FormGroup;
   // shops : String{}[] = ['A-12', 'B-13', 'A-16', 'A-26', 'B-05'];
   shops: Shop[] = [];
   userName : String= '';
   password : String = '';
 
+  constructor(private fb: FormBuilder, private shopService: ShopService) {
+
+  }
 
   onSubmit(agentForm : FormGroup) {
 

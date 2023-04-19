@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { ShopService } from '../services/shop.service';
 import { Shop } from '../models/shop.model';
-import { AgentFormComponent } from '../agent-form/agent-form.component';
+import { ModalService } from '../services/modal.service';
 
 @Component({
   selector: 'app-shops',
@@ -13,7 +14,25 @@ import { AgentFormComponent } from '../agent-form/agent-form.component';
 export class ShopsComponent implements OnInit {
   shops: Shop[] = [];
   f!: FormGroup;
-  showModal: boolean = false;
+
+  constructor(
+    private shopService : ShopService,
+    private formBuilder: FormBuilder, 
+    public modalService: ModalService){}
+
+  ngOnInit(): void {
+
+    //list population 
+    this.shopService.getAllShops().subscribe((data: Shop[]) => {
+      this.shops = data;
+    });
+    // form builder
+    this.f = this.formBuilder.group({
+      shopNumber : ['', [Validators.required, Validators.pattern('[A-Z]-[0-9]{1,3}')]]
+    })
+    console.log(this.shops);
+  }
+
 
   onSubmit(f : FormGroup) {
     // console.log(f);
@@ -24,20 +43,10 @@ export class ShopsComponent implements OnInit {
     }
   }
 
- 
-  constructor(private shopService : ShopService, private formBuilder: FormBuilder){
+  //modal render methods 
 
-  }
-
-  ngOnInit(): void {
-    this.shopService.getAllShops().subscribe((data: Shop[]) => {
-      this.shops = data;
-    });
-
-    this.f = this.formBuilder.group({
-      shopNumber : ['', [Validators.required, Validators.pattern('[A-Z]-[0-9]{1,3}')]]
-    })
-    console.log(this.shops);
+  open(formName : string){
+    this.modalService.open(formName);
   }
  
 }

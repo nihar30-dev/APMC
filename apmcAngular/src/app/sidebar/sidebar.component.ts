@@ -23,8 +23,8 @@ export class SidebarComponent {
   }
 
   onClickDailyRates(){
-    this.role = 'admin';
-    if (this.role === 'user') {
+    this.role = 'user';
+    if (this.role === 'admin') {
       console.log(this.route);
       this.router.navigate(['adminRates']);
     } else {
@@ -37,9 +37,6 @@ export class SidebarComponent {
   }
   onClickViewSlot(){
     this.router.navigate(['viewSlot']);
-  }
-  onClickAgent(){
-    this.router.navigate(['agent']);
   }
   onClickShops(){
     this.router.navigate(['shops']);

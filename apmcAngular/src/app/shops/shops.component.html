@@ -1,45 +1,19 @@
 <div class="container mt-5">
-  <form [formGroup]="f" (ngSubmit)="onSubmit(f)" novalidate>
-    <div class="form-group">
-      <h3 class="text-center">Add New Shop</h3>
-      <label for="shopNumber">Shop Number:</label>
-      <input
-        type="text"
-        class="form-control"
-        formControlName="shopNumber"
-        id="shopNumber"
-        name="shopNumber"
-      />
 
-      <div
-        *ngIf="
-          f.controls['shopNumber']?.invalid &&
-          f.controls['shopNumber']?.touched &&
-          f.controls['shopNumber']?.dirty
-        "
-        class="alert alert-danger"
-      >
-        Shop number should be in the format of A-12, B-123, C-16, F-37.
-      </div>
-    </div>
+  <button (click)="open('shop')" class="btn btn-outline-primary btn-sm shopBtn">
+    <h6>Add Shops</h6>
+  </button>
+  <app-modal></app-modal>
 
-    <div class="row justify-content-center">
-      <div class="col-6">
-        <button
-          type="submit"
-          class="btn btn-primary btn-block"
-          [disabled]="f.controls['shopNumber'].invalid"
-        >
-          Submit
-        </button>
-      </div>
-      <div class="col-6">
-        <button type="reset" class="btn btn-secondary btn-block">Clear</button>
-      </div>
-    </div>
-  </form>
+  <button (click)="open('agent')" class="btn btn-outline-primary btn-sm agentBtn">
+    <h6>Add Agents</h6>
+  </button>
+  <app-modal></app-modal>
+
 </div>
 
+
+<div *ngIf="!modalService.showModal">
   <div class="container listContainer">
     <div class="card-body card">
       <div class="row">
@@ -83,3 +57,4 @@
       </div>
     </div>
   </div>
+</div>

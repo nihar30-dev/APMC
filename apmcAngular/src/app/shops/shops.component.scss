@@ -1,9 +1,10 @@
 .container {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f8f8f8;
+  background-color: white;
   border-radius: 10px;
+  display: flex;
 }
   
   .form-group {
@@ -130,3 +131,16 @@
     white-space: nowrap;
   }
   
+  .shopBtn,
+  .agentBtn{
+    padding: 5px 10px;
+    margin-right: 4px;
+  }
+
+  .shopBtn {
+    margin-right: 4px;
+  }
+
+  h6{
+    margin-bottom: 0px;
+  }

@@ -8,7 +8,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthModule } from './authorisation/auth.module';
 import { HomeComponent } from './home/home.component';
-import { AddAgentComponent } from './add-agent/add-agent.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -16,7 +15,8 @@ import { ShopsComponent } from './shops/shops.component';
 import { AdminRatesComponent } from './dailyRates/admin-rates/admin-rates.component';
 import { UserRatesComponent } from './dailyRates/user-rates/user-rates.component';
 import { AgentFormComponent } from './agent-form/agent-form.component';
-
+import { ShopFormComponent } from './shop-form/shop-form.component';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -25,12 +25,12 @@ import { AgentFormComponent } from './agent-form/agent-form.component';
     SidebarComponent,
     AppComponent,
     HomeComponent,
-    AddAgentComponent,
     ShopsComponent,
     AdminRatesComponent,
     UserRatesComponent,
     AgentFormComponent,
-    AgentFormComponent
+    ShopFormComponent,
+    ModalComponent,
   ],
   imports: [
     ReactiveFormsModule,

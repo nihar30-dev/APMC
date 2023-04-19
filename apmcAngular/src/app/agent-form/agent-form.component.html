@@ -1,150 +1,131 @@
-<!-- <div class="container my-4">
-  <div class="modal" id="agentModel" [ngClass]="{ show: showModal }">
-    <div class="modal-content">
-      <h2 class="text-center mb-4">Add Agents</h2>
-      <form [formGroup]="agentForm" (ngSubmit)="onSubmit(agentForm)" novalidate>
-        <div formArrayName="agents">
-          <div
-            class="card mb-3"
-            *ngFor="let agent of agents.controls; let i = index"
-          >
-            <div [formGroupName]="i">
-              <div class="card-body p-4">
-                <div class="row">
-                  <div class="col-md-6 form-group">
-                    <label for="shops">Shop Number:</label>
-                    <select
-                      name="shopNo"
-                      id="shopNo"
-                      class="form-control"
-                      formControlName="shops"
-                    >
-                      <option
-                        [value]="shop.getShopId()"
-                        *ngFor="let shop of shops"
-                      >
-                        {{ shop.getShopNo() }}
-                      </option>
-                    </select>
-                  </div>
+<div class="container my-4">
+  <h2 class="text-center mb-4">Add Agents</h2>
+  <form [formGroup]="agentForm" (ngSubmit)="onSubmit(agentForm)" novalidate>
+    <div formArrayName="agents">
+      <div
+        class="card mb-3"
+        *ngFor="let agent of agents.controls; let i = index"
+      >
+        <div [formGroupName]="i">
+          <div class="card-body p-4">
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <label for="shops">Shop Number:</label>
+                <select
+                  name="shopNo"
+                  id="shopNo"
+                  class="form-control"
 
-                  <div class="col-md-6 form-group">
-                    <label for="agentName">Agent Name:</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      formControlName="agentName"
-                      placeholder="Agent Name"
-                    />
-                    <div
-                      *ngIf="
-                        agentForm
-                          .get('agents')
-                          ?.get(i.toString())
-                          ?.get('agentName')?.invalid &&
-                        agentForm
-                          .get('agents')
-                          ?.get(i.toString())
-                          ?.get('agentName')?.touched &&
-                        !agentForm
-                          .get('agents')
-                          ?.get(i.toString())
-                          ?.get('agentName')?.dirty
-                      "
-                      class="alert alert-danger"
-                    >
-                      Agent name is required.
-                    </div>
-                  </div>
+                  formControlName="shops"
+                >
+                  <option [value]="shop.getShopId()" *ngFor="let shop of shops">
+                    {{ shop.getShopNo() }}
+                  </option>
+                </select>
+              </div>
 
-                  <div class="col-md-6 form-group">
-                    <label for="company">Company:</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      formControlName="companyName"
-                      placeholder="Company Name"
-                    />
-                    <div
-                      *ngIf="
-                        agentForm
-                          .get('agents')
-                          ?.get(i.toString())
-                          ?.get('companyName')?.invalid &&
-                        agentForm
-                          .get('agents')
-                          ?.get(i.toString())
-                          ?.get('companyName')?.touched &&
-                        !agentForm
-                          .get('agents')
-                          ?.get(i.toString())
-                          ?.get('companyName')?.dirty
-                      "
-                      class="alert alert-danger"
-                    >
-                      Company name is required.
-                    </div>
-                  </div>
-
-                  <div class="col-md-6 form-group">
-                    <label for="contact">Contact:</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      formControlName="contact"
-                      placeholder="Contact"
-                    />
-
-                    <div
-                      *ngIf="
-                        agentForm
-                          .get('agents')
-                          ?.get(i.toString())
-                          ?.get('contact')?.invalid &&
-                        agentForm
-                          .get('agents')
-                          ?.get(i.toString())
-                          ?.get('contact')?.touched
-                      "
-                      class="alert alert-danger"
-                    >
-                      Contact number should be 10 digits.
-                    </div>
-                  </div>
+              <div class="col-md-6 form-group">
+                <label for="agentName">Agent Name:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="agentName"
+                  placeholder="Agent Name"
+                />
+                <div
+                  *ngIf="
+                    agentForm.get('agents')?.get(i.toString())?.get('agentName')
+                      ?.invalid &&
+                    agentForm.get('agents')?.get(i.toString())?.get('agentName')
+                      ?.touched &&
+                    !agentForm
+                      .get('agents')
+                      ?.get(i.toString())
+                      ?.get('agentName')?.dirty
+                  "
+                  class="alert alert-danger"
+                >
+                  Agent name is required.
                 </div>
+              </div>
 
-                <div class="col-md-12 form-group text-right">
-                  <button
-                    type="button"
-                    class="btn btn-danger"
-                    (click)="removeAgent(i)"
-                  >
-                    Delete
-                  </button>
-                  <button type="reset" class="btn btn-danger">Reset</button>
+              <div class="col-md-6 form-group">
+                <label for="company">Company:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="companyName"
+                  placeholder="Company Name"
+                />
+                <div
+                  *ngIf="
+                    agentForm
+                      .get('agents')
+                      ?.get(i.toString())
+                      ?.get('companyName')?.invalid &&
+                    agentForm
+                      .get('agents')
+                      ?.get(i.toString())
+                      ?.get('companyName')?.touched &&
+                    !agentForm
+                      .get('agents')
+                      ?.get(i.toString())
+                      ?.get('companyName')?.dirty
+                  "
+                  class="alert alert-danger"
+                >
+                  Company name is required.
+                </div>
+              </div>
+
+              <div class="col-md-6 form-group">
+                <label for="contact">Contact:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="contact"
+                  placeholder="Contact"
+                />
+
+                <div
+                  *ngIf="
+                    agentForm.get('agents')?.get(i.toString())?.get('contact')
+                      ?.invalid &&
+                    agentForm.get('agents')?.get(i.toString())?.get('contact')
+                      ?.touched
+                  "
+                  class="alert alert-danger"
+                >
+                  Contact number should be 10 digits.
                 </div>
               </div>
             </div>
+
+            <div class="col-md-12 form-group text-right">
+              <button
+                type="button"
+                class="btn btn-danger"
+                (click)="removeAgent(i)"
+              >
+                Delete
+              </button>
+              <button type="reset" class="btn btn-danger">Reset</button>
+            </div>
           </div>
         </div>
-        <div class="form-group text-center">
-          <button
-            type="button"
-            class="btn btn-success mr-2"
-            (click)="addAgent()"
-          >
-            <i class="fa fa-plus"></i> + Add More
-          </button>
-          <button
-            type="submit"
-            class="btn btn-primary"
-            [disabled]="agentForm.invalid"
-          >
-            <i class="fa fa-save"></i> Save Agents
-          </button>
-        </div>
-      </form>
-      <button (click)="close()">Close</button>
+      </div>
     </div>
-  </div>
-</div> -->
+    <div class="form-group text-center">
+      <button type="button" class="btn btn-success mr-2" (click)="addAgent()">
+        <i class="fa fa-plus"></i> + Add More
+      </button>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="agentForm.invalid"
+      >
+        <i class="fa fa-save"></i> Save Agents
+      </button>
+    </div>
+  </form>
+</div>

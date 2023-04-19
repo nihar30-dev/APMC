@@ -1,0 +1,19 @@
+<ng-container *ngIf="display | async as display">
+    <section [class.open]="display === 'open'"
+             (click)="close()">
+      <div (click)="$event.stopPropagation()">
+        <button class="close"
+                type="button" 
+                (click)="close()">X</button>
+  
+        <div class="container my-4" *ngIf="modalService.formName === 'agent'">
+            <app-agent-form></app-agent-form>
+        </div>
+
+        <div class="container mt-5" *ngIf="modalService.formName === 'shop'">
+            <app-shop-form></app-shop-form>
+        </div>
+
+      </div>
+    </section>
+</ng-container>

@@ -20,7 +20,7 @@ export class UserRatesComponent implements OnInit{
   selectedDate: string = '';
   maxDate: NgbDate;
 
-  constructor(private ngbDateParserFormatter: NgbDateParserFormatter, private itemService : ItemService, private calendar : NgbCalendar) {
+  constructor( private itemService : ItemService, private calendar : NgbCalendar) {
     this.maxDate = calendar.getToday();
   }
 
@@ -40,4 +40,4 @@ export class UserRatesComponent implements OnInit{
       console.log('No date selected');
     }
   }
-}
+  }
