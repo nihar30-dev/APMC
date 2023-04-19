@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ShopService } from '../services/shop.service';
 import { Shop } from '../models/shop.model';
+import { AgentFormComponent } from '../agent-form/agent-form.component';
 
 @Component({
   selector: 'app-shops',
@@ -38,15 +39,6 @@ export class ShopsComponent implements OnInit {
     })
     console.log(this.shops);
   }
-
-    onModalClose() {
-      this.showModal = false;
-    }
-
-    onClickModel(){
-      this.showModal = true;
-      document.getElementById("modelButton")?.click();
-    }
-
+ 
 }
 

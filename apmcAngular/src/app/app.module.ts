@@ -4,6 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthModule } from './authorisation/auth.module';
 import { HomeComponent } from './home/home.component';
@@ -14,7 +15,6 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { ShopsComponent } from './shops/shops.component';
 import { AdminRatesComponent } from './dailyRates/admin-rates/admin-rates.component';
 import { UserRatesComponent } from './dailyRates/user-rates/user-rates.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgentFormComponent } from './agent-form/agent-form.component';
 
 
@@ -39,10 +39,7 @@ import { AgentFormComponent } from './agent-form/agent-form.component';
     FormsModule,
     CommonModule,
     AuthModule,
-<<<<<<< HEAD
-=======
     NgbModule,
->>>>>>> ee083ff (merged the changes from remote branch)
   ],
   bootstrap: [AppComponent],
   providers :[],

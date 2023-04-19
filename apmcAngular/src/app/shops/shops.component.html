@@ -1,37 +1,48 @@
 <div class="container mt-5">
-  <!-- <form [formGroup]="f" (ngSubmit)="onSubmit(f)" novalidate>
+  <form [formGroup]="f" (ngSubmit)="onSubmit(f)" novalidate>
     <div class="form-group">
       <h3 class="text-center">Add New Shop</h3>
       <label for="shopNumber">Shop Number:</label>
-      <input type="text" class="form-control" formControlName="shopNumber" id="shopNumber" name="shopNumber">
-  
-      <div *ngIf="f.controls['shopNumber']?.invalid && f.controls['shopNumber']?.touched && f.controls['shopNumber']?.dirty" class="alert alert-danger">Shop number should be in the format of A-12, B-123, C-16, F-37.</div>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="shopNumber"
+        id="shopNumber"
+        name="shopNumber"
+      />
+
+      <div
+        *ngIf="
+          f.controls['shopNumber']?.invalid &&
+          f.controls['shopNumber']?.touched &&
+          f.controls['shopNumber']?.dirty
+        "
+        class="alert alert-danger"
+      >
+        Shop number should be in the format of A-12, B-123, C-16, F-37.
       </div>
-  
+    </div>
+
     <div class="row justify-content-center">
       <div class="col-6">
-        <button type="submit" class="btn btn-primary btn-block" [disabled]="f.controls['shopNumber'].invalid">Submit</button>
+        <button
+          type="submit"
+          class="btn btn-primary btn-block"
+          [disabled]="f.controls['shopNumber'].invalid"
+        >
+          Submit
+        </button>
       </div>
       <div class="col-6">
         <button type="reset" class="btn btn-secondary btn-block">Clear</button>
       </div>
     </div>
-  </form> -->
-
-  <app-agent-form>
-</app-agent-form>
-  <button (click)="onClickModel()">Open Modal</button>
-
-  <button id="modelButton" [hidden]="true" data-bs-toggle="modal" data-bs-target="#agentModel">Hello</button>
-
-  </div>
-<!--   
-  <hr/>
+  </form>
+</div>
 
   <div class="container listContainer">
     <div class="card-body card">
-
-      <div class="row ">
+      <div class="row">
         <div class="col text-center title">
           <h5>Sr. No.</h5>
         </div>
@@ -48,30 +59,27 @@
           <h5>Contact No.</h5>
         </div>
       </div>
-    <div class="card-body card bg-light mb-3" *ngFor="let shop of shops; let i= index">
-      <div class="row">
-        <div class="col text-center">
-          <p>{{ i + 1 }}</p>
+      <div
+        class="card-body card bg-light mb-3"
+        *ngFor="let shop of shops; let i = index"
+      >
+        <div class="row">
+          <div class="col text-center">
+            <p>{{ i + 1 }}</p>
+          </div>
+          <div class="col text-center">
+            <p>{{ shop.getShopNo() }}</p>
+          </div>
+          <div class="col text-center">
+            <p>{{ shop.getCompanyName() }}</p>
+          </div>
+          <div class="col text-center">
+            <p>{{ shop.getAgentName() }}</p>
+          </div>
+          <div class="col text-center">
+            <p>{{ shop.getContact() }}</p>
+          </div>
         </div>
-        <div class="col text-center">
-          <p>{{shop.getShopNo()}}</p>
-        </div>
-        <div class="col text-center">
-          <p>{{shop.getCompanyName()}}</p>
-        </div>
-        <div class="col text-center">
-          <p>{{shop.getAgentName()}}</p>
-        </div>
-        <div class="col text-center">
-          <p>{{shop.getContact()}}</p>
-        </div>
+      </div>
     </div>
   </div>
- -->
-
-<!-- 
-<div class="modal" id="agentModel" >
-
-  <div class="modal-content">Hello world
-    </div>
-    </div> -->
