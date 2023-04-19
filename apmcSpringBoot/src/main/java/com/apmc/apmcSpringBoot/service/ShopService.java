@@ -1,6 +1,5 @@
 package com.apmc.apmcSpringBoot.service;
 
-import com.apmc.apmcSpringBoot.dto.ShopDTO;
 import com.apmc.apmcSpringBoot.model.Shop;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +13,7 @@ public interface ShopService {
 
     public Optional<Shop> getShopById(int shopId);
 
-    public Shop addShop(Shop shopDTO);
+    public Shop addShop(Shop shop);
 
     public String deleteShop(int agentId);
 

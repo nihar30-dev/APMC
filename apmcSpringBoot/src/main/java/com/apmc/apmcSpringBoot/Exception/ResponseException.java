@@ -1,6 +1,7 @@
 package com.apmc.apmcSpringBoot.Exception;
 
 
+import org.springframework.http.HttpStatus;
 
 public class ResponseException extends RuntimeException {
     public ResponseException() {
@@ -19,7 +20,7 @@ public class ResponseException extends RuntimeException {
         super(cause);
     }
 
-    protected ResponseException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public ResponseException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

@@ -27,8 +27,11 @@ public class AgentServiceImpl implements AgentService {
     }
 
     @Override
-    @Transactional
     public Agent getAgentById(int agentId) {
+        System.out.println("----------------------------+++++");
+        Agent a = agentRepository.findById(agentId).get();
+        System.out.println(a);
+        System.out.println("---------------------------------");
         return agentRepository.findById(agentId).get();
     }
 

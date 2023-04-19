@@ -32,12 +32,12 @@ public class Agent {
 
     @OneToOne()
     @JoinColumn(name = "user_id")
-    @JsonIgnoreProperties({"username","password","contact","roles","agent","shops"})
+    @JsonIgnoreProperties({"username","password","contact","roles","agent","shops","hibernateLazyInitializer", "handler"})
     private User user;
 
     @ManyToOne()
     @JoinColumn(name = "shop_id")
-    @JsonIgnoreProperties({"user"})
+    @JsonIgnoreProperties({"user","hibernateLazyInitializer", "handler"})
     private Shop shop;
 
     public Agent(){

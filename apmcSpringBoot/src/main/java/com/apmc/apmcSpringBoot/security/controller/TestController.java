@@ -16,14 +16,8 @@ public class TestController {
     }
 
     @GetMapping("/user")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN') or hasRole('AGENT')")
+    @PreAuthorize("hasAuthority('USER')")
     public String userAccess() {
         return "User Content.";
     }
-
-
-
-
-
-
 }

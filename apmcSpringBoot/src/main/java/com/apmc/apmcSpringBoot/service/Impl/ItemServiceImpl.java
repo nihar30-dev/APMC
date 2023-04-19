@@ -1,11 +1,16 @@
 package com.apmc.apmcSpringBoot.service.Impl;
 
+import com.apmc.apmcSpringBoot.Exception.BusinessException;
+import com.apmc.apmcSpringBoot.Exception.Response;
+import com.apmc.apmcSpringBoot.Exception.ValidatorException;
+import com.apmc.apmcSpringBoot.Exception.ValidatorResponse;
 import com.apmc.apmcSpringBoot.dao.ItemRepository;
-import com.apmc.apmcSpringBoot.dao.ItemTypeRepository;
+import com.apmc.apmcSpringBoot.dao.validator.validatorImpl.ItemTypeValidatorImpl;
+import com.apmc.apmcSpringBoot.dao.validator.validatorImpl.ItemValidatorImpl;
 import com.apmc.apmcSpringBoot.model.Item;
-import com.apmc.apmcSpringBoot.model.ItemType;
 import com.apmc.apmcSpringBoot.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,7 +28,8 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item getItemById(int itemId){
-        return itemRepository.findById(itemId).get();
+        Item item = itemRepository.findById(itemId).get();
+        return item;
     }
 
 
@@ -33,8 +39,20 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Item addItem(Item item) {
-        return itemRepository.save(item);
+    public Response addItem(Item item) {
+        ItemValidatorImpl itemValidator = new ItemValidatorImpl();
+        ValidatorResponse validatorResponse = itemValidator.checkItem(item);
+
+        if(!validatorResponse.isStatus()){
+            throw new ValidatorException(validatorResponse.getMessage());
+        }
+        try{
+            itemRepository.save(item);
+            return new Response(200, "Ok", System.currentTimeMillis(), true);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     @Override

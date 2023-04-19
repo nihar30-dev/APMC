@@ -1,6 +1,8 @@
 package com.apmc.apmcSpringBoot.service;
 
+import com.apmc.apmcSpringBoot.Exception.Response;
 import com.apmc.apmcSpringBoot.model.DailyRates;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -12,7 +14,7 @@ public interface DailyRateService {
 
     public List<DailyRates> getAllItemsByDate(Date date);
 
-    public DailyRates addDailyItemRates(DailyRates dailyRate) throws ParseException;
+    public Response addDailyItemRates(DailyRates dailyRate) throws ParseException;
 
     public DailyRates getDailyRatesById(int rateId);
 

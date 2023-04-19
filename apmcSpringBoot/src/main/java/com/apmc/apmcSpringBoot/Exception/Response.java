@@ -26,6 +26,14 @@ public class Response {
         this.isSuccess = true;
     }
 
+    public Response(int status, String message) {
+        this.status = status;
+        this.message = message;
+        this.timestamp = System.currentTimeMillis();
+        this.isSuccess = true;
+    }
+
+
     public int getStatus() {
         return status;
     }

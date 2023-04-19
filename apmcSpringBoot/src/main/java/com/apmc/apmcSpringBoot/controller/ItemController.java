@@ -1,12 +1,15 @@
 package com.apmc.apmcSpringBoot.controller;
 
+import com.apmc.apmcSpringBoot.Exception.BusinessException;
+import com.apmc.apmcSpringBoot.Exception.ControllerException;
+import com.apmc.apmcSpringBoot.Exception.Response;
 import com.apmc.apmcSpringBoot.Exception.ResponseException;
-import com.apmc.apmcSpringBoot.dto.ItemDTO;
-import com.apmc.apmcSpringBoot.dto.converter.ItemConverter;
 import com.apmc.apmcSpringBoot.model.Item;
+import com.apmc.apmcSpringBoot.model.ItemType;
 import com.apmc.apmcSpringBoot.service.ItemService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,9 +22,6 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
 
-    @Autowired
-    private ItemConverter itemConverter;
-
     @GetMapping("")
     public ResponseEntity<?> getAllItem() throws ResponseException {
         return ResponseEntity.ok(itemService.getAllItems());
@@ -29,20 +29,26 @@ public class ItemController {
 
     @GetMapping("/{itemId}")
     public ResponseEntity<?> getItemById(@PathVariable int itemId) throws ResponseException {
-        return ResponseEntity.ok(itemService.getItemById(itemId));
-    }
+        Item item = null;
+        item = itemService.getItemById(itemId);
+        if (item == null){
+            throw new ResponseException();
+        }
+        return ResponseEntity.ok(item);    }
 
     @GetMapping("/itemType/{itemTypeId}")
     public ResponseEntity<List<Item>> getItemByTypeId(@PathVariable int itemTypeId) throws ResponseException {
-        return ResponseEntity.ok(itemService.getItemByItemType(itemTypeId));
+        List<Item> items = itemService.getItemByItemType(itemTypeId);
+        if (items == null){
+            throw new ResponseException("No items in this id present");
+        }
+        return ResponseEntity.ok(items);
     }
 
     @PostMapping("")
-    public ResponseEntity<?> addItem(@Valid @RequestBody ItemDTO itemDTO){
+    public Response addItem(@RequestBody Item item) throws ResponseException{
+        return itemService.addItem(item);
 
-        Item item = itemConverter.DtoToEntity(itemDTO);
-        item = itemService.addItem(item);
-        return ResponseEntity.ok(item);
     }
 
     @DeleteMapping("/{itemId}")

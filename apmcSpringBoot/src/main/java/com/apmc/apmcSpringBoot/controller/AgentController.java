@@ -23,7 +23,6 @@ public class AgentController {
 
     @GetMapping("/{agentId}")
     public ResponseEntity<Agent> getAgentById(@PathVariable("agentId") int agentId){
-
         return ResponseEntity.ok(agentService.getAgentById(agentId));
     }
 

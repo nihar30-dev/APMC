@@ -1,10 +1,17 @@
 package com.apmc.apmcSpringBoot.service.Impl;
 
+import com.apmc.apmcSpringBoot.Exception.Response;
+import com.apmc.apmcSpringBoot.Exception.ValidatorException;
+import com.apmc.apmcSpringBoot.Exception.ValidatorResponse;
 import com.apmc.apmcSpringBoot.dao.DailyRateRepository;
+import com.apmc.apmcSpringBoot.dao.validator.validatorImpl.DailyRatesValidatorImpl;
+import com.apmc.apmcSpringBoot.dao.validator.validatorImpl.ItemValidatorImpl;
 import com.apmc.apmcSpringBoot.model.DailyRates;
 import com.apmc.apmcSpringBoot.service.DailyRateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.text.ParseException;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -23,25 +30,24 @@ public class DailyRateServiceImpl implements DailyRateService {
 
 
     @Override
-    public DailyRates addDailyItemRates(DailyRates dailyRate) throws ParseException {
-        System.out.println(dailyRate.getDay());
+    public Response addDailyItemRates(DailyRates dailyRate) throws ParseException {
 
-        DailyRates dailyRates =  dailyRateRepository.checkIfParticularItemIsPresentForADate(dailyRate.getItem().getItemId(), dailyRate.getDay());
-        if(dailyRates == null){
-            return dailyRateRepository.save(dailyRate);
-        }else{
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = dateFormat.parse(dailyRates.getDay().toString());
-            System.out.println(date);
-            if(dailyRate.getDay().compareTo(date)==0){
-
-                if(dailyRate.getItem().getItemId() == dailyRates.getItem().getItemId()){
-                    dailyRate.setRateId(dailyRates.getRateId());
-                }
-                return dailyRateRepository.save(dailyRate);
-            }
+            DailyRates dailyRates =  dailyRateRepository.checkIfParticularItemIsPresentForADate(dailyRate.getItem().getItemId(), dailyRate.getDay());
+            if(dailyRates == null){
+                dailyRateRepository.save(dailyRate);
+                return new Response(200, "Ok", System.currentTimeMillis(), true);
+            }else{
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date date = dateFormat.parse(dailyRates.getDay().toString());
+                System.out.println(date);
+                if(dailyRate.getDay().compareTo(date)==0){
+                    if(dailyRate.getItem().getItemId() == dailyRates.getItem().getItemId()){
+                        dailyRate.setRateId(dailyRates.getRateId());
+                    }
+                dailyRateRepository.save(dailyRate);
+                return new Response(200, "Ok", System.currentTimeMillis(), true);}
         }
-        return null;
+        return new Response(200, "Ok", System.currentTimeMillis(), true);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.apmc.apmcSpringBoot.controller;
 
 
+import com.apmc.apmcSpringBoot.Exception.Response;
 import com.apmc.apmcSpringBoot.Exception.ResponseException;
 import com.apmc.apmcSpringBoot.model.DailyRates;
 import com.apmc.apmcSpringBoot.service.DailyRateService;
@@ -34,15 +35,10 @@ public class DailyRatesController {
 
 
     @PostMapping("")
-    public ResponseEntity<DailyRates> addDailyRates(@RequestParam String day,@RequestBody DailyRates dailyRates) throws ParseException, ResponseException {
-        System.out.println(day);
+    public ResponseEntity<Response> addDailyRates(@RequestParam String day, @RequestBody DailyRates dailyRates) throws ParseException, ResponseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = dateFormat.parse(day);
-        System.out.println(date);
-        System.out.println("--------------------------------------------______");
         dailyRates.setDay(date);
-        System.out.println(dailyRates.getDay());
-
         return ResponseEntity.ok(dailyRateService.addDailyItemRates(dailyRates));
 
     }
