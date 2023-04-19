@@ -33,13 +33,16 @@ import { AgentFormComponent } from './agent-form/agent-form.component';
     AgentFormComponent
   ],
   imports: [
-    NgbModule,
     ReactiveFormsModule,
     AppRoutingModule,
     BrowserModule,
     FormsModule,
     CommonModule,
     AuthModule,
+<<<<<<< HEAD
+=======
+    NgbModule,
+>>>>>>> ee083ff (merged the changes from remote branch)
   ],
   bootstrap: [AppComponent],
   providers :[],

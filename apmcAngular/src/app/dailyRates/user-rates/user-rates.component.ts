@@ -14,7 +14,11 @@ export class UserRatesComponent implements OnInit{
   items: Item[] = [];
 
   ngOnInit(){
+<<<<<<< HEAD
  
+=======
+      
+>>>>>>> ee083ff (merged the changes from remote branch)
   }
 
   date: NgbDateStruct | null = null;
@@ -30,6 +34,7 @@ export class UserRatesComponent implements OnInit{
     this.selectedDate = `${this.date?.year}/${(this.date?.month+'').padStart(2, '0')}/${(this.date?.day+'').padStart(2, '0')}`;
   }
 
+<<<<<<< HEAD
   showContainer(typeId: number){
     if (this.selectedDate) {
       console.log('Selected date:', this.selectedDate);
@@ -37,9 +42,20 @@ export class UserRatesComponent implements OnInit{
         this.items = data;
         })
 
+=======
+    const selectedDate = this.date;
+    if (selectedDate) {
+      console.log('Selected date:', selectedDate);
+      this.itemService.getAllItems(selectedDate).subscribe((data: Item[]) => {
+        this.items = data;
+      })
+>>>>>>> ee083ff (merged the changes from remote branch)
     } else {
       console.log('No date selected');
     }
   }
+<<<<<<< HEAD
 
+=======
+>>>>>>> ee083ff (merged the changes from remote branch)
 }
