@@ -5,9 +5,8 @@ import com.apmc.apmcSpringBoot.dao.validator.DailyRatesValidator;
 import com.apmc.apmcSpringBoot.model.DailyRates;
 import com.apmc.apmcSpringBoot.model.Item;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-
-import java.sql.Date;
 
 public class DailyRatesValidatorImpl implements DailyRatesValidator {
     public DailyRatesValidatorImpl(){
@@ -15,9 +14,15 @@ public class DailyRatesValidatorImpl implements DailyRatesValidator {
     @Override
     public ValidatorResponse checkDailyRate(DailyRates dailyRates) {
         String msg = "";
-        ValidatorResponse vr = checkDate((Date) dailyRates.getDay());
+        ValidatorResponse vr = checkPrices(dailyRates);
         if (!vr.isStatus()){
             msg += vr.getMessage();
+        }
+
+        LocalDate NewlocalDate = LocalDate.parse( new SimpleDateFormat("yyyy-MM-dd").format(dailyRates.getDay()));
+        vr = checkDate(NewlocalDate);
+        if (!vr.isStatus()){
+            msg += ", "+ vr.getMessage();
         }
 
         vr = checkItem(dailyRates.getItem());
@@ -33,16 +38,21 @@ public class DailyRatesValidatorImpl implements DailyRatesValidator {
     }
 
     @Override
-    public ValidatorResponse checkDate(Date date) {
-//        LocalDate currentDate = LocalDate.now();
-//        Date date2 = java.sql.Date.valueOf(currentDate);
-//        int a = date.compareTo(date2);
-//        if (a>0){
-//            return new ValidatorResponse(false, "Valid Date");
-//        }else{
+    public ValidatorResponse checkDate(LocalDate date) {
+        LocalDate currentDate = LocalDate.now();
+//        System.out.println("Local date :-------------------------"+currentDate);
+//        System.out.println("api se aaye date------------------"+date);
+//        System.out.println(date.compareTo(currentDate));
+        int a = date.compareTo(currentDate);
+        try{
+            if (a>0) {
+                return new ValidatorResponse(false, "Valid Date");
+            }
+        }catch (Exception e){
+            return new ValidatorResponse(false, "Valid Date");
+        }
         return new ValidatorResponse(true, "Ok");
-//    }
-//        return null;
+
     }
 
     @Override
@@ -61,51 +71,18 @@ public class DailyRatesValidatorImpl implements DailyRatesValidator {
         return new ValidatorResponse(true, "Ok");
     }
 
-
-    /*
-    public ValidatorResponse checkItem(Item item){
-        String msg = "";
-        ValidatorResponse vr1 = checkItemName(item.getItemName());
-        if (!vr1.isStatus()){
-            msg += vr1.getMessage();
-
-        }
-
-        vr1 = checkItemType(item.getItemType());
-        if (!vr1.isStatus()){
-            msg += ", " + vr1.getMessage();
-        }
-        if(msg == ""){
-            return new ValidatorResponse(true, "OK");
-        } else{
-            msg += " required";
-            return new ValidatorResponse(false, msg);
-        }
-    }
-    @Override
-    public ValidatorResponse checkItemName(String itemName) {
-        if (itemName.length() > 0) {
-            return new ValidatorResponse(true, "Ok");
-        } else {
-            return new ValidatorResponse(false, "Item Name");
-        }
-    }
-
-    @Override
-    public ValidatorResponse checkItemType(ItemType itemType) {
-        if(itemType == null){
-            return new ValidatorResponse(false, "Item Type");
-        }
+    public ValidatorResponse checkPrices(DailyRates dailyRates) {
         try{
-            int a = itemType.getItemTypeId();
-            if(a == 0){
-                return new ValidatorResponse(false, "Item Type Id");
+            int maxp = dailyRates.getMaxPrice();
+            int minp = dailyRates.getMinPrice();
+            int avgp = dailyRates.getAvgPrice();
+            int q = dailyRates.getQuantity();
+            if(maxp == 0 || minp == 0 || avgp == 0 || q == 0){
+                return new ValidatorResponse(false, "All fields ");
             }
         }catch (Exception e){
-            return new ValidatorResponse(false, "Item Type Id");
+            return new ValidatorResponse(false, "All fields ");
         }
         return new ValidatorResponse(true, "Ok");
     }
-    */
-
 }

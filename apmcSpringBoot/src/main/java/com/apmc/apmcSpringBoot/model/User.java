@@ -45,10 +45,9 @@ public class User {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<Shop> shops;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Agent agent;
-
 
     public Set<Role> getRoles() {
         return roles;

@@ -37,7 +37,7 @@ public class Agent {
 
     @ManyToOne()
     @JoinColumn(name = "shop_id")
-    @JsonIgnoreProperties({"user","hibernateLazyInitializer", "handler"})
+    @JsonIgnoreProperties({"owner","hibernateLazyInitializer", "handler"})
     private Shop shop;
 
     public Agent(){

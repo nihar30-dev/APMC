@@ -1,6 +1,7 @@
 package com.apmc.apmcSpringBoot.controller;
 
 
+import com.apmc.apmcSpringBoot.Exception.Response;
 import com.apmc.apmcSpringBoot.Exception.ResponseException;
 import com.apmc.apmcSpringBoot.model.Shop;
 import com.apmc.apmcSpringBoot.service.ShopService;
@@ -26,20 +27,14 @@ public class ShopController {
     }
 
     @GetMapping("/{shopId}")
-    public ResponseEntity<Shop> getshopById(@PathVariable("shopId") int shopId){
+    public ResponseEntity<Shop> getshopById(@PathVariable("shopId") int shopId) {
         return ResponseEntity.ok(shopService.getShopById(shopId).get());
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addShop(@RequestBody List<Shop> shops) throws ResponseException {
+    public Response addShop(@RequestBody Shop shop) throws ResponseException {
         System.out.println("in controller ---------------------------------");
-        List<Shop> newShops = new ArrayList<>();
-        for(int i=0;i<shops.size();i++){
-            Shop shop = shops.get(i);
-            shopService.addShop(shop);
-            newShops.add(shops.get(i));
-        }
-        return ResponseEntity.ok(newShops);
+            return shopService.addShop(shop);
     }
 
     @PutMapping("/{shopId}")

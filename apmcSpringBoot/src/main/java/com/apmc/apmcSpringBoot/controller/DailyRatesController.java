@@ -35,11 +35,11 @@ public class DailyRatesController {
 
 
     @PostMapping("")
-    public ResponseEntity<Response> addDailyRates(@RequestParam String day, @RequestBody DailyRates dailyRates) throws ParseException, ResponseException {
+    public Response addDailyRates(@RequestParam String day, @RequestBody DailyRates dailyRates) throws ParseException, ResponseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = dateFormat.parse(day);
         dailyRates.setDay(date);
-        return ResponseEntity.ok(dailyRateService.addDailyItemRates(dailyRates));
+        return dailyRateService.addDailyItemRates(dailyRates);
 
     }
 }

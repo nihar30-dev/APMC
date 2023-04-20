@@ -41,18 +41,6 @@ public class ItemTypeController {
     @PostMapping("")
     public ResponseEntity<?> addItemTypes(@RequestBody ItemType itemType){
         return itemTypeService.addItemType(itemType);
-//        if(itemTypeService.addItemType(itemType).toString() == ""){
-//            throw new ResponseException();
-//        }
-//        try{
-//            return ResponseEntity.ok(itemTypeService.addItemType(itemType));
-//        }catch (BusinessException be){
-//            ControllerException ce = new ControllerException(be.getErrorCode(), be.getErrorMessage());
-//            return new ResponseEntity<ControllerException>(ce, HttpStatus.BAD_REQUEST);
-//        }catch (Exception e){
-//            ControllerException ce = new ControllerException("300","Something went wong in controller");
-//            return new ResponseEntity<ControllerException>(ce, HttpStatus.BAD_REQUEST);
-//        }
     }
 }
 

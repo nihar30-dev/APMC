@@ -1,6 +1,11 @@
 package com.apmc.apmcSpringBoot.service.Impl;
 
+import com.apmc.apmcSpringBoot.Exception.Response;
+import com.apmc.apmcSpringBoot.Exception.ValidatorException;
+import com.apmc.apmcSpringBoot.Exception.ValidatorResponse;
 import com.apmc.apmcSpringBoot.dao.ShopRepository;
+import com.apmc.apmcSpringBoot.dao.validator.validatorImpl.ItemValidatorImpl;
+import com.apmc.apmcSpringBoot.dao.validator.validatorImpl.ShopValidatorImpl;
 import com.apmc.apmcSpringBoot.model.Shop;
 import com.apmc.apmcSpringBoot.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +30,20 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public Shop addShop(Shop shop) {
+    public Response addShop(Shop shop) {
+        ShopValidatorImpl shopValidator = new ShopValidatorImpl();
+        ValidatorResponse validatorResponse = shopValidator.checkShop(shop);
 
-        return shopRepository.save(shop);
-
+        if(!validatorResponse.isStatus()){
+            throw new ValidatorException(validatorResponse.getMessage());
+        }
+        try {
+            shopRepository.save(shop);
+            return new Response(200, "Ok", System.currentTimeMillis(), true);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            throw new ValidatorException("Shop Already Exist");
+        }
     }
 
     @Override

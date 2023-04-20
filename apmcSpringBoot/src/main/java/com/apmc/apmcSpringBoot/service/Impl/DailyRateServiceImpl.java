@@ -32,6 +32,13 @@ public class DailyRateServiceImpl implements DailyRateService {
     @Override
     public Response addDailyItemRates(DailyRates dailyRate) throws ParseException {
 
+        DailyRatesValidatorImpl dailyRatesValidator = new DailyRatesValidatorImpl();
+        ValidatorResponse validatorResponse = dailyRatesValidator.checkDailyRate(dailyRate);
+
+        if(!validatorResponse.isStatus()){
+            throw new ValidatorException(validatorResponse.getMessage());
+        }
+
             DailyRates dailyRates =  dailyRateRepository.checkIfParticularItemIsPresentForADate(dailyRate.getItem().getItemId(), dailyRate.getDay());
             if(dailyRates == null){
                 dailyRateRepository.save(dailyRate);
