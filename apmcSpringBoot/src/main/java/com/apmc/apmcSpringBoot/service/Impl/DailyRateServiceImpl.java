@@ -59,7 +59,13 @@ public class DailyRateServiceImpl implements DailyRateService {
 
     @Override
     public DailyRates getDailyRatesById(int rateId) {
-        return dailyRateRepository.findById(rateId).get();
+        DailyRates dailyRates = null;
+        try{
+            dailyRates = dailyRateRepository.findById(rateId).get();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return dailyRates;
     }
 
 }

@@ -1,5 +1,6 @@
 package com.apmc.apmcSpringBoot.service;
 
+import com.apmc.apmcSpringBoot.Exception.Response;
 import com.apmc.apmcSpringBoot.model.Agent;
 import org.hibernate.cfg.JPAIndexHolder;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,7 +13,7 @@ public interface AgentService  {
 
     public Agent getAgentById(int agentId);
 
-    public Agent addAgent(Agent agent);
+    public Response addAgent(Agent agent);
 
     public String deleteAgentById(int agentId);
 

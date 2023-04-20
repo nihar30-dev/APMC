@@ -41,9 +41,9 @@ public class User {
     private Set<Role> roles;
 
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "owner")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private List<Shop> shops;
+    private Shop shops;
 
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -61,7 +61,7 @@ public class User {
         System.out.printf("inside User Constructor==========================");
     }
 
-    public User(Long id, String username, String password, String contact, Set<Role> roles, List<Shop> shops, Agent agent) {
+    public User(Long id, String username, String password, String contact, Set<Role> roles, Shop shops, Agent agent) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -114,11 +114,11 @@ public class User {
         this.contact = contact;
     }
 
-    public List<Shop> getShops() {
+    public Shop getShops() {
         return shops;
     }
 
-    public void setShops(List<Shop> shops) {
+    public void setShops(Shop shops) {
         this.shops = shops;
     }
 

@@ -2,14 +2,8 @@ package com.apmc.apmcSpringBoot.Exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class MyControllerResponse {
@@ -31,7 +25,7 @@ public class MyControllerResponse {
 
         Response errorResponse = new Response();
         errorResponse.setStatus(HttpStatus.NOT_FOUND.value());
-        errorResponse.setMessage("Not Found");
+        errorResponse.setMessage(responseException.getMessage());
         errorResponse.setTimestamp(System.currentTimeMillis());
         errorResponse.setSuccess(false);
 

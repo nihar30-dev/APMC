@@ -1,13 +1,9 @@
 package com.apmc.apmcSpringBoot.controller;
 
-import com.apmc.apmcSpringBoot.Exception.BusinessException;
-import com.apmc.apmcSpringBoot.Exception.ControllerException;
 import com.apmc.apmcSpringBoot.Exception.ResponseException;
 import com.apmc.apmcSpringBoot.model.ItemType;
 import com.apmc.apmcSpringBoot.service.ItemTypeService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,10 +21,10 @@ public class ItemTypeController {
     }
 
     @GetMapping("/{item_Type_Id}")
-    public ItemType GetItemTypeById(@PathVariable int item_Type_Id) throws ResponseException {
+    public ItemType GetItemTypeById(@PathVariable int item_Type_Id){
         ItemType itemType = itemTypeService.getItemTypesById(item_Type_Id);
         if (itemType == null) {
-            throw new ResponseException("Not found!!!!!!!!");
+            throw new ResponseException("No ItemType found for this Id");
         }
         return itemType;
     }

@@ -23,7 +23,7 @@ public class Shop {
     @Column(name="shop_no")
     private String shopNo;
 
-    @ManyToOne()
+    @OneToOne()
     @JoinColumn(name="owner_id")
     @JsonIgnoreProperties({"username","password","contact","roles","shops","user","agent"})
     private User owner;

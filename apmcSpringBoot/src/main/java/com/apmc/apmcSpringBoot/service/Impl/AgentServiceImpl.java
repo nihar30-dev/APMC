@@ -1,8 +1,15 @@
 package com.apmc.apmcSpringBoot.service.Impl;
 
+import com.apmc.apmcSpringBoot.Exception.Response;
+import com.apmc.apmcSpringBoot.Exception.ResponseException;
+import com.apmc.apmcSpringBoot.Exception.ValidatorException;
+import com.apmc.apmcSpringBoot.Exception.ValidatorResponse;
 import com.apmc.apmcSpringBoot.dao.AgentRepository;
 import com.apmc.apmcSpringBoot.dao.ShopRepository;
+import com.apmc.apmcSpringBoot.dao.validator.validatorImpl.AgentValidatorImpl;
+import com.apmc.apmcSpringBoot.dao.validator.validatorImpl.ItemValidatorImpl;
 import com.apmc.apmcSpringBoot.model.Agent;
+import com.apmc.apmcSpringBoot.model.ItemType;
 import com.apmc.apmcSpringBoot.model.Shop;
 import com.apmc.apmcSpringBoot.service.AgentService;
 import jakarta.transaction.Transactional;
@@ -11,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AgentServiceImpl implements AgentService {
@@ -29,20 +37,33 @@ public class AgentServiceImpl implements AgentService {
     @Override
     @Transactional
     public Agent getAgentById(int agentId) {
-        System.out.println("----------------------------+++++");
-        Agent a = agentRepository.findById(agentId).get();
-        System.out.println(a);
-        System.out.println("---------------------------------");
-        return agentRepository.findById(agentId).get();
+        Agent agent = null;
+        try{
+            agent = agentRepository.findById(agentId).get();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return agent;
     }
 
     @Override
     @Transactional
-    public Agent addAgent(Agent agent) {
-        Shop s = shopRepository.findById(agent.getShop().getShopId()).get();
-        s.setOwner(agent.getUser());
-        shopRepository.save(s);
-        return agentRepository.save(agent);
+    public Response addAgent(Agent agent) {
+        AgentValidatorImpl agentValidatorImpl = new AgentValidatorImpl(agentRepository);
+        ValidatorResponse validatorResponse = agentValidatorImpl.checkAgent(agent);
+
+        if(!validatorResponse.isStatus()){
+            throw new ValidatorException(validatorResponse.getMessage());
+        }
+        try{
+            Shop s = shopRepository.findById(agent.getShop().getShopId()).get();
+            s.setOwner(agent.getUser());
+            shopRepository.save(s);
+            agentRepository.save(agent);
+            return new Response(200, "ok", System.currentTimeMillis(), true);
+        }catch (Exception e){
+            return null;
+        }
     }
 
     @Override
@@ -66,9 +87,13 @@ public class AgentServiceImpl implements AgentService {
 
     @Override
     public Agent getAgentByCompanyName(String companyName) {
-        System.out.println("I'm here");
-        Agent a = agentRepository.getAgentByCompanyName(companyName);
-        return agentRepository.getAgentByCompanyName(companyName);
+        Agent agent = null;
+        try{
+            agent = agentRepository.getAgentByCompanyName(companyName);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return agent;
     }
 
 }

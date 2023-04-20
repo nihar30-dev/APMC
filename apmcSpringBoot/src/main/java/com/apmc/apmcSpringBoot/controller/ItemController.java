@@ -28,19 +28,19 @@ public class ItemController {
     }
 
     @GetMapping("/{itemId}")
-    public ResponseEntity<?> getItemById(@PathVariable int itemId) throws ResponseException {
+    public Item getItemById(@PathVariable int itemId){
         Item item = null;
         item = itemService.getItemById(itemId);
         if (item == null){
-            throw new ResponseException();
+            throw new ResponseException("No item for this Id");
         }
-        return ResponseEntity.ok(item);    }
+        return item;    }
 
     @GetMapping("/itemType/{itemTypeId}")
-    public ResponseEntity<List<Item>> getItemByTypeId(@PathVariable int itemTypeId) throws ResponseException {
+    public ResponseEntity<List<Item>> getItemByTypeId(@PathVariable int itemTypeId){
         List<Item> items = itemService.getItemByItemType(itemTypeId);
-        if (items == null){
-            throw new ResponseException("No items in this id present");
+        if (items.size() == 0){
+            throw new ResponseException("No items in this ItemType Id");
         }
         return ResponseEntity.ok(items);
     }

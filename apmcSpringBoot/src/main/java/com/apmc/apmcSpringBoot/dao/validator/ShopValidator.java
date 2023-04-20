@@ -8,4 +8,6 @@ public interface ShopValidator {
     public ValidatorResponse checkShop(Shop shop);
     public ValidatorResponse checkShopNo(String shopNo);
 
+
+
 }

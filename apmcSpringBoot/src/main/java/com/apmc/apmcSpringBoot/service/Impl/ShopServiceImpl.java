@@ -8,6 +8,7 @@ import com.apmc.apmcSpringBoot.dao.validator.validatorImpl.ItemValidatorImpl;
 import com.apmc.apmcSpringBoot.dao.validator.validatorImpl.ShopValidatorImpl;
 import com.apmc.apmcSpringBoot.model.Shop;
 import com.apmc.apmcSpringBoot.service.ShopService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,16 +21,26 @@ public class ShopServiceImpl implements ShopService {
     @Autowired
     private ShopRepository shopRepository;
     @Override
+    @Transactional
     public List<Shop> getAllShops() {
         return shopRepository.findAll();
     }
 
     @Override
-    public Optional<Shop> getShopById(int shopId) {
-        return shopRepository.findById(shopId);
+    @Transactional
+    public Shop getShopById(int shopId) {
+        Shop shop = null;
+        try{
+            shop = shopRepository.findById(shopId).get();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return shop;
+
     }
 
     @Override
+    @Transactional
     public Response addShop(Shop shop) {
         ShopValidatorImpl shopValidator = new ShopValidatorImpl();
         ValidatorResponse validatorResponse = shopValidator.checkShop(shop);
@@ -42,14 +53,27 @@ public class ShopServiceImpl implements ShopService {
             return new Response(200, "Ok", System.currentTimeMillis(), true);
         }catch (Exception e){
             System.out.println(e.getMessage());
-            throw new ValidatorException("Shop Already Exist");
+            throw new ValidatorException(validatorResponse.getMessage());
         }
     }
 
     @Override
+    @Transactional
     public String deleteShop(int shopId) {
-        shopRepository.delete(getShopById(shopId).get());
-        return "deleted";
+
+//        shopRepository.deleteById(shopId);
+//        try{
+////            shop.setOwner(null);
+//            shopRepository.deleteById(shopId);
+//            return "deleted";
+//        }catch (Exception e){
+//            System.out.println(e.getMessage());
+//
+//        }
+
+        shopRepository.deleteById(shopId);
+        return "not working";
+
     }
 
     @Override

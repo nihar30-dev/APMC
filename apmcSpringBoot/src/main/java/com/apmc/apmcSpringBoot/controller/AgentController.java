@@ -1,7 +1,8 @@
 package com.apmc.apmcSpringBoot.controller;
 
+import com.apmc.apmcSpringBoot.Exception.Response;
+import com.apmc.apmcSpringBoot.Exception.ResponseException;
 import com.apmc.apmcSpringBoot.model.Agent;
-import com.apmc.apmcSpringBoot.model.Shop;
 import com.apmc.apmcSpringBoot.service.AgentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,19 +23,26 @@ public class AgentController {
     }
 
     @GetMapping("/{agentId}")
-    public ResponseEntity<Agent> getAgentById(@PathVariable("agentId") int agentId){
-        return ResponseEntity.ok(agentService.getAgentById(agentId));
+    public Agent getAgentById(@PathVariable("agentId") int agentId){
+        Agent agent = agentService.getAgentById(agentId);
+        if(agent == null){
+            throw new ResponseException("Not agent found for this Id");
+        }
+        return agent;
     }
 
     @GetMapping("/name/{companyName}")
-    public ResponseEntity<Agent> getAgentByCompanyName(@PathVariable("companyName") String companyName){
-        Agent a  = agentService.getAgentByCompanyName(companyName);
-          return ResponseEntity.ok(agentService.getAgentByCompanyName(companyName));
+    public Agent getAgentByCompanyName(@PathVariable("companyName") String companyName){
+        Agent agent  = agentService.getAgentByCompanyName(companyName);
+        if(agent == null){
+            throw new ResponseException("Not agent found for this Company Name");
+        }
+        return agent;
     }
 
     @PostMapping("")
-    public ResponseEntity<Agent> addAgent(@RequestBody Agent agent){
-        return ResponseEntity.ok(agentService.addAgent(agent));
+    public Response addAgent(@RequestBody Agent agent){
+        return agentService.addAgent(agent);
     }
 
     @PutMapping("/{agentId}")

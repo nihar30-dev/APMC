@@ -12,7 +12,7 @@ public interface ShopService {
 
     public List<Shop> getAllShops();
 
-    public Optional<Shop> getShopById(int shopId);
+    public Shop getShopById(int shopId);
 
     public Response addShop(Shop shop);
 

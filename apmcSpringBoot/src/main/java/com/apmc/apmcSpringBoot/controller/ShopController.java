@@ -8,8 +8,6 @@ import com.apmc.apmcSpringBoot.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,8 +25,12 @@ public class ShopController {
     }
 
     @GetMapping("/{shopId}")
-    public ResponseEntity<Shop> getshopById(@PathVariable("shopId") int shopId) {
-        return ResponseEntity.ok(shopService.getShopById(shopId).get());
+    public Shop getshopById(@PathVariable("shopId") int shopId) {
+        Shop shop = shopService.getShopById(shopId);
+        if (shop == null){
+            throw new ResponseException("No shops found for this ShopId");
+        }
+        return shop;
     }
 
     @PostMapping("/add")
@@ -43,7 +45,7 @@ public class ShopController {
     }
 
     @DeleteMapping("/{shopId}")
-    public String deleteShop(@PathVariable("shopId") int shopId){
+    public String deleteShop(@PathVariable int shopId){
         return shopService.deleteShop(shopId);
     }
 
