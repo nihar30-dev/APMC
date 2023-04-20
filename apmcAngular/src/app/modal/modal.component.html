@@ -14,6 +14,10 @@
             <app-shop-form></app-shop-form>
         </div>
 
+        <div class="container mt-5" *ngIf="modalService.formName === 'item'">
+          <app-item-form></app-item-form>
+      </div>
+
       </div>
     </section>
 </ng-container>

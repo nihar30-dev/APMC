@@ -28,5 +28,9 @@ export class ShopService {
         // return this.http.get('http://example.com/api/shops').subscribe((data: any) => {
         //   this.shops = data;
         // });
-    }   
+    }
+    
+    checkShopExists(shopNumber : string){        
+        return of(this.shops.some(shop => shop.getShopNo() === shopNumber));
+    }
 }

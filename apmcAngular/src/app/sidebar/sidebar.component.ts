@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class SidebarComponent {
 
-  role: string = '';
+  role: string = 'user';
 
   constructor(private router : Router, private route : ActivatedRoute){
 
@@ -23,7 +23,7 @@ export class SidebarComponent {
   }
 
   onClickDailyRates(){
-    this.role = 'user';
+    this.role = 'admin';
     if (this.role === 'admin') {
       console.log(this.route);
       this.router.navigate(['adminRates']);

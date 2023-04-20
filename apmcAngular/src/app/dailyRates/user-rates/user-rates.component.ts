@@ -43,7 +43,7 @@ export class UserRatesComponent implements OnInit{
   showContainer(typeId: number){
     if (this.selectedDate) {
       console.log('Selected date:', this.selectedDate);
-        this.itemService.getAllItems(this.selectedDate, typeId).subscribe((data: Item[]) => {
+        this.itemService.getAllItemsByDate(this.selectedDate, typeId).subscribe((data: Item[]) => {
         this.items = data;
         })
        this.activateSearch = true;

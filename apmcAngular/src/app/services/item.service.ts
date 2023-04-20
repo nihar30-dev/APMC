@@ -1,13 +1,12 @@
 import { Injectable } from "@angular/core";
 import { Item } from "../models/item.model";
 import { of } from "rxjs";
-import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 
 @Injectable({
     providedIn: 'root'
 })
 export class ItemService {
-
+    itemsList : string[] = ['wheat', 'rice', 'potato', 'okra', 'mango', 'watermelon']
     commItems : Item[] = [
         new Item(1, 'Wheat', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-15")),
         new Item(1, 'Wheat', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-16")),
@@ -52,7 +51,7 @@ export class ItemService {
         }
     }
 
-    getAllItems(day : any, typeId: number) {
+    getAllItemsByDate(day : any, typeId: number) {
         console.log(day);
         switch(typeId){
             case 2 : {
@@ -69,5 +68,12 @@ export class ItemService {
         // return this.http.get('http://example.com/api/shops').subscribe((data: any) => {
         //   this.shops = data;
         // });
+    }
+
+    getAllItems(typeId: number){
+        //api call will call based on type id and store in respective commitems , vegitems, fruititems
+        //for dummy data itemlist is used
+
+        return of(this.itemsList.slice());
     }
 }

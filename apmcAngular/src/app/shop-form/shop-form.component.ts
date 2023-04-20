@@ -22,18 +22,14 @@ export class ShopFormComponent implements OnInit {
     this.f = this.formBuilder.group({
       shopNumber : ['', [Validators.required, Validators.pattern('[A-Z]-[0-9]{1,3}')]]
     })
-    console.log(this.shops);
+    // console.log(this.shops);
   }
 
 
   onSubmit(f : FormGroup) {
-    // console.log(f);
-    // console.log(f.controls?.['shopNumber'].invalid);
-    // console.log(f.get('shopNumber')?.invalid && f.get('shopNumber')?.dirty && f.get('shopNumber')?.touched);
     if(f.valid){
       console.log(f.value)
       this.shopService.createShop(f.value);
-      // this.shopService.getAllShops().subscribe(data => console.log(data));
       this.modalService.close();
       console.log("form is submitted.")
     }

@@ -17,6 +17,7 @@ import { FilterPipe, UserRatesComponent } from './dailyRates/user-rates/user-rat
 import { AgentFormComponent } from './agent-form/agent-form.component';
 import { ShopFormComponent } from './shop-form/shop-form.component';
 import { ModalComponent } from './modal/modal.component';
+import { ItemFormComponent } from './item-form/item-form.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ModalComponent } from './modal/modal.component';
     AgentFormComponent,
     ShopFormComponent,
     ModalComponent,
-    FilterPipe
+    FilterPipe,
+    ItemFormComponent
   ],
   imports: [
     ReactiveFormsModule,

@@ -43,7 +43,7 @@ export class ShopsComponent implements OnInit {
     }
   }
 
-  //modal render methods 
+  //modal panel render methods 
 
   open(formName : string){
     this.modalService.open(formName);
