@@ -13,7 +13,7 @@ import { FooterComponent } from './footer/footer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ShopsComponent } from './shops/shops.component';
 import { AdminRatesComponent } from './dailyRates/admin-rates/admin-rates.component';
-import { UserRatesComponent } from './dailyRates/user-rates/user-rates.component';
+import { FilterPipe, UserRatesComponent } from './dailyRates/user-rates/user-rates.component';
 import { AgentFormComponent } from './agent-form/agent-form.component';
 import { ShopFormComponent } from './shop-form/shop-form.component';
 import { ModalComponent } from './modal/modal.component';
@@ -31,6 +31,7 @@ import { ModalComponent } from './modal/modal.component';
     AgentFormComponent,
     ShopFormComponent,
     ModalComponent,
+    FilterPipe
   ],
   imports: [
     ReactiveFormsModule,

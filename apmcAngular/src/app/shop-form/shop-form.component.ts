@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
 
 import { Shop } from '../models/shop.model';
+import { ModalService } from '../services/modal.service';
+import { ShopService } from '../services/shop.service';
 
 @Component({
   selector: 'app-shop-form',
@@ -14,7 +15,7 @@ export class ShopFormComponent implements OnInit {
   f!: FormGroup;
 
   constructor(
-    private formBuilder: FormBuilder){}
+    private formBuilder: FormBuilder, private modalService:ModalService, private shopService : ShopService){}
 
   ngOnInit(): void {
     // form builder
@@ -30,6 +31,10 @@ export class ShopFormComponent implements OnInit {
     // console.log(f.controls?.['shopNumber'].invalid);
     // console.log(f.get('shopNumber')?.invalid && f.get('shopNumber')?.dirty && f.get('shopNumber')?.touched);
     if(f.valid){
+      console.log(f.value)
+      this.shopService.createShop(f.value);
+      // this.shopService.getAllShops().subscribe(data => console.log(data));
+      this.modalService.close();
       console.log("form is submitted.")
     }
   }

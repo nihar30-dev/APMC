@@ -13,14 +13,17 @@ export class ItemService {
         new Item(1, 'Wheat', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-16")),
         new Item(1, 'Wheat', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-17")),
         new Item(1, 'Wheat', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-18")),
-        new Item(1, 'Wheat', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-19"))]
+        new Item(1, 'Wheat', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-19")),
+        new Item(4, 'Rice', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-19"))
+    ]
 
     vegItems : Item[] = [        
         new Item(1, 'Potato', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-20")),
         new Item(1, 'Potato', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-15")),
         new Item(1, 'Potato', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-15")),
         new Item(1, 'Potato', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-15")),
-        new Item(1, 'Potato', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-15"))
+        new Item(1, 'Potato', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-15")),
+        new Item(2, 'Okra', 1, 428, 494, 450, 50, 1000, new Date("2023-06-16"))
     ]
 
     fruitItems : Item[] = [        
@@ -28,7 +31,8 @@ export class ItemService {
         new Item(1, 'Mango', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-15")),
         new Item(1, 'Mango', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-15")),
         new Item(1, 'Mango', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-15")),
-        new Item(1, 'Mango', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-15"))
+        new Item(1, 'Mango', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-15")),
+        new Item(3, 'Watermelon', 1, 428, 494, 450, 50, 1000, new Date("2023-06-16"))
     ]
 
     createItem(item: any, id : number) {

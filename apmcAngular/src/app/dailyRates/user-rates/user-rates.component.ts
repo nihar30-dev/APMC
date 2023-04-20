@@ -12,9 +12,8 @@ import { NgbDateParserFormatter, NgbDateStruct, NgbInputDatepicker, NgbCalendar,
 export class UserRatesComponent implements OnInit{
 
   items: Item[] = [];
-  ngOnInit(){
-      
-  }
+  activateSearch: boolean = false;
+  searchQuery: string = '';
 
   date: NgbDateStruct | null = null;
   selectedDate: string = '';
@@ -24,20 +23,49 @@ export class UserRatesComponent implements OnInit{
     this.maxDate = calendar.getToday();
   }
 
+
+  ngOnInit(){
+      
+  }
+
+  //datepicker methods 
   onDateSelect(dp: NgbInputDatepicker) {
     console.log(this.date);
     this.selectedDate = `${this.date?.year}/${(this.date?.month+'').padStart(2, '0')}/${(this.date?.day+'').padStart(2, '0')}`;
+    console.log("hi")
+    setTimeout(() => {
+        dp.close();
+      }, 100);
+    this.showContainer(1);
   }
 
+  // list methods 
   showContainer(typeId: number){
     if (this.selectedDate) {
       console.log('Selected date:', this.selectedDate);
         this.itemService.getAllItems(this.selectedDate, typeId).subscribe((data: Item[]) => {
         this.items = data;
         })
-
+       this.activateSearch = true;
     } else {
       console.log('No date selected');
     }
   }
+  }
+
+
+
+  import { Pipe, PipeTransform } from '@angular/core';
+
+  @Pipe({
+    name: 'filter'
+  })
+  export class FilterPipe implements PipeTransform {
+    transform(items: Item[], searchQuery: string): any[] {
+      if (!items || !searchQuery) {
+        return items;
+      }
+
+      return items.filter(item => item.getItemName().toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1);
+    }
   }
