@@ -31,7 +31,7 @@ public class Item {
     @JsonIgnoreProperties({"itemTypeName", "hibernateLazyInitializer", "handler"})
     private ItemType itemType;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "item")
+    @OneToMany( mappedBy = "item",cascade = CascadeType.REMOVE)
     @JsonIgnore
     private List<DailyRates> dailyRates;
 

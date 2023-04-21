@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/shop")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class ShopController {
 
     @Autowired
@@ -35,7 +36,6 @@ public class ShopController {
 
     @PostMapping("/add")
     public Response addShop(@RequestBody Shop shop) throws ResponseException {
-        System.out.println("in controller ---------------------------------");
             return shopService.addShop(shop);
     }
 

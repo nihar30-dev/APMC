@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/agent")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class AgentController {
 
     @Autowired
@@ -40,8 +41,10 @@ public class AgentController {
         return agent;
     }
 
+
     @PostMapping("")
     public Response addAgent(@RequestBody Agent agent){
+        agent.setAgentId(0);
         return agentService.addAgent(agent);
     }
 

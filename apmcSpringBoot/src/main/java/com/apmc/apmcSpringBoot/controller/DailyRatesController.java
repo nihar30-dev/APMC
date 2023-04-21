@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 @RestController
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/dailyRates")
 public class DailyRatesController {
 

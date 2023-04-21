@@ -41,7 +41,7 @@ public class User {
     private Set<Role> roles;
 
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "owner")
+    @OneToOne( mappedBy = "owner")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Shop shops;
 
@@ -58,7 +58,7 @@ public class User {
     }
 
     public User(){
-        System.out.printf("inside User Constructor==========================");
+
     }
 
     public User(Long id, String username, String password, String contact, Set<Role> roles, Shop shops, Agent agent) {

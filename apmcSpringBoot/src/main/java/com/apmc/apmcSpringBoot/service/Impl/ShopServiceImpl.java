@@ -61,22 +61,24 @@ public class ShopServiceImpl implements ShopService {
     @Transactional
     public String deleteShop(int shopId) {
 
-//        shopRepository.deleteById(shopId);
-//        try{
-////            shop.setOwner(null);
-//            shopRepository.deleteById(shopId);
-//            return "deleted";
-//        }catch (Exception e){
-//            System.out.println(e.getMessage());
-//
-//        }
-
+        Shop shop = shopRepository.findById(shopId).get();
         shopRepository.deleteById(shopId);
-        return "not working";
+        try{
+            shop.setOwner(null);
+            shopRepository.deleteById(shopId);
+            return "deleted";
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return "error";
+        }
+
+//        shopRepository.deleteById(shopId);
+//        return "not working";
 
     }
 
     @Override
+    @Transactional
     public Shop editShop(int shopId, Shop shop) {
         Shop s = shopRepository.findById(shopId).get();
         s.setShopNo(shop.getShopNo());

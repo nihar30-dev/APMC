@@ -23,7 +23,7 @@ public class DailyRates {
 
     @ManyToOne()
     @JoinColumn(name="item_id")
-    @JsonIgnoreProperties({"itemName", "itemType","dailyRates"})
+    @JsonIgnoreProperties({"dailyRates"})
     private Item item;
 
     @Column(name = "min_price")

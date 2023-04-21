@@ -18,9 +18,13 @@ import java.util.regex.Pattern;
 @Component
 public class AgentValidatorImpl implements AgentValidator {
 
+
     AgentRepository agentRepository;
-    public AgentValidatorImpl(AgentRepository agentRepository){
+
+    ShopRepository shopRepository;
+    public AgentValidatorImpl(AgentRepository agentRepository, ShopRepository shopRepository){
         this.agentRepository = agentRepository;
+        this.shopRepository = shopRepository;
     }
 
 
@@ -53,6 +57,11 @@ public class AgentValidatorImpl implements AgentValidator {
         if (!vr1.isStatus()){
             msg += vr1.getMessage() + ", ";
         }
+        vr1 = shopAlreadyTaken(agent);
+        if (!vr1.isStatus()){
+            msg += vr1.getMessage() + ", ";
+        }
+
 
         if(msg == ""){
             return new ValidatorResponse(true, "OK");
@@ -73,7 +82,7 @@ public class AgentValidatorImpl implements AgentValidator {
 
     @Override
     public ValidatorResponse checkNumber(String phoneNo) {
-        String regexStr = "^[0-9]{10}$";
+        String regexStr = "^[789]{1}[0-9]{9}$";
         Pattern pattern = Pattern.compile(regexStr);
         Matcher matcher = pattern.matcher(phoneNo);
         if (matcher.matches() && phoneNo.length() == 10) {
@@ -124,5 +133,15 @@ public class AgentValidatorImpl implements AgentValidator {
         }
 
         return new ValidatorResponse(true, "ok");
+    }
+
+    public ValidatorResponse shopAlreadyTaken(Agent agent){
+        Shop s = shopRepository.findById(agent.getShop().getShopId()).get();
+        if(s.getOwner().getId()==null ){
+            return new ValidatorResponse(true,"ok");
+        }
+        else {
+            return new ValidatorResponse(false,"Shop is already taken");
+        }
     }
 }

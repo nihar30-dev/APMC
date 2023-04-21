@@ -12,25 +12,25 @@ public class MyControllerResponse {
     public ResponseEntity<Response> handleException(ValidatorException validatorException){
 
         Response errorResponse = new Response();
-        errorResponse.setStatus(HttpStatus.BAD_REQUEST.value());
+        errorResponse.setStatus(HttpStatus.OK.value());
         errorResponse.setMessage(validatorException.getMessage());
         errorResponse.setTimestamp(System.currentTimeMillis());
         errorResponse.setSuccess(false);
 
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, HttpStatus.OK);
     }
 
     @ExceptionHandler
     public ResponseEntity<Response> handleException(ResponseException responseException){
 
         Response errorResponse = new Response();
-        errorResponse.setStatus(HttpStatus.NOT_FOUND.value());
+        errorResponse.setStatus(HttpStatus.OK.value());
         errorResponse.setMessage(responseException.getMessage());
         errorResponse.setTimestamp(System.currentTimeMillis());
         errorResponse.setSuccess(false);
 
 
-        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorResponse, HttpStatus.OK);
     }
 
     @ExceptionHandler

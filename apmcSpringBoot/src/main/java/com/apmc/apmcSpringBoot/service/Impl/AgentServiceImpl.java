@@ -11,6 +11,7 @@ import com.apmc.apmcSpringBoot.dao.validator.validatorImpl.ItemValidatorImpl;
 import com.apmc.apmcSpringBoot.model.Agent;
 import com.apmc.apmcSpringBoot.model.ItemType;
 import com.apmc.apmcSpringBoot.model.Shop;
+import com.apmc.apmcSpringBoot.model.User;
 import com.apmc.apmcSpringBoot.service.AgentService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+import static java.nio.file.Files.setOwner;
 
 @Service
 public class AgentServiceImpl implements AgentService {
@@ -49,7 +52,7 @@ public class AgentServiceImpl implements AgentService {
     @Override
     @Transactional
     public Response addAgent(Agent agent) {
-        AgentValidatorImpl agentValidatorImpl = new AgentValidatorImpl(agentRepository);
+        AgentValidatorImpl agentValidatorImpl = new AgentValidatorImpl(agentRepository, shopRepository);
         ValidatorResponse validatorResponse = agentValidatorImpl.checkAgent(agent);
 
         if(!validatorResponse.isStatus()){
@@ -57,18 +60,32 @@ public class AgentServiceImpl implements AgentService {
         }
         try{
             Shop s = shopRepository.findById(agent.getShop().getShopId()).get();
-            s.setOwner(agent.getUser());
-            shopRepository.save(s);
-            agentRepository.save(agent);
-            return new Response(200, "ok", System.currentTimeMillis(), true);
+//            if(s.getOwner().getId()==null ){
+                s.setOwner(agent.getUser());
+                shopRepository.save(s);
+                agentRepository.save(agent);
+                return new Response(200, "ok", System.currentTimeMillis(), true);
+//            }
+//            else {
+//                throw new ResponseException("shop is already taken");
+//            }
+
         }catch (Exception e){
-            return null;
+            return new Response(400,e.getMessage(),System.currentTimeMillis());
         }
     }
 
     @Override
     @Transactional
     public String deleteAgentById(int agentId) {
+        Agent a = agentRepository.findById(agentId).get();
+        Shop s = shopRepository.findById(a.getShop().getShopId()).get();
+
+        s.setOwner(null);
+//        User owner =  s.getOwner();
+//        owner.setId(null);
+        shopRepository.save(s);
+
         agentRepository.delete(agentRepository.findById(agentId).get());
         return "deleted";
     }

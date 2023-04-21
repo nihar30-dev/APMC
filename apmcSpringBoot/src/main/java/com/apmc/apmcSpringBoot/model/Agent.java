@@ -30,7 +30,7 @@ public class Agent {
     @Column(name="agent_name")
     private String agentName;
 
-    @OneToOne()
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonIgnoreProperties({"username","password","contact","roles","agent","shops","hibernateLazyInitializer", "handler"})
     private User user;
@@ -41,7 +41,6 @@ public class Agent {
     private Shop shop;
 
     public Agent(){
-
     }
 
     public Agent(int agentId, String companyName, String contact, String agentName, User user, Shop shop) {
