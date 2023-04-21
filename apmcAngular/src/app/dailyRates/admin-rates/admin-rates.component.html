@@ -60,52 +60,54 @@
                       <h6>Save</h6>
                   </div>
                 </div>
-                <div class="card-body card bg-light mb-3" *ngFor="let item of itemsList; let i = index ">
-                  <form [formGroup]="ratesForm" (ngSubmit)="onSubmit(ratesForm)" class="form-horizontal form-inline" novalidate>
-                    <div class="row">                
+                <div class="card-body card bg-light mb-3">
+                  <div>
+                    <div class="row" *ngFor="let item of itemsList; let i = index">                
                       <div class="col col-sm-1 col-md -1 col-lg-1 text-center">
                         <p>{{ item }}: </p>
                       </div>
-                
+                      
+                      <form [formGroup] ="forms[i]" class="form-horizontal form-inline" novalidate>
                       <div class="col col-sm-2 col-md-2 col-lg-2">
                         <input type="text" class="form-control" formControlName="minPrice" placeholder="Min Price" />
-                        <div *ngIf="ratesForm.get('minPrice')?.invalid && !ratesForm.get('minPrice')?.untouched" class="alert alert-danger">
+                        <div *ngIf="forms[i].get('minPrice')?.invalid && !forms[i].get('minPrice')?.untouched" class="alert alert-danger">
                           Min Price is required.
                         </div>
                       </div>
                 
                       <div class="col col-sm-2 col-md-2 col-lg-2">
                         <input type="text" class="form-control" formControlName="maxPrice" placeholder="Max Price" />
-                        <div *ngIf="ratesForm.get('maxPrice')?.invalid && !ratesForm.get('maxPrice')?.untouched" class="alert alert-danger">
+                        <div *ngIf="forms[i].get('maxPrice')?.invalid && !forms[i].get('maxPrice')?.untouched" class="alert alert-danger">
                           Max Price is required.
                         </div>
                       </div>
                 
                       <div class="col col-sm-2 col-md-2 col-lg-2">
                         <input type="text" class="form-control" formControlName="avgPrice" placeholder="Average Price" />
-                        <div *ngIf="ratesForm.get('avgPrice')?.invalid && !ratesForm.get('avgPrice')?.untouched" class="alert alert-danger">
+                        <div *ngIf="forms[i].get('avgPrice')?.invalid && !forms[i].get('avgPrice')?.untouched" class="alert alert-danger">
                           Average Price is required.
                         </div>
                       </div>
                 
                       <div class="col col-sm-2 col-md-2 col-lg-2">
                         <input type="text" class="form-control" formControlName="quantity" placeholder="Quantity Sold" />
-                        <div *ngIf="ratesForm.get('quantity')?.invalid && !ratesForm.get('quantity')?.untouched" class="alert alert-danger">
+                        <div *ngIf="forms[i].get('quantity')?.invalid && !forms[i].get('quantity')?.untouched" class="alert alert-danger">
                           Quantity Sold is required.
                         </div>
                       </div>
                 
                       <div class="col col-sm-2 col-md-2 col-lg-2">
                         <input type="text" class="form-control" formControlName="income" placeholder="Income" />
-                        <div *ngIf="ratesForm.get('income')?.invalid && !ratesForm.get('income')?.untouched" class="alert alert-danger">
+                        <div *ngIf="forms[i].get('income')?.invalid && !forms[i].get('income')?.untouched" class="alert alert-danger">
                           Income is required.
                         </div>
                       </div>
-                        <button type="submit" class="form-control col col-sm-1 col-md -1 col-lg-1 tick">
+                        <button type="submit" class="form-control col col-sm-1 col-md -1 col-lg-1 tick" (click)="onSubmit(i)">
                           <i class="fa fa-check" aria-hidden="true"></i>
                         </button>
+                     </form>
                     </div>
-                  </form>
+                  </div>
                 </div>                
             </table>
         </div>

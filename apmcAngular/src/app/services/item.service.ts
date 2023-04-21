@@ -88,4 +88,9 @@ export class ItemService {
 
         return of(this.itemsList.slice());
     }
+    submitItem(formData : any){
+        //api calls
+        //return true if succesful
+        return of(true);
+    }
 }
