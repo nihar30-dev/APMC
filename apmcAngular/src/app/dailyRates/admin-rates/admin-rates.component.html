@@ -10,7 +10,7 @@
 <div class="container mt-5 navContainer">
     
     <button (click)="open('item')" class="btn btn-outline-primary btn-sm itemBtn">
-        <h6>Add Agents</h6>
+        <h6>ADD ITEM</h6>
     </button>
 
     <app-modal></app-modal>
@@ -37,110 +37,76 @@
     <div class="container">
         <div class="card-body card">
             <table class="text-center">
-                <div class="row">
-                    <div class="col text-center title">
-                        <h6>Sr. No.</h6>
+                <div class="row heading">
+                    <div class="col col-sm-1 col-md -1 col-lg-1 text-center title">
+                        <h6>Item</h6>
                     </div>
-                    <div class="col text-center title">
-                        <h6>Item Name</h6>
-                    </div>
-                    <div class="col text-center title">
+                    <div class="col col-sm-2 col-md-2 col-lg-2 text-center title">
                         <h6>Min Price</h6>
                     </div>
-                    <div class="col text-center title">
+                    <div class="col col-sm-2 col-md-2 col-lg-2 text-center title">
                         <h6>Max Price</h6>
                     </div>
-                    <div class="col text-center title">
+                    <div class="col col-sm-2 col-md-2 col-lg-2 text-center title">
                         <h6>Average Price</h6>
                     </div>
-                    <div class="col text-center title">
+                    <div class="col col-sm-2 col-md-2 col-lg-2 text-center title">
                         <h6>Quantity</h6>
                     </div>
-                    <div class="col text-center title">
+                    <div class="col col-sm-2 col-md-2 col-lg-2 text-center title">
                         <h6>Income</h6>
                     </div>
+                    <div class="col col-sm-1 col-md -1 col-lg-1 text-center title">
+                      <h6>Save</h6>
+                  </div>
                 </div>
                 <div class="card-body card bg-light mb-3" *ngFor="let item of itemsList; let i = index ">
-                    <form [formGroup]="ratesForm" (ngSubmit)="onSubmit(ratesForm)" novalidate>
-                    <div class="row">
-
-                        <div class="col text-center">
-                            <p>{{ i + 1 }}</p>
+                  <form [formGroup]="ratesForm" (ngSubmit)="onSubmit(ratesForm)" class="form-horizontal form-inline" novalidate>
+                    <div class="row">                
+                      <div class="col col-sm-1 col-md -1 col-lg-1 text-center">
+                        <p>{{ item }}: </p>
+                      </div>
+                
+                      <div class="col col-sm-2 col-md-2 col-lg-2">
+                        <input type="text" class="form-control" formControlName="minPrice" placeholder="Min Price" />
+                        <div *ngIf="ratesForm.get('minPrice')?.invalid && !ratesForm.get('minPrice')?.untouched" class="alert alert-danger">
+                          Min Price is required.
                         </div>
-
-                        <div class="coloumn text-center">
-                            <p>{{ item }}</p>
+                      </div>
+                
+                      <div class="col col-sm-2 col-md-2 col-lg-2">
+                        <input type="text" class="form-control" formControlName="maxPrice" placeholder="Max Price" />
+                        <div *ngIf="ratesForm.get('maxPrice')?.invalid && !ratesForm.get('maxPrice')?.untouched" class="alert alert-danger">
+                          Max Price is required.
                         </div>
-              
-                        <div class="coloumn form-group">
-                          <label for="minPrice">Min Price:</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            formControlName="minPrice"
-                            placeholder="Min Price"/>
-                          <div
-                            *ngIf=""
-                            class="alert alert-danger">
-                            Min Price is required.
-                          </div>
+                      </div>
+                
+                      <div class="col col-sm-2 col-md-2 col-lg-2">
+                        <input type="text" class="form-control" formControlName="avgPrice" placeholder="Average Price" />
+                        <div *ngIf="ratesForm.get('avgPrice')?.invalid && !ratesForm.get('avgPrice')?.untouched" class="alert alert-danger">
+                          Average Price is required.
                         </div>
-              
-                        <div class="coloumn form-group">
-                          <label for="maxPrice">Max Price:</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            formControlName="maxPrice"
-                            placeholder="Max Price"/>
-                          <div
-                            *ngIf=""
-                            class="alert alert-danger">
-                            Max Price is required.
-                          </div>
+                      </div>
+                
+                      <div class="col col-sm-2 col-md-2 col-lg-2">
+                        <input type="text" class="form-control" formControlName="quantity" placeholder="Quantity Sold" />
+                        <div *ngIf="ratesForm.get('quantity')?.invalid && !ratesForm.get('quantity')?.untouched" class="alert alert-danger">
+                          Quantity Sold is required.
                         </div>
-              
-                        <div class="coloumn form-group">
-                          <label for="avgPrice">Average Price:</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            formControlName="avgPrice"
-                            placeholder="Average Price"/>
-                          <div
-                            *ngIf=""
-                            class="alert alert-danger">
-                          </div>
+                      </div>
+                
+                      <div class="col col-sm-2 col-md-2 col-lg-2">
+                        <input type="text" class="form-control" formControlName="income" placeholder="Income" />
+                        <div *ngIf="ratesForm.get('income')?.invalid && !ratesForm.get('income')?.untouched" class="alert alert-danger">
+                          Income is required.
                         </div>
-            
-                        <div class="coloumn form-group">
-                            <label for="quantity">Quantity Sold:</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              formControlName="quantity"
-                              placeholder="Quantity Sold"/>
-                            <div
-                              *ngIf=""
-                              class="alert alert-danger">
-                            </div>
-                          </div>
-            
-                          <div class="coloumn form-group">
-                            <label for="income">Income:</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              formControlName="income"
-                              placeholder="Income"/>
-                            <div
-                              *ngIf=""
-                              class="alert alert-danger">
-                            </div>
-                          </div>
-                        </div>
-                    </form>
-                </div>
+                      </div>
+                        <button type="submit" class="form-control col col-sm-1 col-md -1 col-lg-1 tick">
+                          <i class="fa fa-check" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                  </form>
+                </div>                
             </table>
         </div>
     </div>

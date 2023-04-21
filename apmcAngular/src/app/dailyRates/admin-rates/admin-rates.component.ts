@@ -28,10 +28,12 @@ export class AdminRatesComponent implements OnInit{
         quantity: ['', [Validators.required, Validators.pattern('[0-9]')]],
         income: ['', [Validators.required, Validators.pattern('[0-9]')]],
       });
+
+      this.showContainer(1);
     }
 
     onSubmit(ratesForm : FormGroup){
-
+      console.log("form submitted");  
     }
 
   //modal panel render methods 

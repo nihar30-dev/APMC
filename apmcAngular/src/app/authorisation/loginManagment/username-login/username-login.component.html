@@ -27,15 +27,27 @@
             <button class="btn btn-primary">Login</button>
         </div>
     </form>
+
+    
     <div >
         <div class="text-center">
             <span>Not a member? </span><a routerLink="/signup">Register</a>
+            <div id="g_id_onload"
+                data-client_id="238985952076-6b209kb4mvjvdqjcm1d42o1scsolf33l.apps.googleusercontent.com"
+                data-callback="handleCredentialResponse"
+                >
+            </div>
+            <div class="g_id_signin" data-type="standard"></div>
         </div>
-        <div class="google">
+        <!-- <div class="google">
             <p class="text-center">or sign up with:</p>
             <button type="button" class="btn btn-outline-dark padding"  (click)="signIn()">
                 <img src="../../../../assets/images/googleIcon.png" alt="">
             </button>
-        </div>
+        </div> -->
+
+
+
+
     </div>
 </div>

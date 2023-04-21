@@ -13,6 +13,18 @@ export class ItemService {
         new Item(1, 'Wheat', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-17")),
         new Item(1, 'Wheat', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-18")),
         new Item(1, 'Wheat', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-19")),
+        new Item(4, 'Rice', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-19")),
+        new Item(1, 'Wheat', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-15")),
+        new Item(1, 'Wheat', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-16")),
+        new Item(1, 'Wheat', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-17")),
+        new Item(1, 'Wheat', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-18")),
+        new Item(1, 'Wheat', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-19")),
+        new Item(4, 'Rice', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-19")),
+        new Item(1, 'Wheat', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-15")),
+        new Item(1, 'Wheat', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-16")),
+        new Item(1, 'Wheat', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-17")),
+        new Item(1, 'Wheat', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-18")),
+        new Item(1, 'Wheat', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-19")),
         new Item(4, 'Rice', 1 , 428, 494, 450, 50, 1000, new Date("2023-06-19"))
     ]
 

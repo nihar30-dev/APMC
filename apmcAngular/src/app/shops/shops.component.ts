@@ -39,6 +39,7 @@ export class ShopsComponent implements OnInit {
     // console.log(f.controls?.['shopNumber'].invalid);
     // console.log(f.get('shopNumber')?.invalid && f.get('shopNumber')?.dirty && f.get('shopNumber')?.touched);
     if(f.valid){
+      this.shopService.createShop(f.value);
       console.log("form is submitted.")
     }
   }

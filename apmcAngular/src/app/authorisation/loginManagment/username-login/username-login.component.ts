@@ -1,50 +1,80 @@
 import { Component, OnInit } from '@angular/core';
 import { GoogleApiService, UserInfo } from '../../../services/googleApi/google-api.service';
-import {AuthService} from "../../service/auth.service";
-import {StorageService} from "../../service/storage.service";
+import { AuthService } from "../../service/auth.service";
+import { StorageService } from "../../service/storage.service";
 import { NgForm } from '@angular/forms';
+import jwt_decode from 'jwt-decode';
 
 
+declare var google: any;
 
 @Component({
   selector: 'app-username-login',
   templateUrl: './username-login.component.html',
   styleUrls: ['./username-login.component.scss']
 })
-export class UsernameLoginComponent implements OnInit{
+export class UsernameLoginComponent implements OnInit {
 
+  decodedToken: any;
   form: any = {
     username: null,
     password: null
   };
-  userInfo? : UserInfo;
+  userInfo?: UserInfo;
   isLogIn = false;
   isLoggedInuser = false;
   isLoginFailed = false;
   errorMessage = '';
   roles: string[] = [];
 
-  constructor(private readonly googleApi : GoogleApiService , private authService : AuthService ,
-              private storageService : StorageService){}
+  constructor(private readonly googleApi: GoogleApiService, private authService: AuthService,
+    private storageService: StorageService) { }
 
   ngOnInit(): void {
-    this.isLogIn = this.isLoggedIn();
+
+    setTimeout(() => {
+      console.log(typeof this.handleCredentialResponse)
+      google.accounts.id.initialize({
+        client_id:
+          '877272810140-p9m45jqdf7d1lnc2rd5tr9ovtq3ti2j3.apps.googleusercontent.com',
+          
+            callback:this.handleCredentialResponse,
+      });
+      google.accounts.id.prompt();
+    }, 1000);
+
   }
 
-  signIn(){
- 
-    this.googleApi.signIn();
-    console.log('hello');
-    this.googleApi.userProfileSubject.subscribe( info => {
-      this.userInfo = info;
-    });
-    this.isLogIn = this.isLoggedIn();
-    
-  }
+  handleCredentialResponse = (response: any) => {
+    try{alert("Hii")
+    console.log(response);
+    const idToken = response.credential;
+    this.decodedToken = jwt_decode(idToken);
+    localStorage.setItem("decodedToken", this.decodedToken);
+    console.log(this.decodedToken);}
+    catch(e){
+      alert("hiii")
+    }
+  };
 
-  onSubmit(f: NgForm){
+  // hadnleGoogleLoginPrompt = (client_id:string,callback:any){
+
+  // }
+
+  // signIn(){
+
+  //   this.googleApi.signIn();
+  //   console.log('hello');
+  //   this.googleApi.userProfileSubject.subscribe( info => {
+  //     this.userInfo = info;
+  //   });
+  //   this.isLogIn = this.isLoggedIn();
+
+  // }
+
+  onSubmit(f: NgForm) {
     const { username, password } = this.form;
-    console.log("this.form: " ,this.form);
+    console.log("this.form: ", this.form);
     console.log("f ", f);
 
     this.authService.login(username, password).subscribe({
@@ -64,11 +94,11 @@ export class UsernameLoginComponent implements OnInit{
 
   }
 
-  isLoggedIn(): boolean{
-    
+  isLoggedIn(): boolean {
+
     return this.googleApi.isLoggedIn();
   }
-  logout(){
+  logout() {
     this.googleApi.signOut();
   }
 
