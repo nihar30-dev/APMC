@@ -9,7 +9,8 @@ import {AuthService} from "../service/auth.service";
 export class SignupComponent {
   form: any = {
     username: null,
-    email: null,
+    password:null,
+    contact:null
   };
   isSuccessful = false;
   isSignUpFailed = false;
@@ -21,9 +22,9 @@ export class SignupComponent {
   }
 
   onSubmit(): void {
-    const { username, email, password } = this.form;
+    const { username, password,contact } = this.form;
 
-    this.authService.register(username, password).subscribe({
+    this.authService.register(username,password,contact).subscribe({
       next: data => {
         console.log(data);
         this.isSuccessful = true;

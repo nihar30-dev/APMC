@@ -11,6 +11,7 @@ import { ShopService } from '../services/shop.service';
   styleUrls: ['./shop-form.component.scss']
 })
 export class ShopFormComponent implements OnInit {
+
   shops: Shop[] = [];
   f!: FormGroup;
 
@@ -20,7 +21,7 @@ export class ShopFormComponent implements OnInit {
   ngOnInit(): void {
     // form builder
     this.f = this.formBuilder.group({
-      shopNumber : ['', [Validators.required, Validators.pattern('[A-Z]-[0-9]{1,3}')]]
+      shopNo : ['', [Validators.required, Validators.pattern('[A-Z]-[0-9]{1,3}')]]
     })
     // console.log(this.shops);
   }
@@ -29,7 +30,13 @@ export class ShopFormComponent implements OnInit {
   onSubmit(f : FormGroup) {
     if(f.valid){
       console.log(f.value)
-      this.shopService.createShop(f.value);
+      this.shopService.createShop(f.value).subscribe(data=>{
+        console.log(data);
+        alert("shop added");
+      },(error)=>{
+        console.log(error);
+        alert(error.error['message']);
+      });
       this.modalService.close();
       console.log("form is submitted.")
     }

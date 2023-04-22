@@ -10,10 +10,10 @@
                 class="form-select form-control" 
                 name="shopNo"
                 id="shopNo"
-                formControlName="shops"
+                formControlName="shopNo"
                 aria-label="Select a shop">
-                <option [value]="shop.getShopId()" *ngFor="let shop of shops">
-                  {{ shop.getShopNo() }}
+                <option [value]="shopno.shopId" *ngFor="let shopno of shopNo">
+                  {{ shopno.shopNo }}
                 </option>
               </select>
           </div>

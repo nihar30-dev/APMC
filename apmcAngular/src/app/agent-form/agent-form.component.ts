@@ -13,7 +13,8 @@ import { ShopService } from '../services/shop.service';
 export class AgentFormComponent {
   agentForm!: FormGroup;
   // shops : String{}[] = ['A-12', 'B-13', 'A-16', 'A-26', 'B-05'];
-  shops: Shop[] = [];
+  shops:any;
+  shopNo : any;
   userName : String= '';
   password : String = '';
 
@@ -39,15 +40,24 @@ export class AgentFormComponent {
 
   ngOnInit() {
     this.agentForm = this.fb.group({
-      shops : ['', Validators.required],
+      shopNo : ['', Validators.required],
       agentName: ['', Validators.required],
       companyName: ['', Validators.required],
       contact: ['', [Validators.required, Validators.pattern('[0-9]{10}'), Validators.maxLength(10), Validators.minLength(10)]],
     });
-    this.shopService.getAllShops().subscribe((data: Shop[]) => {
-      this.shops = data;
+    this.shopService.getAllShopNo().subscribe((data) => {
+      this.shopNo = data;
     });
 
     console.log(this.shops);
+  }
+
+  getShopId(){
+      // this.shopService.getAllShopNo().subscribe((data) => {
+      //   this.shopNo = data; 
+      // }, error => {
+      //   console.log("error loading shopNos");
+      //   alert("shop cant be loaded");        
+      // });
   }
 }

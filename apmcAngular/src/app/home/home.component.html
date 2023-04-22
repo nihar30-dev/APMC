@@ -1,13 +1,19 @@
 <div class="marquee">
-    <marquee>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem quae distinctio rem, dolorem ea sed et, explicabo modi temporibus assumenda iusto repellendus iure nobis commodi? Facere velit vero, nam earum labore iste ea odio.</marquee>
-    <marquee >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem quae distinctio rem, dolorem ea sed et, explicabo modi temporibus assumenda iusto repellendus iure nobis commodi? Facere velit vero, nam earum labore iste ea odio.</marquee>
-    <marquee >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem quae distinctio rem, dolorem ea sed et, explicabo modi temporibus assumenda iusto repellendus iure nobis commodi? Facere velit vero, nam earum labore iste ea odio.</marquee>  
-  </div>
 
-  <div class="container">
+  <marquee>
+
+    <span *ngFor="let rates of dailyRate">{{rates.item.itemName}} <span style="color: red;">{{rates.minPrice}}</span>
+      &nbsp;<span style="color: green;">{{rates.maxPrice}}</span> &nbsp;</span>
+
+  </marquee>
+
+</div>
+
+<div class="container">
   <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true"
+        aria-label="Slide 1"></button>
       <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
     </div>
     <div class="carousel-inner">
@@ -36,4 +42,3 @@
     </button>
   </div>
 </div>
-  

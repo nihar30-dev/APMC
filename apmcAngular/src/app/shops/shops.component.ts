@@ -12,7 +12,7 @@ import { ModalService } from '../services/modal.service';
 })
 
 export class ShopsComponent implements OnInit {
-  shops: Shop[] = [];
+  shops : any;
   f!: FormGroup;
 
   constructor(
@@ -23,8 +23,8 @@ export class ShopsComponent implements OnInit {
   ngOnInit(): void {
 
     //list population 
-    this.shopService.getAllShops().subscribe((data: Shop[]) => {
-      this.shops = data;
+    this.shopService.getAllShops().subscribe((data) => {
+      this.shops = data; 
     });
     // form builder
     this.f = this.formBuilder.group({

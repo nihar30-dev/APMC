@@ -1,5 +1,5 @@
-export class Item {
-    constructor(
+    export class Item {
+        constructor(
             private itemId: number, 
             private itemName: string, 
             private itemType: number, 

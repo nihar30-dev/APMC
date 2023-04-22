@@ -25,4 +25,5 @@ export class ModalService{
         this.showModal = false;
         this.display.next('close');
     }
+
 }

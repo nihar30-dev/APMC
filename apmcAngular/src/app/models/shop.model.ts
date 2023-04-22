@@ -15,7 +15,7 @@ export class Shop {
     getShopNo(){
       return this.shopNo;
     }
-    getuserId(){
+    getUserId(){
       return this.userId;
     }
     getCompanyName(){
