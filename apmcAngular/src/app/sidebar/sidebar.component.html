@@ -3,15 +3,15 @@
     <div class="container">
       <div class="sidebar">
         <ul class="sidebar__nav">
-            <li><a (click)="onClickHome()" >Home </a></li>
-            <li><a (click)="onClickAbout()" >About Us </a></li>
-            <li><a (click)="onClickDailyRates()" >Daily Rates </a></li>
-            <li><a (click)="onClickSlotBooking()" >Slot Booking </a></li>
-            <li><a (click)="onClickViewSlot()" >View Slot </a></li>
-            <li><a (click)="onClickShops()" >Shops </a></li>
-            <li><a (click)="onClickNotice()" >Notice </a></li>
-            <li><a (click)="onClickContact()" >Contact </a></li>
-            <li><a (click)="onClickGallery()" >Gallery </a></li>
+            <li><a (click)="onClickHome()" [ngClass]="activePage === 'home' ? 'active' : ''">Home </a></li>
+            <li><a (click)="onClickAbout()" [ngClass]="activePage === 'about' ? 'active' : ''">About Us </a></li>
+            <li><a (click)="onClickDailyRates()" [ngClass]="activePage === 'dailyRates' ? 'active' : ''">Daily Rates </a></li>
+            <li><a (click)="onClickSlotBooking()" [ngClass]="activePage === 'slotBooking' ? 'active' : ''">Slot Booking </a></li>
+            <li><a (click)="onClickViewSlot()" [ngClass]="activePage === 'viewSlot' ? 'active' : ''">View Slot </a></li>
+            <li><a (click)="onClickShops()" [ngClass]="activePage === 'shop' ? 'active' : ''">Shops </a></li>
+            <li><a (click)="onClickNotice()" [ngClass]="activePage === 'notice' ? 'active' : ''">Notice </a></li>
+            <li><a (click)="onClickContact()" [ngClass]="activePage === 'contact' ? 'active' : ''">Contact </a></li>
+            <li><a (click)="onClickGallery()" [ngClass]="activePage === 'gallery' ? 'active' : ''">Gallery </a></li>
         </ul>
       </div>
     </div>

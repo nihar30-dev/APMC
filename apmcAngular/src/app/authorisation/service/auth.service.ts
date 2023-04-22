@@ -1,12 +1,12 @@
 import {Injectable} from "@angular/core";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable({
     providedIn:'root'
 })
 export class AuthService{
-    private isloggedin = false;
+    private isLoggedIn = false;
     constructor(private http: HttpClient) {}
     private AUTH_API :string= 'http://localhost:8099/api/auth/';
     private httpOptions = {
@@ -14,7 +14,7 @@ export class AuthService{
     };
 
     login(username: string, password: string): Observable<any> {
-        this.isloggedin = true;
+        this.isLoggedIn = true;
         return this.http.post(
             this.AUTH_API + 'signin',
             {
@@ -26,7 +26,7 @@ export class AuthService{
     }
 
     register(username: string, password: string): Observable<any> {
-        this.isloggedin = true;
+        this.isLoggedIn = true;
         return this.http.post(
             this.AUTH_API + 'signup',
             {
@@ -35,6 +35,12 @@ export class AuthService{
             },
             this.httpOptions
         );
+    }
+
+  
+
+    getIsLoggedIn(){
+        return of(this.isLoggedIn);
     }
 
 

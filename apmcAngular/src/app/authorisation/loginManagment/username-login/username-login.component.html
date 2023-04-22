@@ -1,7 +1,7 @@
 
 <div class="container">
 
-    <form *ngIf="!isLogIn" class="card bg-light mb-3" (ngSubmit)="f.valid && onSubmit(f)" #f="ngForm" novalidate>
+    <form  class="card bg-light mb-3" (ngSubmit)="f.valid && onSubmit(f)" #f="ngForm" novalidate>
         <h2 class="card-header">Login</h2>
         <div class="card-body">
             <div class="form-group">
@@ -32,7 +32,7 @@
     <div>
         <div class="text-center">
             <span>Not a member? </span><a routerLink="/signup">Register</a>
-            <button class="g_id_signin" (click)="googleSignIn()" data-type="standard">Google</button>
+            <button class="g_id_signin" (click)="googleSignIn()" data-type="standard" >Google</button>
         </div>
     </div>
 </div>

@@ -7,6 +7,7 @@ import { SignupComponent } from './authorisation/signup/signup.component';
 import { ShopsComponent } from './shops/shops.component';
 import { AdminRatesComponent } from './dailyRates/admin-rates/admin-rates.component';
 import { UserRatesComponent } from './dailyRates/user-rates/user-rates.component';
+import { AppComponent } from './app.component';
 
 
 const routes: Routes = [

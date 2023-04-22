@@ -14,8 +14,8 @@
     </div>
     <div class="header__right">
       <a href="#" class="header__headerLinks" target="_blank">Download App</a>
-      <a routerLink="login" class="header__headerLinks">Log In</a>
-      <a href="#" class="header__headerLinks">Log Out</a>
+      <a routerLink="login" class="header__headerLinks" *ngIf="!isLoggedIn">Log In</a>
+      <a href="#" class="header__headerLinks" *ngIf="isLoggedIn" (click)="logout()">Log Out</a>
     </div>
   </div>
 </header>

@@ -9,21 +9,25 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class SidebarComponent {
 
   role: string = 'user';
+  activePage : string = 'home';
 
   constructor(private router : Router, private route : ActivatedRoute){
 
   }
 
   onClickHome(){
+    this.activePage = 'home';
     this.router.navigate(['home']);
   }
 
   onClickAbout(){
+    this.activePage = 'about';
     this.router.navigate(['about']);
   }
 
   onClickDailyRates(){
-    this.role = 'admin';
+    this.activePage = 'dailyRates';
+    this.role = 'user';
     if (this.role === 'admin') {
       console.log(this.route);
       this.router.navigate(['adminRates']);
@@ -33,21 +37,27 @@ export class SidebarComponent {
   }
 
   onClickSlotBooking(){
+    this.activePage = 'slotBooking';
     this.router.navigate(['slotBooking']);
   }
   onClickViewSlot(){
+    this.activePage = 'viewSlot';
     this.router.navigate(['viewSlot']);
   }
   onClickShops(){
+    this.activePage = 'shop';
     this.router.navigate(['shops']);
   }
   onClickNotice(){
+    this.activePage = 'notice';
     this.router.navigate(['notice']);
   }
   onClickContact(){
+    this.activePage = 'contact';
     this.router.navigate(['contact']);
   }
   onClickGallery(){
+    this.activePage = 'gallery';
     this.router.navigate(['gallery']);
   }
 
