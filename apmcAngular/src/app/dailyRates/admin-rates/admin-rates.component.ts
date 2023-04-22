@@ -28,6 +28,7 @@ export class AdminRatesComponent implements OnInit{
 
     createForm() : FormGroup{
       return this.fb.group({
+        item:[],  
         minPrice: ['', [Validators.required, Validators.pattern('[0-9]+')]],
         maxPrice: ['', [Validators.required, Validators.pattern('[0-9]+')]],
         avgPrice: ['', [Validators.required, Validators.pattern('[0-9]+')]],
@@ -37,12 +38,19 @@ export class AdminRatesComponent implements OnInit{
     }
 
     onSubmit(i : number){
+      const value = this.forms[i].value;
+      value.item = this.itemsList[i];
       const form = this.forms[i];
+      
+      
 
     if (form.valid) {
       const formData = form.value;
       this.itemService.submitItem(formData).subscribe(response => {
         console.log('Form submitted successfully:');
+        console.log(this.itemsList[0]);
+        console.log(formData);
+        
       }); 
     }
     return;
