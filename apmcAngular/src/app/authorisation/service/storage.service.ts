@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import {Injectable, OnInit} from "@angular/core";
 import { BehaviorSubject, Observable, Subject, of } from "rxjs";
 
 const USER_KEY = 'auth-user';
@@ -7,18 +7,25 @@ const USER_KEY = 'auth-user';
 @Injectable({
     providedIn : 'root'
 })
-export class StorageService{
+export class StorageService implements OnInit{
 
     private isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     public isLoggedIn$: Observable<boolean> = this.isLoggedInSubject.asObservable();
 
     constructor() {
+
     }
+
+    ngOnInit(): void {
+        this.isLoggedInSubject.next(this.isLoggedIn());
+    }
+
+
 
 
     clean(): void {
         window.sessionStorage.clear();
-        
+
     }
 
     public saveUser(user: any) {
@@ -37,13 +44,15 @@ export class StorageService{
         return {};
     }
 
-    public isLoggedIn(){
+    public isLoggedIn() : boolean{
         const user = window.sessionStorage.getItem(USER_KEY);
-        if (user) {
-            return this.isLoggedInSubject.next(true);
+       
+        if(user){
+            return true;
         }
-
-        return this.isLoggedInSubject.next(false);
+        else{
+            return false;
+        }
     }
 
 }

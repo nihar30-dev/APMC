@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {  Router } from '@angular/router';
+import { StorageService } from './authorisation/service/storage.service';
 
 
 @Component({
@@ -9,9 +10,12 @@ import {  Router } from '@angular/router';
 })
 export class AppComponent implements OnInit{
 
-constructor(private router : Router){
+constructor(private router : Router,private storageService:StorageService){
 
 }
 ngOnInit(){
+
+  
+  
 }
 }

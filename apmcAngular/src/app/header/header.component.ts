@@ -15,10 +15,15 @@ export class HeaderComponent implements OnInit {
    }
 
    ngOnInit(): void {
+    
     this.storageService.isLoggedIn$.subscribe((data) => {
       this.isLoggedIn = data;
       console.log("isnide header component:",data);
-    });  
+    });
+
+    this.isLoggedIn = this.storageService.isLoggedIn();
+    
+   
    }
 
    logout(){
