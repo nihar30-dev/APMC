@@ -8,6 +8,7 @@
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
   overflow-y: auto;
   margin-top: 0px;
+  cursor: pointer;
 }
 
 .sidebar__nav {
@@ -32,8 +33,12 @@
 }
 
 
-.sidebar__nav a:hover {
-  background-color: #f2f2f2;
+// .sidebar__nav a:hover {
+// }
+
+.active{
+  background-color: #325c32;
+  color: white !important;
 }
 
 @media (max-width: 991px) {

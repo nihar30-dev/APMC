@@ -82,8 +82,9 @@
 
               <div class="form-group text-center">
                 <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Sign Up</button>
-                <button type="button" class="btn btn-secondary ml-2" (click)="f.form.reset()"><i class="fa fa-eraser"></i> Clear</button>
+                <button type="reset" class="btn btn-secondary ml-2"><i class="fa fa-eraser"></i> Clear</button>
               </div>
+                <span>Already a member?</span><a routerLink="/login">Login</a>
               <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
                 Signup failed! {{ errorMessage }}
               </div>

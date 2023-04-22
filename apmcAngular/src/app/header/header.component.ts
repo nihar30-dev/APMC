@@ -1,13 +1,40 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../authorisation/service/auth.service';
+import { StorageService } from '../authorisation/service/storage.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
+  isLoggedIn: boolean = false;
   
-  constructor(){ }
- 
-}
+  constructor(private authService:AuthService,private storageService:StorageService){
+   console.log(this.isLoggedIn);
+   }
+
+   ngOnInit(): void {
+    
+    this.storageService.isLoggedIn$.subscribe((data) => {
+      this.isLoggedIn = data;
+      console.log("isnide header component:",data);
+    });
+
+    this.isLoggedIn = this.storageService.isLoggedIn();
+    
+   
+   }
+
+   logout(){
+    this.storageService.clean();
+   }
+
+  //  hello(){
+  //   console.log(this.isLoggedIn);
+  //   this.authService.getIsLoggedIn().subscribe((data) => {
+  //     this.isLoggedIn = data;
+  //     console.log("isnide header component:",data);
+  //   });  
+   }
+   
