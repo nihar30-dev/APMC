@@ -6,6 +6,7 @@ import com.apmc.apmcSpringBoot.model.Agent;
 import com.apmc.apmcSpringBoot.service.AgentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class AgentController {
 
     @GetMapping("/name/{companyName}")
     public Agent getAgentByCompanyName(@PathVariable("companyName") String companyName){
-        Agent agent  = agentService.getAgentByCompanyName(companyName);
+        Agent agent  = agentService.findByCompanyName(companyName);
         if(agent == null){
             throw new ResponseException("Not agent found for this Company Name");
         }
@@ -42,6 +43,7 @@ public class AgentController {
     }
 
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("")
     public Response addAgent(@RequestBody Agent agent){
         agent.setAgentId(0);

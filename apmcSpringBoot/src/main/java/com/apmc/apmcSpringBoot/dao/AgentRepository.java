@@ -11,8 +11,8 @@ import java.util.List;
 @Repository
 public interface AgentRepository extends JpaRepository<Agent,Integer> {
 
-    @Query("SELECT a FROM Agent a WHERE a.companyName=?1")
-    Agent getAgentByCompanyName(String companyName);
+//    @Query("SELECT a FROM Agent a WHERE a.companyName=?1")
+    Agent findByCompanyName(String companyName);
 
     @Query(value = "SELECT * FROM agent  where user_id =?1 ",nativeQuery = true)
     public List<Agent> existByOwnerId(Long ownerId);

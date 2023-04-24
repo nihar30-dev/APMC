@@ -35,6 +35,8 @@ public class Item {
     @JsonIgnore
     private List<DailyRates> dailyRates;
 
+
+
     public Item() {
     }
 
@@ -75,4 +77,6 @@ public class Item {
     public void setDailyRates(List<DailyRates> dailyRates) {
         this.dailyRates = dailyRates;
     }
+
+
 }

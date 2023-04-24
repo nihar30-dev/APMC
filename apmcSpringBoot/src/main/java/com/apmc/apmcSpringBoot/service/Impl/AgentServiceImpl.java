@@ -53,6 +53,10 @@ public class AgentServiceImpl implements AgentService {
     @Transactional
     public Response addAgent(Agent agent) {
         AgentValidatorImpl agentValidatorImpl = new AgentValidatorImpl(agentRepository, shopRepository);
+
+//        @Autowired
+//        AgentValidatorImpl agentValidatorImpl;
+
         ValidatorResponse validatorResponse = agentValidatorImpl.checkAgent(agent);
 
         if(!validatorResponse.isStatus()){
@@ -103,10 +107,10 @@ public class AgentServiceImpl implements AgentService {
     }
 
     @Override
-    public Agent getAgentByCompanyName(String companyName) {
+    public Agent findByCompanyName(String companyName) {
         Agent agent = null;
         try{
-            agent = agentRepository.getAgentByCompanyName(companyName);
+            agent = agentRepository.findByCompanyName(companyName);
         }catch (Exception e){
             System.out.println(e.getMessage());
         }

@@ -1,6 +1,7 @@
 package com.apmc.apmcSpringBoot.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -29,6 +30,10 @@ public class Agent {
 
     @Column(name="agent_name")
     private String agentName;
+
+    @OneToOne(mappedBy = "agent")
+    @JsonIgnore
+    private SlotDetail slotDetail;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -98,5 +103,13 @@ public class Agent {
 
     public void setShop(Shop shop) {
         this.shop = shop;
+    }
+
+    public SlotDetail getSlotDetail() {
+        return slotDetail;
+    }
+
+    public void setSlotDetail(SlotDetail slotDetail) {
+        this.slotDetail = slotDetail;
     }
 }

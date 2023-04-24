@@ -13,6 +13,6 @@ import java.util.Map;
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Integer>{
 
-    @Query(value = "SELECT i.* FROM items as i inner JOIN item_type as it on it.item_type_id = i.item_type_id where i.item_type_id = ?1",nativeQuery = true)
-    public List<Item> findItemByItemTypeId(int itemType);
+//    @Query(value = "SELECT i.* FROM items as i inner JOIN item_type as it on it.item_type_id = i.item_type_id where i.item_type_id = ?1",nativeQuery = true)
+     List<Item> findByItemTypeItemTypeId(int itemTypeId);
 }
