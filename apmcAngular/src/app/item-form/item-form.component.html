@@ -4,6 +4,20 @@
       <div class="card mb-3">
         <div class="card-body p-4">
           <div class="row">
+
+            <div class="col-md-6 form-group">
+              <label for="shops">Item Type</label>
+                <select 
+                  class="form-select form-control"
+                  id="itemType"
+                  formControlName="itemTypeId">
+                  <option selected disabled>Select ItemType</option>
+                  <option [value]="itemtype.itemTypeId" *ngFor="let itemtype of ItemTypes">
+                    {{ itemtype.itemTypeName }}
+                  </option>
+                </select>
+            </div>
+
             <div class="coloumn form-group">
                 <label for="itemName">Item Name:</label>
                 <input
@@ -20,85 +34,6 @@
                 </div>
             </div>
   
-            <div class="coloumn form-group">
-              <label for="minPrice">Min Price:</label>
-              <input
-                type="text"
-                class="form-control"
-                formControlName="minPrice"
-                placeholder="Min Price"/>
-              <div
-                *ngIf="
-                  itemForm.get('minPrice')?.invalid &&
-                  !itemForm.get('minPrice')?.untouched"
-                class="alert alert-danger">
-                Min Price is required.
-              </div>
-            </div>
-  
-            <div class="coloumn form-group">
-              <label for="maxPrice">Max Price:</label>
-              <input
-                type="text"
-                class="form-control"
-                formControlName="maxPrice"
-                placeholder="Max Price"/>
-              <div
-                *ngIf="
-                  itemForm.get('maxPrice')?.invalid &&
-                  !itemForm.get('maxPrice')?.untouched"
-                class="alert alert-danger">
-                Max Price is required.
-              </div>
-            </div>
-  
-            <div class="coloumn form-group">
-              <label for="avgPrice">Average Price:</label>
-              <input
-                type="text"
-                class="form-control"
-                formControlName="avgPrice"
-                placeholder="Average Price"/>
-              <div
-                *ngIf="
-                  itemForm.get('avgPrice')?.invalid &&
-                  !itemForm.get('avgPrice')?.untouched"
-                class="alert alert-danger">
-                Average Price is required.
-              </div>
-            </div>
-
-            <div class="coloumn form-group">
-                <label for="quantity">Quantity Sold:</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="quantity"
-                  placeholder="Quantity Sold"/>
-                <div
-                  *ngIf="
-                  itemForm.get('quantity')?.invalid &&
-                  !itemForm.get('quantity')?.untouched"
-                  class="alert alert-danger">
-                  Quantity is required.
-                </div>
-              </div>
-
-              <div class="coloumn form-group">
-                <label for="income">Income:</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="income"
-                  placeholder="Income"/>
-                <div
-                  *ngIf="
-                  itemForm.get('income')?.invalid &&
-                  !itemForm.get('income')?.untouched"
-                  class="alert alert-danger">
-                  Income is required.
-                </div>
-              </div>
           </div>
         </div>
       </div>

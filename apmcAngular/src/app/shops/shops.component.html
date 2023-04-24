@@ -21,17 +21,21 @@
           <h5>Sr. No.</h5>
         </div>
         <div class="col text-center title">
+          <h5>UserName</h5>
+        </div>
+        <div class="col text-center title">
+          <h5>Agent Name</h5>
+        </div>
+        <div class="col text-center title">
           <h5>Shop Number</h5>
         </div>
         <div class="col text-center title">
           <h5>Company Name</h5>
         </div>
         <div class="col text-center title">
-          <h5>Agent Name</h5>
-        </div>
-        <div class="col text-center title">
           <h5>Contact No.</h5>
         </div>
+        
       </div>
       <div
         class="card-body card bg-light mb-3"
@@ -42,13 +46,16 @@
             <p>{{ i + 1 }}</p>
           </div>
           <div class="col text-center">
+            <p>{{ shop.user.username }}</p>
+          </div>
+          <div class="col text-center">
+            <p>{{ shop.agentName }}</p>
+          </div>
+          <div class="col text-center">
             <p>{{ shop.shop.shopNo }}</p>
           </div>
           <div class="col text-center">
             <p>{{ shop.companyName }}</p>
-          </div>
-          <div class="col text-center">
-            <p>{{ shop.agentName }}</p>
           </div>
           <div class="col text-center">
             <p>{{ shop.contact }}</p>

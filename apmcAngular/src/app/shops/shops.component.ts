@@ -21,7 +21,6 @@ export class ShopsComponent implements OnInit {
     public modalService: ModalService){}
 
   ngOnInit(): void {
-
     //list population 
     this.shopService.getAllShops().subscribe((data) => {
       this.shops = data; 
@@ -30,14 +29,10 @@ export class ShopsComponent implements OnInit {
     this.f = this.formBuilder.group({
       shopNumber : ['', [Validators.required, Validators.pattern('[A-Z]-[0-9]{1,3}')]]
     })
-    console.log(this.shops);
   }
 
 
   onSubmit(f : FormGroup) {
-    // console.log(f);
-    // console.log(f.controls?.['shopNumber'].invalid);
-    // console.log(f.get('shopNumber')?.invalid && f.get('shopNumber')?.dirty && f.get('shopNumber')?.touched);
     if(f.valid){
       this.shopService.createShop(f.value);
       console.log("form is submitted.")
@@ -47,8 +42,10 @@ export class ShopsComponent implements OnInit {
   //modal panel render methods 
 
   open(formName : string){
-    this.modalService.open(formName);
-  }
- 
+    const mref = this.modalService.open(formName);
+    // mref.afterClosed().subscribe(()=>{
+        
+    // })
+  } 
 }
 

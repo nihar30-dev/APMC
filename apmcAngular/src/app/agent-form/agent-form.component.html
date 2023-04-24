@@ -12,7 +12,8 @@
                 id="shopNo"
                 formControlName="shopNo"
                 aria-label="Select a shop">
-                <option [value]="shopno.shopId" *ngFor="let shopno of shopNo">
+                <option selected disabled>Select Shop</option>
+                <option [value]="shopno.shopId" *ngFor="let shopno of availableShopNo">
                   {{ shopno.shopNo }}
                 </option>
               </select>

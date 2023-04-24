@@ -1,9 +1,11 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { Shop } from '../models/shop.model';
 import { ModalService } from '../services/modal.service';
 import { ShopService } from '../services/shop.service';
+import { SignupComponent } from '../authorisation/signup/signup.component';
+import { AuthService } from '../authorisation/service/auth.service';
+import { filter } from 'rxjs';
+import { AgentService } from '../services/agent.service';
 
 @Component({
   selector: 'app-agent-form',
@@ -11,53 +13,114 @@ import { ShopService } from '../services/shop.service';
   styleUrls: ['./agent-form.component.scss']
 })
 export class AgentFormComponent {
-  agentForm!: FormGroup;
-  // shops : String{}[] = ['A-12', 'B-13', 'A-16', 'A-26', 'B-05'];
-  shops:any;
-  shopNo : any;
-  userName : String= '';
-  password : String = '';
 
-  constructor(private fb: FormBuilder, private shopService: ShopService, private modalService: ModalService) {
+
+  agentForm!: FormGroup;
+  shopNo: any;
+  availableShopNo: any;
+  userName: string = '';
+  password: string = '';
+  agentId: number | undefined;
+  
+  constructor(private fb: FormBuilder, private shopService: ShopService, private modalService: ModalService, private authervice: AuthService, private agentService: AgentService) {
 
   }
 
-  onSubmit(agentForm : FormGroup) {
-    if(agentForm.valid){
+  onSubmit(agentForm: FormGroup) {
+    if (agentForm.valid) {
       // username, password generation
-        this.userName = this.agentForm.value.agentName + (String)(Date.now()).slice(-4);
-        this.password = this.userName;
-        console.log("usernme : ", this.userName);
-        console.log("password : ",this.password);
-      this.modalService.close();
-      console.log(this.agentForm.value);
-
-
-      //at the very lat or the value will be lost 
-      this.agentForm.reset();
+      this.registerAgent(agentForm)
+      .then(()=>this.addAgent(agentForm))
+      .then(()=>{
+        this.modalService.close();
+        // window.location.reload();
+        console.log(this.agentForm.value);
+        console.log("form is submitted.")
+        //at the very lat or the value will be lost 
+        this.agentForm.reset();
+       
+      })
+      .catch((error)=>{
+        console.log(error);
+        alert(error.error['message']);
+      })
     }
+    this.getShopId();
+  }
+
+
+  registerAgent(agentForm: FormGroup) {
+    const promise = new Promise((res, rej) => {
+
+      this.userName = this.agentForm.value.agentName + (String)(Date.now()).slice(-4);
+      this.password = this.userName;
+
+      this.authervice.register(this.userName, this.password, agentForm.value.contact).subscribe(
+        data => {
+          this.agentId = data;
+          res(data);
+          console.log("added");
+          alert("registered");
+
+        }, error => {
+          console.log(error);
+          rej(error);
+        }
+      );
+    });
+    return promise;
+  }
+
+  addAgent(agentForm: FormGroup) {
+
+    const promise = new Promise((res, rej) => {
+      agentForm.value.userId = this.agentId;
+
+      let agentData = {
+        "companyName": agentForm.value['companyName'],
+        "contact": agentForm.value['contact'],
+        "agentName": agentForm.value['agentName'],
+        "user": {
+          "id": this.agentId
+        },
+        "shop": {
+          "shopId": agentForm.value['shopNo']
+        }
+      }
+      this.agentService.createAgent(agentData).subscribe(data => {
+        res(data);
+        alert("Agent added");
+      }, (error) => {
+        console.log(error);
+        // alert(error.error['message']);
+        rej(error);
+      });
+    })
+    return promise;
   }
 
   ngOnInit() {
     this.agentForm = this.fb.group({
-      shopNo : ['', Validators.required],
-      agentName: ['', Validators.required],
-      companyName: ['', Validators.required],
-      contact: ['', [Validators.required, Validators.pattern('[0-9]{10}'), Validators.maxLength(10), Validators.minLength(10)]],
+      userId: [null],
+      shopNo: [null, Validators.required],
+      agentName: [null, Validators.required],
+      companyName: [null, Validators.required],
+      contact: [null, [Validators.required, Validators.pattern('[0-9]{10}'), Validators.maxLength(10), Validators.minLength(10)]],
     });
     this.shopService.getAllShopNo().subscribe((data) => {
       this.shopNo = data;
-    });
+      this.availableShopNo = this.shopNo.filter(this.filterShops);
 
-    console.log(this.shops);
+    });
   }
 
-  getShopId(){
-      // this.shopService.getAllShopNo().subscribe((data) => {
-      //   this.shopNo = data; 
-      // }, error => {
-      //   console.log("error loading shopNos");
-      //   alert("shop cant be loaded");        
-      // });
+  filterShops(Shop: any) {
+    if (Shop.owner == null)
+      return true;
+    else
+      return false;
+  }
+
+  getShopId() {
   }
 }
