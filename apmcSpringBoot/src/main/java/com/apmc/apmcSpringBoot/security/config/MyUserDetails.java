@@ -28,9 +28,7 @@ public class MyUserDetails implements UserDetails {
     }
 
 
-//    @Transactional
     public static MyUserDetails build(User user){
-//        Set<Role> authorities2 = user.getRoles();
         List<GrantedAuthority> authorities = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());

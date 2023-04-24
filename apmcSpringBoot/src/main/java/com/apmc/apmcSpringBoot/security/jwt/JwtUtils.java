@@ -20,8 +20,8 @@ public class JwtUtils {
     private String jwtSecret;
 
 //    @Value("#{new Integer('Integer.parse(${app.jwtExpirationMs})')}")
-    @Value("13455454")
-    private Integer jwtExpirationMs;
+    @Value("${app.jwtExpirationMs}")
+    private String jwtExpirationMs;
 
     // This is used for generating JwtTokem.
     public String generateJwtToken(Authentication authentication) {
@@ -31,7 +31,7 @@ public class JwtUtils {
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
                 .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+                .setExpiration(new Date((new Date()).getTime() + Integer.valueOf(jwtExpirationMs)))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
