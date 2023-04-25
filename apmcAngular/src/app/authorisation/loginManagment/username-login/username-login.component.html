@@ -32,13 +32,11 @@
     <div>
         <div class="text-center">
             <span>Not a member? </span><a routerLink="/signup">Register</a>
-            <button class="g_id_signin" (click)="googleSignIn()" data-type="standard" >Google</button>
+            <div id="g_id_onload"  
+                data-client_id="238985952076-ip1l9j07bci4474ajuklhed9nvp3rskc.apps.googleusercontent.com"
+                data-callback="handleCredentialResponse"
+                data-auto_prompt="false">
+            <div style="display: inline-block;" class="g_id_signin" data-type="standard"></div>
         </div>
     </div>
 </div>
-<!-- <div class="google">
-    <p class="text-center">or sign up with:</p>
-    <button type="button" class="btn btn-outline-dark padding"  (click)="signIn()">
-        <img src="../../../../assets/images/googleIcon.png" alt="">
-    </button>
-</div> -->
