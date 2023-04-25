@@ -19,41 +19,41 @@
     function handleCredentialResponse(response) {
 
       $.ajax({
-        url: "https://localhost:8099/auth/api/google",
+        url: "http://localhost:8099/api/auth/google",
         headers: {
-          authorization : response.credential
+          "idToken" : response.credential
         },
         method : 'POST'
       })
-      .then((res) => {
-        console.log(res);
+              .then((res) => {
 
-        localStorage.setItem('isLoggedin', 'true');
-        localStorage.setItem('USERTOKEN', res.token);
+                localStorage.setItem('isLoggedin', 'true');
+                localStorage.setItem('auth-user',JSON.stringify(res));
 
-        window.location.href = "http://localhost:4200/home";  
 
-      })
-      .catch(err => {
-      })
+                window.location.href = "http://localhost:4200/home";
+
+              })
+              .catch(err => {
+              })
 
       console.log("Encoded JWT ID token: " + response.credential);
       //   Split the token into header, payload, and signature
-        const parts = response.credential.split('.');
-        const header = parts[0];
-        const payload = parts[1];
-        const signature = parts[2];
-  
+      const parts = response.credential.split('.');
+      const header = parts[0];
+      const payload = parts[1];
+      const signature = parts[2];
+
       //   Decode the payload from base64
-        const decodedPayload = atob(payload);
-  
+      const decodedPayload = atob(payload);
+
       //   Parse the decoded payload as JSON
-        const jsonPayload = JSON.parse(decodedPayload);
-        console.log(jsonPayload);
+      const jsonPayload = JSON.parse(decodedPayload);
+      console.log(jsonPayload);
 
 
-  }
-</script>
+    }
+  </script>
 
 </head>
 <body>

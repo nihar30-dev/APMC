@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { UserInfo } from '../../../services/googleApi/google-api.service';
-import { AuthService } from "../../service/auth.service";
-import { StorageService } from "../../service/storage.service";
+import { AuthService } from '../../service/auth.service';
+import { StorageService } from '../../service/storage.service';
 import { NgForm } from '@angular/forms'; 
 import {Router } from '@angular/router';
 
 
-declare var google: any;
+declare let google: any;
 
 @Component({
   selector: 'app-username-login',
@@ -20,7 +19,7 @@ export class UsernameLoginComponent implements OnInit {
     username: null,
     password: null
   };
-  userInfo?: UserInfo;
+
 
   // isLoggedInuser = false;
   // isLoginFailed = false;
@@ -31,16 +30,16 @@ export class UsernameLoginComponent implements OnInit {
     private storageService: StorageService , private router:Router) { }
 
     
-    ngOnInit(): void {
+  ngOnInit(): void {
       
-    }
+  }
 
 
 
   onSubmit(f: NgForm) {
     const { username, password } = this.form;
-    console.log("this.form: ", this.form);
-    console.log("f ", f);
+    console.log('this.form: ', this.form);
+    console.log('f ', f);
 
     this.authService.login(username, password).subscribe({
       next: data => {

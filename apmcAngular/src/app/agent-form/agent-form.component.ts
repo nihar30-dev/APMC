@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import {  FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalService } from '../services/modal.service';
 import { ShopService } from '../services/shop.service';
-import { SignupComponent } from '../authorisation/signup/signup.component';
 import { AuthService } from '../authorisation/service/auth.service';
-import { filter } from 'rxjs';
 import { AgentService } from '../services/agent.service';
 
 @Component({
@@ -18,8 +16,8 @@ export class AgentFormComponent {
   agentForm!: FormGroup;
   shopNo: any;
   availableShopNo: any;
-  userName: string = '';
-  password: string = '';
+  userName = '';
+  password = '';
   agentId: number | undefined;
   
   constructor(private fb: FormBuilder, private shopService: ShopService, private modalService: ModalService, private authervice: AuthService, private agentService: AgentService) {
@@ -30,20 +28,20 @@ export class AgentFormComponent {
     if (agentForm.valid) {
       // username, password generation
       this.registerAgent(agentForm)
-      .then(()=>this.addAgent(agentForm))
-      .then(()=>{
-        this.modalService.close();
-        // window.location.reload();
-        console.log(this.agentForm.value);
-        console.log("form is submitted.")
-        //at the very lat or the value will be lost 
-        this.agentForm.reset();
+        .then(()=>this.addAgent(agentForm))
+        .then(()=>{
+          this.modalService.close();
+          // window.location.reload();
+          console.log(this.agentForm.value);
+          console.log('form is submitted.');
+          //at the very lat or the value will be lost 
+          this.agentForm.reset();
        
-      })
-      .catch((error)=>{
-        console.log(error);
-        alert(error.error['message']);
-      })
+        })
+        .catch((error)=>{
+          console.log(error);
+          alert(error.error['message']);
+        });
     }
     this.getShopId();
   }
@@ -59,8 +57,8 @@ export class AgentFormComponent {
         data => {
           this.agentId = data;
           res(data);
-          console.log("added");
-          alert("registered");
+          console.log('added');
+          alert('registered');
 
         }, error => {
           console.log(error);
@@ -76,26 +74,24 @@ export class AgentFormComponent {
     const promise = new Promise((res, rej) => {
       agentForm.value.userId = this.agentId;
 
-      let agentData = {
-        "companyName": agentForm.value['companyName'],
-        "contact": agentForm.value['contact'],
-        "agentName": agentForm.value['agentName'],
-        "user": {
-          "id": this.agentId
+      const agentData = {
+        'companyName': agentForm.value['companyName'],
+        'contact': agentForm.value['contact'],
+        'agentName': agentForm.value['agentName'],
+        'user': {
+          'id': this.agentId
         },
-        "shop": {
-          "shopId": agentForm.value['shopNo']
+        'shop': {
+          'shopId': agentForm.value['shopNo']
         }
-      }
+      };
       this.agentService.createAgent(agentData).subscribe(data => {
         res(data);
-        alert("Agent added");
+        alert('Agent added');
       }, (error) => {
-        console.log(error);
-        // alert(error.error['message']);
         rej(error);
       });
-    })
+    });
     return promise;
   }
 

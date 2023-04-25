@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {  Router } from '@angular/router';
-import { StorageService } from './authorisation/service/storage.service';
+import { Component} from '@angular/core';
+
 
 
 @Component({
@@ -8,14 +7,8 @@ import { StorageService } from './authorisation/service/storage.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent {
 
-constructor(private router : Router,private storageService:StorageService){
 
-}
-ngOnInit(){
 
-  
-  
-}
 }

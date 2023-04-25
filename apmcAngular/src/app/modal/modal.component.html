@@ -18,6 +18,10 @@
           <app-item-form></app-item-form>
       </div>
 
+          <div class="container mt-5" *ngIf="modalService.formName === 'slot'">
+              <app-slot-form></app-slot-form>
+          </div>
+
       </div>
     </section>
 </ng-container>
