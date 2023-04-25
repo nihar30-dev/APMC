@@ -37,7 +37,6 @@ export class StorageService implements OnInit{
     public getUser(): any {
         const user = window.sessionStorage.getItem(USER_KEY);
         if (user) {
-            console.log(user);
             return JSON.parse(user);
         }
 

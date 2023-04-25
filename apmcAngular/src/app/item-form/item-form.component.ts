@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ItemService } from '../services/item.service';
-
+import { ItemType } from '../models/itemType.model';
+import { Item } from '../models/item.model';
+import { ModalService } from '../services/modal.service';
 @Component({
   selector: 'app-item-form',
   templateUrl: './item-form.component.html',
@@ -11,9 +13,9 @@ export class ItemFormComponent implements OnInit {
   
 
   itemForm! : FormGroup;
-  ItemTypes : any;
+  ItemTypes! : ItemType[];
 
-  constructor(private fb : FormBuilder, private itemService: ItemService){}
+  constructor(private fb : FormBuilder, private itemService: ItemService, private modalService: ModalService){}
 
   ngOnInit() {
     this.itemService.getItemTypes().subscribe((data)=>{
@@ -31,19 +33,13 @@ export class ItemFormComponent implements OnInit {
   onSubmit(itemForm: FormGroup){
     if(itemForm.valid){
       
-      let item = {
-        "itemName": itemForm.value['itemName'],
-        "itemType": {
-          "itemTypeId": itemForm.value['itemTypeId']
-        }
-      }
-      console.log(item);
-      
+      let item : Item = new Item(0, itemForm.value['itemName'], new ItemType(itemForm.value['itemTypeId'], ""));  
       this.itemService.createItem(item).subscribe((data)=>{
         alert("Item added")
       })
-      console.log(itemForm.value);
       itemForm.reset();
+      this.modalService.close();
     }
+
   }
 }

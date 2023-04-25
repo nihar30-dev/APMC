@@ -17,15 +17,9 @@
   <div *ngIf="!modalService.showModal">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <div class="row w-100">
+        <div class="row w-100" *ngFor="let itemType of itemTypes">
           <div class="col-md-4 text-center">
-            <a class="navbar-brand nav-link" style="cursor: pointer" (click)="showContainer(1)">Commodities</a>
-          </div>
-          <div class="col-md-4 text-center">
-            <a class="navbar-brand nav-link" style="cursor: pointer" (click)="showContainer(2)">Vegetables</a>
-          </div>
-          <div class="col-md-4 text-center">
-            <a class="navbar-brand nav-link" style="cursor: pointer" (click)="showContainer(3)">Fruit</a>
+            <a class="navbar-brand nav-link" style="cursor: pointer" (click)="showContainer(1)">{{ itemType['itemTypeName']}}</a>
           </div>
         </div>
       </div>
@@ -116,7 +110,7 @@
         </div>
     </div> -->
 
-    <!-- <div class="container">
+    <div class="container">
       <div class="card-body card">
         <table class="text-center">
           <div class="row heading">
@@ -144,13 +138,16 @@
           </div>
           <div class="card-body card bg-light mb-3">
             <div>
-              <div class="row" *ngFor="let item of itemsList; let i = index">
-                <form [formGroup]="forms[i]" class="form-horizontal form-inline" novalidate>
+              <form [formGroup]="dailyRates" *ngIf="dailyRates" class="form-horizontal form-inline" novalidate>
+              <div formArrayName="dailyRateArray">
+                <div class="row" *ngFor="let item of this.dailyRateControls['controls']; let i = index"
+                [formGroupName]="i">
                   <div class="col">
                     <div class="row">
                       <div class="col col-sm-1 col-md -1 col-lg-1 text-center">
-                        <p>{{ item }}:</p>
-                        <input type="hidden" value="[item]" formControlName="item" name="item" />
+                        <!-- <p>{{ item }}:</p> -->
+                        <input type="text" formControlName="itemName">
+                        <input type="hidden" formControlName="itemId" name="item" />
                       </div>
                       <div class="col col-sm-2 col-md-2 col-lg-2">
                         <div>
@@ -159,11 +156,10 @@
                               placeholder="Min Price" />
                           </div>
                           <div>
-                            <div *ngIf="
-                                forms[i].get('minPrice')?.invalid &&
-                                !forms[i].get('minPrice')?.untouched
-                              " class="alert alert-danger">
-                              Min Price is required.
+                            <div
+                            *ngIf="item.get('minPrice')?.touched && item.get('minPrice')?.invalid"
+                            class="alert alert-danger">
+                              Min Price is required & should be a number.
                             </div>
                           </div>
                         </div>
@@ -171,57 +167,49 @@
 
                       <div class="col col-sm-2 col-md-2 col-lg-2">
                         <input type="text" class="form-control" formControlName="maxPrice" placeholder="Max Price" />
-                        <div *ngIf="
-                            forms[i].get('maxPrice')?.invalid &&
-                            !forms[i].get('maxPrice')?.untouched
-                          " class="alert alert-danger">
-                          Max Price is required.
+                        <div class="alert alert-danger" *ngIf="item.get('maxPrice')?.touched && item.get('maxPrice')?.invalid">
+                          Max Price is required & should be a number.
                         </div>
                       </div>
 
-                      <div class="col col-sm-2 col-md-2 col-lg-2">
+                      <div class="col col-sm-2 col-md-2 col-lg-2" >
                         <input type="text" class="form-control" formControlName="avgPrice"
                           placeholder="Average Price" />
-                        <div *ngIf="
-                            forms[i].get('avgPrice')?.invalid &&
-                            !forms[i].get('avgPrice')?.untouched
-                          " class="alert alert-danger">
-                          Avg Price is required.
+                        <div class="alert alert-danger" *ngIf="item.get('avgPrice')?.touched && item.get('avgPrice')?.invalid">
+                          Avg Price is required & should be a number.
                         </div>
                       </div>
 
                       <div class="col col-sm-2 col-md-2 col-lg-2">
                         <input type="text" class="form-control" formControlName="quantity"
                           placeholder="Quantity Sold" />
-                        <div *ngIf="
-                            forms[i].get('quantity')?.invalid &&
-                            !forms[i].get('quantity')?.untouched
-                          " class="alert alert-danger">
-                          Qty Sold is required.
+                        <div class="alert alert-danger" *ngIf="item.get('quantity')?.touched && item.get('quantity')?.invalid">
+                          Quantity Sold is required & should be a number.
                         </div>
                       </div>
 
                       <div class="col col-sm-2 col-md-2 col-lg-2">
                         <input type="text" class="form-control" formControlName="income" placeholder="Income" />
-                        <div *ngIf="
-                            forms[i].get('income')?.invalid &&
-                            !forms[i].get('income')?.untouched
-                          " class="alert alert-danger">
-                          Income is required.
+                        <div class="alert alert-danger" *ngIf="item.get('income')?.touched && item.get('income')?.invalid">
+                          Income is required & should be a number.
                         </div>
                       </div>
-                      <button type="submit" class="form-control col col-sm-1 col-md -1 col-lg-1 tick"
+                      <div class="col col-sm-1 col-md -1 col-lg-1">
+                      <button type="submit" class="form-control tick" [disabled]="!item.valid"
                         (click)="onSubmit(i)">
                         <i class="fa fa-check" aria-hidden="true"></i>
                       </button>
+                      </div>
                     </div>
                   </div>
-                </form>
+                </div>
               </div>
+              </form>
             </div>
           </div>
         </table>
       </div>
     </div>
   </div>
-</div> -->
+</div>
+

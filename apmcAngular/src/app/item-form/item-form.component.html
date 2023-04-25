@@ -12,8 +12,8 @@
                   id="itemType"
                   formControlName="itemTypeId">
                   <option selected disabled>Select ItemType</option>
-                  <option [value]="itemtype.itemTypeId" *ngFor="let itemtype of ItemTypes">
-                    {{ itemtype.itemTypeName }}
+                  <option [value]="itemtype['itemTypeId']" *ngFor="let itemtype of ItemTypes">
+                    {{ itemtype['itemTypeName'] }}
                   </option>
                 </select>
             </div>

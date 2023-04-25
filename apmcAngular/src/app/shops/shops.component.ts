@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ShopService } from '../services/shop.service';
-import { Shop } from '../models/shop.model';
+// import { Shop } from '../models/agent.model';
 import { ModalService } from '../services/modal.service';
+import { Agent } from '../models/agent.model';
 
 @Component({
   selector: 'app-shops',
@@ -13,6 +14,7 @@ import { ModalService } from '../services/modal.service';
 
 export class ShopsComponent implements OnInit {
   shops : any;
+  agents! : Agent[];
   f!: FormGroup;
 
   constructor(
@@ -23,7 +25,9 @@ export class ShopsComponent implements OnInit {
   ngOnInit(): void {
     //list population 
     this.shopService.getAllShops().subscribe((data) => {
-      this.shops = data; 
+      // this.shops = data; 
+      
+      this.agents = data;
     });
     // form builder
     this.f = this.formBuilder.group({

@@ -13,8 +13,8 @@
                 formControlName="shopNo"
                 aria-label="Select a shop">
                 <option selected disabled>Select Shop</option>
-                <option [value]="shopno.shopId" *ngFor="let shopno of availableShopNo">
-                  {{ shopno.shopNo }}
+                <option [value]="shopno['shopId']" *ngFor="let shopno of availableShopNo">
+                  {{ shopno['shopNo'] }}
                 </option>
               </select>
           </div>

@@ -39,26 +39,26 @@
       </div>
       <div
         class="card-body card bg-light mb-3"
-        *ngFor="let shop of shops; let i = index"
+        *ngFor="let agent of agents; let i = index"
       >
         <div class="row">
           <div class="col text-center">
             <p>{{ i + 1 }}</p>
           </div>
           <div class="col text-center">
-            <p>{{ shop.user.username }}</p>
+            <p>{{ agent['user']['username'] }}</p>
           </div>
           <div class="col text-center">
-            <p>{{ shop.agentName }}</p>
+            <p>{{ agent['agentName'] }}</p>
           </div>
           <div class="col text-center">
-            <p>{{ shop.shop.shopNo }}</p>
+            <p>{{ agent['shop']['shopNo'] }}</p>
           </div>
           <div class="col text-center">
-            <p>{{ shop.companyName }}</p>
+            <p>{{ agent['companyName'] }}</p>
           </div>
           <div class="col text-center">
-            <p>{{ shop.contact }}</p>
+            <p>{{ agent['contact'] }}</p>
           </div>
         </div>
       </div>

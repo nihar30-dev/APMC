@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Item } from 'src/app/models/item.model';
+// import { Item } from 'src/app/models/item.model';
 import { ItemService } from 'src/app/services/item.service';
 import { NgbDateParserFormatter, NgbDateStruct, NgbInputDatepicker, NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
@@ -11,7 +11,8 @@ import { NgbDateParserFormatter, NgbDateStruct, NgbInputDatepicker, NgbCalendar,
 })
 export class UserRatesComponent implements OnInit{
 
-  items: Item[] = [];
+  items: DailyRates[] = [];
+  item : any;
   activateSearch: boolean = false;
   searchQuery: string = '';
 
@@ -57,16 +58,19 @@ export class UserRatesComponent implements OnInit{
 
 
   import { Pipe, PipeTransform } from '@angular/core';
+import { DailyRates } from 'src/app/models/dailyRates.model';
 
   @Pipe({
     name: 'filter'
   })
   export class FilterPipe implements PipeTransform {
-    transform(items: Item[], searchQuery: string): any[] {
+    transform(items: DailyRates[], searchQuery: string): any[] {
       if (!items || !searchQuery) {
         return items;
       }
 
-      return items.filter(item => item.getItemName().toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1);
+      return items.filter(item => item['item']['itemName'].toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1);
     }
   }
+
+  

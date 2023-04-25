@@ -1,7 +1,9 @@
 import { Injectable } from "@angular/core";
-import { Item } from "../models/item.model";
+// import { Item } from "../models/dailyRates.model";
 import { of } from "rxjs";
 import { HttpClient } from "@angular/common/http";
+import { Item } from "../models/item.model";
+import { ItemType } from "../models/itemType.model";
 
 @Injectable({
     providedIn: 'root'
@@ -12,19 +14,17 @@ export class ItemService {
     constructor(private http: HttpClient){
     }
     
-    createItem(item: any) {
+    createItem(item: Item) {
         // this.shops.push(shop);
-        console.log("in item create");
-        return this.http.post('http://localhost:8099/item', item);
+        return this.http.post<Item>('http://localhost:8099/item', item);
     }
 
     getItemTypes(){
-        return this.http.get('http://localhost:8099/itemType')
+        return this.http.get<ItemType[]>('http://localhost:8099/itemType')
     }
 
 
     getAllItemsByDate(day : any, typeId: number) {
-    //     console.log(day);
     //     switch(typeId){
     //         case 2 : {
     //             return of(this.vegItems.slice());
@@ -42,15 +42,13 @@ export class ItemService {
         // });
     }
 
-    // getAllItems(typeId: number){
-    //     //api call will call based on type id and store in respective commitems , vegitems, fruititems
-    //     //for dummy data itemlist is used
+    getAllItemsByTypeId(typeId: number){
+        return this.http.get<Item[]>('http://localhost:8099/item/itemType/'+typeId)
+    }
 
-    //     return of(this.itemsList.slice());
-    // }
-    // submitItem(formData : any){
-    //     //api calls
-    //     //return true if succesful
-    //     return of(true);
-    // }
+    submitItem(formData : any){
+        //api calls
+        //return true if succesful
+        return of(true);
+    }
 }

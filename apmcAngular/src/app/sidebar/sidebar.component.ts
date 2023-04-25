@@ -20,11 +20,7 @@ export class SidebarComponent implements OnInit{
   }
 
   ngOnInit(): void {
-  
     this.activePage  = window.location.href.split('/').slice(-1)[0];
-    console.log(this.activePage);
-    
-     
   }
 
   onClickHome(){
@@ -40,9 +36,7 @@ export class SidebarComponent implements OnInit{
 
   onClickDailyRates(){
     this.activePage = 'dailyRates';
-    // console.log(this.role);
     if (this.role === 'user') {
-      console.log(this.route);
       this.router.navigate(['adminRates']);
     } else {
       this.router.navigate(['userRates']);

@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Agent } from "../models/agent.model";
 
 
 @Injectable({
@@ -12,9 +13,8 @@ export class AgentService {
 
     private agent : any;
 
-    createAgent(agent: any) {
-        // this.shops.push(shop);
-        console.log("in create agent");
-        return this.http.post('http://localhost:8099/agent', agent);
+    createAgent(agent: Agent) {
+        // this.shops.push(shop)
+        return this.http.post<Agent>('http://localhost:8099/agent', agent);
     }
 }

@@ -1,7 +1,9 @@
 import { Injectable } from "@angular/core";
-import { Shop } from "../models/shop.model";
+// import { Shop } from "../models/agent.model";
 import { of } from "rxjs";
 import { HttpClient } from "@angular/common/http";
+import { Agent } from "../models/agent.model";
+import { Shop } from "../models/shop.model";
 
 @Injectable({
     providedIn: 'root'
@@ -20,11 +22,11 @@ export class ShopService {
     }
 
     getAllShopNo(){
-        return this.http.get('http://localhost:8099/shop');
+        return this.http.get<Shop[]>('http://localhost:8099/shop');
     }
 
     getAllShops() {
-        return this.http.get('http://localhost:8099/agent');
+        return this.http.get<Agent[]>('http://localhost:8099/agent');
     }
     
     // checkShopExists(shopNumber : string){        
