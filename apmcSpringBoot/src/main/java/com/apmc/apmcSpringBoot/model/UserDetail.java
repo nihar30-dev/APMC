@@ -15,7 +15,7 @@ public class UserDetail {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    @JsonIgnoreProperties({"username","password","contact","roles","agent","shops","hibernateLazyInitializer", "handler"})
+    @JsonIgnoreProperties({"username","password","contact","roles","agent","shops","hibernateLazyInitializer", "handler","userDetail"})
     private User user;
 
     @Column(name = "full_name")

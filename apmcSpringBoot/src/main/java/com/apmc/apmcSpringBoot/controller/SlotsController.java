@@ -28,10 +28,10 @@ public class SlotsController {
     }
 
     @GetMapping("/date")
-    public List<Slots> getAllSlotsByDate(@RequestParam String day) throws ParseException{
+    public List<Slots> findBySlotDate(@RequestParam String day) throws ParseException{
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = dateFormat.parse(day);
-        List<Slots> slots = slotService.getAllSlotsByDate(date);
+        List<Slots> slots = slotService.findBySlotDate(date);
         if(slots.size() == 0){
             throw new ResponseException("No slots found for this date");
         }
@@ -39,20 +39,20 @@ public class SlotsController {
     }
 
     @GetMapping("/{slotId}")
-    public Slots getSlotById(@PathVariable int slotId){
-        Slots slot = slotService.getSlotById(slotId);
+    public Slots findBySlotId(@PathVariable int slotId){
+        Slots slot = slotService.findBySlotId(slotId);
         if(slot == null){
             throw new ResponseException("No slot found for this id");
         }
         return slot;
     }
 
-    @GetMapping("/{itemId}")
-    public Slots slotExistForDateAndItem(@RequestParam String day, @PathVariable int itemId) throws ParseException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = dateFormat.parse(day);
-        return slotService.slotExistForDateAndItem(date, itemId);
-    }
+//    @GetMapping("/item/{itemId}")
+//    public Slots slotExistForDateAndItem(@RequestParam String day, @PathVariable int itemId) throws ParseException {
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        Date date = dateFormat.parse(day);
+//        return slotService.slotExistForDateAndItem(date, itemId);
+//    }
 
     @PostMapping("")
     public Response addItemSlot(@RequestParam String day, @RequestBody Slots slot )throws ParseException, ResponseException{

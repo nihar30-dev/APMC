@@ -61,6 +61,10 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public String deleteItem(int itemId) {
+        Item item = itemRepository.findById(itemId).orElse(null);
+        if(item == null){
+            return "Item doesn't exists";
+        }
         itemRepository.deleteById(itemId);
         return "deleted";
     }

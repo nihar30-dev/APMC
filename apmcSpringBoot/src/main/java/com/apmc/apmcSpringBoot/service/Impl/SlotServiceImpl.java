@@ -34,10 +34,10 @@ public class SlotServiceImpl implements SlotService {
 
     @Override
     @Transactional
-    public List<Slots> getAllSlotsByDate(Date date) {
+    public List<Slots> findBySlotDate(Date date) {
         List<Slots> slots = null;
         try {
-            slots = slotsRepository.getAllSlotsByDate(date);
+            slots = slotsRepository.findBySlotDate(date);
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
@@ -60,17 +60,19 @@ public class SlotServiceImpl implements SlotService {
         if(checkedSlot == null){
             slotsRepository.save(slot);
         }else{
-            checkedSlot.setTotalQuantity(checkedSlot.getTotalQuantity() + slot.getTotalQuantity());
+            slot.setTotalQuantity(checkedSlot.getTotalQuantity() + slot.getTotalQuantity());
+            System.out.println(slot.getTotalQuantity());
+            slotsRepository.save(slot);
         }
         return new Response(200, "Ok", System.currentTimeMillis(), true);
     }
 
     @Override
     @Transactional
-    public Slots getSlotById(int slotId) {
+    public Slots findBySlotId(int slotId) {
         Slots slot = null;
         try{
-            slot = slotsRepository.findById(slotId).get();
+            slot = slotsRepository.findBySlotId(slotId);
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
@@ -80,6 +82,10 @@ public class SlotServiceImpl implements SlotService {
     @Override
     @Transactional
     public String deleteSlot(int slotId) {
+        Slots slot = slotsRepository.findById(slotId).orElse(null);
+        if(slot == null){
+            return "Slot doesn't exist";
+        }
         slotsRepository.deleteById(slotId);
         return "deleted";
     }

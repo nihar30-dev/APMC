@@ -4,6 +4,7 @@ import com.apmc.apmcSpringBoot.Exception.ValidatorException;
 import com.apmc.apmcSpringBoot.Exception.ValidatorResponse;
 import com.apmc.apmcSpringBoot.dao.ItemTypeRepository;
 import com.apmc.apmcSpringBoot.dao.validator.validatorImpl.ItemTypeValidatorImpl;
+import com.apmc.apmcSpringBoot.model.Item;
 import com.apmc.apmcSpringBoot.model.ItemType;
 import com.apmc.apmcSpringBoot.service.ItemTypeService;
 import jakarta.transaction.Transactional;
@@ -54,8 +55,12 @@ public class ItemTypeServiceImpl implements ItemTypeService {
 
 
     @Override
-    public String deleteItemType(int ItemTypeId) {
-        itemTypeRepository.delete(itemTypeRepository.findById(ItemTypeId).get());
+    public String deleteItemType(int itemTypeId) {
+        ItemType itemType = itemTypeRepository.findById(itemTypeId).orElse(null);
+        if(itemType == null){
+            return "Item type doesn't exists";
+        }
+        itemTypeRepository.delete(itemTypeRepository.findById(itemTypeId).get());
         return "deleted";
     }
 

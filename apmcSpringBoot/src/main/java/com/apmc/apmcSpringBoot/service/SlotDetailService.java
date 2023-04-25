@@ -1,7 +1,7 @@
 package com.apmc.apmcSpringBoot.service;
 
+import com.apmc.apmcSpringBoot.Exception.Response;
 import com.apmc.apmcSpringBoot.model.SlotDetail;
-import org.springframework.http.ResponseEntity;
 
 import java.util.Date;
 import java.util.List;
@@ -11,7 +11,7 @@ public interface SlotDetailService {
 
     public SlotDetail getSlotDetailById(int slotDetailId);
 
-    public ResponseEntity<SlotDetail> addSlotDetail(SlotDetail slotDetail);
+    public Response addSlotDetail(SlotDetail slotDetail);
 
     public String deleteSlotDetail(int slotDetailId);
 

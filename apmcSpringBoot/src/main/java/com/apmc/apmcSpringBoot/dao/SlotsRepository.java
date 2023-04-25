@@ -10,9 +10,13 @@ import java.util.List;
 
 @Repository
 public interface SlotsRepository extends JpaRepository<Slots, Integer> {
-    @Query(value = "SELECT * FROM Slots s WHERE s.slot_date = ?1", nativeQuery = true)
-    public List<Slots> getAllSlotsByDate(Date date);
 
-    @Query(value = "SELECT * FROM Slots s WHERE s.slot_date = ?1 AND s.item_id = ?2", nativeQuery = true)
+    public List<Slots> findBySlotDate(Date date);
+
+    public Slots findBySlotId(int slotId);
+
+
+//    @Query(value = "SELECT * FROM slots s WHERE s.slot_date = ?1 AND s.item_id = ?2", nativeQuery = true)
+    @Query("SELECT sl FROM Slots sl WHERE sl.slotDate = ?1 AND sl.item.itemId=?2")
     public Slots slotExistForDateAndItem(Date date, int itemId);
 }

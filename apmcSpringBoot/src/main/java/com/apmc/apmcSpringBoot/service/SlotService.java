@@ -10,9 +10,9 @@ import java.util.Optional;
 
 
 public interface SlotService {
-    public List<Slots> getAllSlotsByDate(Date date);
+    public List<Slots> findBySlotDate(Date date);
     public Response addItemSlot(Date date, Slots slot) throws ParseException;
-    public Slots getSlotById(int slotId);
+    public Slots findBySlotId(int slotId);
     public List<Slots> getAllSlots();
     public String deleteSlot(int slotId);
     public Slots slotExistForDateAndItem(Date date, int itemId);

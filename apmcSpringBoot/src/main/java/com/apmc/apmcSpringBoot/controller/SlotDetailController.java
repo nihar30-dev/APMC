@@ -1,5 +1,6 @@
 package com.apmc.apmcSpringBoot.controller;
 
+import com.apmc.apmcSpringBoot.Exception.Response;
 import com.apmc.apmcSpringBoot.Exception.ResponseException;
 import com.apmc.apmcSpringBoot.model.SlotDetail;
 import com.apmc.apmcSpringBoot.service.SlotDetailService;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -20,14 +23,16 @@ public class SlotDetailController {
     private SlotDetailService slotDetailService;
 
     @GetMapping("")
-    public ResponseEntity<List<SlotDetail>> getAllSlotDetail(){
-        return ResponseEntity.ok(slotDetailService.getAllSlotDetail());
+    public List<SlotDetail> getAllSlotDetail(){
+        return slotDetailService.getAllSlotDetail();
     }
 
-    @GetMapping("/{date}")
-    public List<SlotDetail> getSlotDetailByDate(@PathVariable("date") Date date){
+    @GetMapping("/date")
+    public List<SlotDetail> getSlotDetailByDate(@RequestParam String day) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = dateFormat.parse(day);
         List<SlotDetail> slotDetails = slotDetailService.findBySlotDate(date);
-        if(slotDetails == null){
+        if(slotDetails.size()==0){
             throw new ResponseException("Not slot details found for given date");
         }
         return slotDetails;
@@ -44,7 +49,7 @@ public class SlotDetailController {
 
 
     @PostMapping("")
-    public ResponseEntity<?> addSlotDetail(@RequestBody SlotDetail slotDetail){
+    public Response addSlotDetail(@RequestBody SlotDetail slotDetail){
         return slotDetailService.addSlotDetail(slotDetail);
     }
 

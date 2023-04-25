@@ -4,9 +4,11 @@ import com.apmc.apmcSpringBoot.Exception.ValidatorResponse;
 import com.apmc.apmcSpringBoot.dao.SlotDetailRepository;
 import com.apmc.apmcSpringBoot.dao.validator.SlotDetailValidator;
 import com.apmc.apmcSpringBoot.model.Agent;
-import com.apmc.apmcSpringBoot.model.Slot;
 import com.apmc.apmcSpringBoot.model.SlotDetail;
+import com.apmc.apmcSpringBoot.model.Slots;
 import com.apmc.apmcSpringBoot.model.User;
+
+import java.util.Date;
 
 public class SlotDetailValidatorImpl implements SlotDetailValidator {
 
@@ -40,6 +42,11 @@ public class SlotDetailValidatorImpl implements SlotDetailValidator {
         if (!vr1.isStatus()){
             msg += vr1.getMessage() + ", ";
         }
+
+//        vr1 = checkDate(slotDetail.getSlotDate(), slotDetail);
+//        if(!vr1.isStatus()){
+//            msg += vr1.getMessage() + ", ";
+//        }
 
 
         if(msg == ""){
@@ -90,17 +97,32 @@ public class SlotDetailValidatorImpl implements SlotDetailValidator {
     }
 
     @Override
-    public ValidatorResponse checkSlotId(Slot slot) {
+    public ValidatorResponse checkSlotId(Slots slot) {
         if(slot == null){
             return new ValidatorResponse(false, "User ");
         }
         try{
-            Long a = slot.getId();
+            int a = slot.getSlotId();
             if(a == 0){
                 return new ValidatorResponse(false, "User Id ");
             }
         }catch (Exception e){
             return new ValidatorResponse(false, "User Id ");
+        }
+        return new ValidatorResponse(true, "Ok");
+    }
+
+    public ValidatorResponse checkDate(Date date, SlotDetail slotDetail){
+        if(date==null){
+            return new ValidatorResponse(false, "Slot Date ");
+        }
+
+        try{
+            Date d = slotDetail.getSlot().getSlotDate();
+            if(d!=date) return new ValidatorResponse(false, "Valid slot date ");
+
+        }catch (Exception e){
+            return new ValidatorResponse(false, "Date is ");
         }
         return new ValidatorResponse(true, "Ok");
     }

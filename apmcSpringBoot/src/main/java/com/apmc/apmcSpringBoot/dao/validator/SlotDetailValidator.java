@@ -12,5 +12,5 @@ public interface SlotDetailValidator {
 
     public ValidatorResponse checkAgentId(Agent agent);
 
-    public ValidatorResponse checkSlotId(Slot slot);
+    public ValidatorResponse checkSlotId(Slots slot);
 }

@@ -4,6 +4,7 @@ import com.apmc.apmcSpringBoot.Exception.ValidatorException;
 import com.apmc.apmcSpringBoot.Exception.ValidatorResponse;
 import com.apmc.apmcSpringBoot.dao.UserDetailsRepository;
 import com.apmc.apmcSpringBoot.dao.validator.validatorImpl.UserDetailValidatorImpl;
+import com.apmc.apmcSpringBoot.model.Item;
 import com.apmc.apmcSpringBoot.model.UserDetail;
 import com.apmc.apmcSpringBoot.service.UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,12 +54,22 @@ public class UserDetailServiceImpl implements UserDetailService {
 
     @Override
     public String deleteUserDetail(int userDetailId) {
+
+        UserDetail userDetail = userDetailsRepository.findById(userDetailId).orElse(null);
+        if(userDetail == null){
+            return "User detail doesn't exists";
+        }
         userDetailsRepository.delete(userDetailsRepository.findById(userDetailId).get());
         return "deleted";
     }
 
     @Override
     public UserDetail findByFullName(String fullName) {
-        return userDetailsRepository.findByFullName(fullName);
+        UserDetail userDetail = userDetailsRepository.findByFullName(fullName);
+        if(userDetail == null) {
+            System.out.println("User Details Doesn't Exist");
+        }
+        return userDetail;
     }
+
 }

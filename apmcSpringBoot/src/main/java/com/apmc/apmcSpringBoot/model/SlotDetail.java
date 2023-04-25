@@ -1,6 +1,7 @@
 package com.apmc.apmcSpringBoot.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -15,22 +16,22 @@ public class SlotDetail {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    @JsonIgnore
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "password", "contact", "userDetail", "shops", "roles", "agent"})
     private User user;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "agent_id")
-    @JsonIgnore
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "user", "contact", "shop"})
     private Agent agent;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "slot_id")
-    @JsonIgnore
-    private Slot slot;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Slots slot;
 
     @Column(name = "quantity")
     private int quantity;
-
+    @Temporal(TemporalType.DATE)
     @Column(name = "slot_date")
     private Date slotDate;
 
@@ -78,15 +79,15 @@ public class SlotDetail {
         this.slotDate = slotDate;
     }
 
-    public Slot getSlot() {
+    public Slots getSlot() {
         return slot;
     }
 
-    public void setSlot(Slot slot) {
+    public void setSlot(Slots slot) {
         this.slot = slot;
     }
 
-    public SlotDetail(User user, Agent agent, Slot slot, int quantity, Date slotDate) {
+    public SlotDetail(User user, Agent agent, Slots slot, int quantity, Date slotDate) {
         this.user = user;
         this.agent = agent;
         this.slot = slot;

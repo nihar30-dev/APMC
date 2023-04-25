@@ -16,7 +16,7 @@ public class Slots {
     private int slotId;
     @ManyToOne
     @JoinColumn(name = "item_id")
-    @JsonIgnoreProperties("slots")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler","itemType"})
     private Item item;
     @Column(name = "total_quantity")
     private int totalQuantity;
