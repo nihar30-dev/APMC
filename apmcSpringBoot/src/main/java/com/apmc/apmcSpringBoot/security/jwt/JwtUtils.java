@@ -19,19 +19,21 @@ public class JwtUtils {
     @Value("${app.jwtSecret}")
     private String jwtSecret;
 
-//    @Value("#{new Integer('Integer.parse(${app.jwtExpirationMs})')}")
+
     @Value("${app.jwtExpirationMs}")
     private String jwtExpirationMs;
 
     // This is used for generating JwtTokem.
     public String generateJwtToken(Authentication authentication) {
 
+
+
         MyUserDetails userPrincipal = (MyUserDetails) authentication.getPrincipal();
 
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
                 .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + Integer.valueOf(jwtExpirationMs)))
+                .setExpiration(new Date((new Date()).getTime() + Integer.parseInt(jwtExpirationMs)))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }

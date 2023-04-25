@@ -11,9 +11,6 @@ import org.springframework.lang.NonNull;
 
 @Entity
 @Table(name="agent")
-//@JsonIdentityInfo(
-//        generator = ObjectIdGenerators.PropertyGenerator.class,
-//        property = "agentId")
 public class Agent {
 
     @Id
