@@ -1,7 +1,8 @@
 package com.apmc.apmcSpringBoot.security.config;
 
-import com.apmc.apmcSpringBoot.security.dao.UserRepository;
-import com.apmc.apmcSpringBoot.security.model.User;
+import com.apmc.apmcSpringBoot.dao.UserRepository;
+import com.apmc.apmcSpringBoot.model.User;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,6 +17,7 @@ public class CustomUserDetailService implements UserDetailsService {
     @Autowired
     private  UserRepository userRepository;
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         try{
