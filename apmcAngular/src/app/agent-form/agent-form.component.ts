@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import {  FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalService } from '../services/modal.service';
 import { ShopService } from '../services/shop.service';
-import { SignupComponent } from '../authorisation/signup/signup.component';
 import { AuthService } from '../authorisation/service/auth.service';
-import { filter } from 'rxjs';
 import { AgentService } from '../services/agent.service';
 import { Shop } from '../models/shop.model';
 import { Agent } from '../models/agent.model';
@@ -63,11 +61,11 @@ export class AgentFormComponent {
         // window.location.reload();
         this.agentForm.reset();
        
-      })
-      .catch((error)=>{
-        console.log(error);
-        alert(error.error['message']);
-      })
+        })
+        .catch((error)=>{
+          console.log(error);
+          alert(error.error['message']);
+        });
     }
     this.getShopId();
   }
@@ -83,8 +81,8 @@ export class AgentFormComponent {
         data => {
           this.agentId = data;
           res(data);
-          console.log("added");
-          alert("registered");
+          console.log('added');
+          alert('registered');
 
         }, error => {
           console.log(error);
@@ -110,12 +108,12 @@ export class AgentFormComponent {
 
       this.agentService.createAgent(agent).subscribe(data => {
         res(data);
-        alert("Agent added");
+        alert('Agent added');
       }, (error) => {
         alert(error.error['message']);
         rej(error);
       });
-    })
+    });
     return promise;
   } 
 

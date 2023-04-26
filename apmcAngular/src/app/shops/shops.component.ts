@@ -32,14 +32,14 @@ export class ShopsComponent implements OnInit {
     // form builder
     this.f = this.formBuilder.group({
       shopNumber : ['', [Validators.required, Validators.pattern('[A-Z]-[0-9]{1,3}')]]
-    })
+    });
   }
 
 
   onSubmit(f : FormGroup) {
     if(f.valid){
       this.shopService.createShop(f.value);
-      console.log("form is submitted.")
+      console.log('form is submitted.');
     }
   }
 

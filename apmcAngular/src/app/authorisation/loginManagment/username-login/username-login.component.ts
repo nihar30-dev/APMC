@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { UserInfo } from '../../../services/googleApi/google-api.service';
-import { AuthService } from "../../service/auth.service";
-import { StorageService } from "../../service/storage.service";
-import { NgForm } from '@angular/forms';
-import jwt_decode from 'jwt-decode';
+import { AuthService } from '../../service/auth.service';
+import { StorageService } from '../../service/storage.service';
+import { NgForm } from '@angular/forms'; 
 import {Router } from '@angular/router';
 
 
-declare var google: any;
+declare let google: any;
 
 @Component({
   selector: 'app-username-login',
@@ -21,7 +19,7 @@ export class UsernameLoginComponent implements OnInit {
     username: null,
     password: null
   };
-  userInfo?: UserInfo;
+
 
   // isLoggedInuser = false;
   // isLoginFailed = false;
@@ -31,49 +29,17 @@ export class UsernameLoginComponent implements OnInit {
   constructor(private authService: AuthService,
     private storageService: StorageService , private router:Router) { }
 
-  googleSignIn(){
-    // setTimeout(() => {
-      if (typeof google !== 'undefined') {
-        google.accounts.id.initialize({
-          client_id:
-            '238985952076-ip1l9j07bci4474ajuklhed9nvp3rskc.apps.googleusercontent.com',
-          callback: this.handleCredentialResponse,
-        });
-        google.accounts.id.renderButton(document.getElementById('buttonDiv'), {
-          theme: 'outline',
-          size: 'large',
-        });
-        google.accounts.id.prompt();
-      }
-    // }, 1000);
+    
+  ngOnInit(): void {
+      
   }
 
-    ngOnInit(): void {}
-
-  handleCredentialResponse = (response: any) => {
-    const idToken = response.credential;
-    this.decodedToken = jwt_decode(idToken);
-    localStorage.setItem("decodedToken", this.decodedToken);
-    console.log(this.decodedToken);
-    this.router.navigate(['/home']);
-  };
-
-  // handleCredentialResponse = (response: any) => {
-  //   console.log(response);
-  //   const idToken = response.credential;
-  //   this.decodedToken = jwt_decode(idToken);
-  //   console.log(this.decodedToken);
-  //   this.authService.gAuthenticate(this.decodedToken).subscribe((res: any) => {
-  //     // this.router.navigate(['/home']);
-  //     // localStorage.setItem('token', 'Bearer ' + res.token);
-  //   });
-  // };
 
 
   onSubmit(f: NgForm) {
     const { username, password } = this.form;
-    console.log("this.form: ", this.form);
-    console.log("f ", f);
+    console.log('this.form: ', this.form);
+    console.log('f ', f);
 
     this.authService.login(username, password).subscribe({
       next: data => {

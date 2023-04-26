@@ -1,4 +1,6 @@
-
+*{
+  z-index: 100;
+}
 // form styling
 .container {
     max-width: 800px;
@@ -79,4 +81,3 @@
   .btn-danger:hover {
     background-color: #c82333;
   }
-  
