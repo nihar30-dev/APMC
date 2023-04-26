@@ -9,21 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit{
 
-  // role: string = this.storageService.getUser().roles[0].toLowerCase();
-
   role = 'user';
   
   activePage  = '';
 
-  constructor(private router : Router){
-
-  }
+  constructor(private router : Router){}
 
   ngOnInit(): void {
     this.activePage  = window.location.href.split('/').slice(-1)[0];
-
-    
-     
   }
 
   onClickHome(){
@@ -50,22 +43,22 @@ export class SidebarComponent implements OnInit{
     this.activePage = 'slotBooking';
     this.router.navigate(['adminSlots']);
   }
-  onClickViewSlot(){
-    this.activePage = 'viewSlot';
-    this.router.navigate(['viewSlot']);
-  }
+
   onClickShops(){
     this.activePage = 'shops';
     this.router.navigate(['shops']);
   }
+
   onClickNotice(){
     this.activePage = 'notice';
     this.router.navigate(['notice']);
   }
+
   onClickContact(){
     this.activePage = 'contact';
     this.router.navigate(['contact']);
   }
+
   onClickGallery(){
     this.activePage = 'gallery';
     this.router.navigate(['gallery']);
