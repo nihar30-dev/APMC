@@ -1,0 +1,1 @@
+alter table slot_details drop column slot_date;

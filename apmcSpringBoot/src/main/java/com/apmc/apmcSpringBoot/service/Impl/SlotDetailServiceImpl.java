@@ -81,17 +81,4 @@ public class SlotDetailServiceImpl implements SlotDetailService {
         slotDetailRepository.delete(slotDetailRepository.findById(slotDetailId).get());
         return "deleted";
     }
-
-
-        @Override
-        public List<SlotDetail> findBySlotDate(Date date) {
-            List<SlotDetail> list =  null;
-        try{
-            list = slotDetailRepository.findBySlotDate(date);
-        }
-        catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-        return list;
-    }
 }

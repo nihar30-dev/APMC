@@ -14,6 +14,4 @@ public interface SlotDetailService {
     public Response addSlotDetail(SlotDetail slotDetail);
 
     public String deleteSlotDetail(int slotDetailId);
-
-    public List<SlotDetail> findBySlotDate(Date date);
 }

@@ -21,7 +21,7 @@ public class SlotDetail {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "agent_id")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "user", "contact", "shop"})
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "user", "contact", "shop", "slotDetail"})
     private Agent agent;
 
     @ManyToOne(cascade = CascadeType.MERGE)
@@ -31,9 +31,6 @@ public class SlotDetail {
 
     @Column(name = "quantity")
     private int quantity;
-    @Temporal(TemporalType.DATE)
-    @Column(name = "slot_date")
-    private Date slotDate;
 
     public SlotDetail() {
     }
@@ -71,13 +68,6 @@ public class SlotDetail {
         this.quantity = quantity;
     }
 
-    public Date getSlotDate() {
-        return slotDate;
-    }
-
-    public void setSlotDate(Date slotDate) {
-        this.slotDate = slotDate;
-    }
 
     public Slots getSlot() {
         return slot;
@@ -87,11 +77,11 @@ public class SlotDetail {
         this.slot = slot;
     }
 
-    public SlotDetail(User user, Agent agent, Slots slot, int quantity, Date slotDate) {
+    public SlotDetail(User user, Agent agent, Slots slot, int quantity) {
         this.user = user;
         this.agent = agent;
         this.slot = slot;
         this.quantity = quantity;
-        this.slotDate = slotDate;
+
     }
 }

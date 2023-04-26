@@ -8,7 +8,5 @@ import java.util.Date;
 import java.util.List;
 
 public interface SlotDetailRepository extends JpaRepository<SlotDetail, Integer> {
-    public List<SlotDetail> findBySlotDate(Date date);
-
 
 }

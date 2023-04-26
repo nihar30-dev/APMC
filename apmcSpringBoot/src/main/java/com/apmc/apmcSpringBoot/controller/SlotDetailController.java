@@ -27,16 +27,6 @@ public class SlotDetailController {
         return slotDetailService.getAllSlotDetail();
     }
 
-    @GetMapping("/date")
-    public List<SlotDetail> getSlotDetailByDate(@RequestParam String day) throws ParseException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = dateFormat.parse(day);
-        List<SlotDetail> slotDetails = slotDetailService.findBySlotDate(date);
-        if(slotDetails.size()==0){
-            throw new ResponseException("Not slot details found for given date");
-        }
-        return slotDetails;
-    }
 
     @GetMapping("/{slotDetailId}")
     public SlotDetail getSlotDetailById(@PathVariable("slotDetailId") int slotDetailId){
