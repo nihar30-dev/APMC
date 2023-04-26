@@ -8,27 +8,25 @@ import { StorageService } from '../authorisation/service/storage.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  isLoggedIn: boolean = false;
+  isLoggedIn = false;
   
   constructor(private authService:AuthService,private storageService:StorageService){
-   console.log(this.isLoggedIn);
-   }
+  }
 
-   ngOnInit(): void {
+  ngOnInit(): void {
     
     this.storageService.isLoggedIn$.subscribe((data) => {
       this.isLoggedIn = data;
-      console.log("isnide header component:",data);
     });
 
     this.isLoggedIn = this.storageService.isLoggedIn();
     
    
-   }
+  }
 
-   logout(){
+  logout(){
     this.storageService.clean();
-   }
+  }
 
   //  hello(){
   //   console.log(this.isLoggedIn);
@@ -36,5 +34,4 @@ export class HeaderComponent implements OnInit {
   //     this.isLoggedIn = data;
   //     console.log("isnide header component:",data);
   //   });  
-   }
-   
+}

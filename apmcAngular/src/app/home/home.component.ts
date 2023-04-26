@@ -18,33 +18,29 @@ export class HomeComponent implements OnInit{
 
   dailyRate : any;
 
-ngOnInit(): void {
+  ngOnInit(): void {
 
 
-  const myCarousel = document.querySelector('#myCarousel');
-  if (myCarousel) {
-    const carousel = new bootstrap.Carousel(myCarousel, {
-      interval: 2000,
-      wrap: true
-    });
+    const myCarousel = document.querySelector('#myCarousel');
+    if (myCarousel) {
+      const carousel = new bootstrap.Carousel(myCarousel, {
+        interval: 2000,
+        wrap: true
+      });
+    }
+
+    this.getPrices();
+  
   }
 
-  this.getPrices();
-  
-}
-
   getPrices(){
-  this.dailyRates.getDailyRatesBy().subscribe((data) => {
-    this.dailyRate = data;
-    console.log("-------------------------------------------");
-    console.log(data);
-    console.log(this.dailyRate);
-    console.log(this.dailyRate[0].minPrice);
-    
-    console.log("-------------------------------------------");
+
+    this.dailyRates.getDailyRatesBy('2023-04-24').subscribe((data) => {
+      this.dailyRate = data;
+
     
     
-  });
-}
+    });
+  }
 
 }

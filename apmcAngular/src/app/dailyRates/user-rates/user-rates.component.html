@@ -2,7 +2,7 @@
     <div class="dateContainer mt-5">
         <div class="input-group" (click)="dp.toggle()" >
             <input type="text" class="form-control" placeholder="yyyy-mm-dd" [(ngModel)]="date" ngbDatepicker
-                #dp="ngbDatepicker" (dateSelect)="onDateSelect(dp)"[maxDate]="maxDate" [autoClose]="true"/>
+                #dp="ngbDatepicker" (dateSelect)="onDateSelect(dp)" [maxDate]="maxDate" [autoClose]="true"/>
             <div class="input-group-append">
                 <button class="btn btn-outline-secondary" type="button">
                     <i class="bi bi-calendar"></i>

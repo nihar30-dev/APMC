@@ -1,35 +1,34 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 // import { Shop } from "../models/agent.model";
-import { of } from "rxjs";
-import { HttpClient } from "@angular/common/http";
-import { Agent } from "../models/agent.model";
-import { Shop } from "../models/shop.model";
+import { HttpClient } from '@angular/common/http';
+import { Agent } from '../models/agent.model';
+import { Shop } from '../models/shop.model';
+import {environment} from '../../../environment';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class ShopService {
 
-    constructor(private http: HttpClient){
-    }
+  constructor(private http: HttpClient){
+  }
 
-    private shops : any;
-    // private shop : any;
 
-    createShop(shop: any) {
-        // this.shops.push(shop);
-        return this.http.post('http://localhost:8099/shop', shop);
-    }
 
-    getAllShopNo(){
-        return this.http.get<Shop[]>('http://localhost:8099/shop');
-    }
 
-    getAllShops() {
-        return this.http.get<Agent[]>('http://localhost:8099/agent');
-    }
+  createShop(shop: Shop) {
+    return this.http.post(environment.ApiURL+'shop',shop);
+  }
+
+  getAllShopNo(){
+    return this.http.get<Shop[]>(environment.ApiURL+'shop');
+  }
+
+  getAllShops() {
+    return this.http.get<Agent[]>(environment.ApiURL+'agent');
+  }
     
-    // checkShopExists(shopNumber : string){        
-    //     return of(this.shops.some(shop => shop.getShopNo() === shopNumber));
-    // }
+  // checkShopExists(shopNumber : string){        
+  //     return of(this.shops.some(shop => shop.getShopNo() === shopNumber));
+  // }
 }

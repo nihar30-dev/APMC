@@ -20,9 +20,9 @@ export class ItemFormComponent implements OnInit {
   ngOnInit() {
     this.itemService.getItemTypes().subscribe((data)=>{
       this.ItemTypes = data;
-    }, (error)=>{
-      alert("Error loading itemTypes");
-    })
+    }, ()=>{
+      alert('Error loading itemTypes');
+    });
     this.itemForm = this.fb.group({
       itemTypeId : [null, Validators.required],
       itemName: [null, Validators.required]
@@ -33,10 +33,10 @@ export class ItemFormComponent implements OnInit {
   onSubmit(itemForm: FormGroup){
     if(itemForm.valid){
       
-      let item : Item = new Item(0, itemForm.value['itemName'], new ItemType(itemForm.value['itemTypeId'], ""));  
-      this.itemService.createItem(item).subscribe((data)=>{
-        alert("Item added")
-      })
+      const item : Item = new Item(0, itemForm.value['itemName'], new ItemType(itemForm.value['itemTypeId'], ''));  
+      this.itemService.createItem(item).subscribe(()=>{
+        alert('Item added');
+      });
       itemForm.reset();
       this.modalService.close();
     }

@@ -1,5 +1,5 @@
+import {AuthService} from '../service/auth.service';
 import { Component } from '@angular/core';
-import {AuthService} from "../service/auth.service";
 
 @Component({
   selector: 'app-signup',
@@ -18,15 +18,13 @@ export class SignupComponent {
 
   constructor(private authService: AuthService) { }
 
-  ngOnInit(): void {
-  }
+
 
   onSubmit(): void {
     const { username, password,contact } = this.form;
 
     this.authService.register(username,password,contact).subscribe({
-      next: data => {
-        console.log(data);
+      next: () => {
         this.isSuccessful = true;
         this.isSignUpFailed = false;
       },

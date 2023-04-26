@@ -1,57 +1,57 @@
-import {Injectable, OnInit} from "@angular/core";
-import { BehaviorSubject, Observable, Subject, of } from "rxjs";
+import {Injectable} from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
-const USER_KEY = 'auth-user';
+const UserKey = 'auth-user';
 
 
 @Injectable({
-    providedIn : 'root'
+  providedIn : 'root'
 })
-export class StorageService implements OnInit{
+export class StorageService {
 
-    private isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    public isLoggedIn$: Observable<boolean> = this.isLoggedInSubject.asObservable();
+  private isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public isLoggedIn$: Observable<boolean> = this.isLoggedInSubject.asObservable();
 
-    constructor() {
 
+
+
+
+  constructor() {
+    this.isLoggedInSubject.next(this.isLoggedIn());
+  }
+
+
+
+
+  clean(): void {
+    window.sessionStorage.clear();
+
+  }
+
+  public saveUser(user: any) {
+    window.sessionStorage.removeItem(UserKey);
+    window.sessionStorage.setItem(UserKey, JSON.stringify(user));
+    this.isLoggedInSubject.next(true);
+  }
+
+  public getUser(): any {
+    const user = window.sessionStorage.getItem(UserKey);
+    if (user) {
+      return JSON.parse(user);
     }
 
-    ngOnInit(): void {
-        this.isLoggedInSubject.next(this.isLoggedIn());
+    return {};
+  }
+
+  public isLoggedIn() : boolean{
+    const user = window.sessionStorage.getItem(UserKey);
+
+    if(user){
+      return true;
     }
-
-
-
-
-    clean(): void {
-        window.sessionStorage.clear();
-
+    else{
+      return false;
     }
-
-    public saveUser(user: any) {
-        window.sessionStorage.removeItem(USER_KEY);
-        window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
-        this.isLoggedInSubject.next(true);
-    }
-
-    public getUser(): any {
-        const user = window.sessionStorage.getItem(USER_KEY);
-        if (user) {
-            return JSON.parse(user);
-        }
-
-        return {};
-    }
-
-    public isLoggedIn() : boolean{
-        const user = window.sessionStorage.getItem(USER_KEY);
-       
-        if(user){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
+  }
 
 }

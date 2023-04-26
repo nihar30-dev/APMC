@@ -2,7 +2,7 @@
     background-color: #fff;
     border-radius: 5px;
     padding: 20px;
-    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.2);
+    box-shadow: 0 0 20px 0 rgba(0,0,0,0.2);
     margin: 20px;
   }
   
@@ -33,7 +33,7 @@
   
   .form-control:focus {
     outline: none;
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
   }
   
   .btn {
@@ -50,4 +50,3 @@
   .btn:hover {
     background-color: #3e8e41;
   }
-  

@@ -13,7 +13,7 @@ import { Agent } from '../models/agent.model';
 })
 
 export class ShopsComponent implements OnInit {
-  shops : any;
+  // shops : any;
   agents! : Agent[];
   f!: FormGroup;
 
@@ -39,17 +39,14 @@ export class ShopsComponent implements OnInit {
   onSubmit(f : FormGroup) {
     if(f.valid){
       this.shopService.createShop(f.value);
-      console.log('form is submitted.');
     }
   }
 
   //modal panel render methods 
 
   open(formName : string){
-    const mref = this.modalService.open(formName);
-    // mref.afterClosed().subscribe(()=>{
-        
-    // })
+    return  this.modalService.open(formName);
+
   } 
 }
 

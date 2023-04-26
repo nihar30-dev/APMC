@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { HttpClientModule } from '@angular/common/http';
 import { UsernameLoginComponent } from './loginManagment/username-login/username-login.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule} from '@angular/forms';
 import { SignupComponent } from './signup/signup.component';
 import { Routes } from '@angular/router';
-import { RouterModule} from '@angular/router'
+import { RouterModule} from '@angular/router';
 
 const routes: Routes = [
   {path : 'login', component : UsernameLoginComponent },

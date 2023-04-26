@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { DailyRates } from 'src/app/models/dailyRates.model';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Item } from 'src/app/models/item.model';
 import { ItemType } from 'src/app/models/itemType.model';
 import { ItemService } from 'src/app/services/item.service';
@@ -18,92 +17,82 @@ export class AdminRatesComponent implements OnInit{
   dailyRates! : FormGroup;
   // dailyRateControls: any;
 
-  constructor(private itemService: ItemService, private fb: FormBuilder, public modalService: ModalService){}
+  constructor(private itemService: ItemService,  public modalService: ModalService){}
 
-    ngOnInit() {
-      this.itemService.getItemTypes().subscribe((data)=>{
-        this.itemTypes = data;
-      }, (error)=>{
-        console.log("Error");
-        alert("Error loading ItemTypes");
-      })
-      this.itemService.getAllItemsByTypeId(1).subscribe(data=>{
-        this.itemsList = data;
-        console.log(this.itemsList);
-        
-      })
-      
-      setTimeout(()=>{
-        this.initForm();
-      },2000);
-    }
+  ngOnInit() {
+    this.itemService.getItemTypes().subscribe((data)=>{
+      this.itemTypes = data;
+    }, ()=>{
 
-    initForm(){
+      alert('Error loading ItemTypes');
+    });
+    this.itemService.getAllItemsByTypeId(1).subscribe(data=>{
+      this.itemsList = data;
 
-      this.dailyRates = new FormGroup({
-        dailyRateArray : new FormArray([])
-      });
-      this.itemsList.forEach((item) => {
-        (<FormArray>this.dailyRates.get('dailyRateArray')).push(
-          new FormGroup({
-            itemId : new FormControl(item['itemId']),
-            itemName: new FormControl({
-              value: item['itemName'],
-              disabled: true,
-            }),
-            minPrice: new FormControl(null, [Validators.required, Validators.pattern('[0-9]+')]),
-            maxPrice: new FormControl(null, [Validators.required, Validators.pattern('[0-9]+')]),
-            avgPrice: new FormControl(null, [Validators.required, Validators.pattern('[0-9]+')]),
-            quantity: new FormControl(null, [Validators.required, Validators.pattern('[0-9]+')]),
-            income: new FormControl(null, [Validators.required, Validators.pattern('[0-9]+')])
-          })
-        );
-      });
-    }
 
-    get dailyRateControls () {      
-      return this.dailyRates.get('dailyRateArray') as FormArray;
-    }
+    });
 
-    // createForm() : FormGroup{
-    //   return this.fb.group({
-    //     item:[],  
-    //     minPrice: ['', [Validators.required, Validators.pattern('[0-9]+')]],
-    //     maxPrice: ['', [Validators.required, Validators.pattern('[0-9]+')]],
-    //     avgPrice: ['', [Validators.required, Validators.pattern('[0-9]+')]],
-    //     quantity: ['', [Validators.required, Validators.pattern('[0-9]+')]],
-    //     income: ['', [Validators.required, Validators.pattern('[0-9]+')]],
-    //   });
-    // }
+    setTimeout(()=>{
+      this.initForm();
+    },100);
+  }
 
-    onSubmit(i : number){
+  initForm(){
+
+    this.dailyRates = new FormGroup({
+      dailyRateArray : new FormArray([])
+    });
+    this.itemsList.forEach((item) => {
+      (<FormArray>this.dailyRates.get('dailyRateArray')).push(
+        new FormGroup({
+          itemId : new FormControl(item['itemId']),
+          itemName: new FormControl({
+            value: item['itemName'],
+            disabled: true,
+          }),
+          minPrice: new FormControl(null, [Validators.required, Validators.pattern('[0-9]+')]),
+          maxPrice: new FormControl(null, [Validators.required, Validators.pattern('[0-9]+')]),
+          avgPrice: new FormControl(null, [Validators.required, Validators.pattern('[0-9]+')]),
+          quantity: new FormControl(null, [Validators.required, Validators.pattern('[0-9]+')]),
+          income: new FormControl(null, [Validators.required, Validators.pattern('[0-9]+')])
+        })
+      );
+    });
+  }
+
+  get dailyRateControls () {      
+    return this.dailyRates.get('dailyRateArray') as FormArray;
+  }
+
+
+
+  onSubmit(i : number){
     //   const value = this.forms[i].value;
     //   value.item = this.itemsList[i];
-    //   const form = this.forms[i];   
+    //   const form = this.forms[i];
 
     // if (form.valid) {
     //   const formData = form.value;
     //   this.itemService.submitItem(formData).subscribe(response => {
     //     console.log('Form submitted successfully:');
     //     console.log(this.itemsList[0]);
-    //     console.log(formData); 
+    //     console.log(formData);
     //   });
     // }
 
-    console.log(this.dailyRateControls.controls[i].get('minPrice')); 
-    console.log(this.dailyRateControls.controls[i].get('minPrice')?.touched);
-    console.log(this.dailyRateControls.controls[i].get('minPrice')?.invalid);
-    
+
     return;
-    
-    }
+
+  }
 
   //modal panel render methods 
 
-    open(formName : string){
-      this.modalService.open(formName);
-    }
+  open(formName : string){
+    this.modalService.open(formName);
+  }
 
-    showContainer(a : number){
-    }
+  // showContainer(a : number){
+  // }
+
+
 }

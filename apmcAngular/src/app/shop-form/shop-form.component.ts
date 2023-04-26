@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // import { Shop } from '../models/agent.model';
 import { ModalService } from '../services/modal.service';
 import { ShopService } from '../services/shop.service';
-import { Agent } from '../models/agent.model';
 import { Shop } from '../models/shop.model';
 
 @Component({
@@ -24,19 +23,18 @@ export class ShopFormComponent implements OnInit {
 
     this.f = this.formBuilder.group({
       shopNo : ['', [Validators.required, Validators.pattern('[A-Z]-[0-9]{1,3}')]]
-    })
+    });
   }
 
 
   onSubmit(shopForm : FormGroup) {
     
-    shops: Shop;
+    Shop;
 
     if(shopForm.valid){
       this.shopService.createShop(shopForm.value).subscribe(data=>{
-        alert("shop added");
+        alert('shop added'+data);
       },(error)=>{
-        console.log(error);
         alert(error.error['message']);
       });
       this.modalService.close();

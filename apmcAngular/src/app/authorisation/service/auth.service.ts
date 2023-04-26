@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
+import {environment} from '../../../../environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable, of} from 'rxjs';
 
 @Injectable({
   providedIn:'root'
@@ -8,15 +9,15 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 export class AuthService{
   private isLoggedIn = false;
   constructor(private http: HttpClient) {}
-  private AUTH_API = 'http://localhost:8099/api/auth/';
+  private authApi = environment.ApiURL+'api/auth/';
   private httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({'contentType': 'application/json' })
   };
 
   login(username: string, password: string): Observable<any> {
     this.isLoggedIn = true;
     return this.http.post(
-      this.AUTH_API + 'signin',
+      this.authApi + 'signin',
       {
         username,
         password,
@@ -28,7 +29,7 @@ export class AuthService{
   register(username: string, password: string,contact:string): Observable<any> {
     this.isLoggedIn = true;
     return this.http.post(
-      this.AUTH_API + 'signup',
+      this.authApi + 'signup',
       {
         username,
         password,

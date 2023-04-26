@@ -7,8 +7,8 @@ import { SignupComponent } from './authorisation/signup/signup.component';
 import { ShopsComponent } from './shops/shops.component';
 import { AdminRatesComponent } from './dailyRates/admin-rates/admin-rates.component';
 import { UserRatesComponent } from './dailyRates/user-rates/user-rates.component';
-import { AppComponent } from './app.component';
 import {AdminSlotComponent} from './slot/admin-slot/admin-slot.component';
+import {NoticeComponent} from './notice/notice.component';
 
 
 const routes: Routes = [
@@ -19,7 +19,8 @@ const routes: Routes = [
   {path : 'shops', component: ShopsComponent},
   {path: 'userRates', component: UserRatesComponent },
   {path: 'adminRates', component: AdminRatesComponent },
-  {path: 'adminSlots' , component:AdminSlotComponent}
+  {path: 'adminSlots' , component:AdminSlotComponent},
+  {path:'notice' , component:NoticeComponent}
 ];
 
 

@@ -12,9 +12,7 @@ export class AdminSlotComponent {
   }
 
   open(formName : string){
-    const mref = this.modalService.open(formName);
-    // mref.afterClosed().subscribe(()=>{
+    return this.modalService.open(formName);
 
-    // })
   }
 }

@@ -10,7 +10,7 @@ describe('SlotFormComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ SlotFormComponent ]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(SlotFormComponent);
     component = fixture.componentInstance;

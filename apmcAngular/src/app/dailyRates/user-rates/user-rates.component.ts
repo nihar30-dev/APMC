@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 // import { Item } from 'src/app/models/item.model';
 import { ItemService } from 'src/app/services/item.service';
-import { NgbDateParserFormatter, NgbDateStruct, NgbInputDatepicker, NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbInputDatepicker, NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -9,15 +9,14 @@ import { NgbDateParserFormatter, NgbDateStruct, NgbInputDatepicker, NgbCalendar,
   templateUrl: './user-rates.component.html',
   styleUrls: ['./user-rates.component.scss']
 })
-export class UserRatesComponent implements OnInit{
+export class UserRatesComponent{
 
   items: DailyRates[] = [];
-  item : any;
-  activateSearch: boolean = false;
-  searchQuery: string = '';
+  activateSearch = false;
+  searchQuery = '';
 
   date: NgbDateStruct | null = null;
-  selectedDate: string = '';
+  selectedDate = '';
   maxDate: NgbDate;
 
   constructor( private itemService : ItemService, private calendar : NgbCalendar) {
@@ -25,52 +24,42 @@ export class UserRatesComponent implements OnInit{
   }
 
 
-  ngOnInit(){
-      
-  }
 
   //datepicker methods 
   onDateSelect(dp: NgbInputDatepicker) {
-    console.log(this.date);
     this.selectedDate = `${this.date?.year}/${(this.date?.month+'').padStart(2, '0')}/${(this.date?.day+'').padStart(2, '0')}`;
-    console.log("hi")
     setTimeout(() => {
-        dp.close();
-      }, 100);
+      dp.close();
+    }, 100);
     this.showContainer(1);
   }
 
   // list methods 
   showContainer(typeId: number){
     if (this.selectedDate) {
-      console.log('Selected date:', this.selectedDate);
-        this.itemService.getAllItemsByDate(this.selectedDate, typeId)
-        // .subscribe((data: Item[]) => {
-        // this.items = data;
-        // })
-       this.activateSearch = true;
-    } else {
-      console.log('No date selected');
+
+      // this.itemService.getAllItemsByDate(this.selectedDate, typeId);
+
+      this.activateSearch = true;
     }
   }
-  }
+}
 
 
 
-  import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 import { DailyRates } from 'src/app/models/dailyRates.model';
 
   @Pipe({
     name: 'filter'
   })
-  export class FilterPipe implements PipeTransform {
-    transform(items: DailyRates[], searchQuery: string): any[] {
-      if (!items || !searchQuery) {
-        return items;
-      }
-
-      return items.filter(item => item['item']['itemName'].toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1);
+export class FilterPipe implements PipeTransform {
+  transform(items: DailyRates[], searchQuery: string): any[] {
+    if (!items || !searchQuery) {
+      return items;
     }
-  }
 
-  
+    return items.filter(item => item['item']['itemName'].toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1);
+  }
+}
+
