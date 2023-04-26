@@ -2,7 +2,7 @@ package com.apmc.apmcSpringBoot.security.payload.request;
 
 public class LoginRequest {
 
-    public LoginRequest(String username, String password) {
+    public LoginRequest(String username, String password ) {
         this.username = username;
         this.password = password;
     }

@@ -1,37 +1,55 @@
-import { Component, OnInit } from '@angular/core';
-import { GoogleApiService, UserInfo } from '../../../services/googleApi/google-api.service';
+import { AuthService } from '../../service/auth.service';
+import { Component } from '@angular/core';
+import {Router } from '@angular/router';
+import { StorageService } from '../../service/storage.service';
+import {NgForm} from '@angular/forms';
+
+
+
 
 @Component({
   selector: 'app-username-login',
   templateUrl: './username-login.component.html',
   styleUrls: ['./username-login.component.scss']
 })
-export class UsernameLoginComponent implements OnInit{
+export class UsernameLoginComponent  {
 
-  userInfo? : UserInfo;
-  isLogIn = false;
+  form: any = {
+    username: null,
+    password: null
+  };
 
-  constructor(private readonly googleApi : GoogleApiService){}
 
-  ngOnInit(): void {
-    this.isLogIn = this.isLoggedIn();
-  }
+  // isLoggedInuser = false;
+  // isLoginFailed = false;
+  errorMessage = '';
+  roles: string[] = [];
 
-  signIn(){
- 
-    this.googleApi.signIn();
-    console.log('hello');
-    this.googleApi.userProfileSubject.subscribe( info => {
-      this.userInfo = info;
-    });
-    this.isLogIn = this.isLoggedIn();
-  }
+  constructor(private authService: AuthService,
+    private storageService: StorageService , private router:Router) { }
 
-  isLoggedIn(): boolean{
+    
+
+
+
+  onSubmit(f:NgForm) {
+    const { username, password } = this.form;
+
+
+    this.authService.login(username, password).subscribe({
+      next: data => {
+
+        this.storageService.saveUser(data);
+
+        this.roles = this.storageService.getUser().roles;
+        this.router.navigate(['home']);
   
-    return this.googleApi.isLoggedIn();
+      },
+      error: err => {
+        this.errorMessage = err.error.message;
+      }
+    });
+
   }
-  logout(){
-    this.googleApi.signOut();
-  }
+
 }

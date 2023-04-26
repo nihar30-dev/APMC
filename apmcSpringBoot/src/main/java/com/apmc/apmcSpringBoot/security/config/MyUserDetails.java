@@ -35,6 +35,8 @@ public class MyUserDetails implements UserDetails {
         return new MyUserDetails(user.getId(),user.getUsername(), user.getPassword(), authorities);
     }
 
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;

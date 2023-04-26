@@ -69,21 +69,21 @@
             "style": "kebab-case"
           }
         ],
-        "sort-imports": [
-          "error",
-          {
-            "ignoreCase": false,
-            "ignoreDeclarationSort": false,
-            "ignoreMemberSort": false,
-            "memberSyntaxSortOrder": [
-              "none",
-              "all",
-              "single",
-              "multiple"
-            ],
-            "allowSeparatedGroups": false
-          }
-        ],
+//        "sort-imports": [
+//          "error",
+//          {
+//            "ignoreCase": false,
+//            "ignoreDeclarationSort": false,
+//            "ignoreMemberSort": false,
+//            "memberSyntaxSortOrder": [
+//              "none",
+//              "all",
+//              "single",
+//              "multiple"
+//            ],
+//            "allowSeparatedGroups": false
+//          }
+//        ],
         "indent": [
           "warn",
           2
