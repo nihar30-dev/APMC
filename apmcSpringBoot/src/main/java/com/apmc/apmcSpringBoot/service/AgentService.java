@@ -19,5 +19,5 @@ public interface AgentService  {
 
     Agent editAgent(int agentId, Agent agent);
 
-    Agent getAgentByCompanyName(String companyName);
+    Agent findByCompanyName(String companyName);
 }

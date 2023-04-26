@@ -20,4 +20,10 @@ public class TestController {
     public String userAccess() {
         return "User Content.";
     }
+
+    @GetMapping("/admin")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String adminAccess() {
+        return "Admin Content.";
+    }
 }

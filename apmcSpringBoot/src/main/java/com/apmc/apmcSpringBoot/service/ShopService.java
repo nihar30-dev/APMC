@@ -14,6 +14,8 @@ public interface ShopService {
 
     public Shop getShopById(int shopId);
 
+    public List<Shop> findByOwnerId(Long ownerId);
+
     public Response addShop(Shop shop);
 
     public String deleteShop(int agentId);

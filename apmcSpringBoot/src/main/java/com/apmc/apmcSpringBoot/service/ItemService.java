@@ -14,7 +14,8 @@ public interface ItemService {
 
     public Item getItemById(int itemId);
 
-    public List<Item> getItemByItemType(int itemTypeId);
+    public List<Item> findByItemTypeId(int itemTypeId);
+
 
     public Response addItem(Item item);
 

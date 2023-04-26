@@ -29,6 +29,7 @@ public class JwtUtils {
 
 
         MyUserDetails userPrincipal = (MyUserDetails) authentication.getPrincipal();
+        System.out.println(Integer.valueOf(jwtExpirationMs));
 
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))

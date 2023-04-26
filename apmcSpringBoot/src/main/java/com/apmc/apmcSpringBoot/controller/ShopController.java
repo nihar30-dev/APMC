@@ -26,7 +26,7 @@ public class ShopController {
     }
 
     @GetMapping("/{shopId}")
-    public Shop getshopById(@PathVariable("shopId") int shopId) {
+    public Shop getShopById(@PathVariable("shopId") int shopId) {
         Shop shop = shopService.getShopById(shopId);
         if (shop == null){
             throw new ResponseException("No shops found for this ShopId");
@@ -34,6 +34,11 @@ public class ShopController {
         return shop;
     }
 
+    @GetMapping("/owner/{ownerId}")
+    public List<Shop> getShopById(@PathVariable("ownerId") Long OwnerId){
+        List<Shop> shops = shopService.findByOwnerId(OwnerId);
+        return ResponseEntity.ok(shopService.findByOwnerId(OwnerId)).getBody();
+    }
     @PostMapping("/add")
     public Response addShop(@RequestBody Shop shop) throws ResponseException {
             return shopService.addShop(shop);

@@ -37,10 +37,9 @@ public class ItemServiceImpl implements ItemService {
         return item;
     }
 
-
     @Override
-    public List<Item> getItemByItemType(int itemTypeId){
-        return itemRepository.findItemByItemTypeId(itemTypeId);
+    public List<Item> findByItemTypeId(int itemTypeId){
+        return itemRepository.findByItemTypeItemTypeId(itemTypeId);
     }
 
     @Override
@@ -62,6 +61,10 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public String deleteItem(int itemId) {
+        Item item = itemRepository.findById(itemId).orElse(null);
+        if(item == null){
+            return "Item doesn't exists";
+        }
         itemRepository.deleteById(itemId);
         return "deleted";
     }

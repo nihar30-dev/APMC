@@ -15,13 +15,15 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Component
+
 public class AgentValidatorImpl implements AgentValidator {
 
 
     AgentRepository agentRepository;
 
+
     ShopRepository shopRepository;
+
     public AgentValidatorImpl(AgentRepository agentRepository, ShopRepository shopRepository){
         this.agentRepository = agentRepository;
         this.shopRepository = shopRepository;

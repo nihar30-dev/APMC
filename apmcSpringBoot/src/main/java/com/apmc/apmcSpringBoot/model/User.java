@@ -49,6 +49,13 @@ public class User {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Agent agent;
 
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler","user"})
+    private UserDetail userDetail;
+
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private SlotDetail slotDetail;
     public Set<Role> getRoles() {
         return roles;
     }
@@ -128,5 +135,21 @@ public class User {
 
     public void setAgent(Agent agent) {
         this.agent = agent;
+    }
+
+    public UserDetail getUserDetail() {
+        return userDetail;
+    }
+
+    public void setUserDetail(UserDetail userDetail) {
+        this.userDetail = userDetail;
+    }
+
+    public SlotDetail getSlotDetail() {
+        return slotDetail;
+    }
+
+    public void setSlotDetail(SlotDetail slotDetail) {
+        this.slotDetail = slotDetail;
     }
 }

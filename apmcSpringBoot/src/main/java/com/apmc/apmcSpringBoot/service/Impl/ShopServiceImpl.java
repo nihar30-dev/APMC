@@ -38,6 +38,11 @@ public class ShopServiceImpl implements ShopService {
         return shop;
 
     }
+    @Override
+    @Transactional
+    public List<Shop> findByOwnerId(Long ownerId){
+        return this.shopRepository.findByOwnerId(ownerId);
+    }
 
     @Override
     @Transactional
