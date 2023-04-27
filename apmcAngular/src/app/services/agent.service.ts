@@ -15,7 +15,6 @@ export class AgentService {
 
   createAgent(agent: Agent) {
     // this.shops.push(shop)
-
     return this.http.post(environment.ApiURL+'agent', agent);
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import * as bootstrap from 'bootstrap';
 import { DailyRatesService } from '../services/daily-rates.service';
+import {StorageService} from "../utils/storage.service";
 
 
 
@@ -12,14 +13,18 @@ import { DailyRatesService } from '../services/daily-rates.service';
 })
 export class HomeComponent implements OnInit{
 
-  constructor(private dailyRates : DailyRatesService){
+  constructor(private dailyRates : DailyRatesService,private storageService:StorageService){
 
   }
 
+  role = '';
   dailyRate : any;
 
   ngOnInit(): void {
-
+    this.storageService.role$.subscribe(data => {
+      this.role =data;
+    });
+    this.role = this.storageService.getRole();
 
     const myCarousel = document.querySelector('#myCarousel');
     if (myCarousel) {

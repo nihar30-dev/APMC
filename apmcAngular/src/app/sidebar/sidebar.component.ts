@@ -1,6 +1,7 @@
 
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import {StorageService} from '../utils/storage.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,23 +12,22 @@ export class SidebarComponent implements OnInit{
 
   // role: string = this.storageService.getUser().roles[0].toLowerCase();
 
-  role = 'user';
-  
+ 
+  role = 'default';
   activePage  = '';
 
-  constructor(private router : Router){
-
+  constructor(private router : Router,private storageService:StorageService){
   }
 
   ngOnInit(): void {
     this.activePage  = window.location.href.split('/').slice(-1)[0];
-
-    
-     
+    this.storageService.role$.subscribe(data => {
+      this.role =data;
+    });
+    this.role = this.storageService.getRole();
   }
 
   onClickHome(){
-    
     this.activePage = 'home';
     this.router.navigate(['home']);
   }
@@ -39,7 +39,7 @@ export class SidebarComponent implements OnInit{
 
   onClickDailyRates(){
     this.activePage = 'dailyRates';
-    if (this.role === 'user') {
+    if (this.role === 'ADMIN') {
       this.router.navigate(['adminRates']);
     } else {
       this.router.navigate(['userRates']);

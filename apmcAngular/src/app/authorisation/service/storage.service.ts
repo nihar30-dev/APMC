@@ -1,57 +1,40 @@
 import {Injectable} from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
 
-const UserKey = 'auth-user';
-
-
+const USER_KEY = 'auth-user';
 @Injectable({
   providedIn : 'root'
 })
-export class StorageService {
-
-  private isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  public isLoggedIn$: Observable<boolean> = this.isLoggedInSubject.asObservable();
-
-
-
-
-
+export class StorageService{
   constructor() {
-    this.isLoggedInSubject.next(this.isLoggedIn());
   }
-
-
 
 
   clean(): void {
     window.sessionStorage.clear();
-
   }
 
-  public saveUser(user: any) {
-    window.sessionStorage.removeItem(UserKey);
-    window.sessionStorage.setItem(UserKey, JSON.stringify(user));
-    this.isLoggedInSubject.next(true);
+  public saveUser(user: any): void {
+    window.sessionStorage.removeItem(USER_KEY);
+    window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
   }
 
   public getUser(): any {
-    const user = window.sessionStorage.getItem(UserKey);
+    const user = window.sessionStorage.getItem(USER_KEY);
     if (user) {
+      console.log(user);
       return JSON.parse(user);
     }
 
     return {};
   }
 
-  public isLoggedIn() : boolean{
-    const user = window.sessionStorage.getItem(UserKey);
-
-    if(user){
+  public isLoggedIn(): boolean {
+    const user = window.sessionStorage.getItem(USER_KEY);
+    if (user) {
       return true;
     }
-    else{
-      return false;
-    }
+
+    return false;
   }
 
 }

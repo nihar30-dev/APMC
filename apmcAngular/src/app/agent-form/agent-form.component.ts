@@ -22,6 +22,7 @@ export class AgentFormComponent implements OnInit{
   availableShopNo! : Shop[];
   userName = '';
   password = '';
+  user!:User;
   agentId!: number;
   
   constructor(private fb: FormBuilder, private shopService: ShopService, private modalService: ModalService, private authervice: AuthService, private agentService: AgentService) {
@@ -34,7 +35,7 @@ export class AgentFormComponent implements OnInit{
       shopNo: [null, Validators.required],
       agentName: [null, Validators.required],
       companyName: [null, Validators.required],
-      contact: [null, [Validators.required, Validators.pattern('[0-9]{10}'), Validators.maxLength(10), Validators.minLength(10)]],
+      contact: [null, [Validators.required, Validators.pattern('^[789]{1}[0-9]{9}$')]],
     });
     this.shopService.getAllShopNo().subscribe((data) => {
       this.shopNo = data;
@@ -72,8 +73,8 @@ export class AgentFormComponent implements OnInit{
 
       this.userName = this.agentForm.value.agentName + (String)(Date.now()).slice(-4);
       this.password = this.userName;
-
-      this.authervice.register(this.userName, this.password, agentForm.value.contact).subscribe(
+      const user = new User(0,this.userName,this.password,agentForm.value.contact,['agent']);
+      this.authervice.register(user).subscribe(
         data => {
           this.agentId = data;
           res(data);
@@ -92,15 +93,16 @@ export class AgentFormComponent implements OnInit{
       agentForm.value.userId = this.agentId;
 
       const agent: Agent = new Agent(
-        new User(this.agentId, '', ''),
+        new User(this.agentId, '', '',agentForm.value['contact'],   ['admin']),
         agentForm.value['agentName'],
         agentForm.value['companyName'],
         agentForm.value['contact'],
-        new Shop('', agentForm.value['shopNo'], new Owner(0))
+        new Shop('', agentForm.value['shopNo'], new Owner(0)),
       );
 
       this.agentService.createAgent(agent).subscribe(data => {
         res(data);
+        console.log(agent);
         alert('Agent added');
       }, (error) => {
         alert(error.error['message']);

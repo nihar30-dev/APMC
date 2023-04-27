@@ -35,6 +35,7 @@ export class AdminRatesComponent implements OnInit{
     setTimeout(()=>{
       this.initForm();
     },100);
+
   }
 
   initForm(){

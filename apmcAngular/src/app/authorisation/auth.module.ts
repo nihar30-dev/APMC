@@ -7,6 +7,7 @@ import {FormsModule} from '@angular/forms';
 import { SignupComponent } from './signup/signup.component';
 import { Routes } from '@angular/router';
 import { RouterModule} from '@angular/router';
+import {GoogleSigninButtonModule} from "@abacritt/angularx-social-login";
 
 const routes: Routes = [
   {path : 'login', component : UsernameLoginComponent },
@@ -18,13 +19,14 @@ const routes: Routes = [
     UsernameLoginComponent,
     SignupComponent
   ],
-  imports: [
-    RouterModule.forRoot(routes),
-    CommonModule,
-    HttpClientModule,
-    OAuthModule.forRoot(),
-    FormsModule,
-  ],
+    imports: [
+        RouterModule.forRoot(routes),
+        CommonModule,
+        HttpClientModule,
+        OAuthModule.forRoot(),
+        FormsModule,
+        GoogleSigninButtonModule,
+    ],
   exports:[],
   schemas : [CUSTOM_ELEMENTS_SCHEMA]
 })

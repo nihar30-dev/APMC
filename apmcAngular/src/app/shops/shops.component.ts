@@ -28,6 +28,7 @@ export class ShopsComponent implements OnInit {
       // this.shops = data; 
       
       this.agents = data;
+      console.log(data);
     });
     // form builder
     this.f = this.formBuilder.group({

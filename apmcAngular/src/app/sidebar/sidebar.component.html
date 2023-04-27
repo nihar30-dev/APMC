@@ -3,13 +3,13 @@
     <div class="container">
       <div class="sidebar">
         <ul class="sidebar__nav">
-            <li><a (click)="onClickHome()" [ngClass]="activePage === 'home' ? 'active' : ''">Home </a></li>
+            <li><a (click)="onClickHome()"  [ngClass]="activePage === 'home' ? 'active' : ''">Home </a></li>
             <li><a (click)="onClickAbout()" [ngClass]="activePage === 'about' ? 'active' : ''">About Us </a></li>
             <li><a (click)="onClickDailyRates()" [ngClass]="activePage.includes('Rates') ? 'active' : ''">Daily Rates </a></li>
-            <li><a (click)="onClickSlotBooking()" [ngClass]="activePage === 'slotBooking' ? 'active' : ''">Slot Booking </a></li>
-            <li><a (click)="onClickViewSlot()" [ngClass]="activePage === 'viewSlot' ? 'active' : ''">View Slot </a></li>
-            <li><a (click)="onClickShops()" [ngClass]="activePage === 'shops' ? 'active' : ''">Shops </a></li>
-            <li><a (click)="onClickNotice()" [ngClass]="activePage === 'notice' ? 'active' : ''">Notice </a></li>
+            <li *ngIf="role==='ADMIN'"><a (click)="onClickSlotBooking()" [ngClass]="activePage === 'slotBooking' ? 'active' : ''">Slot Booking </a></li>
+            <li *ngIf="role ==='USER'|| role=== 'AGENT'||role==='ADMIN'"><a (click)="onClickViewSlot()" [ngClass]="activePage === 'viewSlot' ? 'active' : ''">View Slot </a></li>
+            <li *ngIf="role ==='USER'|| role=== 'AGENT'||role==='ADMIN'"><a (click)="onClickShops()" [ngClass]="activePage === 'shops' ? 'active' : ''">Shops </a></li>
+            <li><a (click)="onClickNotice()"  [ngClass]="activePage === 'notice' ? 'active' : ''">Notice </a></li>
             <li><a (click)="onClickContact()" [ngClass]="activePage === 'contact' ? 'active' : ''">Contact </a></li>
             <li><a (click)="onClickGallery()" [ngClass]="activePage === 'gallery' ? 'active' : ''">Gallery </a></li>
         </ul>
