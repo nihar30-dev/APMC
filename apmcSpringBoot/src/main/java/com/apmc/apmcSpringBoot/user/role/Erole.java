@@ -1,4 +1,4 @@
-package com.apmc.apmcSpringBoot.security.model;
+package com.apmc.apmcSpringBoot.user.role;
 
 public enum Erole {
     USER,

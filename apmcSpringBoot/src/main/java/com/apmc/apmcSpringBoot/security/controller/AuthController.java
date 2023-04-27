@@ -1,12 +1,13 @@
 
 package com.apmc.apmcSpringBoot.security.controller;
 
+import com.apmc.apmcSpringBoot.security.config.GoogleAuthentication;
 import com.apmc.apmcSpringBoot.security.config.MyUserDetails;
-import com.apmc.apmcSpringBoot.security.dao.RoleRepository;
-import com.apmc.apmcSpringBoot.security.dao.UserRepository;
+import com.apmc.apmcSpringBoot.user.role.RoleRepository;
+import com.apmc.apmcSpringBoot.user.UserRepository;
 import com.apmc.apmcSpringBoot.security.jwt.JwtUtils;
-import com.apmc.apmcSpringBoot.security.model.Role;
-import com.apmc.apmcSpringBoot.security.model.User;
+import com.apmc.apmcSpringBoot.user.role.Role;
+import com.apmc.apmcSpringBoot.user.User;
 import com.apmc.apmcSpringBoot.security.payload.request.LoginRequest;
 import com.apmc.apmcSpringBoot.security.payload.request.SignupRequest;
 import com.apmc.apmcSpringBoot.security.payload.response.JwtResponse;
@@ -15,12 +16,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
-import com.apmc.apmcSpringBoot.security.model.Erole;
+import com.apmc.apmcSpringBoot.user.role.Erole;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -41,6 +45,9 @@ public class AuthController {
     @Autowired
     RoleRepository roleRepository;
 
+
+
+
     @Autowired
     PasswordEncoder encoder;
 
@@ -50,21 +57,31 @@ public class AuthController {
     // Login authentication
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser( @RequestBody LoginRequest loginRequest) {
+        return loginUtil(loginRequest);
+    }
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateJwtToken(authentication);
+    @PostMapping("/google")
+    public ResponseEntity<?> googleSignup(@RequestParam String idToken) throws GeneralSecurityException, IOException {
+        GoogleAuthentication googleAuthentication = new GoogleAuthentication();
+        String email = googleAuthentication.isVerified(idToken);
+        if(email!=null){
+            String username = "#google$"+email;
+            boolean userExists = userRepository.existsByUsername(username);
+            if(userExists){
+                User user = userRepository.getUserByUsername(username).get();
+                LoginRequest loginRequest = new LoginRequest(username,username);
+                return authenticateUser(loginRequest);
+            }
+            else{
 
-        MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok(new JwtResponse(jwt ,  userDetails.getId(),
-                userDetails.getUsername(),
-                roles));
+                SignupRequest signupRequest = new SignupRequest(username,username,"9999999999");
+                if(signupUtil(signupRequest) != null){
+                    return authenticateUser(new LoginRequest(signupRequest.getUsername(), signupRequest.getPassword()));
+                }
+            }
+        }
+        return  ResponseEntity.ok(email);
     }
 
 
@@ -75,6 +92,43 @@ public class AuthController {
                     .badRequest()
                     .body(new MessageResponse("Error: Username is already taken!"));
         }
+
+
+
+        return signupUtil(signUpRequest);
+
+
+    }
+
+
+
+
+    @GetMapping("/normal")
+    public ResponseEntity<String> normalUser() {
+        return ResponseEntity.ok("This is normal user");
+    }
+
+
+    //util method for both username-pasword and google login
+    public ResponseEntity<?> loginUtil(LoginRequest loginRequest){
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtUtils.generateJwtToken(authentication);
+
+
+        MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
+        List<String> roles = userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(new JwtResponse(jwt ,  userDetails.getId(),
+                userDetails.getUsername(),
+                roles));
+    }
+
+    public ResponseEntity<?> signupUtil(SignupRequest signUpRequest){
 
 
         // Create new user's account
@@ -119,15 +173,7 @@ public class AuthController {
         user.setRoles(roles);
         userRepository.save(user);
 
-        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
-    }
-
-
-
-
-    @GetMapping("/normal")
-    public ResponseEntity<String> normalUser() {
-        return ResponseEntity.ok("This is normal user");
+        return ResponseEntity.ok(user.getId());
     }
 
 

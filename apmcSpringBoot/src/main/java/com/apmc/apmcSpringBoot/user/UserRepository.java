@@ -1,6 +1,5 @@
-package com.apmc.apmcSpringBoot.security.dao;
+package com.apmc.apmcSpringBoot.user;
 
-import com.apmc.apmcSpringBoot.security.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

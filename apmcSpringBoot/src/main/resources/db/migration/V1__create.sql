@@ -4,6 +4,7 @@ CREATE TABLE `users` (
                          username VARCHAR(45) NOT NULL,
                          password VARCHAR(64) NOT NULL,
                          contact VARCHAR(10) NOT NULL ,
+                         token VARCHAR(1024) ,
                          PRIMARY KEY (`user_id`)
 
 );
@@ -25,7 +26,9 @@ CREATE TABLE users_roles (
 
 CREATE TABLE shops (
                        shop_id INT PRIMARY KEY AUTO_INCREMENT,
-                       shop_no VARCHAR(5) NOT NULL UNIQUE
+                       shop_no VARCHAR(5) NOT NULL UNIQUE,
+                       user_id INT DEFAULT 0,
+                       FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 CREATE TABLE agent (agent_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT ,
@@ -57,11 +60,11 @@ CREATE TABLE daily_rates (rate_id INT PRIMARY KEY AUTO_INCREMENT,
                           FOREIGN KEY (item_id) REFERENCES items(item_id)
 );
 
-CREATE TABLE slots (slot_id INT NOT NULL UNIQUE ,
+CREATE TABLE slots (slot_id INT PRIMARY KEY AUTO_INCREMENT ,
                     item_id INT NOT NULL ,
-                    quantity INT ,
+                    total_quantity INT ,
+                    booked_quantity INT DEFAULT 0,
                     slot_date DATE,
-                    CONSTRAINT pk_slots PRIMARY KEY (item_id,slot_date),
                     FOREIGN KEY (item_id) REFERENCES items(item_id));
 
 CREATE TABLE slot_details (slot_detail_id INT  PRIMARY KEY AUTO_INCREMENT ,

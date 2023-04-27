@@ -1,6 +1,7 @@
-package com.apmc.apmcSpringBoot.security.model;
+package com.apmc.apmcSpringBoot.user.role;
 
 
+import com.apmc.apmcSpringBoot.user.role.Erole;
 import jakarta.persistence.*;
 
 //Authentication model for ROLES
