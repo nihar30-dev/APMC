@@ -3,11 +3,11 @@ package com.apmc.apmcSpringBoot.security.controller;
 
 import com.apmc.apmcSpringBoot.security.config.GoogleAuthentication;
 import com.apmc.apmcSpringBoot.security.config.MyUserDetails;
-import com.apmc.apmcSpringBoot.dao.RoleRepository;
-import com.apmc.apmcSpringBoot.dao.UserRepository;
+import com.apmc.apmcSpringBoot.user.role.RoleRepository;
+import com.apmc.apmcSpringBoot.user.UserRepository;
 import com.apmc.apmcSpringBoot.security.jwt.JwtUtils;
-import com.apmc.apmcSpringBoot.model.Role;
-import com.apmc.apmcSpringBoot.model.User;
+import com.apmc.apmcSpringBoot.user.role.Role;
+import com.apmc.apmcSpringBoot.user.User;
 import com.apmc.apmcSpringBoot.security.payload.request.LoginRequest;
 import com.apmc.apmcSpringBoot.security.payload.request.SignupRequest;
 import com.apmc.apmcSpringBoot.security.payload.response.JwtResponse;
@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
-import com.apmc.apmcSpringBoot.model.Erole;
+import com.apmc.apmcSpringBoot.user.role.Erole;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -63,7 +62,7 @@ public class AuthController {
 
 
     @PostMapping("/google")
-    public ResponseEntity<?> googleSignup(@RequestHeader String idToken) throws GeneralSecurityException, IOException {
+    public ResponseEntity<?> googleSignup(@RequestParam String idToken) throws GeneralSecurityException, IOException {
         GoogleAuthentication googleAuthentication = new GoogleAuthentication();
         String email = googleAuthentication.isVerified(idToken);
         if(email!=null){
@@ -174,7 +173,7 @@ public class AuthController {
         user.setRoles(roles);
         userRepository.save(user);
 
-        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+        return ResponseEntity.ok(user.getId());
     }
 
 

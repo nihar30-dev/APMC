@@ -1,15 +1,12 @@
 package com.apmc.apmcSpringBoot.security.config;
 
-import com.apmc.apmcSpringBoot.model.Role;
-import com.apmc.apmcSpringBoot.model.User;
+import com.apmc.apmcSpringBoot.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class MyUserDetails implements UserDetails {
