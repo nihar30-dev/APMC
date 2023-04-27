@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Item } from 'src/app/models/item.model';
 import { ItemService } from 'src/app/services/item.service';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { NgbDateStruct, NgbInputDatepicker, NgbCalendar, NgbDate  } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -10,25 +10,38 @@ import { ItemService } from 'src/app/services/item.service';
   styleUrls: ['./slot-form.component.scss']
 })
 export class SlotFormComponent implements OnInit{
-
   myForm !: FormGroup;
-  itemsList!: Item[];
-  
-  constructor(private fb: FormBuilder, private itemService : ItemService) { }
+  maxDate: NgbDate;
+  minDate : NgbDate;
+
+  constructor(private fb: FormBuilder, private itemService : ItemService, private calendar: NgbCalendar) { 
+    this.minDate = this.calendar.getToday();
+    this.maxDate = this.calendar.getNext(this.calendar.getToday(), 'm', 2);
+  }
 
   ngOnInit(): void {
     this.myForm = this.fb.group({
       quantity: ['', Validators.required],
       itemType: ['', Validators.required],
-      item : ['', Validators.required]
+      item: ['', Validators.required],
+      date: ['', Validators.required]
     });
 
   }
   onSubmit(myForm : FormGroup) {
-    console.log(myForm.value);
+    if(myForm.valid){
+      console.log(myForm.value);
+    }
   }
 
   onClick(id : number){
     this.itemService.getAllItemsByTypeId(id);
   }
+
+  onDateSelect(dp: NgbInputDatepicker) {
+     setTimeout(() => {
+      dp.close();
+    }, 100);
+  }
+
 }

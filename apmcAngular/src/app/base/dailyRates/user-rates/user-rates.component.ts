@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-// import { Item } from 'src/app/models/item.model';
 import { ItemService } from 'src/app/services/item.service';
 import { NgbDateStruct, NgbInputDatepicker, NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
