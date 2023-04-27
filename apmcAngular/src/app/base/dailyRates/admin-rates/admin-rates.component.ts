@@ -1,9 +1,9 @@
+import { Item } from 'src/app/models/item.model';
+import { ItemService } from 'src/app/services/item.service';
+import { ItemType } from 'src/app/models/itemType.model';
+import { ModalService } from 'src/app/services/modal.service';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Item } from 'src/app/models/item.model';
-import { ItemType } from 'src/app/models/itemType.model';
-import { ItemService } from 'src/app/services/item.service';
-import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
   selector: 'app-admin-rates',

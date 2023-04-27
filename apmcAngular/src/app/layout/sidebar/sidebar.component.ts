@@ -31,8 +31,8 @@ export class SidebarComponent implements OnInit{
   }
 
   onClickAbout(){
-    this.activePage = 'about';
-    this.router.navigate(['about']);
+    this.activePage = 'aboutUs';
+    this.router.navigate(['aboutUs']);
   }
 
   onClickDailyRates(){

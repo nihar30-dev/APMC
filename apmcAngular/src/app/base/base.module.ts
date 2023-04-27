@@ -1,33 +1,36 @@
-import { NgModule } from '@angular/core';
+import { AdminRatesComponent } from './dailyRates/admin-rates/admin-rates.component';
 import { CommonModule } from '@angular/common';
-import { AuthenticationModule } from '../authentication/authentication.module';
-import { RouterModule } from '@angular/router';
-import { HeaderComponent } from './header/header.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { FooterComponent } from './footer/footer.component';
-import { FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
+import { FilterPipe, UserRatesComponent } from './dailyRates/user-rates/user-rates.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgModule } from '@angular/core';
+import { Routes } from '@angular/router';
+import { RouterModule} from '@angular/router';
+import { SharedModule } from '../shared/shared.module';
+import { ShopsComponent } from './shops/shops.component';
 
+const routes : Routes = [
+  { path: 'shops', component: ShopsComponent },
+  { path: 'userRates', component: UserRatesComponent },
+  { path: 'adminRates', component: AdminRatesComponent }
+];
 
 
 @NgModule({
   declarations: [
-    HeaderComponent,
-    SidebarComponent,
-    FooterComponent
+    ShopsComponent,
+    AdminRatesComponent,
+    UserRatesComponent,
+    FilterPipe
   ],
   imports: [
+    
+    RouterModule.forRoot(routes),
     CommonModule,
-    AuthenticationModule,
-    RouterModule,
-    BrowserModule,
-    FormsModule
-  ],
-  exports: [
-    CommonModule,
-    HeaderComponent,
-    SidebarComponent,
-    FooterComponent
+    SharedModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgbModule
   ]
 })
 export class BaseModule { }

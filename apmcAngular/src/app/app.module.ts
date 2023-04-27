@@ -8,15 +8,17 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { SharedModule } from './shared/shared.module';
-import { FarmerModule } from './farmer/farmer.module';
-import { AuctionModule } from './auction/auction.module';
 import { BaseModule } from './base/base.module';
+import { AuctionModule } from './auction/auction.module';
+import { LayoutModule } from './layout/layout.module';
+import { StaticModule } from './static/static.module';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
+    HomeComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -26,9 +28,10 @@ import { BaseModule } from './base/base.module';
     CommonModule,
     AuthenticationModule,
     SharedModule,
-    FarmerModule,
     BaseModule,
-    AuctionModule
+    LayoutModule,
+    AuctionModule,
+    StaticModule
   ],
   bootstrap: [AppComponent],
   providers: [DatePipe],
