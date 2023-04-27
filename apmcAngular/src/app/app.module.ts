@@ -2,23 +2,19 @@
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
-import { FooterComponent } from './footer/footer.component';
-import { HeaderComponent } from './header/header.component';
+import { CommonModule, DatePipe } from '@angular/common';
 import { HomeComponent } from './home/home.component';
-
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SidebarComponent } from './sidebar/sidebar.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationModule } from './authentication/authentication.module';
+import { SharedModule } from './shared/shared.module';
+import { FarmerModule } from './farmer/farmer.module';
+import { AuctionModule } from './auction/auction.module';
+import { BaseModule } from './base/base.module';
 
 
 @NgModule({
   declarations: [
-    HeaderComponent,
-    FooterComponent,
-    SidebarComponent,
     AppComponent,
     HomeComponent,
   ],
@@ -29,10 +25,13 @@ import { AuthenticationModule } from './authentication/authentication.module';
     FormsModule,
     CommonModule,
     AuthenticationModule,
-    NgbModule
+    SharedModule,
+    FarmerModule,
+    BaseModule,
+    AuctionModule
   ],
   bootstrap: [AppComponent],
-  providers: [],
+  providers: [DatePipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

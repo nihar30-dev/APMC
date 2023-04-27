@@ -1,6 +1,6 @@
 
-import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,7 +16,12 @@ export class SidebarComponent implements OnInit{
   constructor(private router : Router){}
 
   ngOnInit(): void {
-    this.activePage  = window.location.href.split('/').slice(-1)[0];
+
+    this.router.events.subscribe(e => {
+      if(e instanceof NavigationEnd ) {
+        this.activePage  = window.location.href.split('/').slice(-1)[0];
+      }
+    });
   }
 
   onClickHome(){
@@ -39,9 +44,9 @@ export class SidebarComponent implements OnInit{
     }
   }
 
-  onClickSlotBooking(){
-    this.activePage = 'slotBooking';
-    this.router.navigate(['adminSlots']);
+  onClickSlot(){
+    this.activePage = 'slot';
+    this.router.navigate(['slot']);
   }
 
   onClickShops(){

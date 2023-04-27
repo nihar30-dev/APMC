@@ -1,14 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ShopsComponent } from './shops/shops.component';
-import { AgentFormComponent } from './shops/agent-form/agent-form.component';
-import { ShopFormComponent } from './shops/shop-form/shop-form.component';
 import { AdminRatesComponent } from './dailyRates/admin-rates/admin-rates.component';
-import { ItemFormComponent } from './dailyRates/admin-rates/item-form/item-form.component';
-import { UserRatesComponent } from './dailyRates/user-rates/user-rates.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FilterPipe, UserRatesComponent } from './dailyRates/user-rates/user-rates.component';
 import { SharedModule } from '../shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { Routes } from '@angular/router';
+import { RouterModule} from '@angular/router';
 
+const routes : Routes = [
+  { path: 'shops', component: ShopsComponent },
+  { path: 'userRates', component: UserRatesComponent },
+  { path: 'adminRates', component: AdminRatesComponent }
+];
 
 
 @NgModule({
@@ -16,14 +21,16 @@ import { SharedModule } from '../shared/shared.module';
     ShopsComponent,
     AdminRatesComponent,
     UserRatesComponent,
-    AgentFormComponent,
-    ShopFormComponent,
-    ItemFormComponent
+    FilterPipe
   ],
   imports: [
+    
+    RouterModule.forRoot(routes),
     CommonModule,
+    SharedModule,
     ReactiveFormsModule,
-    SharedModule
+    FormsModule,
+    NgbModule
   ]
 })
 export class FarmerModule { }

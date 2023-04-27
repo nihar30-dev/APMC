@@ -1,17 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModalComponent } from './modal/modal.component';
-import { AuctionModule } from '../auction/auction.module';
-import { FarmerModule } from '../farmer/farmer.module';
+import { ItemFormComponent } from './item-form/item-form.component';
+import { AgentFormComponent } from './agent-form/agent-form.component';
+import { ShopFormComponent } from './shop-form/shop-form.component';
+import { SlotFormComponent } from './slot-form/slot-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
 @NgModule({
-  declarations: [ModalComponent],
+  declarations: [
+    ModalComponent,
+    ItemFormComponent,
+    AgentFormComponent,
+    ShopFormComponent,
+    SlotFormComponent
+  ],
   imports: [
-    AuctionModule,
-    CommonModule,
-    FarmerModule
-  ]
+    ReactiveFormsModule,
+    CommonModule
+  ],
+  exports : [ModalComponent]
 })
 export class SharedModule { }

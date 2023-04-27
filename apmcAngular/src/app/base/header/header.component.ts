@@ -1,6 +1,6 @@
+import { AuthService } from 'src/app/authentication/service/auth.service';
+import { StorageService } from 'src/app/authentication/service/storage.service';
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../authentication/service/auth.service';
-import { StorageService } from '../authentication/service/storage.service';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +9,7 @@ import { StorageService } from '../authentication/service/storage.service';
 })
 export class HeaderComponent implements OnInit {
   isLoggedIn = false;
-  
+
   constructor(private authService:AuthService,private storageService:StorageService){
   }
 

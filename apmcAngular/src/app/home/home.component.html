@@ -1,13 +1,21 @@
 <div class="marquee">
-
   <marquee>
-
-    <span *ngFor="let rates of dailyRate">{{rates.item.itemName}} <span style="color: red;">{{rates.minPrice}}</span>
-      &nbsp;<span style="color: green;">{{rates.maxPrice}}</span> &nbsp;</span>
-
+    <div class="d-block">
+      <span *ngFor="let rates of DRCommodities">{{rates['item']['itemName']}} <span
+          style="color: red;">{{rates['minPrice']}}</span>
+        &nbsp;<span style="color: green;">{{rates['maxPrice']}}</span> &nbsp;</span>
+    </div>
+    <div class="d-block">
+      <span *ngFor="let rates of DRFruits">{{rates['item']['itemName']}} <span
+          style="color: red;">{{rates['minPrice']}}</span>
+        &nbsp;<span style="color: green;">{{rates['maxPrice']}}</span> &nbsp;</span>
+    </div>
+    <div class="d-block">
+      <span *ngFor="let rates of DRVegetables">{{rates['item']['itemName']}} <span
+          style="color: red;">{{rates['minPrice']}}</span>
+        &nbsp;<span style="color: green;">{{rates['maxPrice']}}</span> &nbsp;</span>
+    </div>
   </marquee>
-
-</div>
 
 <div class="container">
   <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
