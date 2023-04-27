@@ -10,32 +10,22 @@ import {User} from '../../models/user.model';
 export class SignupComponent {
   form: any = {
     username: null,
-<<<<<<< Updated upstream
-    password:null,
-    contact:null
-=======
-    email: null
-
->>>>>>> Stashed changes
+    password: null,
+    contact: null
   };
+      
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
 
   constructor(private authService: AuthService) { }
-<<<<<<< Updated upstream
+
 
 
 
   onSubmit(): void {
     const { username, password,contact } = this.form;
     const user:User = {...this.form};
-
-
-=======
-  onSubmit(): void {
-    const { username, password} = this.form;
->>>>>>> Stashed changes
 
     this.authService.register(user).subscribe({
       next: () => {
