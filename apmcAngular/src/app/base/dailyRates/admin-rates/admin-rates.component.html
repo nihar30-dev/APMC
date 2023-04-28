@@ -8,9 +8,9 @@
   <div *ngIf="!modalService.showModal">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <div class="row w-100" *ngFor="let itemType of itemTypes">
+        <div class="row w-100" *ngFor="let itemType of itemTypes;">
           <div class="col-md-4 text-center">
-            <a class="navbar-brand nav-link" style="cursor: pointer">{{ itemType['itemTypeName']}}</a>
+            <a class="navbar-brand nav-link" style="cursor: pointer" [ngClass]="" (click)="showContainer(itemType['itemTypeId'])">{{ itemType['itemTypeName']}}</a>
           </div>
         </div>
       </div>
@@ -29,14 +29,14 @@
             <div class="col col-sm-2 col-md-2 col-lg-2 text-center title">
               <h6>Max Price</h6>
             </div>
-            <div class="col col-sm-2 col-md-2 col-lg-2 text-center title">
+            <!-- <div class="col col-sm-2 col-md-2 col-lg-2 text-center title">
               <h6>Average Price</h6>
-            </div>
+            </div> -->
             <div class="col col-sm-2 col-md-2 col-lg-2 text-center title">
               <h6>Quantity</h6>
             </div>
             <div class="col col-sm-2 col-md-2 col-lg-2 text-center title">
-              <h6>Income</h6>
+              <h6>Quantity(Quintal)</h6>
             </div>
             <div class="col col-sm-1 col-md -1 col-lg-1 text-center title">
               <h6>Save</h6>
@@ -77,29 +77,31 @@
                           Max Price is required & should be a number.
                         </div>
                       </div>
-
+<!-- 
                       <div class="col col-sm-2 col-md-2 col-lg-2" >
                         <input type="text" class="form-control" formControlName="avgPrice"
                           placeholder="Average Price" />
                         <div class="alert alert-danger" *ngIf="item.get('avgPrice')?.touched && item.get('avgPrice')?.invalid">
                           Avg Price is required & should be a number.
                         </div>
-                      </div>
+                      </div> -->
 
-                      <div class="col col-sm-2 col-md-2 col-lg-2">
+                      
+                      <div class="col col-sm-2 col-md-2 col-lg-2" >
                         <input type="text" class="form-control" formControlName="quantity"
-                          placeholder="Quantity Sold" />
+                        placeholder="Quantity Sold" />
                         <div class="alert alert-danger" *ngIf="item.get('quantity')?.touched && item.get('quantity')?.invalid">
                           Quantity Sold is required & should be a number.
                         </div>
                       </div>
-
+                      
                       <div class="col col-sm-2 col-md-2 col-lg-2">
                         <input type="text" class="form-control" formControlName="income" placeholder="Income" />
                         <div class="alert alert-danger" *ngIf="item.get('income')?.touched && item.get('income')?.invalid">
                           Income is required & should be a number.
                         </div>
                       </div>
+
                       <div class="col col-sm-1 col-md -1 col-lg-1">
                       <button type="submit" class="form-control tick" [disabled]="!item.valid"
                         (click)="onSubmit(i)">

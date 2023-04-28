@@ -33,7 +33,7 @@ export class ItemFormComponent implements OnInit {
   onSubmit(itemForm: FormGroup){
     if(itemForm.valid){
       
-      const item : Item = new Item(0, itemForm.value['itemName'], new ItemType(itemForm.value['itemTypeId'], ''));  
+      const item : Item = new Item(0, itemForm.value['itemName'], new ItemType(itemForm.value['itemTypeId'], ''), []);  
       this.itemService.createItem(item).subscribe(()=>{
         alert('Item added');
       });

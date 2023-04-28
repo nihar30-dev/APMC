@@ -11,7 +11,6 @@ import { ShopService } from 'src/app/services/shop.service';
 })
 
 export class ShopsComponent implements OnInit {
-  // shops : any;
   agents! : Agent[];
   f!: FormGroup;
 

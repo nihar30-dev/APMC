@@ -3,20 +3,20 @@ import * as bootstrap from 'bootstrap';
 import { DailyRatesService } from '../services/daily-rates.service';
 import { DailyRates } from '../models/dailyRates.model';
 import { DatePipe } from '@angular/common';
+import { DateFormatter } from '../utils/dateFormatter';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
-  constructor(private dailyRates: DailyRatesService, public datepipe: DatePipe) {
+export class HomeComponent implements OnInit{
+  constructor(private dailyRates : DailyRatesService, public datepipe: DatePipe,private dateformatter: DateFormatter){
   }
   // dailyRate : any;
-  AlldailyRate!: DailyRates[];
-  DRCommodities: DailyRates[] = [];
-  DRFruits: DailyRates[] = [];
-  DRVegetables: DailyRates[] = [];
-
+  AlldailyRate! : DailyRates[];
+  DRCommodities : DailyRates[] = [];
+  DRFruits : DailyRates[] = [];
+  DRVegetables : DailyRates[] = [];
   ngOnInit(): void {
     const myCarousel = document.querySelector('#myCarousel');
     if (myCarousel) {
@@ -26,35 +26,38 @@ export class HomeComponent implements OnInit {
       });
     }
     this.getPrices()
-      .then(() => { this.drFilter(); });
+    .then(()=>{this.drFilter();})
+    .catch((error)=>{ alert("Error loading rates") })
   }
-  getPrices() {
-    const prmoise = new Promise((res, rej) => {
-      const date = new Date('2023-04-24');
-      const day: string = '' + this.datepipe.transform(date, 'yyyy-MM-dd');
-      this.dailyRates.getDailyRatesBy(day).subscribe((data) => {
+  getPrices(){
+    const prmoise = new Promise((res,rej)=>{
+
+      let date = new Date();
+      date.setDate(date.getDate() - 1);
+      let day:string = this.dateformatter.dateinyyyymmdd(date);
+
+      this.dailyRates.getDailyRatesByDate(day).subscribe((data) => {
         this.AlldailyRate = data;
-        if (this.AlldailyRate == null) {
-          alert('No data for this day');
-          return;
-        }
+          if(this.AlldailyRate==null){
+            alert("No data for this day");
+            return;
+          }
         res(this.AlldailyRate);
-      }, error => {
+      }, error=>{
         rej(error);
       });
-    });
+    })
     return prmoise;
   }
-  drFilter() {
-
-    this.AlldailyRate.forEach((dr) => {
-      if (dr['item']['itemType']['itemTypeId'] == 1) {
-        this.DRCommodities.push(dr);
-      } else if (dr['item']['itemType']['itemTypeId'] == 2) {
-        this.DRVegetables.push(dr);
-      } else if (dr['item']['itemType']['itemTypeId'] == 3) {
-        this.DRFruits.push(dr);
-      }
-    });
+  drFilter(){
+      this.AlldailyRate.forEach((dr)=>{
+          if(dr['item']['itemType']['itemTypeId']==1){
+            this.DRCommodities.push(dr);
+          }else if(dr['item']['itemType']['itemTypeId']==2){
+            this.DRVegetables.push(dr);
+          }else if(dr['item']['itemType']['itemTypeId']==3){
+            this.DRFruits.push(dr);
+          }
+      })
   }
 }
