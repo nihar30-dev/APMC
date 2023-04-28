@@ -3,6 +3,7 @@ import { ModalService } from 'src/app/services/modal.service';
 import { ShopService } from 'src/app/services/shop.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-shop-form',
@@ -15,7 +16,7 @@ export class ShopFormComponent implements OnInit {
   f!: FormGroup;
 
   constructor(
-    private formBuilder: FormBuilder, private modalService:ModalService, private shopService : ShopService){}
+    private formBuilder: FormBuilder, private modalService:ModalService, private shopService : ShopService, private tosterService: ToastrService){}
 
   ngOnInit(): void {
 
@@ -31,9 +32,9 @@ export class ShopFormComponent implements OnInit {
 
     if(shopForm.valid){
       this.shopService.createShop(shopForm.value).subscribe(data=>{
-        alert('shop added'+data);
+        this.tosterService.success("Shop addedd successfully");
       },(error)=>{
-        alert(error.error['message']);
+        this.tosterService.error(error.error['message']);
       });
       this.modalService.close();
     }

@@ -4,6 +4,7 @@ import com.apmc.apmcSpringBoot.Exception.Response;
 import com.apmc.apmcSpringBoot.Exception.ValidatorException;
 import com.apmc.apmcSpringBoot.Exception.ValidatorResponse;
 import com.apmc.apmcSpringBoot.item.validation.ItemValidatorImpl;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +17,13 @@ public class ItemServiceImpl implements ItemService {
     private ItemRepository itemRepository;
 
     @Override
+    @Transactional
     public List<Item> getAllItems(){
         return itemRepository.findAll();
     }
 
     @Override
+    @Transactional
     public Item getItemById(int itemId){
         Item item = null;
         try{
@@ -32,6 +35,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    @Transactional
     public List<Item> findByItemTypeId(int itemTypeId){
         return itemRepository.findByItemTypeItemTypeId(itemTypeId);
     }
@@ -49,11 +53,12 @@ public class ItemServiceImpl implements ItemService {
             return new Response(200, "Ok", System.currentTimeMillis(), true);
         }catch (Exception e){
             System.out.println(e.getMessage());
-            return null;
+            return new Response(400,e.getMessage(),System.currentTimeMillis(), false);
         }
     }
 
     @Override
+    @Transactional
     public String deleteItem(int itemId) {
         Item item = itemRepository.findById(itemId).orElse(null);
         if(item == null){

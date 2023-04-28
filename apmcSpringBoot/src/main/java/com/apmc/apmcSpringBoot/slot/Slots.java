@@ -1,10 +1,14 @@
 package com.apmc.apmcSpringBoot.slot;
 
 import com.apmc.apmcSpringBoot.item.Item;
+import com.apmc.apmcSpringBoot.notice.Notice;
+import com.apmc.apmcSpringBoot.slotDetail.SlotDetail;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "slots")
@@ -26,8 +30,14 @@ public class Slots {
     @Column(name = "slot_date")
     private Date slotDate;
 
-//    @OneToMany( mappedBy = "slot", cascade = CascadeType.REMOVE)
-//    private List<SlotDetails> slotDetails;
+    @OneToMany( mappedBy = "slot", cascade = CascadeType.REMOVE)
+    @JsonIgnore
+    private List<Notice> notices;
+
+
+    @OneToMany( mappedBy = "slot", cascade = CascadeType.REMOVE)
+    @JsonIgnore
+    private List<SlotDetail> slotDetails;
     public Slots(){}
 
     public Slots(int slotId, Item item, int totalQuantity, int bookedQuantity, Date slotDate){

@@ -9,6 +9,7 @@ import { ModalService } from 'src/app/services/modal.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ShopService } from 'src/app/services/shop.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-agent-form',
@@ -26,7 +27,14 @@ export class AgentFormComponent implements OnInit{
   user!:User;
   agentId!: number;
   
-  constructor(private fb: FormBuilder, private shopService: ShopService, private modalService: ModalService, private authervice: AuthService, private agentService: AgentService) {
+  constructor(
+    private fb: FormBuilder, 
+    private shopService: ShopService, 
+    private modalService: ModalService, 
+    private authervice: AuthService, 
+    private agentService: AgentService,
+    private tosterService: ToastrService
+    ) {
 
   }
 
@@ -62,7 +70,7 @@ export class AgentFormComponent implements OnInit{
        
         })
         .catch((error)=>{
-          alert(error.error['message']);
+          this.tosterService.error(error.error['message']);
         });
     }
 
@@ -79,8 +87,7 @@ export class AgentFormComponent implements OnInit{
         data => {
           this.agentId = data;
           res(data);
-          alert('registered');
-
+          this.tosterService.success("Registered successully!");
         }, error => {
           rej(error);
         }
@@ -103,10 +110,10 @@ export class AgentFormComponent implements OnInit{
 
       this.agentService.createAgent(agent).subscribe((data: any) => {
         res(data);
-        console.log(agent);
-        alert('Agent added');
+        this.tosterService.success("Agent added successfully!");
+
       }, (error: any) => {
-        alert(error.error['message']);
+        this.tosterService.error(error.error['message']);
         rej(error);
       });
     });

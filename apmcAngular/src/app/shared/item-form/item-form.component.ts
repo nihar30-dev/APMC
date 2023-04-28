@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { Item } from 'src/app/models/item.model';
 import { ItemType } from 'src/app/models/itemType.model';
 import { ItemService } from 'src/app/services/item.service';
@@ -15,13 +16,13 @@ export class ItemFormComponent implements OnInit {
   itemForm! : FormGroup;
   ItemTypes! : ItemType[];
 
-  constructor(private fb : FormBuilder, private itemService: ItemService, private modalService: ModalService){}
+  constructor(private fb : FormBuilder, private itemService: ItemService, private modalService: ModalService, private tosterService: ToastrService){}
 
   ngOnInit() {
     this.itemService.getItemTypes().subscribe((data)=>{
       this.ItemTypes = data;
     }, ()=>{
-      alert('Error loading itemTypes');
+      this.tosterService.error("Error loading ItemTypes");
     });
     this.itemForm = this.fb.group({
       itemTypeId : [null, Validators.required],
@@ -35,7 +36,7 @@ export class ItemFormComponent implements OnInit {
       
       const item : Item = {itemId:0, itemName: itemForm.value['itemName'],itemType: new ItemType(itemForm.value['itemTypeId'], ''), dailyRates : []};  
       this.itemService.createItem(item).subscribe(()=>{
-        alert('Item added');
+        this.tosterService.success("Item added successfully");
       });
       itemForm.reset();
       this.modalService.close();
