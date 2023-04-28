@@ -9,7 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   isLoggedIn = false;
+  imageURL = null;
 
+  isDropdownVisible = false;
+
+  toggleDropdown() {
+    this.isDropdownVisible = !this.isDropdownVisible;
+  }
+  
   constructor(private authService:AuthService,private storageService:StorageService){
   }
 
@@ -18,7 +25,6 @@ export class HeaderComponent implements OnInit {
     this.storageService.isLoggedIn$.subscribe((data) => {
       this.isLoggedIn = data;
     });
-
     this.isLoggedIn = this.storageService.isLoggedIn();
     
    
@@ -28,10 +34,17 @@ export class HeaderComponent implements OnInit {
     this.storageService.clean();
   }
 
-  //  hello(){
-  //   console.log(this.isLoggedIn);
-  //   this.authService.getIsLoggedIn().subscribe((data) => {
-  //     this.isLoggedIn = data;
-  //     console.log("isnide header component:",data);
-  //   });  
+  openSideMenu() {
+    const sideMenu = document.getElementById('sideMenu');
+    if (sideMenu) {
+      sideMenu.classList.add('open');
+    }
+  }
+
+  closeSideMenu() {
+    const sideMenu = document.getElementById('sideMenu');
+    if (sideMenu) {
+      sideMenu.classList.remove('open');
+    }
+  }
 }

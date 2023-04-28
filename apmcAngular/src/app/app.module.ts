@@ -12,6 +12,7 @@ import { BaseModule } from './base/base.module';
 import { AuctionModule } from './auction/auction.module';
 import { LayoutModule } from './layout/layout.module';
 import { StaticModule } from './static/static.module';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 
@@ -31,7 +32,8 @@ import { StaticModule } from './static/static.module';
     BaseModule,
     LayoutModule,
     AuctionModule,
-    StaticModule
+    StaticModule,
+    MatMenuModule
   ],
   bootstrap: [AppComponent],
   providers: [DatePipe],

@@ -2,66 +2,54 @@
   <div class="container">
     <div class="header__left">
       <div class="header__logo">
-        <img
-          src="../../../../assets/images/123.png"
-          loading="lazy"
-          style="margin-top: -1px;"
-          alt="APMC Logo"
-          class="header__logo-img rounded-circle"
-        />
+        <img src="../../../../assets/images/123.png" loading="lazy" style="margin-top: -1px" alt="APMC Logo"
+          class="header__logo-img rounded-circle" />
       </div>
-      <h1 class="header__company-name"><a class="apmcHome" routerLink="/home">APMC Gondal</a></h1>
+      <h1 class="header__company-name">
+        <a class="apmcHome" routerLink="/home">APMC Gondal</a>
+      </h1>
     </div>
     <div class="header__right">
-      <a href="#" class="header__headerLinks" target="_blank">Download App</a>
+      <span class="material-icons-outlined"> download </span>
+      <a href="#" class="header__headerLinks">Download App</a>
+      <span class="material-icons-outlined" *ngIf="!isLoggedIn"> login </span>
       <a routerLink="login" class="header__headerLinks" *ngIf="!isLoggedIn">Log In</a>
+      <span class="material-icons-outlined" *ngIf="isLoggedIn"> logout </span>
       <a href="#" class="header__headerLinks" *ngIf="isLoggedIn" (click)="logout()">Log Out</a>
+
+      <nav>
+        <ul>
+          <li>
+            <img src="../../../assets/images/user1.png" class="profile"  *ngIf="isLoggedIn" (click)="toggleDropdown()" />
+            <ul *ngIf="isDropdownVisible">
+              <li class="sub-item">
+                <span class="material-icons-outlined"> grid_view </span>
+                <p>Dashboard</p>
+              </li>
+              <li class="sub-item">
+                <span class="material-icons-outlined"> person </span>
+                <p>View Profile</p>
+              </li>
+              <li class="sub-item">
+                <span class="material-icons-outlined"> notifications </span>
+                <p>Notifications</p>
+              </li>
+              <li class="sub-item">
+                <span class="material-icons-outlined"> edit </span>
+                <p>Edit Profile</p>
+              </li>
+              <li class="sub-item">
+                <span class="material-icons-outlined"> logout </span>
+                <p>Logout</p>
+              </li>
+              <li class="sub-item">
+                <span class="material-icons-outlined"> delete </span>
+                <p>Delete Account</p>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
 </header>
-
-
-
-
-
-
-<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-
-    <div class="container">
-      
-      <a class="navbar-brand me-2">
-        <img
-          src="../../../../assets/images/123.png"
-          height="50"
-          loading="lazy"
-          style="margin-top: -1px;"
-        />
-      </a> -->
-
-      <!-- <div class="collapse navbar-collapse" id="navbarButtonsExample"> -->
-        <!-- <div> -->
-        <!-- Left links -->
-        <!-- <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/home">APMC Gondal</a>
-          </li>
-        </ul>
-      </div> -->
-
-      <!-- <div class="d-flex align-items-center"> -->
-        <!-- <div>
-          <a class="text-reset me-3" href="#">
-            Download App
-          </a>
-      </div> -->
-      <!-- <div class="d-flex align-items-center"> -->
-        <!-- <div>
-        <a class="text-reset me-3" href="#">
-            Log Out
-        </a>
-    </div> -->
-    
-    <!-- </div>
-  </nav>
-   -->
-

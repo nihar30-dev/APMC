@@ -7,6 +7,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { MatMenuModule } from '@angular/material/menu';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -21,7 +23,9 @@ import { BrowserModule } from '@angular/platform-browser';
     AuthenticationModule,
     RouterModule,
     BrowserModule,
-    FormsModule
+    FormsModule,
+    MatMenuModule,
+    BrowserAnimationsModule
   ],
   exports: [
     CommonModule,
