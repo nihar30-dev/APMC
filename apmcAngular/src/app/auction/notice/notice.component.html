@@ -1,6 +1,6 @@
 
 
-<div class="form-container">
+<div class="form-container" *ngIf="role==='ADMIN'">
   <form [formGroup]="noticeForm" (ngSubmit)="onSubmit(noticeForm)" novalidate>
     <h2>ADD NOTICE</h2>
     <div class="form-group">
