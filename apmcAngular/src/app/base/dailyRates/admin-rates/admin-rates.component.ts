@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { DailyRates } from 'src/app/models/dailyRates.model';
 import { Item } from 'src/app/models/item.model';
 import { ItemType } from 'src/app/models/itemType.model';
@@ -29,7 +30,8 @@ export class AdminRatesComponent implements OnInit {
     private dailyRateService: DailyRatesService,
     private http: HttpClient,
     public modalService: ModalService,
-    private dateFormatter: DateFormatter
+    private dateFormatter: DateFormatter,
+    private toster:ToastrService
     ) { }
 
   ngOnInit() {
@@ -41,8 +43,7 @@ export class AdminRatesComponent implements OnInit {
       .then(() => this.getRateObj())
       .then(() => this.initForm())
       .catch((error) => {
-        console.log(error);
-        alert(error);
+        this.toster.error("Something went wrong")
       });
   }
 
@@ -79,7 +80,7 @@ export class AdminRatesComponent implements OnInit {
         console.log(this.rates);
         res(this.rates);
       }, error => {
-        alert("error loading daily rates");
+        this.toster.error("Error loading Rates")
         rej(error);
       });
     });
@@ -104,11 +105,14 @@ export class AdminRatesComponent implements OnInit {
       dailyRateArray: new FormArray([])
     });
     this.itemsList.forEach((item) => {
+
       let minPrice = null;
       let maxPrice = null;
       let avgPrice = null;
       let quantity = null;
       let income = null;
+
+
       if (this.rateObj.get(item['itemId']) != null) {
         minPrice = this.rates[this.rateObj.get(item['itemId'])]['minPrice'];
         maxPrice = this.rates[this.rateObj.get(item['itemId'])]['maxPrice'];
@@ -177,9 +181,9 @@ export class AdminRatesComponent implements OnInit {
     // console.log(this.dailyRates.value['dailyRateArray'][i]);
 
     this.dailyRateService.addDailyItemRate(itemRates, this.day).subscribe(data => {
-      alert('Daily rates added successfully for ' + this.dailyRates.value['dailyRateArray'][i]['itemName'])
+      this.toster.success("Rate added successfully")
     }, error => {
-      alert('SomeThing went wrong');
+      this.toster.error("SOmething went wrong")
     });
     
     return;
@@ -194,7 +198,7 @@ export class AdminRatesComponent implements OnInit {
       .then(() => this.initForm())
       .catch((error) => {
         console.log(error);
-        alert(error);
+        this.toster.error("Something went wrong")
       });
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NoticeService } from '../../services/notice.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-notice',
@@ -11,7 +12,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class NoticeComponent implements OnInit{
   noticeForm !: FormGroup;
 
-  constructor(private fb: FormBuilder, private noticeService: NoticeService,  private modalService: NgbModal) { }
+  constructor(private fb: FormBuilder, private noticeService: NoticeService,  private modalService: NgbModal, private toster:ToastrService) { }
 
   ngOnInit(): void {
     this.noticeForm = this.fb.group({
@@ -28,10 +29,10 @@ export class NoticeComponent implements OnInit{
     if (noticeForm.valid) {
       this.noticeService.addNotice(noticeForm.value.heading.value, noticeForm.value.details.value).subscribe(
         data => {
-          alert('Notice Added' + data);
+          this.toster.success('Notice addedd successfully');
         },
         error => {
-          alert(error.error['message']);
+          this.toster.error(error.error['message']);
         }
       );
     }

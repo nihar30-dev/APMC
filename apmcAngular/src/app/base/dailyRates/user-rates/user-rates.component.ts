@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ItemService } from 'src/app/services/item.service';
 import { DailyRates } from 'src/app/models/dailyRates.model';
 import { DailyRatesService } from 'src/app/services/daily-rates.service'
-
 import { NgbDateStruct, NgbInputDatepicker, NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user-rates',
   templateUrl: './user-rates.component.html',
@@ -21,19 +21,28 @@ export class UserRatesComponent implements OnInit{
   selectedDate = '';
   maxDate: NgbDate;
 
-  constructor( private itemService : ItemService, private calendar : NgbCalendar,private dailyRateService: DailyRatesService) {
+  constructor( 
+    private itemService : ItemService,
+    private dateformatter: DateFormatter, 
+    private calendar : NgbCalendar,
+    private dailyRateService: DailyRatesService,
+    private toastr: ToastrService)
+  {
     this.maxDate = calendar.getToday();
   }
 
   ngOnInit(){
-
+    let date = new Date();
+    let day:string = this.dateformatter.dateinyyyymmdd(date);
     this.loadItemTypes();
-    this.dailyRateService.getDailyRatesByDate('2023-04-25').subscribe((data)=>{
+    this.dailyRateService.getDailyRatesByDate(day).subscribe((data)=>{
       this.itemList = data;
       console.log(this.itemList);
       
     }, error =>{
-      alert("No data found")
+      this.toastr.info('No rates for this date');
+      console.log(this.toastr);
+      
     })
   }
 
@@ -70,7 +79,8 @@ export class UserRatesComponent implements OnInit{
       console.log(this.itemList);
       
     }, error =>{
-      alert("No data found")
+      this.toastr.info("No data found")
+      
     })
     // this.loadItem(a)
     //   .then(() => this.initForm())
@@ -83,11 +93,9 @@ export class UserRatesComponent implements OnInit{
 }
 
 
-
-
-
 import { Pipe, PipeTransform } from '@angular/core';
 import { ItemType } from 'src/app/models/itemType.model';
+import { DateFormatter } from 'src/app/utils/dateFormatter';
   @Pipe({
     name: 'filter'
   })
