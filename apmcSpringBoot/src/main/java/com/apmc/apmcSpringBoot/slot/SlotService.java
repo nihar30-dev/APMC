@@ -7,7 +7,6 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
-
 public interface SlotService {
     public List<Slots> findBySlotDate(Date date);
     public Response addItemSlot(Date date, Slots slot) throws ParseException;
