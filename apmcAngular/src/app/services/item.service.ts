@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Item } from '../models/item.model';
 import { ItemType } from '../models/itemType.model';
 import {environment} from '../../../environment';
+import { DailyRates } from '../models/dailyRates.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,31 +24,11 @@ export class ItemService {
   }
 
 
-  // getAllItemsByDate(day : any, typeId: number) {
-  //   //     switch(typeId){
-  //   //         case 2 : {
-  //   //             return of(this.vegItems.slice());
-  //   //         }
-  //   //         case 3 : {
-  //   //             return of(this.fruitItems.slice());
-  //   //         }
-  //   //         default: {
-  //   //             return of(this.commItems.slice());
-  //   //         }
-  //   //     }
-  //
-  //   // return this.http.get('http://example.com/api/shops').subscribe((data: any) => {
-  //   //   this.shops = data;
-  //   // });
-  // }
+  getAllItemsByDate(day : string) {
+    return this.http.get<DailyRates[]>('http://localhost:8099/dailyRates?day='+day);
+  }
 
   getAllItemsByTypeId(typeId: number){
     return this.http.get<Item[]>(environment.ApiURL+'item/itemType/'+typeId);
   }
-
-  // submitItem(formData : any){
-  //   //api calls
-  //   //return true if succesful
-  //   return of(true);
-  // }
 }

@@ -1,48 +1,31 @@
-import { AdminRatesComponent } from './dailyRates/admin-rates/admin-rates.component';
-import { AdminSlotComponent } from './slot/admin-slot/admin-slot.component';
-import { AgentFormComponent } from './agent-form/agent-form.component';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AuthModule } from './authorisation/auth.module';
 import { BrowserModule } from '@angular/platform-browser';
-import {CommonModule} from '@angular/common';
-import { FooterComponent } from './footer/footer.component';
-import { HeaderComponent } from './header/header.component';
+import { CommonModule, DatePipe } from '@angular/common';
 import { HomeComponent } from './home/home.component';
 import { ItemFormComponent } from './item-form/item-form.component';
 import { ModalComponent } from './modal/modal.component';
-import {SocialLoginModule , SocialAuthServiceConfig} from '@abacritt/angularx-social-login';
-import {GoogleLoginProvider} from '@abacritt/angularx-social-login';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ShopFormComponent } from './shop-form/shop-form.component';
 import { ShopsComponent } from './shops/shops.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { FilterPipe, UserRatesComponent } from './dailyRates/user-rates/user-rates.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { SlotFormComponent } from './slot/admin-slot/slot-form/slot-form.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import {InterceptorService} from './utils/interceptor.service';
-import {StorageService} from './utils/storage.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthenticationModule } from './authentication/authentication.module';
+import { SharedModule } from './shared/shared.module';
+import { BaseModule } from './base/base.module';
+import { AuctionModule } from './auction/auction.module';
+import { LayoutModule } from './layout/layout.module';
+import { StaticModule } from './static/static.module';
+
+
 
 @NgModule({
   declarations: [
-    HeaderComponent,
-    FooterComponent,
-    SidebarComponent,
     AppComponent,
-    HomeComponent,
-    ShopsComponent,
-    AdminRatesComponent,
-    UserRatesComponent,
-    AgentFormComponent,
-    ShopFormComponent,
-    ModalComponent,
-    FilterPipe,
-    ItemFormComponent,
-    AdminSlotComponent,
-    SlotFormComponent
+    HomeComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -50,8 +33,12 @@ import {StorageService} from './utils/storage.service';
     BrowserModule,
     FormsModule,
     CommonModule,
-    AuthModule,
-    NgbModule,
+    AuthenticationModule,
+    SharedModule,
+    BaseModule,
+    LayoutModule,
+    AuctionModule,
+    StaticModule
   ],
   bootstrap: [AppComponent],
   providers :[

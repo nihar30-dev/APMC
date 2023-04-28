@@ -1,25 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-
 import * as bootstrap from 'bootstrap';
 import { DailyRatesService } from '../services/daily-rates.service';
-import {StorageService} from "../utils/storage.service";
+import { DailyRates } from '../models/dailyRates.model';import {StorageService} from "../utils/storage.service";
 
-
-
+import { DatePipe } from '@angular/common';
+import { DateFormatter } from '../utils/dateFormatter';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit{
-
-  constructor(private dailyRates : DailyRatesService,private storageService:StorageService){
-
+  constructor(private dailyRates : DailyRatesService, public datepipe: DatePipe,private dateformatter: DateFormatter,private storageService:StorageService){
   }
-
   role = '';
-  dailyRate : any;
-
+  // dailyRate : any;
+  AlldailyRate! : DailyRates[];
+  DRCommodities : DailyRates[] = [];
+  DRFruits : DailyRates[] = [];
+  DRVegetables : DailyRates[] = [];
   ngOnInit(): void {
     this.storageService.role$.subscribe(data => {
       this.role =data;
@@ -33,19 +32,39 @@ export class HomeComponent implements OnInit{
         wrap: true
       });
     }
-
-    this.getPrices();
-  
+    this.getPrices()
+    .then(()=>{this.drFilter();})
+    .catch((error)=>{ alert("Error loading rates") })
   }
-
   getPrices(){
+    const prmoise = new Promise((res,rej)=>{
 
-    this.dailyRates.getDailyRatesBy('2023-04-24').subscribe((data) => {
-      this.dailyRate = data;
+      let date = new Date();
+      date.setDate(date.getDate() - 1);
+      let day:string = this.dateformatter.dateinyyyymmdd(date);
 
-    
-    
-    });
+      this.dailyRates.getDailyRatesByDate(day).subscribe((data) => {
+        this.AlldailyRate = data;
+          if(this.AlldailyRate==null){
+            alert("No data for this day");
+            return;
+          }
+        res(this.AlldailyRate);
+      }, error=>{
+        rej(error);
+      });
+    })
+    return prmoise;
   }
-
+  drFilter(){
+      this.AlldailyRate.forEach((dr)=>{
+          if(dr['item']['itemType']['itemTypeId']==1){
+            this.DRCommodities.push(dr);
+          }else if(dr['item']['itemType']['itemTypeId']==2){
+            this.DRVegetables.push(dr);
+          }else if(dr['item']['itemType']['itemTypeId']==3){
+            this.DRFruits.push(dr);
+          }
+      })
+  }
 }
