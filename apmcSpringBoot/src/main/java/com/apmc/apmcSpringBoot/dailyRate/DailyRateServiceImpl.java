@@ -63,4 +63,9 @@ public class DailyRateServiceImpl implements DailyRateService {
         return dailyRates;
     }
 
+    @Override
+    public List<DailyRates> getAllItemsByDateAndType(Date date, int typeId) {
+        return dailyRateRepository.getDailyRatesByItemType(date, typeId);
+    }
+
 }

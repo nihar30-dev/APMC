@@ -16,7 +16,7 @@ public interface DailyRateService {
     public Response addDailyItemRates(DailyRates dailyRate) throws ParseException;
 
     public DailyRates getDailyRatesById(int rateId);
-
+    public List<DailyRates> getAllItemsByDateAndType(Date date, int typeId);
 
 
 }

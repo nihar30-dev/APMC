@@ -1,7 +1,7 @@
 import { AuthService } from '../service/auth.service';
 import { Component } from '@angular/core';
 import {Router } from '@angular/router';
-import { StorageService } from '../service/storage.service';
+import { StorageService } from 'src/app/utils/storage.service';
 import {NgForm} from '@angular/forms';
 
 

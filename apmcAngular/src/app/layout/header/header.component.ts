@@ -1,5 +1,5 @@
 import { AuthService } from 'src/app/authentication/service/auth.service';
-import { StorageService } from 'src/app/authentication/service/storage.service';
+import { StorageService } from 'src/app/utils/storage.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

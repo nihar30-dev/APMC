@@ -32,7 +32,6 @@ public class Item {
     private ItemType itemType;
 
     @OneToMany( mappedBy = "item",cascade = CascadeType.REMOVE)
-    @JsonIgnore
     private List<DailyRates> dailyRates;
 
 

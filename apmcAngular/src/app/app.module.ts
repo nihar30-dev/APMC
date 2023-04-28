@@ -4,13 +4,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule, DatePipe } from '@angular/common';
 import { HomeComponent } from './home/home.component';
-import { ItemFormComponent } from './item-form/item-form.component';
-import { ModalComponent } from './modal/modal.component';
+import { ItemFormComponent } from './shared/item-form/item-form.component';
+import { ModalComponent } from './shared/modal/modal.component';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ShopFormComponent } from './shop-form/shop-form.component';
-import { ShopsComponent } from './shops/shops.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
+// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ShopFormComponent } from './shared/shop-form/shop-form.component';
+import { ShopsComponent } from './base/shops/shops.component';
+import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationModule } from './authentication/authentication.module';
@@ -19,6 +19,10 @@ import { BaseModule } from './base/base.module';
 import { AuctionModule } from './auction/auction.module';
 import { LayoutModule } from './layout/layout.module';
 import { StaticModule } from './static/static.module';
+import { GoogleLoginProvider, SocialAuthServiceConfig,SocialLoginModule } from '@abacritt/angularx-social-login';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { InterceptorService } from './utils/interceptor.service';
+import { StorageService } from './utils/storage.service';
 
 
 
@@ -42,6 +46,7 @@ import { StaticModule } from './static/static.module';
   ],
   bootstrap: [AppComponent],
   providers :[
+    DatePipe,
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {

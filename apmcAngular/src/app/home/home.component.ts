@@ -11,7 +11,7 @@ import { DateFormatter } from '../utils/dateFormatter';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit{
-  constructor(private dailyRates : DailyRatesService, public datepipe: DatePipe,private dateformatter: DateFormatter,private storageService:StorageService){
+  constructor(private dailyRates : DailyRatesService,private dateformatter: DateFormatter,private storageService:StorageService){
   }
   role = '';
   // dailyRate : any;

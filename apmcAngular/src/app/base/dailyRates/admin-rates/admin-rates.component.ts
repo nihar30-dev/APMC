@@ -51,11 +51,11 @@ export class AdminRatesComponent implements OnInit {
     const promise = new Promise((res, rej) => {
       this.itemService.getItemTypes().subscribe((data) => {
         this.itemTypes = data;
-        res(this.itemTypes)
+        res(this.itemTypes);
       }, (error) => {
         rej(error);
-      })
-    })
+      });
+    });
     return promise;
   }
 
@@ -81,7 +81,7 @@ export class AdminRatesComponent implements OnInit {
       }, error => {
         alert("error loading daily rates");
         rej(error);
-      })
+      });
     });
     return promise;
   }
@@ -160,23 +160,26 @@ export class AdminRatesComponent implements OnInit {
 
   onSubmit(i: number) {
 
-    let item = new Item(this.dailyRates.value['dailyRateArray'][i]['itemId'], this.dailyRates.value['dailyRateArray'][i]['itemName'], new ItemType(0, ""), []);
-    let minPrice = this.dailyRates.value['dailyRateArray'][i]['minPrice'];
-    let maxPrice = this.dailyRates.value['dailyRateArray'][i]['maxPrice']; 
-    let quantity = this.dailyRates.value['dailyRateArray'][i]['quantity'];
-    let income = this.dailyRates.value['dailyRateArray'][i]['income'];
+    // console.log(this.dailyRates);
+    
+    const item:Item = {itemId :this.dailyRates.value['dailyRateArray'][i]['itemId'],itemName :this.dailyRates.value['dailyRateArray'][i]['itemName'],itemType: new ItemType(0, ""), dailyRates: []};
+
+    const minPrice = this.dailyRates.value['dailyRateArray'][i]['minPrice'];
+    const maxPrice = this.dailyRates.value['dailyRateArray'][i]['maxPrice']; 
+    const quantity = this.dailyRates.value['dailyRateArray'][i]['quantity'];
+    const income = this.dailyRates.value['dailyRateArray'][i]['income'];
     // let day = this.day;
 
-    let avgPrice = (+minPrice + +maxPrice)/2;    
+    const avgPrice = (+minPrice + +maxPrice)/2;    
 
-    let itemRates = new DailyRates(0, item, minPrice, maxPrice, avgPrice, quantity, income, this.day);
+    const itemRates = new DailyRates(0, item, minPrice, maxPrice, avgPrice, quantity, income, this.day);
     console.log(itemRates);
     // console.log(this.dailyRates.value['dailyRateArray'][i]);
 
     this.dailyRateService.addDailyItemRate(itemRates, this.day).subscribe(data => {
-      alert("Daily rates added successfully for " + this.dailyRates.value['dailyRateArray'][i]['itemName'])
+      alert('Daily rates added successfully for ' + this.dailyRates.value['dailyRateArray'][i]['itemName'])
     }, error => {
-      alert("SomeThing went wrong")
+      alert('SomeThing went wrong');
     });
     
     return;
