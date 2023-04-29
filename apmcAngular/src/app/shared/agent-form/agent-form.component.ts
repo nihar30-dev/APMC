@@ -18,7 +18,6 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AgentFormComponent implements OnInit{
 
-
   agentForm!: FormGroup;
   shopNo! : Shop[];
   availableShopNo! : Shop[];
@@ -26,11 +25,11 @@ export class AgentFormComponent implements OnInit{
   password = '';
   user!:User;
   agentId!: number;
-  
+
   constructor(
-    private fb: FormBuilder, 
-    private shopService: ShopService, 
-    private modalService: ModalService, 
+    private fb: FormBuilder,
+    private shopService: ShopService,
+    private modalService: ModalService,
     private authervice: AuthService, 
     private agentService: AgentService,
     private tosterService: ToastrService
@@ -61,19 +60,16 @@ export class AgentFormComponent implements OnInit{
   onSubmit(agentForm: FormGroup) {
     if (agentForm.valid) {
       // username, password generation
-      this.registerAgent(agentForm)
-        .then(()=>this.addAgent(agentForm))
+      // this.registerAgent(agentForm)
+        this.addAgent(agentForm)
         .then(()=>{
           this.modalService.close();
-          // window.location.reload();
           this.agentForm.reset();
-       
         })
         .catch((error)=>{
           this.tosterService.error(error.error['message']);
         });
     }
-
   }
 
 

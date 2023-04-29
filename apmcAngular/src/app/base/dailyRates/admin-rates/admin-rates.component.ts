@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgbCalendar, NgbDate, NgbDateStruct, NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { DailyRates } from 'src/app/models/dailyRates.model';
 import { Item } from 'src/app/models/item.model';
@@ -17,13 +18,18 @@ import { DateFormatter } from 'src/app/utils/dateFormatter';
 })
 export class AdminRatesComponent implements OnInit {
 
+  dataFetched : boolean = false;
   itemTypes!: ItemType[];
   itemsList!: Item[];
   dailyRates!: FormGroup;
   rates: DailyRates[] = [];
   rateObj = new Map();
-  date! : Date;
   day = '';
+  date: NgbDateStruct | null = null;
+  date1 : Date| null = null;
+  selectedDate = '';
+  maxDate: NgbDate;
+  
 
   constructor(
     private itemService: ItemService,
@@ -31,12 +37,16 @@ export class AdminRatesComponent implements OnInit {
     private http: HttpClient,
     public modalService: ModalService,
     private dateFormatter: DateFormatter,
-    private toster:ToastrService
-    ) { }
+    private toster:ToastrService,
+    private calendar : NgbCalendar,
+    ) { 
+      this.maxDate = calendar.getToday();
+
+    }
 
   ngOnInit() {
-    this.date = new Date();
-    this.day = this.dateFormatter.dateinyyyymmdd(this.date);
+    let date = new Date();
+    this.day = this.dateFormatter.dateinyyyymmdd(date);
     this.loadItemTypes()
       .then(() => this.loadItem(1))
       .then(() => this.loadDailyRates())
@@ -151,11 +161,33 @@ export class AdminRatesComponent implements OnInit {
         })
       );
     });
+    this.dataFetched = true;
   }
 
   get dailyRateControls() {
     return this.dailyRates.get('dailyRateArray') as FormArray;
   }
+
+    //datepicker methods
+    onDateSelect(dp: NgbInputDatepicker) {
+      this.date1 = new Date(`${this.date?.year}-${(this.date?.month+'').padStart(2, '0')}-${(this.date?.day+'').padStart(2, '0')}`);
+      this.day = this.dateFormatter.dateinyyyymmdd(this.date1);
+
+      setTimeout(() => {
+        dp.close();
+      }, 100);
+      console.log(this.date1);
+      console.log(this.day);
+      this.itemsList = [];
+      this.rates = [];
+      this.rateObj.clear();
+      this.dataFetched = false;
+      this.loadDailyRates()
+      .then(() => this.getRateObj())
+      .then(() => this.initForm())
+      
+      this.showContainer(1);
+    }
 
   mapperRateToItem(item: Item) {
     let itemId = item['itemId'];

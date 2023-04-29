@@ -25,7 +25,8 @@ export class SignupComponent {
 
   onSubmit(): void {
     const { username, password,contact } = this.form;
-    const user:User = {...this.form};
+    // const user:User = {...this.form};
+    const user:User = new User(0,username,password,contact,[]);
 
     this.authService.register(user).subscribe({
       next: () => {

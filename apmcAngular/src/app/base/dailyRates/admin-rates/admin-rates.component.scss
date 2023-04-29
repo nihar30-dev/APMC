@@ -8,6 +8,20 @@ h6{
   margin-bottom: 0;
 }
 
+
+.parent {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.dateContainer{
+  max-width: 30%;
+  margin: 0;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  text-align: left;
+}
 // form styling
 
 .container {

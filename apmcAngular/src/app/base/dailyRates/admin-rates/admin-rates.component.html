@@ -1,4 +1,17 @@
-<div class="container mt-5 navContainer">
+<div class="parent">
+    <div class="dateContainer mt-5">
+        <div class="input-group" (click)="dp.toggle()" >
+            <input type="text" class="form-control" placeholder="Select date" [(ngModel)]="date" ngbDatepicker
+                #dp="ngbDatepicker" (dateSelect)="onDateSelect(dp)" [maxDate]="maxDate" [autoClose]="true"/>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">
+                    <i class="bi bi-calendar"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-0 navContainer">
   <button (click)="open('item')" class="btn btn-outline-primary btn-sm itemBtn">
     <h6>ADD ITEM</h6>
   </button>
@@ -42,7 +55,7 @@
               <h6>Save</h6>
             </div>
           </div>
-          <div class="card-body card bg-light mb-3">
+          <div class="card-body card bg-light mb-3" *ngIf="dataFetched">
             <div>
               <form [formGroup]="dailyRates" *ngIf="dailyRates" class="form-horizontal form-inline" novalidate>
               <div formArrayName="dailyRateArray">

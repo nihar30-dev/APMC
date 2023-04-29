@@ -17,7 +17,7 @@ export class UserRatesComponent implements OnInit{
   
   activateSearch = false;
   searchQuery = '';
-  date: NgbDateStruct | null = null;
+  date: NgbDateStruct = new NgbDate(new Date().getFullYear(), new Date().getMonth()+1, new Date().getDate());
   selectedDate = '';
   maxDate: NgbDate;
 
@@ -34,11 +34,12 @@ export class UserRatesComponent implements OnInit{
   ngOnInit(){
     let date = new Date();
     let day:string = this.dateformatter.dateinyyyymmdd(date);
+    this.selectedDate = day;
     this.loadItemTypes();
     this.dailyRateService.getDailyRatesByDate(day).subscribe((data)=>{
       this.itemList = data;
       console.log(this.itemList);
-      
+      this.showContainer(1);
     }, error =>{
       this.toastr.info('No rates for this date');
       console.log(this.toastr);

@@ -32,7 +32,7 @@ export class ShopFormComponent implements OnInit {
 
     if(shopForm.valid){
       this.shopService.createShop(shopForm.value).subscribe(data=>{
-        this.tosterService.success("Shop addedd successfully");
+        this.tosterService.success("Shop added successfully");
       },(error)=>{
         this.tosterService.error(error.error['message']);
       });
