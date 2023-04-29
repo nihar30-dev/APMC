@@ -14,4 +14,9 @@ public interface AgentRepository extends JpaRepository<Agent,Integer> {
 
     @Query(value = "SELECT * FROM agent  where user_id =?1 ",nativeQuery = true)
     public List<Agent> existByOwnerId(Long ownerId);
+
+    @Query(value = "select count(*) from agent where company_name=?1", nativeQuery = true)
+    public int companyNameExist(String companyName);
+
+
 }

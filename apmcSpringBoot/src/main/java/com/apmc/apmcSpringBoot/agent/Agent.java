@@ -106,4 +106,5 @@ public class Agent {
     public void setSlotDetail(SlotDetail slotDetail) {
         this.slotDetail = slotDetail;
     }
+
 }

@@ -24,27 +24,25 @@ public class MyControllerResponse {
     public ResponseEntity<Response> handleException(ResponseException responseException){
 
         Response errorResponse = new Response();
-        errorResponse.setStatus(HttpStatus.OK.value());
+        errorResponse.setStatus(HttpStatus.BAD_REQUEST.value());
         errorResponse.setMessage(responseException.getMessage());
         errorResponse.setTimestamp(System.currentTimeMillis());
         errorResponse.setSuccess(false);
 
 
-        return new ResponseEntity<>(errorResponse, HttpStatus.OK);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler
     public ResponseEntity<Response> handleException(Exception exc){
         System.out.println(exc.getMessage());
         Response errorResponse = new Response();
-        errorResponse.setStatus(HttpStatus.BAD_REQUEST.value());
+        errorResponse.setStatus(HttpStatus.OK.value());
         errorResponse.setMessage("Bad Request");
         errorResponse.setTimestamp(System.currentTimeMillis());
         errorResponse.setSuccess(false);
 
 
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
-
+        return new ResponseEntity<>(errorResponse, HttpStatus.OK);
     }
-
 }
