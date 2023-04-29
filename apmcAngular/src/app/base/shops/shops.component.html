@@ -1,11 +1,11 @@
 <div class="container mt-5">
 
-  <button (click)="open('shop')" class="btn btn-outline-primary btn-sm shopBtn">
+  <button *ngIf="role==='ADMIN'" (click)="open('shop')" class="btn btn-outline-primary btn-sm shopBtn">
     <h6>Add Shops</h6>
   </button>
   <app-modal></app-modal>
 
-  <button (click)="open('agent')" class="btn btn-outline-primary btn-sm agentBtn">
+  <button *ngIf="role==='ADMIN'" (click)="open('agent')" class="btn btn-outline-primary btn-sm agentBtn">
     <h6>Add Agents</h6>
   </button>
   <app-modal></app-modal>

@@ -45,7 +45,7 @@ export class AuthService{
     const  password:string = user.getpassword;
     const contact = user.getcontact;
     const role = user.getrole;
-    
+    console.log(user)
     this.isLoggedIn = true;
     return this.http.post(
       this.authApi + 'signup',
@@ -60,16 +60,8 @@ export class AuthService{
   }
 
 
-  getIsLoggedIn(){
-    return of(this.isLoggedIn);
-  }
 
 
-  logout(): Observable<any> {
-    console.log(this.http.post('http://localhost:8099/api/test/signout',{},this.httpOptions));
-    return this.http.post('http://localhost:8099/api/test/signout', { }, this.httpOptions);
-
-  }
 
 
 }

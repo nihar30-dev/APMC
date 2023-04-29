@@ -20,7 +20,7 @@ export class User  {
     return this.id;
   }
 
-  set getid(value: number) {
+  set setid(value: number) {
     this.id = value;
   }
 
@@ -28,7 +28,7 @@ export class User  {
     return this.username;
   }
 
-  set getusername(value: string) {
+  set setusername(value: string) {
     this.username = value;
   }
 
@@ -36,7 +36,7 @@ export class User  {
     return this.password;
   }
 
-  set getpassword(value: string) {
+  set setpassword(value: string) {
     this.password = value;
   }
 
@@ -44,7 +44,7 @@ export class User  {
     return this.contact;
   }
 
-  set getcontact(value: string) {
+  set setcontact(value: string) {
     this.contact = value;
   }
 
@@ -52,7 +52,7 @@ export class User  {
     return this.role;
   }
 
-  set getrole(value: string[]) {
+  set setrole(value: string[]) {
     this.role = value;
   }
 }

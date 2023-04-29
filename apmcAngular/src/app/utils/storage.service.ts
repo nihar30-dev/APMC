@@ -28,7 +28,6 @@ export class StorageService {
 
   clean(): void {
     window.sessionStorage.clear();
-
   }
 
   public saveUser(user: any) {

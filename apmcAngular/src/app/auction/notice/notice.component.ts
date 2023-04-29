@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NoticeService } from '../../services/notice.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrService } from 'ngx-toastr';
+import {StorageService} from "../../utils/storage.service";
 
 @Component({
   selector: 'app-notice',
@@ -11,14 +11,19 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class NoticeComponent implements OnInit{
   noticeForm !: FormGroup;
+  role='';
 
-  constructor(private fb: FormBuilder, private noticeService: NoticeService,  private modalService: NgbModal, private toster:ToastrService) { }
+  constructor(private fb: FormBuilder, private noticeService: NoticeService,  private modalService: NgbModal,
+              private storageService:StorageService) { }
 
   ngOnInit(): void {
     this.noticeForm = this.fb.group({
       heading: ['', Validators.required],
       details: ['', Validators.required]
     });
+
+    //for getting role
+    this.role = this.storageService.getRole();
   }
 
   onSubmit(noticeForm: FormGroup) {
@@ -29,10 +34,10 @@ export class NoticeComponent implements OnInit{
     if (noticeForm.valid) {
       this.noticeService.addNotice(noticeForm.value.heading.value, noticeForm.value.details.value).subscribe(
         data => {
-          this.toster.success('Notice addedd successfully');
+          alert('Notice Added' + data);
         },
         error => {
-          this.toster.error(error.error['message']);
+          alert(error.error['message']);
         }
       );
     }

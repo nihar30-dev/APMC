@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as bootstrap from 'bootstrap';
 import { DailyRatesService } from '../services/daily-rates.service';
-import { DailyRates } from '../models/dailyRates.model';import {StorageService} from "../utils/storage.service";
+import { DailyRates } from '../models/dailyRates.model';
+import {StorageService} from "../utils/storage.service";
 
 import { DatePipe } from '@angular/common';
 import { DateFormatter } from '../utils/dateFormatter';
@@ -45,10 +46,10 @@ export class HomeComponent implements OnInit{
   
   getPrices(){
     const prmoise = new Promise((res,rej)=>{
-
       let date = new Date();
       date.setDate(date.getDate() - 1);
       let day:string = this.dateformatter.dateinyyyymmdd(date);
+      console.log('todat date : ',day);
 
       this.dailyRates.getDailyRatesByDate(day).subscribe((data) => {
         this.AlldailyRate = data;

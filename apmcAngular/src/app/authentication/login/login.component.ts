@@ -1,8 +1,9 @@
 import { AuthService } from '../service/auth.service';
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router } from '@angular/router';
 import { StorageService } from 'src/app/utils/storage.service';
 import {NgForm} from '@angular/forms';
+import {SocialAuthService, SocialUser} from "@abacritt/angularx-social-login";
 
 
 
@@ -12,7 +13,7 @@ import {NgForm} from '@angular/forms';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent  {
+export class LoginComponent implements OnInit{
 
   form: any = {
     username: null,
@@ -23,13 +24,28 @@ export class LoginComponent  {
   // isLoggedInuser = false;
   // isLoginFailed = false;
   errorMessage = '';
-  roles: string[] = [];
+  roles = '';
+   user!: SocialUser;
 
   constructor(private authService: AuthService,
-    private storageService: StorageService , private router:Router) { }
+    private storageService: StorageService , private router:Router,   private socialAuthService: SocialAuthService) { }
 
     
-
+ngOnInit() {
+  this.socialAuthService.authState.subscribe((user) => {
+    this.user = user;
+    this.authService.googleSignin(user.idToken).subscribe({
+      next: data => {
+        this.storageService.saveUser(data);
+        this.storageService.emitRole();
+        this.router.navigate(['home']);
+      }
+    });
+  });
+  this.storageService.role$.subscribe(data => {
+    this.roles = data;
+  });
+}
 
 
   onSubmit(f:NgForm) {
