@@ -8,11 +8,13 @@ import { Routes } from '@angular/router';
 import { RouterModule} from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { ShopsComponent } from './shops/shops.component';
+import {AuthGuard} from "../auth/auth.guard";
+import {MatTabsModule} from "@angular/material/tabs";
 
 const routes : Routes = [
-  { path: 'shops', component: ShopsComponent },
-  { path: 'userRates', component: UserRatesComponent },
-  { path: 'adminRates', component: AdminRatesComponent }
+  { path: 'shops', component: ShopsComponent ,canActivate:[AuthGuard] , data:{role:['AGENT','ADMIN','USER']}},
+  { path: 'userRates', component: UserRatesComponent ,canActivate:[AuthGuard], data:{role:['USER','ADMIN','AGENT','']} },
+  { path: 'adminRates', component: AdminRatesComponent,canActivate:[AuthGuard] , data:{role:['ADMIN']} }
 ];
 
 
@@ -24,13 +26,14 @@ const routes : Routes = [
     FilterPipe
   ],
   imports: [
-    
+
     RouterModule.forRoot(routes),
     CommonModule,
     SharedModule,
     ReactiveFormsModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    MatTabsModule
   ]
 })
 export class BaseModule { }

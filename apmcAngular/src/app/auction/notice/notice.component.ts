@@ -3,6 +3,7 @@ import { NoticeService } from '../../services/notice.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {StorageService} from "../../utils/storage.service";
+import {Notice} from "../../models/notice.model";
 
 @Component({
   selector: 'app-notice',
@@ -12,6 +13,7 @@ import {StorageService} from "../../utils/storage.service";
 export class NoticeComponent implements OnInit{
   noticeForm !: FormGroup;
   role='';
+
 
   constructor(private fb: FormBuilder, private noticeService: NoticeService,  private modalService: NgbModal,
               private storageService:StorageService) { }
@@ -32,7 +34,8 @@ export class NoticeComponent implements OnInit{
     //   console.log(noticeForm.value);
     // }
     if (noticeForm.valid) {
-      this.noticeService.addNotice(noticeForm.value.heading.value, noticeForm.value.details.value).subscribe(
+       const notice:Notice = {noticeId:0 , noticeHeading:noticeForm.value.heading , noticeContent:noticeForm.value.details ,slot:undefined}
+      this.noticeService.addNotice(notice).subscribe(
         data => {
           alert('Notice Added' + data);
         },

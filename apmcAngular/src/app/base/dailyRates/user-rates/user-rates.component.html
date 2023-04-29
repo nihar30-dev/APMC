@@ -28,16 +28,11 @@
           </div>
         </div>
     </nav> -->
+<mat-tab-group (selectedTabChange)="showContainer($event.index)">
+    <mat-tab label="{{itemType['itemTypeName']}}" *ngFor="let itemType of itemTypes;let i= index "  style="cursor: pointer">
+    </mat-tab>
+ </mat-tab-group>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-          <div class="row w-100" *ngFor="let itemType of itemTypes;">
-            <div class="col-md-4 text-center">
-              <a class="navbar-brand nav-link" style="cursor: pointer" [ngClass]="" (click)="showContainer(itemType['itemTypeId'])">{{ itemType['itemTypeName']}}</a>
-            </div>
-          </div>
-        </div>
-      </nav>
 
 
     <div class="container">
@@ -66,9 +61,6 @@
                     <div class="col text-center title">
                         <h6>Quantity(quintel)</h6>
                     </div>
-                    <!-- <div class="col text-center title">
-                        <h6>Income</h6>
-                    </div> -->
                 </div>
                 <div class="card-body card bg-light mb-3" *ngFor="let item of itemList | filter:searchQuery ; let i = index ">
                     <div class="row">
@@ -93,9 +85,6 @@
                         <div class="col text-center">
                             <p>{{ item['quantity']/2 }}</p>
                         </div>
-                        <!-- <div class="col text-center">
-                            <p>$ {{ item.getIncome() }}</p>
-                        </div> -->
                     </div>
                 </div>
             </table>
