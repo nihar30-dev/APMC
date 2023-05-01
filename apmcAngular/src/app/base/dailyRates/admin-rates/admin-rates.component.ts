@@ -225,8 +225,8 @@ export class AdminRatesComponent implements OnInit {
     this.modalService.open(formName);
   }
 
-  showContainer(a: number) {
-    this.loadItem(a)
+  showContainer(a: any) {
+    this.loadItem(a.index+1)
       .then(() => this.initForm())
       .catch((error) => {
         console.log(error);

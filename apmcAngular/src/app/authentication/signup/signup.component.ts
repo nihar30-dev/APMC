@@ -1,30 +1,44 @@
 import {AuthService} from '../service/auth.service';
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from '../../models/user.model';
 import {StorageService} from "../../utils/storage.service";
 import {Route, Router} from "@angular/router";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit{
   form: any = {
     username: null,
     password: null,
+    confirmPassword:null,
     contact: null
   };
-      
+
+  signupForm!: FormGroup;
+
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
   roles: string[] = [];
 
   constructor(private authService: AuthService , private storageService:StorageService,
-              private router:Router) { }
+              private router:Router , private formBuilder: FormBuilder) { }
 
+ngOnInit() {
 
+}
+  passwordMatchValidator(g: FormGroup) {
+    const password = g.get('password');
+    const confirmPassword = g.get('confirmPassword');
+    if (password && confirmPassword) {
+      return password.value !== confirmPassword.value ? {'mismatch': true} : null;
+    }
+    return null;
+  }
 
 
   onSubmit(): void {
@@ -51,5 +65,11 @@ export class SignupComponent {
         this.isSignUpFailed = true;
       }
     });
+  }
+
+  onReset(): void {
+    this.signupForm.reset();
+    this.isSuccessful = false;
+    this.isSignUpFailed = false;
   }
 }

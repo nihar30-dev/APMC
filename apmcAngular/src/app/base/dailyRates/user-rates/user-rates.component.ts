@@ -55,9 +55,10 @@ export class UserRatesComponent implements OnInit{
     }, 100);
     console.log(this.selectedDate);
     
-    this.showContainer(1);
+    this.showContainer(0);
   }
 
+  //load ItemTypes
   loadItemTypes() {
 
     const promise = new Promise((res, rej) => {
@@ -71,11 +72,12 @@ export class UserRatesComponent implements OnInit{
     return promise;
   }
 
+
   // list methods
-  showContainer(a: number) {
-    console.log("clicked");
+  showContainer(a: any) {
+    console.log(a.index);
     this.itemList = [];
-    this.dailyRateService.getDailyRatesByDateAndItemType(this.selectedDate, a).subscribe((data)=>{
+    this.dailyRateService.getDailyRatesByDateAndItemType(this.selectedDate, a+1).subscribe((data)=>{
       this.itemList = data;
       console.log(this.itemList);
       
@@ -91,6 +93,8 @@ export class UserRatesComponent implements OnInit{
     //   });
       this.activateSearch = true;
   }
+
+  protected readonly indexedDB = indexedDB;
 }
 
 

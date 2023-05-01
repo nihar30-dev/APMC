@@ -42,13 +42,14 @@ export class SidebarComponent implements OnInit{
 
   onClickDailyRates(){
     this.activePage = 'dailyRates';
-    if (this.role === 'ADMIN') {
-      this.router.navigate(['adminRates']);
-    } else {
       this.router.navigate(['userRates']);
-    }
   }
 
+  onClickAdminRates()
+  {
+    this.activePage = 'dailyRates';
+    this.router.navigate(['adminRates']);
+  }
   onClickSlot(){
     this.activePage = 'slot';
     this.router.navigate(['slot']);

@@ -2,7 +2,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { SignupComponent } from './signup/signup.component';
 import { Routes } from '@angular/router';
 import { RouterModule} from '@angular/router';
@@ -25,7 +25,8 @@ const routes: Routes = [
         HttpClientModule,
         OAuthModule.forRoot(),
         FormsModule,
-        GoogleSigninButtonModule
+        GoogleSigninButtonModule,
+        ReactiveFormsModule
     ],
   exports:[],
   schemas : [CUSTOM_ELEMENTS_SCHEMA]

@@ -23,7 +23,6 @@
                 <div class="invalid-feedback" *ngIf="password.errors && f.submitted">
                     Password is required and should be at least 6 characters long.
                 </div>
-                <a href="#!" class="form-text">Forgot password?</a>
             </div>
             
             <button class="btn btn-primary">Login</button>
@@ -36,7 +35,7 @@
 
             <span>Not a member? </span><a routerLink="/signup">Register</a>
             <div>
-                <span><asl-google-signin-button class="d-inline-block"></asl-google-signin-button></span>
+                <span><asl-google-signin-button class="d-inline-block" theme="filled_blue" type='icon' shape="circle" size='large'></asl-google-signin-button></span>
             </div>
 
 

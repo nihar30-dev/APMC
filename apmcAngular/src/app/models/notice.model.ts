@@ -1,9 +1,8 @@
-export class notice{
-  private heading =  '';
-  private details = '';
+import {Slot} from "./slot.model";
 
-  constructor(heading : string, details : string){
-    this.heading = heading;
-    this.details = details;
-  }
+export interface Notice{
+  noticeId:number;
+  noticeHeading : string;
+  noticeContent : string;
+  slot?:Slot;
 }
