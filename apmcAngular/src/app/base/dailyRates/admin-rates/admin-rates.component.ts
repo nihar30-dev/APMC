@@ -92,25 +92,6 @@ export class AdminRatesComponent {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   loadItemTypes() {
 
     const promise = new Promise((res, rej) => {

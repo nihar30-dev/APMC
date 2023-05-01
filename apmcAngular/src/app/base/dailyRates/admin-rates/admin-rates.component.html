@@ -50,8 +50,8 @@
       </form>
     </div>
     <div class="modal-footer">
-      <button style="background-color: #325c32; color: white; "type="reset" class="btn btn-outline-danger btn-sm" (click)="saveFromOutside.form.reset()">Reset</button>
-      <button style="background-color: #325c32; color: white;" type="button" class="btn btn-outline-dark" [disabled]="saveFromOutside.form.invalid"
+      <button style="background-color: #325c32; color: white; "type="reset" class="btn btn-outline reset" (click)="saveFromOutside.form.reset()">Reset</button>
+      <button style="background-color: #325c32; color: white;" type="button" class="btn btn-outline save" [disabled]="saveFromOutside.form.invalid"
         (click)="saveFromOutside.ngSubmit.emit()">Add Item</button>
     </div>
   </ng-template>
