@@ -36,6 +36,7 @@ export class ShopFormComponent implements OnInit {
       },(error)=>{
         this.tosterService.error(error.error['message']);
       });
+
       this.modalService.close();
     }
   }

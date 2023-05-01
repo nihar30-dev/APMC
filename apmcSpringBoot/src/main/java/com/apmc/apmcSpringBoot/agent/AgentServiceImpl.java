@@ -1,11 +1,15 @@
 package com.apmc.apmcSpringBoot.agent;
 
 import com.apmc.apmcSpringBoot.Exception.Response;
+import com.apmc.apmcSpringBoot.Exception.ResponseException;
 import com.apmc.apmcSpringBoot.Exception.ValidatorException;
 import com.apmc.apmcSpringBoot.Exception.ValidatorResponse;
+import com.apmc.apmcSpringBoot.security.payload.request.SignupRequest;
+import com.apmc.apmcSpringBoot.security.service.AuthService;
 import com.apmc.apmcSpringBoot.shop.ShopRepository;
 import com.apmc.apmcSpringBoot.agent.validation.AgentValidatorImpl;
 import com.apmc.apmcSpringBoot.shop.Shop;
+import com.apmc.apmcSpringBoot.user.User;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +24,9 @@ public class AgentServiceImpl implements AgentService {
 
     @Autowired
     private ShopRepository shopRepository;
+
+    @Autowired
+    private AuthService authSerive;
     @Override
     @Transactional
     public List<Agent> getAllAgent() {
@@ -41,30 +48,38 @@ public class AgentServiceImpl implements AgentService {
     @Override
     @Transactional()
     public Response addAgent(Agent agent) {
-        AgentValidatorImpl agentValidatorImpl = new AgentValidatorImpl(agentRepository, shopRepository);
 
-//        @Autowired
-//        AgentValidatorImpl agentValidatorImpl;
+        int n = agentRepository.companyNameExist(agent.getCompanyName());
 
-        ValidatorResponse validatorResponse = agentValidatorImpl.checkAgent(agent);
+        if(n==0){
 
-        if(!validatorResponse.isStatus()){
-            throw new ValidatorException(validatorResponse.getMessage());
-        }
-        try{
-            Shop s = shopRepository.findById(agent.getShop().getShopId()).get();
+            System.out.println(agent.getAgentName());
+            String userName = agent.getAgentName() + Long.toString(System.currentTimeMillis()).substring(9, 13);
+            SignupRequest signUpRequest = new SignupRequest(userName, userName, agent.getContact());
+            Long userId =  authSerive.signupUtil(signUpRequest);
+            agent.setUser(new User(userId));
+
+            AgentValidatorImpl agentValidatorImpl = new AgentValidatorImpl(agentRepository, shopRepository);
+            ValidatorResponse validatorResponse = agentValidatorImpl.checkAgent(agent);
+            if(!validatorResponse.isStatus()){
+                throw new ValidatorException(validatorResponse.getMessage());
+            }
+
+            try{
+                System.out.println(userId);
+                agent.setUser(new User(userId));
+                Shop s = shopRepository.findById(agent.getShop().getShopId()).get();
 //            if(s.getOwner().getId()==null ){
                 s.setOwner(agent.getUser());
                 shopRepository.save(s);
                 agentRepository.save(agent);
                 return new Response(200, "ok", System.currentTimeMillis(), true);
-//            }
-//            else {
-//                throw new ResponseException("shop is already taken");
-//            }
-
-        }catch (Exception e){
-            return new Response(400,e.getMessage(),System.currentTimeMillis());
+            }catch (Exception e){
+                return new Response(400,e.getMessage(),System.currentTimeMillis());
+            }
+        }
+        else{
+            throw new ResponseException("Company already exist");
         }
     }
 

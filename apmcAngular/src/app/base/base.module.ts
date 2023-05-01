@@ -10,6 +10,11 @@ import { SharedModule } from '../shared/shared.module';
 import { ShopsComponent } from './shops/shops.component';
 import {AuthGuard} from "../auth/auth.guard";
 import {MatTabsModule} from "@angular/material/tabs";
+import {MatNativeDateModule} from "@angular/material/core";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatIconModule} from "@angular/material/icon";
+import {MatInputModule} from "@angular/material/input";
 
 const routes : Routes = [
   { path: 'shops', component: ShopsComponent ,canActivate:[AuthGuard] , data:{role:['AGENT','ADMIN','USER']}},
@@ -25,15 +30,20 @@ const routes : Routes = [
     UserRatesComponent,
     FilterPipe
   ],
-  imports: [
+    imports: [
 
-    RouterModule.forRoot(routes),
-    CommonModule,
-    SharedModule,
-    ReactiveFormsModule,
-    FormsModule,
-    NgbModule,
-    MatTabsModule
-  ]
+        RouterModule.forRoot(routes),
+        CommonModule,
+        SharedModule,
+        ReactiveFormsModule,
+        FormsModule,
+        NgbModule,
+        MatTabsModule,
+        MatFormFieldModule,
+        MatDatepickerModule,
+        MatIconModule,
+        MatInputModule,
+        MatNativeDateModule
+    ]
 })
 export class BaseModule { }

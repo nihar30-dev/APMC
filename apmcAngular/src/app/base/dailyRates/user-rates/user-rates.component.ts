@@ -39,7 +39,7 @@ export class UserRatesComponent implements OnInit{
     this.dailyRateService.getDailyRatesByDate(day).subscribe((data)=>{
       this.itemList = data;
       console.log(this.itemList);
-      this.showContainer(1);
+      this.showContainer(0);
     }, error =>{
       this.toastr.info('No rates for this date');
       console.log(this.toastr);
@@ -48,11 +48,14 @@ export class UserRatesComponent implements OnInit{
   }
 
   //datepicker methods
-  onDateSelect(dp: NgbInputDatepicker) {
-    this.selectedDate = `${this.date?.year}-${(this.date?.month+'').padStart(2, '0')}-${(this.date?.day+'').padStart(2, '0')}`;
-    setTimeout(() => {
-      dp.close();
-    }, 100);
+  onDateSelect(dp: any) {
+    console.log(dp);
+    // this.selectedDate = `${this.date?.year}-${(this.date?.month+'').padStart(2, '0')}-${(this.date?.day+'').padStart(2, '0')}`;
+    // setTimeout(() => {
+    //   // dp.close();
+    // }, 100);
+    let day2:string = this.dateformatter.dateinyyyymmdd(dp);
+    this.selectedDate =day2;
     console.log(this.selectedDate);
     
     this.showContainer(0);
@@ -75,15 +78,17 @@ export class UserRatesComponent implements OnInit{
 
   // list methods
   showContainer(a: any) {
-    console.log(a.index);
+    console.log(a);
     this.itemList = [];
     this.dailyRateService.getDailyRatesByDateAndItemType(this.selectedDate, a+1).subscribe((data)=>{
       this.itemList = data;
       console.log(this.itemList);
+      if(this.itemList.length == 0)
+        this.toastr.info("No data found")
+      console.log(this.itemList);
       
     }, error =>{
-      this.toastr.info("No data found")
-      
+      this.toastr.error("No data found");
     })
     // this.loadItem(a)
     //   .then(() => this.initForm())
@@ -95,6 +100,7 @@ export class UserRatesComponent implements OnInit{
   }
 
   protected readonly indexedDB = indexedDB;
+  model2: any;
 }
 
 

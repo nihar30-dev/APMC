@@ -51,9 +51,9 @@ public class DailyRatesController {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = dateFormat.parse(day);
         List<DailyRates> dailyRatesList = dailyRateService.getAllItemsByDateAndType(date, itemTypeId);
-        if (dailyRatesList.size() <= 0){
-            throw new ResponseException("No Daily rates for this day");
-        }
+//        if (dailyRatesList.size() <= 0){
+//            throw new ResponseException("No Daily rates for this day");
+//        }
         return dailyRatesList;
     }
 }

@@ -1,15 +1,24 @@
 <div class="parent">
-    <div class="dateContainer mt-5">
-        <div class="input-group" (click)="dp.toggle()" >
-            <input type="text" class="form-control" placeholder="Select date" [(ngModel)]="date" ngbDatepicker
-                #dp="ngbDatepicker" (dateSelect)="onDateSelect(dp)" [maxDate]="maxDate" [autoClose]="true"/>
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button">
-                    <i class="bi bi-calendar"></i>
-                </button>
-            </div>
-        </div>
-    </div>
+<!--    <div class="dateContainer mt-5">-->
+<!--        <div class="input-group" (click)="dp.toggle()" >-->
+<!--            <input type="text" class="form-control" placeholder="Select date" [(ngModel)]="date" ngbDatepicker-->
+<!--                #dp="ngbDatepicker" (dateSelect)="onDateSelect(dp)" [maxDate]="maxDate" [autoClose]="true"/>-->
+<!--            <div class="input-group-append">-->
+<!--                <button class="btn btn-outline-secondary" type="button">-->
+<!--                    <i class="bi bi-calendar"></i>-->
+<!--                </button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Choose a date</mat-label>
+    <input matInput [matDatepicker]="picker" (dateChange)="onDateSelect($event.value)">
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker">
+      <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+    </mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
 </div>
 <div class="container mt-0 navContainer">
   <button (click)="open('item')" class="btn btn-outline-primary btn-sm itemBtn">
@@ -19,7 +28,7 @@
   <app-modal></app-modal>
 
   <div *ngIf="!modalService.showModal">
-    <mat-tab-group (selectedTabChange)="showContainer($event)">
+    <mat-tab-group (selectedTabChange)="showContainer($event.index)">
       <mat-tab label="{{itemType['itemTypeName']}}" *ngFor="let itemType of itemTypes;let i= index "  style="cursor: pointer">
       </mat-tab>
     </mat-tab-group>
@@ -28,7 +37,7 @@
       <div class="card-body card">
         <table class="text-center">
           <div class="row heading">
-            <div class="col col-sm-1 col-md -1 col-lg-1 text-center title">
+            <div class="col col-sm-1 col-md -2 col-lg-2 text-center title">
               <h6>Item</h6>
             </div>
             <div class="col col-sm-2 col-md-2 col-lg-2 text-center title">
@@ -46,6 +55,7 @@
             <div class="col col-sm-1 col-md -1 col-lg-1 text-center title">
               <h6>Save</h6>
             </div>
+
           </div>
           <div class="card-body card bg-light mb-3" *ngIf="dataFetched">
             <div>
@@ -55,7 +65,7 @@
                 [formGroupName]="i">
                   <div class="col">
                     <div class="row">
-                      <div class="col col-sm-1 col-md -1 col-lg-1 text-center">
+                      <div class="col col-sm-1 col-md -2 col-lg-2 text-center">
                          <p>{{ itemsList[i].itemName}}:</p>
                         <input type="hidden" formControlName="itemId" name="item" />
                       </div>

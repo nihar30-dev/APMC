@@ -70,6 +70,9 @@ public class User {
     public User(){
 
     }
+    public User(Long id) {
+        this.id = id;
+    }
 
     public User(Long id, String username, String password, String contact, Set<Role> roles, Shop shops, Agent agent) {
         this.id = id;

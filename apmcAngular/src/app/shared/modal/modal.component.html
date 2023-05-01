@@ -6,7 +6,7 @@
                 type="button" 
                 (click)="close()">X</button>
   
-        <div class="container my-4" *ngIf="modalService.formName === 'agent'">
+        <div  *ngIf="modalService.formName === 'agent'">
             <app-agent-form></app-agent-form>
         </div>
 
