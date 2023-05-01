@@ -89,6 +89,10 @@ public class User {
         this.password = password;
     }
 
+    public User(Long id) {
+        this.id = id;
+    }
+
     public User(String username, String password, String contact) {
         this.username = username;
         this.password = password;
@@ -158,4 +162,5 @@ public class User {
     public void setSlotDetail(List<SlotDetail> slotDetail) {
         this.slotDetail = slotDetail;
     }
+
 }

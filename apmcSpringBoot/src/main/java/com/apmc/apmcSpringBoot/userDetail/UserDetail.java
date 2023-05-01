@@ -101,16 +101,4 @@ public class UserDetail {
         this.crops = crops;
     }
 
-    @Override
-    public String toString() {
-        return "UserDetail{" +
-                "id=" + id +
-                ", user=" + user +
-                ", fullName='" + fullName + '\'' +
-                ", district='" + district + '\'' +
-                ", taluka='" + taluka + '\'' +
-                ", village='" + village + '\'' +
-                ", crops='" + crops + '\'' +
-                '}';
-    }
 }

@@ -1,11 +1,13 @@
 package com.apmc.apmcSpringBoot.shop;
 
 import com.apmc.apmcSpringBoot.Exception.Response;
+import com.apmc.apmcSpringBoot.Exception.ResponseException;
 import com.apmc.apmcSpringBoot.Exception.ValidatorException;
 import com.apmc.apmcSpringBoot.Exception.ValidatorResponse;
 import com.apmc.apmcSpringBoot.shop.validation.ShopValidatorImpl;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,7 +54,8 @@ public class ShopServiceImpl implements ShopService {
             shopRepository.save(shop);
             return new Response(200, "Ok", System.currentTimeMillis(), true);
         }catch (Exception e){
-            throw new ValidatorException(validatorResponse.getMessage());
+//            throw new ValidatorException(validatorResponse.getMessage());
+            throw new ResponseException("Shop already exist");
         }
     }
 
