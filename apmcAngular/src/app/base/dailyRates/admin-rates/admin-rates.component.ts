@@ -216,7 +216,7 @@ export class AdminRatesComponent implements OnInit {
     this.dailyRateService.addDailyItemRate(itemRates, this.day).subscribe(data => {
       this.toster.success("Rate added successfully")
     }, error => {
-      this.toster.error("SOmething went wrong")
+      this.toster.error("Something went wrong")
     });
     
     return;

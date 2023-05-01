@@ -43,7 +43,8 @@ const routes : Routes = [
         MatDatepickerModule,
         MatIconModule,
         MatInputModule,
-        MatNativeDateModule
+        MatNativeDateModule,
+        NgbModule
     ]
 })
 export class BaseModule { }
