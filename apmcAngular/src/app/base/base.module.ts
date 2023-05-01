@@ -32,17 +32,6 @@ const routes : Routes = [
   ],
     imports: [
 
-<<<<<<< HEAD
-    RouterModule.forRoot(routes),
-    CommonModule,
-    SharedModule,
-    ReactiveFormsModule,
-    FormsModule,
-    NgbModule,
-    MatTabsModule,
-    NgbDatepickerModule
-  ]
-=======
         RouterModule.forRoot(routes),
         CommonModule,
         SharedModule,
@@ -57,6 +46,5 @@ const routes : Routes = [
         MatNativeDateModule,
         NgbModule
     ]
->>>>>>> 371de6bafbf5ae317aa8c27fbc26fceb22e4c85b
 })
 export class BaseModule { }
