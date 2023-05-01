@@ -1,9 +1,9 @@
 <div class="container mt-5">
 
-  <button *ngIf="role==='ADMIN'" (click)="open('shop')" class="btn btn-outline-primary btn-sm shopBtn">
+  <button *ngIf="role==='ADMIN'" (click)="open(content)" class="btn btn-outline-primary btn-sm shopBtn">
     <h6>Add Shops</h6>
   </button>
-  <app-modal></app-modal>
+  <!-- <app-modal></app-modal> -->
 
   <button *ngIf="role==='ADMIN'" (click)="open('agent')" class="btn btn-outline-primary btn-sm agentBtn">
     <h6>Add Agents</h6>
@@ -12,8 +12,7 @@
 
 </div>
 
-
-<div *ngIf="!modalService.showModal">
+<div>
   <div class="container listContainer">
     <div class="card-body card">
       <div class="row">
@@ -65,3 +64,40 @@
     </div>
   </div>
 </div>
+
+
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Add New Shop</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+          <form [formGroup]="f" (ngSubmit)="onSubmitShop(f)" #shopAddForm = "ngForm" novalidate>
+            <div class="form-group">
+              <label for="shopNumber">Shop Number:</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="shopNo"
+                id="shopNumber"
+                name="shopNumber"
+              />
+        
+              <div
+                *ngIf="
+                  f.controls['shopNo']?.invalid &&
+                  f.controls['shopNo']?.touched &&
+                  f.controls['shopNo']?.dirty
+                "
+                class="alert alert-danger"
+              >
+                Shop number should be in the format of A-12, B-123, C-16, F-37.
+              </div>
+            </div>
+          </form>
+	</div>
+	<div class="modal-footer">
+    <button type="reset" class="btn btn-secondary" (click)="shopAddForm.form.reset()" >Reset</button>
+		<button type="button" class="btn btn-outline-dark" (click)="shopAddForm.ngSubmit.emit()">Save</button>
+	</div>
+</ng-template>

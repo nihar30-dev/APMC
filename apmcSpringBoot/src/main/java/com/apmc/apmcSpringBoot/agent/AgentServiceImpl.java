@@ -4,15 +4,14 @@ import com.apmc.apmcSpringBoot.Exception.Response;
 import com.apmc.apmcSpringBoot.Exception.ResponseException;
 import com.apmc.apmcSpringBoot.Exception.ValidatorException;
 import com.apmc.apmcSpringBoot.Exception.ValidatorResponse;
-import com.apmc.apmcSpringBoot.security.controller.AuthService;
 import com.apmc.apmcSpringBoot.security.payload.request.SignupRequest;
+import com.apmc.apmcSpringBoot.security.service.AuthService;
 import com.apmc.apmcSpringBoot.shop.ShopRepository;
 import com.apmc.apmcSpringBoot.agent.validation.AgentValidatorImpl;
 import com.apmc.apmcSpringBoot.shop.Shop;
 import com.apmc.apmcSpringBoot.user.User;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

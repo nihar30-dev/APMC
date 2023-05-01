@@ -59,6 +59,7 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<SlotDetail> slotDetail;
+
     public Set<Role> getRoles() {
         return roles;
     }
@@ -69,6 +70,9 @@ public class User {
 
     public User(){
 
+    }
+    public User(Long id) {
+        this.id = id;
     }
 
     public User(Long id, String username, String password, String contact, Set<Role> roles, Shop shops, Agent agent) {
@@ -84,10 +88,6 @@ public class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-    }
-
-    public User(Long id) {
-        this.id = id;
     }
 
     public User(String username, String password, String contact) {

@@ -19,4 +19,5 @@ public interface AgentRepository extends JpaRepository<Agent,Integer> {
     public int companyNameExist(String companyName);
 
 
+
 }

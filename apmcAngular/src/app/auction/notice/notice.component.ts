@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {StorageService} from "../../utils/storage.service";
 import {Notice} from "../../models/notice.model";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-notice',
@@ -16,7 +17,7 @@ export class NoticeComponent implements OnInit{
 
 
   constructor(private fb: FormBuilder, private noticeService: NoticeService,  private modalService: NgbModal,
-              private storageService:StorageService) { }
+              private storageService:StorageService, private toster: ToastrService) { }
 
   ngOnInit(): void {
     this.noticeForm = this.fb.group({
@@ -37,10 +38,10 @@ export class NoticeComponent implements OnInit{
        const notice:Notice = {noticeId:0 , noticeHeading:noticeForm.value.heading , noticeContent:noticeForm.value.details ,slot:undefined}
       this.noticeService.addNotice(notice).subscribe(
         data => {
-          alert('Notice Added' + data);
+          this.toster.success('Notice added');
         },
         error => {
-          alert(error.error['message']);
+          this.toster.error(error.error['message']);
         }
       );
     }

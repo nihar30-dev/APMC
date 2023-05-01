@@ -34,8 +34,10 @@ export class ShopFormComponent implements OnInit {
       this.shopService.createShop(shopForm.value).subscribe(data=>{
         this.tosterService.success("Shop added successfully");
       },(error)=>{
+ 
         this.tosterService.error(error.error['message']);
       });
+
       this.modalService.close();
     }
   }

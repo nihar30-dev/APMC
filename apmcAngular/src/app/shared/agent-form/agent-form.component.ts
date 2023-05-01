@@ -10,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ShopService } from 'src/app/services/shop.service';
 import { ToastrService } from 'ngx-toastr';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-agent-form',
@@ -32,8 +33,9 @@ export class AgentFormComponent implements OnInit{
     private modalService: ModalService,
     private authervice: AuthService, 
     private agentService: AgentService,
-    private tosterService: ToastrService
-    ) {
+    private tosterService: ToastrService,
+    private router : Router
+  ) {
 
   }
 
@@ -64,12 +66,14 @@ export class AgentFormComponent implements OnInit{
         this.addAgent(agentForm)
         .then(()=>{
           this.modalService.close();
+          this.router.navigate(['shops']);
           this.agentForm.reset();
         })
         .catch((error)=>{
           this.tosterService.error(error.error['message']);
         });
     }
+
   }
 
 

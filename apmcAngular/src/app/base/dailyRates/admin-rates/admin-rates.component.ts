@@ -223,14 +223,15 @@ export class AdminRatesComponent {
   }
 
     //datepicker methods
-    onDateSelect(dp: NgbInputDatepicker) {
+    onDateSelect(dp: any) {
       this.date1 = new Date(`${this.date?.year}-${(this.date?.month+'').padStart(2, '0')}-${(this.date?.day+'').padStart(2, '0')}`);
-      this.day = this.dateFormatter.dateinyyyymmdd(this.date1);
+      // this.day = this.dateFormatter.dateinyyyymmdd(this.date1);
+      this.day = this.dateFormatter.dateinyyyymmdd(dp);
 
-      setTimeout(() => {
-        dp.close();
-      }, 100);
-      console.log(this.date1);
+      // setTimeout(() => {
+      //   dp.close();
+      // }, 100);
+      // console.log(this.date1);
       console.log(this.day);
       this.itemsList = [];
       this.rates = [];
@@ -269,7 +270,7 @@ export class AdminRatesComponent {
     this.dailyRateService.addDailyItemRate(itemRates, this.day).subscribe(data => {
       this.toster.success("Rate added successfully")
     }, error => {
-      this.toster.error("SOmething went wrong")
+      this.toster.error("Something went wrong")
     });
     
     return;
@@ -280,7 +281,7 @@ export class AdminRatesComponent {
   }
 
   showContainer(a: any) {
-    this.loadItem(a.index+1)
+    this.loadItem(a+1)
       .then(() => this.initForm())
       .catch((error) => {
         console.log(error);
