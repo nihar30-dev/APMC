@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbCalendar, NgbDate, NgbDateStruct, NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { DailyRates } from 'src/app/models/dailyRates.model';
@@ -8,15 +8,16 @@ import { Item } from 'src/app/models/item.model';
 import { ItemType } from 'src/app/models/itemType.model';
 import { DailyRatesService } from 'src/app/services/daily-rates.service';
 import { ItemService } from 'src/app/services/item.service';
-import { ModalService } from 'src/app/services/modal.service';
+// import { ModalService } from 'src/app/services/modal.service';
 import { DateFormatter } from 'src/app/utils/dateFormatter';
+import { ModalDismissReasons, NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-admin-rates',
   templateUrl: './admin-rates.component.html',
   styleUrls: ['./admin-rates.component.scss']
 })
-export class AdminRatesComponent implements OnInit {
+export class AdminRatesComponent {
 
   dataFetched : boolean = false;
   itemTypes!: ItemType[];
@@ -35,16 +36,28 @@ export class AdminRatesComponent implements OnInit {
     private itemService: ItemService,
     private dailyRateService: DailyRatesService,
     private http: HttpClient,
-    public modalService: ModalService,
     private dateFormatter: DateFormatter,
     private toster:ToastrService,
     private calendar : NgbCalendar,
-    ) { 
+    private modal: NgbModal,
+    private fb : FormBuilder,
+    private tosterService: ToastrService ) { 
       this.maxDate = calendar.getToday();
 
     }
-
+    itemForm! : FormGroup;
+    ItemTypes! : ItemType[];
+     
   ngOnInit() {
+    this.itemService.getItemTypes().subscribe((data)=>{
+      this.ItemTypes = data;
+    }, ()=>{
+      this.tosterService.error("Error loading ItemTypes");
+    });
+    this.itemForm = this.fb.group({
+      itemTypeId : [null, Validators.required],
+      itemName: [null, Validators.required]
+    });
     let date = new Date();
     this.day = this.dateFormatter.dateinyyyymmdd(date);
     this.loadItemTypes()
@@ -56,6 +69,47 @@ export class AdminRatesComponent implements OnInit {
         this.toster.error("Something went wrong")
       });
   }
+
+
+  onSubmit(itemForm: FormGroup){
+    if(itemForm.valid){
+      
+      const item : Item = {itemId:0, itemName: itemForm.value['itemName'],itemType: new ItemType(itemForm.value['itemTypeId'], ''), dailyRates : []};  
+      this.itemService.createItem(item).subscribe(()=>{
+        this.tosterService.success("Item added successfully");
+      });
+      itemForm.reset();
+      this.modal.dismissAll();
+    }
+
+  }
+
+
+    openModal(content : any) {
+      this.modal.open(content, { ariaLabelledBy: 'modal-basic-title', centered : true } )
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   loadItemTypes() {
 
@@ -194,7 +248,7 @@ export class AdminRatesComponent implements OnInit {
     return this.rateObj.get(itemId);
   }
 
-  onSubmit(i: number) {
+  onFormSubmit(i: number) {
 
     // console.log(this.dailyRates);
     
@@ -222,7 +276,7 @@ export class AdminRatesComponent implements OnInit {
   }
 
   open(formName: string) {
-    this.modalService.open(formName);
+    this.modal.open(formName);
   }
 
   showContainer(a: any) {

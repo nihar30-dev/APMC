@@ -2,7 +2,7 @@ import { AdminRatesComponent } from './dailyRates/admin-rates/admin-rates.compon
 import { CommonModule } from '@angular/common';
 import { FilterPipe, UserRatesComponent } from './dailyRates/user-rates/user-rates.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
 import { Routes } from '@angular/router';
 import { RouterModule} from '@angular/router';
@@ -33,7 +33,8 @@ const routes : Routes = [
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
-    MatTabsModule
+    MatTabsModule,
+    NgbDatepickerModule
   ]
 })
 export class BaseModule { }
