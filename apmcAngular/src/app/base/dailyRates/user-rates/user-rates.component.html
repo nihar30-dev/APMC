@@ -34,14 +34,10 @@
                         #c2="ngModel"
                         [(ngModel)]="model2"
                         ngbDatepicker
-                        (ngModelChange)="onDateSelect($event)"
+                        (ngModelChange)="onDateSelect(d2)"
                         #d2="ngbDatepicker"
                 />
-                <button
-                        class="btn btn-outline-secondary calendar"
-                        (click)="d2.toggle()"
-                        type="button"
-                ></button>
+                <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d2.toggle()" type="button"></button>
             </div>
         </div>
     </form>
@@ -65,11 +61,13 @@
           </div>
         </div>
     </nav> -->
-<mat-tab-group (selectedTabChange)="showContainer($event.index)">
-    <mat-tab label="{{itemType['itemTypeName']}}" *ngFor="let itemType of itemTypes; let i= index "  style="cursor: pointer">
-    </mat-tab>
- </mat-tab-group>
+<!--<mat-tab-group (selectedTabChange)="showContainer($event.index)">-->
+<!--    <mat-tab label="{{itemType['itemTypeName']}}" *ngFor="let itemType of itemTypes; let i= index "  style="cursor: pointer">-->
+<!--    </mat-tab>-->
+<!-- </mat-tab-group>-->
 
+
+<!--<div [ngbNavOutlet]="nav" class="mt-2"></div>-->
 <!--<nav class="navbar navbar-expand-lg navbar-light bg-light">-->
 <!--    <div class="container-fluid">-->
 <!--        <div class="row w-100" *ngFor="let itemType of itemTypes;">-->
@@ -80,6 +78,14 @@
 <!--    </div>-->
 <!--</nav>-->
 
+<ul ngbNav #nav="ngbNav" class="nav-tabs" [(activeId)]="active">
+    <li ngbNavItem *ngFor="let itemType of itemTypes; let i= index ">
+        <a ngbNavLink (click)="showContainer(i)">{{itemType['itemTypeName']}}</a>
+    </li>
+</ul>
+
+
+<!--<div [ngbNavOutlet]="nav" class="mt-2"></div>-->
 
 
 

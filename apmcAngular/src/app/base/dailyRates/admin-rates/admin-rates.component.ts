@@ -1,7 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { NgbCalendar, NgbDate, NgbDateStruct, NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {
+  NgbCalendar,
+  NgbDate,
+  NgbDateAdapter,
+  NgbDateParserFormatter,
+  NgbDateStruct,
+  NgbInputDatepicker
+} from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { DailyRates } from 'src/app/models/dailyRates.model';
 import { Item } from 'src/app/models/item.model';
@@ -10,16 +17,18 @@ import { DailyRatesService } from 'src/app/services/daily-rates.service';
 import { ItemService } from 'src/app/services/item.service';
 // import { ModalService } from 'src/app/services/modal.service';
 import { DateFormatter } from 'src/app/utils/dateFormatter';
+import {CustomDateParserFormatter} from '../CustomDateParserFormatter';
 import { ModalDismissReasons, NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-admin-rates',
   templateUrl: './admin-rates.component.html',
-  styleUrls: ['./admin-rates.component.scss']
+  styleUrls: ['./admin-rates.component.scss'],
+  providers: [{ provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter }]
 })
 export class AdminRatesComponent {
 
-  dataFetched : boolean = false;
+  dataFetched  = false;
   itemTypes!: ItemType[];
   itemsList!: Item[];
   dailyRates!: FormGroup;
@@ -30,6 +39,8 @@ export class AdminRatesComponent {
   date1 : Date| null = null;
   selectedDate = '';
   maxDate: NgbDate;
+  model2:any;
+  active = 'ngb-nav-0';
   
 
   constructor(
@@ -39,26 +50,30 @@ export class AdminRatesComponent {
     private dateFormatter: DateFormatter,
     private toster:ToastrService,
     private calendar : NgbCalendar,
+    private ngbCalendar: NgbCalendar,
+    private dateAdapter: NgbDateAdapter<string>,
     private modal: NgbModal,
     private fb : FormBuilder,
     private tosterService: ToastrService ) { 
-      this.maxDate = calendar.getToday();
+    this.maxDate = calendar.getToday();
 
-    }
-    itemForm! : FormGroup;
-    ItemTypes! : ItemType[];
+  }
+  itemForm! : FormGroup;
+  ItemTypes! : ItemType[];
      
   ngOnInit() {
+    this.active = 'ngb-nav-0';
     this.itemService.getItemTypes().subscribe((data)=>{
       this.ItemTypes = data;
     }, ()=>{
-      this.tosterService.error("Error loading ItemTypes");
+      this.tosterService.error('Error loading ItemTypes');
     });
     this.itemForm = this.fb.group({
       itemTypeId : [null, Validators.required],
       itemName: [null, Validators.required]
     });
-    let date = new Date();
+    const date = new Date();
+    this.model2 = this.dateAdapter.toModel(this.ngbCalendar.getToday())!;
     this.day = this.dateFormatter.dateinyyyymmdd(date);
     this.loadItemTypes()
       .then(() => this.loadItem(1))
@@ -66,7 +81,7 @@ export class AdminRatesComponent {
       .then(() => this.getRateObj())
       .then(() => this.initForm())
       .catch((error) => {
-        this.toster.error("Something went wrong")
+        this.toster.error('Something went wrong');
       });
   }
 
@@ -76,7 +91,7 @@ export class AdminRatesComponent {
       
       const item : Item = {itemId:0, itemName: itemForm.value['itemName'],itemType: new ItemType(itemForm.value['itemTypeId'], ''), dailyRates : []};  
       this.itemService.createItem(item).subscribe(()=>{
-        this.tosterService.success("Item added successfully");
+        this.tosterService.success('Item added successfully');
       });
       itemForm.reset();
       this.modal.dismissAll();
@@ -85,9 +100,9 @@ export class AdminRatesComponent {
   }
 
 
-    openModal(content : any) {
-      this.modal.open(content, { ariaLabelledBy: 'modal-basic-title', centered : true } )
-    }
+  openModal(content : any) {
+    this.modal.open(content, { ariaLabelledBy: 'modal-basic-title', centered : true } );
+  }
 
 
 
@@ -113,8 +128,8 @@ export class AdminRatesComponent {
         res(this.itemsList);
       }, error => {
         rej(error);
-      })
-    })
+      });
+    });
     return promise;
   }
 
@@ -125,7 +140,7 @@ export class AdminRatesComponent {
         console.log(this.rates);
         res(this.rates);
       }, error => {
-        this.toster.error("Error loading Rates")
+        this.toster.error('Error loading Rates');
         rej(error);
       });
     });
@@ -203,30 +218,31 @@ export class AdminRatesComponent {
     return this.dailyRates.get('dailyRateArray') as FormArray;
   }
 
-    //datepicker methods
-    onDateSelect(dp: any) {
-      this.date1 = new Date(`${this.date?.year}-${(this.date?.month+'').padStart(2, '0')}-${(this.date?.day+'').padStart(2, '0')}`);
-      // this.day = this.dateFormatter.dateinyyyymmdd(this.date1);
-      this.day = this.dateFormatter.dateinyyyymmdd(dp);
+  //datepicker methods
+  onDateSelect(dp: any) {
+    this.date1 = new Date(`${this.date?.year}-${(this.date?.month+'').padStart(2, '0')}-${(this.date?.day+'').padStart(2, '0')}`);
+    // this.day = this.dateFormatter.dateinyyyymmdd(this.date1);
+    // this.day = this.dateFormatter.dateinyyyymmdd(dp);
 
-      // setTimeout(() => {
-      //   dp.close();
-      // }, 100);
-      // console.log(this.date1);
-      console.log(this.day);
-      this.itemsList = [];
-      this.rates = [];
-      this.rateObj.clear();
-      this.dataFetched = false;
-      this.loadDailyRates()
+    this.day = dp._inputValue.slice(6)+'-'+dp._inputValue.slice(3,5)+'-'+dp._inputValue.slice(0,2);
+    // setTimeout(() => {
+    //   dp.close();
+    // }, 100);
+    // console.log(this.date1);
+    console.log(this.day);
+    this.itemsList = [];
+    this.rates = [];
+    this.rateObj.clear();
+    this.dataFetched = false;
+    this.loadDailyRates()
       .then(() => this.getRateObj())
-      .then(() => this.initForm())
+      .then(() => this.initForm());
       
-      this.showContainer(1);
-    }
+    this.showContainer(0);
+  }
 
   mapperRateToItem(item: Item) {
-    let itemId = item['itemId'];
+    const itemId = item['itemId'];
     return this.rateObj.get(itemId);
   }
 
@@ -234,7 +250,7 @@ export class AdminRatesComponent {
 
     // console.log(this.dailyRates);
     
-    const item:Item = {itemId :this.dailyRates.value['dailyRateArray'][i]['itemId'],itemName :this.dailyRates.value['dailyRateArray'][i]['itemName'],itemType: new ItemType(0, ""), dailyRates: []};
+    const item:Item = {itemId :this.dailyRates.value['dailyRateArray'][i]['itemId'],itemName :this.dailyRates.value['dailyRateArray'][i]['itemName'],itemType: new ItemType(0, ''), dailyRates: []};
 
     const minPrice = this.dailyRates.value['dailyRateArray'][i]['minPrice'];
     const maxPrice = this.dailyRates.value['dailyRateArray'][i]['maxPrice']; 
@@ -249,9 +265,9 @@ export class AdminRatesComponent {
     // console.log(this.dailyRates.value['dailyRateArray'][i]);
 
     this.dailyRateService.addDailyItemRate(itemRates, this.day).subscribe(data => {
-      this.toster.success("Rate added successfully")
+      this.toster.success('Rate added successfully');
     }, error => {
-      this.toster.error("Something went wrong")
+      this.toster.error('Something went wrong');
     });
     
     return;
@@ -266,7 +282,7 @@ export class AdminRatesComponent {
       .then(() => this.initForm())
       .catch((error) => {
         console.log(error);
-        this.toster.error("Something went wrong")
+        this.toster.error('Something went wrong');
       });
   }
 }

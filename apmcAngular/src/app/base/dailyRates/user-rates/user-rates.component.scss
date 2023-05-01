@@ -14,6 +14,30 @@
   text-align: left;
 }
 
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #325c32;
+  color: #fff;
+  border-radius: 3px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.2s ease-in-out;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+a{
+  color: #325c32;
+}
+
+a:hover{
+  color: #325c32;
+}
+
+
 //list content styling
 
 .container {

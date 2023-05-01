@@ -74,12 +74,24 @@ button:hover {
 
 .btn-primary {
   margin-left: 1%;
-  background-color: #007bff;
+  background-color: #325c32;
   color: #fff;
 }
 
 .btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #325c32;
+  color: #fff;
   border-radius: 3px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn:hover {
+  background-color: #325c32;
 }
 
 
@@ -126,4 +138,10 @@ p{
   margin-bottom: 16px;
 }
 
+a{
+  color: #325c32;
+}
 
+a:hover{
+  color: #325c32;
+}
