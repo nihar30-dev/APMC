@@ -2,7 +2,7 @@ import { AdminRatesComponent } from './dailyRates/admin-rates/admin-rates.compon
 import { CommonModule } from '@angular/common';
 import { FilterPipe, UserRatesComponent } from './dailyRates/user-rates/user-rates.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbDatepickerModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
 import { Routes } from '@angular/router';
 import { RouterModule} from '@angular/router';
@@ -10,15 +10,11 @@ import { SharedModule } from '../shared/shared.module';
 import { ShopsComponent } from './shops/shops.component';
 import {AuthGuard} from "../auth/auth.guard";
 import {MatTabsModule} from "@angular/material/tabs";
-import {MatNativeDateModule} from "@angular/material/core";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatDatepickerModule} from "@angular/material/datepicker";
-import {MatIconModule} from "@angular/material/icon";
-import {MatInputModule} from "@angular/material/input";
+
 
 const routes : Routes = [
   { path: 'shops', component: ShopsComponent ,canActivate:[AuthGuard] , data:{role:['AGENT','ADMIN','USER']}},
-  { path: 'userRates', component: UserRatesComponent ,canActivate:[AuthGuard], data:{role:['USER','ADMIN','AGENT','']} },
+  { path: 'userRates', component: UserRatesComponent ,canActivate:[AuthGuard], data:{role:['USER','ADMIN','AGENT','default']} },
   { path: 'adminRates', component: AdminRatesComponent,canActivate:[AuthGuard] , data:{role:['ADMIN']} }
 ];
 
@@ -38,13 +34,7 @@ const routes : Routes = [
         ReactiveFormsModule,
         FormsModule,
         NgbModule,
-        MatTabsModule,
-        MatFormFieldModule,
-        MatDatepickerModule,
-        MatIconModule,
-        MatInputModule,
-        MatNativeDateModule,
-        NgbModule
+   
     ]
 })
 export class BaseModule { }

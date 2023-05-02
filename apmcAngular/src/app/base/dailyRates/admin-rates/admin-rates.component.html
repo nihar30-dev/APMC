@@ -1,4 +1,4 @@
-<div class="parent">
+
 <!--    <div class="dateContainer mt-5">-->
 <!--        <div class="input-group" (click)="dp.toggle()" >-->
 <!--            <input type="text" class="form-control" placeholder="Select date" [(ngModel)]="date" ngbDatepicker-->
@@ -10,7 +10,37 @@
 <!--            </div>-->
 <!--        </div>-->
 <!--    </div>-->
-</div>
+  <div class="parent">
+    <div class="dateContainer mt-5">
+      <form class="row row-cols-sm-auto">
+        <div class="col-12">
+          <div class="input-group">
+            <input
+                    class="form-control"
+                    placeholder="dd/mm/yyyy"
+                    name="d2"
+                    #c2="ngModel"
+                    [(ngModel)]="model2"
+                    ngbDatepicker
+                    (ngModelChange)="onDateSelect(d2)"
+                    #d2="ngbDatepicker"
+            />
+            <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d2.toggle()" type="button"></button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+<!--  <mat-form-field class="example-full-width" appearance="fill">-->
+<!--    <mat-label>Choose a date</mat-label>-->
+<!--    <input matInput [matDatepicker]="picker" (dateChange)="onDateSelect($event.value)">-->
+<!--    <mat-hint>MM/DD/YYYY</mat-hint>-->
+<!--    <mat-datepicker-toggle matIconSuffix [for]="picker">-->
+<!--      <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>-->
+<!--    </mat-datepicker-toggle>-->
+<!--    <mat-datepicker #picker></mat-datepicker>-->
+<!--  </mat-form-field>-->
+
 <div class="container mt-0 navContainer">
 
 
@@ -50,8 +80,8 @@
       </form>
     </div>
     <div class="modal-footer">
-      <button style="background-color: #325c32; color: white; "type="reset" class="btn btn-outline-danger btn-sm" (click)="saveFromOutside.form.reset()">Reset</button>
-      <button style="background-color: #325c32; color: white;" type="button" class="btn btn-outline-dark" [disabled]="saveFromOutside.form.invalid"
+      <button style="background-color: #325c32; color: white; "type="reset" class="btn btn-outline reset" (click)="saveFromOutside.form.reset()">Reset</button>
+      <button style="background-color: #325c32; color: white;" type="button" class="btn btn-outline save" [disabled]="saveFromOutside.form.invalid"
         (click)="saveFromOutside.ngSubmit.emit()">Add Item</button>
     </div>
   </ng-template>
@@ -59,13 +89,19 @@
   <button class="btn btn-lg btn-outline-primary" style="background-color: #325c32; color: white;" (click)="openModal(content)">Add Item</button>
   
 
-  <div>
-    <mat-tab-group (selectedTabChange)="showContainer($event)">
-      <mat-tab label="{{itemType['itemTypeName']}}" *ngFor="let itemType of itemTypes;let i= index "  style="cursor: pointer">
-      </mat-tab>
-    </mat-tab-group>
+
+<!--    <mat-tab-group (selectedTabChange)="showContainer($event)">-->
+<!--      <mat-tab label="{{itemType['itemTypeName']}}" *ngFor="let itemType of itemTypes;let i= index "  style="cursor: pointer">-->
+<!--      </mat-tab>-->
+<!--    </mat-tab-group>-->
+
 
     <div class="container">
+      <ul ngbNav #nav="ngbNav" class="nav-tabs" [(activeId)]="active">
+        <li ngbNavItem *ngFor="let itemType of itemTypes; let i= index ">
+          <a ngbNavLink (click)="showContainer(i)">{{itemType['itemTypeName']}}</a>
+        </li>
+      </ul>
       <div class="card-body card">
         <table class="text-center">
           <div class="row heading">
@@ -154,5 +190,5 @@
         </table>
       </div>
     </div>
-  </div>
+
 </div>

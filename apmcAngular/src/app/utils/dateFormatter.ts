@@ -13,4 +13,6 @@ export class DateFormatter{
         let day:string = ""+this.datepipe.transform(date, 'yyyy-MM-dd');
         return day;
     }
+
+
 }

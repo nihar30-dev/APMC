@@ -1,13 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { ItemService } from 'src/app/services/item.service';
-import { DailyRates } from 'src/app/models/dailyRates.model';
-import { DailyRatesService } from 'src/app/services/daily-rates.service'
-import { NgbDateStruct, NgbInputDatepicker, NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrService } from 'ngx-toastr';
+import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
+import {ItemService} from 'src/app/services/item.service';
+import {DailyRates} from 'src/app/models/dailyRates.model';
+import {DailyRatesService} from 'src/app/services/daily-rates.service';
+import {NgbCalendar, NgbDate, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import {ToastrService} from 'ngx-toastr';
+import {ItemType} from 'src/app/models/itemType.model';
+import {DateFormatter} from 'src/app/utils/dateFormatter';
+import {CustomDateParserFormatter} from '../CustomDateParserFormatter';
+
 @Component({
   selector: 'app-user-rates',
   templateUrl: './user-rates.component.html',
-  styleUrls: ['./user-rates.component.scss']
+  styleUrls: ['./user-rates.component.scss'],
+  providers: [{ provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter }]
 })
 export class UserRatesComponent implements OnInit{
 
@@ -20,21 +25,28 @@ export class UserRatesComponent implements OnInit{
   date: NgbDateStruct = new NgbDate(new Date().getFullYear(), new Date().getMonth()+1, new Date().getDate());
   selectedDate = '';
   maxDate: NgbDate;
+  protected readonly indexedDB = indexedDB;
+  model2: any;
+  active = 'ngb-nav-0';
 
   constructor( 
     private itemService : ItemService,
     private dateformatter: DateFormatter, 
     private calendar : NgbCalendar,
     private dailyRateService: DailyRatesService,
-    private toastr: ToastrService)
+    private toastr: ToastrService,
+    private ngbCalendar: NgbCalendar, private dateAdapter: NgbDateAdapter<string>)
   {
     this.maxDate = calendar.getToday();
   }
 
   ngOnInit(){
-    let date = new Date();
-    let day:string = this.dateformatter.dateinyyyymmdd(date);
-    this.selectedDate = day;
+    this.active = 'ngb-nav-0';
+    const date = new Date();
+    const day:string = this.dateformatter.dateinyyyymmdd(date);
+    this.selectedDate = `${this.date?.year}-${(this.date?.month+'').padStart(2, '0')}-${(this.date?.day+'').padStart(2, '0')}`;
+    this.model2 = this.dateAdapter.toModel(this.ngbCalendar.getToday())!;
+    console.log(this.selectedDate);
     this.loadItemTypes();
     this.dailyRateService.getDailyRatesByDate(day).subscribe((data)=>{
       this.itemList = data;
@@ -44,35 +56,31 @@ export class UserRatesComponent implements OnInit{
       this.toastr.info('No rates for this date');
       console.log(this.toastr);
       
-    })
+    });
   }
 
   //datepicker methods
   onDateSelect(dp: any) {
-    console.log(dp);
-    // this.selectedDate = `${this.date?.year}-${(this.date?.month+'').padStart(2, '0')}-${(this.date?.day+'').padStart(2, '0')}`;
-    // setTimeout(() => {
-    //   // dp.close();
-    // }, 100);
-    let day2:string = this.dateformatter.dateinyyyymmdd(dp);
-    this.selectedDate =day2;
-    console.log(this.selectedDate);
-    
+    console.log(dp._inputValue);
+    console.log(typeof dp._inputValue);
+    this.selectedDate = `${this.date?.year}-${(this.date?.month+'').padStart(2, '0')}-${(this.date?.day+'').padStart(2, '0')}`;
+    const day:string = dp._inputValue.slice(6)+'-'+dp._inputValue.slice(3,5)+'-'+dp._inputValue.slice(0,2);
+    console.log('format : ',day);
+    this.selectedDate =day;
     this.showContainer(0);
   }
 
   //load ItemTypes
   loadItemTypes() {
 
-    const promise = new Promise((res, rej) => {
+    return new Promise((res, rej) => {
       this.itemService.getItemTypes().subscribe((data) => {
         this.itemTypes = data;
-        res(this.itemTypes)
+        res(this.itemTypes);
       }, (error) => {
         rej(error);
-      })
-    })
-    return promise;
+      });
+    });
   }
 
 
@@ -84,32 +92,28 @@ export class UserRatesComponent implements OnInit{
       this.itemList = data;
       console.log(this.itemList);
       if(this.itemList.length == 0)
-        this.toastr.info("No data found")
-      console.log(this.itemList);
+        this.toastr.info('No data found');
+      // console.log(this.itemList);
       
-    }, error =>{
-      this.toastr.error("No data found");
-    })
+    }, () =>{
+      this.toastr.error('No data found');
+    });
     // this.loadItem(a)
     //   .then(() => this.initForm())
     //   .catch((error) => {
     //     console.log(error);
     //     alert(error);
     //   });
-      this.activateSearch = true;
+    this.activateSearch = true;
   }
 
-  protected readonly indexedDB = indexedDB;
-  model2: any;
+
 }
 
 
-import { Pipe, PipeTransform } from '@angular/core';
-import { ItemType } from 'src/app/models/itemType.model';
-import { DateFormatter } from 'src/app/utils/dateFormatter';
-  @Pipe({
-    name: 'filter'
-  })
+@Pipe({
+  name: 'filter'
+})
 export class FilterPipe implements PipeTransform {
   transform(items: DailyRates[], searchQuery: string): any[] {
     if (!items || !searchQuery) {
