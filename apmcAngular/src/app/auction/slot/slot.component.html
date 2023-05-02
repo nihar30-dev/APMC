@@ -1,5 +1,66 @@
 
-<button (click)="open('slot')" class="btn btn-outline-primary">
+<button (click)="open(slot)" style="background-color: #325c32; color: white;" class="btn ">
     <h6>Add Slots</h6>
 </button>
-<app-modal></app-modal>
+<!-- <app-modal></app-modal> -->
+
+
+<ng-template #slot let-modal>
+	<div class="modal-header" style="background-color: #325c32; color: white;">
+		<h4 class="modal-title" id="modal-basic-title">Add New Slot</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+
+        <form [formGroup]="myForm" (ngSubmit)="onSubmitSlot(myForm)" #slotAddForm="ngForm" novalidate>
+            <div class="form-group">
+              <label for="quantity">Quantity:</label>
+              <input type="number" id="quantity" formControlName="quantity" class="form-control" required>
+              <div *ngIf="myForm.controls['quantity'].invalid && myForm.controls['quantity'].touched" class="alert alert-danger">
+                Quantity is required.
+              </div>
+              <label for="itemType">Item Type:</label>
+              <select id="itemType" formControlName="itemType" class="form-control" required>
+                <option value="" disabled selected>Select item type</option>
+                <option value="1" (click)="onClick(1)">Commodities</option>
+                <option value="2" (click)="onClick(2)">Vegetables</option>
+                <option value="3" (click)="onClick(3)">Fruits</option>
+              </select>
+              <div *ngIf="myForm.controls['itemType'].invalid && myForm.controls['itemType'].touched" class="alert alert-danger">
+                Item type is required.
+              </div>
+              <label for="item">Item:</label>
+              <select id="item" formControlName="item" class="form-control" required>
+                <option value="" disabled selected>Select item :</option>
+                <option value="1" (click)="onClick(1)">Tomato</option>
+                <option value="2" (click)="onClick(2)">Potato</option>
+                <option value="3" (click)="onClick(3)">Carrot</option>
+              </select>
+              <div *ngIf="myForm.controls['item'].invalid && myForm.controls['item'].touched" class="alert alert-danger">
+                Item is required.
+              </div>
+              <div class="d-flex">
+              <label for="slotDate">Select Date:</label>
+                <input
+                    id="slotDate"
+                    class="form-control"
+                    placeholder="yyyy-mm-dd"
+                    name="dp"
+                    ngbDatepicker
+                    #dp="ngbDatepicker"
+                    [maxDate]="maxDate"
+                    [minDate]="minDate"
+
+                />
+                <button class="btn btn-outline-secondary bi bi-calendar3 mx-0 my-0" (click)="dp.toggle()" type="button"></button>
+            </div>
+            </div>
+          </form>
+
+	</div>
+    <div class="modal-footer my-0">
+        <button style="background-color: #325c32; color: white;" type="reset" class="btn btn-outline-dark btn-sm mx-1 my-1" (click)="slotAddForm.form.reset()">Reset</button>
+        <button style="background-color: #325c32; color: white;" type="button" class="btn btn-outline-dark btn-sm mx-1 my-1" [disabled]="slotAddForm.form.invalid"
+          (click)="slotAddForm.ngSubmit.emit()">Add Item</button>
+      </div>
+</ng-template>

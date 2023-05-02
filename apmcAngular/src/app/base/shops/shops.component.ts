@@ -19,9 +19,8 @@ export class ShopsComponent implements OnInit {
   f!: FormGroup;
   role = '';
   closeResult = '';
-
   shops!: Shop;
-  f2!: FormGroup;
+
 
   constructor(
     private shopService : ShopService,
@@ -51,9 +50,6 @@ export class ShopsComponent implements OnInit {
       console.log(data);
     });
     // form builder
-    this.f2 = this.formBuilder.group({
-      shopNumber : ['', [Validators.required, Validators.pattern('[A-Z]-[0-9]{1,3}')]]
-    });
 
     this.f = this.formBuilder.group({
       shopNo : ['', [Validators.required, Validators.pattern('[A-Z]-[0-9]{1,3}')]]
