@@ -55,10 +55,10 @@ public class SlotsController {
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping("")
-    public Response addItemSlot(@RequestParam String day, @RequestBody Slots slot )throws ParseException, ResponseException{
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = dateFormat.parse(day);
-        return slotService.addItemSlot(date, slot);
+    public Response addItemSlot( @RequestBody Slots slot )throws ParseException, ResponseException{
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        Date date = dateFormat.parse(slot.getSlotDate().toString());
+        return slotService.addItemSlot(slot);
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")

@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface SlotService {
     public List<Slots> findBySlotDate(Date date);
-    public Response addItemSlot(Date date, Slots slot) throws ParseException;
+    public Response addItemSlot(Slots slot) throws ParseException;
     public Slots findBySlotId(int slotId);
     public List<Slots> getAllSlots();
     public String deleteSlot(int slotId);
