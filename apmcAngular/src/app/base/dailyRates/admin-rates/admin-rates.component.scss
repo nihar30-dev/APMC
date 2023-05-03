@@ -3,7 +3,8 @@
   padding: 5px 10px;
   margin-right: 4px;
   margin-bottom: 10px;
-  border-color: black;
+  border: none;
+  font-weight: 500;
 }
 
 h6{
@@ -126,12 +127,6 @@ p{
 .tick{
   margin: 8px 0;
   height: fit-content;
-}
-
-.alert{
-  height: fit-content;
-  padding: 2px;
-  font-size: 12px;
 }
 
 .heading{

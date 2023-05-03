@@ -21,7 +21,7 @@ import { Owner } from 'src/app/models/owner.model';
 
 export class ShopsComponent implements OnInit {
   agents! : Agent[];
-  f!: FormGroup;
+  shopForm!: FormGroup;
   role = '';
   closeResult = '';
   shops!: Shop;
@@ -75,7 +75,7 @@ export class ShopsComponent implements OnInit {
     });
     // form builder
 
-    this.f = this.formBuilder.group({
+    this.shopForm = this.formBuilder.group({
       shopNo : ['', [Validators.required, Validators.pattern('[A-Z]-[0-9]{1,3}')]]
     });
 
@@ -98,19 +98,6 @@ export class ShopsComponent implements OnInit {
   filterShops(shop: Shop) {
     return shop['owner'] == null;
   }
-
-  // onSubmit(f : FormGroup) {
-  //   if(f.valid){
-  //     this.shopService.createShop(f.value);
-  //   }
-  // }
-
-  //modal panel render methods 
-
-  // open(formName : string){
-  //   return  this.modalService.open(formName);
-
-  // } 
 
   onSubmitShop(shopForm : FormGroup) {
 
@@ -146,25 +133,6 @@ export class ShopsComponent implements OnInit {
     }
 
   }
-
-
-  // registerAgent(agentForm: FormGroup) {
-  //   return new Promise((res, rej) => {
-  //
-  //     this.userName = this.agentForm.value.agentName + (String)(Date.now()).slice(-4);
-  //     this.password = this.userName;
-  //     const user = new User(0,this.userName,this.password,agentForm.value.contact,['agent']);
-  //     this.authervice.register(user).subscribe(
-  //       data => {
-  //         this.agentId = data;
-  //         res(data);
-  //         this.tosterService.success('Registered successully!');
-  //       }, error => {
-  //         rej(error);
-  //       }
-  //     );
-  //   });
-  // }
 
   addAgent(agentForm: FormGroup) {
 

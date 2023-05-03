@@ -10,6 +10,7 @@ import { Item } from 'src/app/models/item.model';
 import { ToastrService } from 'ngx-toastr';
 import { Slot } from 'src/app/models/slot.model';
 import { SlotService } from 'src/app/services/slot.service';
+import { StorageService } from 'src/app/utils/storage.service';
 
 @Component({
   selector: 'app-admin-slot',
@@ -25,6 +26,7 @@ export class SlotComponent implements OnInit{
   datemodel : any;
   model2:any;
   day = '';
+  role = '';
   date1 : Date| null = null;
   // date: NgbDateStruct | null = null;
   itemTypes!: ItemType[];
@@ -46,7 +48,8 @@ export class SlotComponent implements OnInit{
     private itemService : ItemService, 
     private slotService: SlotService,
     private calendar: NgbCalendar,
-    private toaster:ToastrService
+    private toaster:ToastrService,
+    private storageService: StorageService
   ) {
     this.minDate = this.calendar.getToday();
     this.maxDate = this.calendar.getNext(this.calendar.getToday(), 'm', 2);
@@ -58,6 +61,12 @@ export class SlotComponent implements OnInit{
     const date = new Date();
     this.model2 = this.dateAdapter.toModel(this.ngbCalendar.getToday())!;
     this.day = this.dateFormatter.dateinyyyymmdd(date);
+
+
+    this.storageService.role$.subscribe(data => {
+      this.role =data;
+    });
+    this.role = this.storageService.getRole();
 
     this.myForm = this.fb.group({
       quantity: ['', Validators.required],

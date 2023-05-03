@@ -2,7 +2,7 @@
 <div class="parent">      
 <div class="dateContainer mt-5">
       <form >
-        <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="col-12">
           <div class="input-group">
             <input
                     class="form-control"
@@ -23,7 +23,7 @@
 
 
   <ng-template #content let-modal>
-    <div class="modal-header" style="background-color: #1a381adc; color: white;">
+    <div class="modal-header" style="background-color: #325c32; color: white;">
       <h4 class="modal-title" id="modal-basic-title">Add New Item</h4>
       <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')" style="font: white;"></button>
     </div>
@@ -53,8 +53,8 @@
       </form>
     </div>
     <div class="modal-footer">
-      <button style="background-color: #1a381adc; color: white; "type="reset" class="btn btn-outline reset" (click)="saveFromOutside.form.reset()">Reset</button>
-      <button style="background-color: #1a381adc; color: white;" type="button" class="btn btn-outline save" [disabled]="saveFromOutside.form.invalid"
+      <button style="background-color: #325c32; color: white; "type="reset" class="btn btn-outline reset" (click)="saveFromOutside.form.reset()">Reset</button>
+      <button style="background-color: #325c32; color: white;" type="button" class="btn btn-outline save" [disabled]="saveFromOutside.form.invalid"
         (click)="saveFromOutside.ngSubmit.emit()">Add Item</button>
     </div>
   </ng-template>

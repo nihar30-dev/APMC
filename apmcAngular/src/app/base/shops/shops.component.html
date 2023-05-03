@@ -1,72 +1,14 @@
 
 
-<!--<div class="container mt-5"  *ngIf="role==='ADMIN' ">-->
-
-  <button *ngIf="role==='ADMIN'" style="background-color: #325c32; color: white;" (click)="open(content)" class="btn btn-outline-primary btn-sm shopBtn">
+<button *ngIf="role==='ADMIN'" style="background-color: #1a381adc; color: white;" (click)="open(content)" class="btn btn-outline-primary btn-sm shopBtn">
     <h6>Add Shops</h6>
   </button>
 
 
-<button *ngIf="role==='ADMIN'" style="background-color: #325c32; color: white;" (click)="open(addAgent)" class="btn btn-outline-primary btn-sm agentBtn">
+<button *ngIf="role==='ADMIN'" style="background-color: #1a381adc; color: white;" (click)="open(addAgent)" class="btn btn-outline-primary btn-sm agentBtn">
   <h6>Add Agents</h6>
 </button>
 
-<!--</div>-->
-
-<!--<div>-->
-<!--  <div class="container listContainer">-->
-<!--    <div class="card-body card">-->
-<!--      <div class="row">-->
-<!--        <div class="col text-center title">-->
-<!--          <h5>Sr. No.</h5>-->
-<!--        </div>-->
-<!--        <div class="col text-center title" *ngIf="role==='ADMIN'">-->
-<!--          <h5>UserName</h5>-->
-<!--        </div>-->
-<!--        <div class="col text-center title">-->
-<!--          <h5>Agent Name</h5>-->
-<!--        </div>-->
-<!--        <div class="col text-center title">-->
-<!--          <h5>Shop Number</h5>-->
-<!--        </div>-->
-<!--        <div class="col text-center title">-->
-<!--          <h5>Company Name</h5>-->
-<!--        </div>-->
-<!--        <div class="col text-center title">-->
-<!--          <h5>Contact No.</h5>-->
-<!--        </div>-->
-<!--        -->
-<!--      </div>-->
-<!--      <div-->
-<!--        class="card-body card bg-light mb-3"-->
-<!--        *ngFor="let agent of agents; let i = index"-->
-<!--      >-->
-<!--        <div class="row">-->
-<!--          <div class="col text-center">-->
-<!--            <p>{{ i + 1 }}</p>-->
-<!--          </div>-->
-<!--          <div class="col text-center">-->
-<!--            <p>{{ agent['user']['username'] }}</p>-->
-<!--          </div>-->
-<!--          <div class="col text-center">-->
-<!--            <p>{{ agent['agentName'] }}</p>-->
-<!--          </div>-->
-<!--          <div class="col text-center">-->
-<!--            <p>{{ agent['shop']['shopNo'] }}</p>-->
-<!--          </div>-->
-<!--          <div class="col text-center">-->
-<!--            <p>{{ agent['companyName'] }}</p>-->
-<!--          </div>-->
-<!--          <div class="col text-center">-->
-<!--            <p>{{ agent['contact'] }}</p>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-
-<!--Table-->
 <div class="tb">
 <table *ngIf="dtOptions && agents" datatable [dtOptions] = "dtOptions"  class="table table-striped" style="background-color: white; border-collapse: collapse">
   <thead>
@@ -96,34 +38,33 @@
 		<h4 class="modal-title" id="modal-basic-title">Add New Shop</h4>
 		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
 	</div>
-	<div class="modal-body">
-          <form [formGroup]="f" (ngSubmit)="onSubmitShop(f)" #shopAddForm = "ngForm" novalidate>
-            <div class="form-group">
-              <label for="shopNumber">Shop Number:</label>
-              <input
-                type="text"
-                class="form-control"
-                formControlName="shopNo"
-                id="shopNumber"
-                name="shopNumber"
-              />
-        
-              <div
-                *ngIf="
-                  f.controls['shopNo']?.invalid &&
-                  f.controls['shopNo']?.touched &&
-                  f.controls['shopNo']?.dirty
-                "
-                class="alert alert-danger"
-              >
-                Shop number should be in the format of A-12, B-123, C-16, F-37.
-              </div>
-            </div>
-          </form>
-	</div>
+  <div class="modal-body">
+    <form [formGroup]="shopForm" (ngSubmit)="onSubmitShop(shopForm)" #shopAddForm = "ngForm" novalidate>
+      <div class="form-group">
+        <label for="shopNumber">Shop Number:</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="shopNo"
+          id="shopNumber"
+          name="shopNumber"
+        />
+        <div
+          *ngIf="
+            shopForm.controls['shopNo']?.invalid &&
+            shopForm.controls['shopNo']?.touched &&
+            shopForm.controls['shopNo']?.dirty
+          "
+          class="alert alert-danger"
+        >
+          Shop number should be in the format of A-12, B-123, C-16, F-37.
+        </div>
+      </div>
+    </form>
+</div>
 	<div class="modal-footer">
-    <button type="reset" class="btn btn-secondary" style="background-color: #325c32; color: white;" (click)="shopAddForm.form.reset()" >Reset</button>
-		<button type="button" class="btn btn-outline-dark"  style="background-color: #325c32; color: white;" (click)="shopAddForm.ngSubmit.emit()">Save</button>
+    <button type="reset" class="btn btn-secondary" style="background-color: #325c32; color: white; margin: 4px;" (click)="shopAddForm.form.reset()" >Reset</button>
+		<button type="button" class="btn btn-outline-dark"  style="background-color: #325c32; color: white; margin: 4px;" (click)="shopAddForm.ngSubmit.emit()" [disabled]="shopAddForm.form.invalid">Add shop</button>
 	</div>
 </ng-template> 
 
