@@ -39,8 +39,10 @@ public class SlotServiceImpl implements SlotService {
 
     @Override
     @Transactional
-    public Response addItemSlot(Date date, Slots slot) throws ParseException, ValidatorException {
+    public Response addItemSlot(Slots slot) throws ParseException, ValidatorException {
 
+        Date date = slot.getSlotDate();
+//        slot.setSlotDate(date);
 //        Slots slot = slotsRepository.save(slots);
         SlotsValidator slotsValidator = new SlotsValidatorImpl();
         ValidatorResponse validatorResponse = slotsValidator.checkSlot(slot);
@@ -53,9 +55,9 @@ public class SlotServiceImpl implements SlotService {
         if(checkedSlot == null){
             slotsRepository.save(slot);
         }else{
-            slot.setTotalQuantity(checkedSlot.getTotalQuantity() + slot.getTotalQuantity());
+            checkedSlot.setTotalQuantity(checkedSlot.getTotalQuantity() + slot.getTotalQuantity());
             System.out.println(slot.getTotalQuantity());
-            slotsRepository.save(slot);
+            slotsRepository.save(checkedSlot);
         }
         return new Response(200, "Ok", System.currentTimeMillis(), true);
     }

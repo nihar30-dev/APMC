@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {
   NgbCalendar,
@@ -7,7 +7,7 @@ import {
   NgbDateAdapter,
   NgbDateParserFormatter,
   NgbDateStruct,
-  NgbInputDatepicker
+  NgbInputDatepicker, NgbNavChangeEvent
 } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { DailyRates } from 'src/app/models/dailyRates.model';
@@ -15,10 +15,9 @@ import { Item } from 'src/app/models/item.model';
 import { ItemType } from 'src/app/models/itemType.model';
 import { DailyRatesService } from 'src/app/services/daily-rates.service';
 import { ItemService } from 'src/app/services/item.service';
-// import { ModalService } from 'src/app/services/modal.service';
 import { DateFormatter } from 'src/app/utils/dateFormatter';
 import {CustomDateParserFormatter} from '../CustomDateParserFormatter';
-import { ModalDismissReasons, NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-admin-rates',
@@ -26,7 +25,7 @@ import { ModalDismissReasons, NgbDatepickerModule, NgbModal } from '@ng-bootstra
   styleUrls: ['./admin-rates.component.scss'],
   providers: [{ provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter }]
 })
-export class AdminRatesComponent {
+export class AdminRatesComponent implements OnInit{
 
   dataFetched  = false;
   itemTypes!: ItemType[];
@@ -40,29 +39,28 @@ export class AdminRatesComponent {
   selectedDate = '';
   maxDate: NgbDate;
   model2:any;
-  active = 'ngb-nav-0';
+  active =0;
   
 
   constructor(
     private itemService: ItemService,
     private dailyRateService: DailyRatesService,
-    private http: HttpClient,
     private dateFormatter: DateFormatter,
     private toster:ToastrService,
-    private calendar : NgbCalendar,
     private ngbCalendar: NgbCalendar,
     private dateAdapter: NgbDateAdapter<string>,
     private modal: NgbModal,
     private fb : FormBuilder,
     private tosterService: ToastrService ) { 
-    this.maxDate = calendar.getToday();
+    this.maxDate = ngbCalendar.getToday();
 
   }
   itemForm! : FormGroup;
   ItemTypes! : ItemType[];
      
   ngOnInit() {
-    this.active = 'ngb-nav-0';
+    // this.active = 'ngb-nav-0';
+    console.log('Oninit : ',this.active);
     this.itemService.getItemTypes().subscribe((data)=>{
       this.ItemTypes = data;
     }, ()=>{
@@ -85,6 +83,14 @@ export class AdminRatesComponent {
       });
   }
 
+  onNavChange(e:NgbNavChangeEvent){
+    console.log(e);
+    e.nextId='ngb-nav-0';
+  }
+
+
+
+
 
   onSubmit(itemForm: FormGroup){
     if(itemForm.valid){
@@ -98,6 +104,7 @@ export class AdminRatesComponent {
     }
 
   }
+
 
 
   openModal(content : any) {
@@ -168,7 +175,6 @@ export class AdminRatesComponent {
 
       let minPrice = null;
       let maxPrice = null;
-      let avgPrice = null;
       let quantity = null;
       let income = null;
 
@@ -176,7 +182,6 @@ export class AdminRatesComponent {
       if (this.rateObj.get(item['itemId']) != null) {
         minPrice = this.rates[this.rateObj.get(item['itemId'])]['minPrice'];
         maxPrice = this.rates[this.rateObj.get(item['itemId'])]['maxPrice'];
-        avgPrice = this.rates[this.rateObj.get(item['itemId'])]['avgPrice'];
         quantity = this.rates[this.rateObj.get(item['itemId'])]['quantity'];
         income = quantity/2;
       }
@@ -196,10 +201,6 @@ export class AdminRatesComponent {
             maxPrice,
             [Validators.required, Validators.pattern('[0-9]+')]
           ),
-          // avgPrice: new FormControl(
-          //   {value: avgPrice, disabled: true},
-          //   [Validators.required, Validators.pattern('[0-9]+')]
-          // ),
           quantity: new FormControl(
             quantity,
             [Validators.required, Validators.pattern('[0-9]+')]
@@ -223,13 +224,7 @@ export class AdminRatesComponent {
     this.date1 = new Date(`${this.date?.year}-${(this.date?.month+'').padStart(2, '0')}-${(this.date?.day+'').padStart(2, '0')}`);
     // this.day = this.dateFormatter.dateinyyyymmdd(this.date1);
     // this.day = this.dateFormatter.dateinyyyymmdd(dp);
-
     this.day = dp._inputValue.slice(6)+'-'+dp._inputValue.slice(3,5)+'-'+dp._inputValue.slice(0,2);
-    // setTimeout(() => {
-    //   dp.close();
-    // }, 100);
-    // console.log(this.date1);
-    console.log(this.day);
     this.itemsList = [];
     this.rates = [];
     this.rateObj.clear();

@@ -20,7 +20,7 @@ public class Slots {
     private int slotId;
     @ManyToOne
     @JoinColumn(name = "item_id")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler","itemType"})
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "dailyRates"})
     private Item item;
     @Column(name = "total_quantity")
     private int totalQuantity;
@@ -86,6 +86,7 @@ public class Slots {
     public void setSlotDate(Date slotDate) {
         this.slotDate = slotDate;
     }
+
 }
 
 

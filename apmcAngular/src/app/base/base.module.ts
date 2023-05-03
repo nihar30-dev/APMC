@@ -8,8 +8,8 @@ import { Routes } from '@angular/router';
 import { RouterModule} from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { ShopsComponent } from './shops/shops.component';
-import {AuthGuard} from "../auth/auth.guard";
-import {MatTabsModule} from "@angular/material/tabs";
+import {AuthGuard} from '../auth/auth.guard';
+import {DataTablesModule} from 'angular-datatables';
 
 
 const routes : Routes = [
@@ -26,15 +26,14 @@ const routes : Routes = [
     UserRatesComponent,
     FilterPipe
   ],
-    imports: [
-
-        RouterModule.forRoot(routes),
-        CommonModule,
-        SharedModule,
-        ReactiveFormsModule,
-        FormsModule,
-        NgbModule,
-   
-    ]
+  imports: [
+    RouterModule.forRoot(routes),
+    CommonModule,
+    SharedModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgbModule,
+    DataTablesModule   
+  ]
 })
 export class BaseModule { }

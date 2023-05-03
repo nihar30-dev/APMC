@@ -7,6 +7,7 @@ import {ToastrService} from 'ngx-toastr';
 import {ItemType} from 'src/app/models/itemType.model';
 import {DateFormatter} from 'src/app/utils/dateFormatter';
 import {CustomDateParserFormatter} from '../CustomDateParserFormatter';
+import {of} from 'rxjs';
 
 @Component({
   selector: 'app-user-rates',
@@ -26,8 +27,9 @@ export class UserRatesComponent implements OnInit{
   selectedDate = '';
   maxDate: NgbDate;
   protected readonly indexedDB = indexedDB;
-  model2: any;
-  active = 'ngb-nav-0';
+  model2!: string | null;
+  active = 0;
+  dtOptions: DataTables.Settings = {};
 
   constructor( 
     private itemService : ItemService,
@@ -41,31 +43,36 @@ export class UserRatesComponent implements OnInit{
   }
 
   ngOnInit(){
-    this.active = 'ngb-nav-0';
+    //dataTable options
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      processing: true
+    };
+
+    this.active = 0;
     const date = new Date();
     const day:string = this.dateformatter.dateinyyyymmdd(date);
     this.selectedDate = `${this.date?.year}-${(this.date?.month+'').padStart(2, '0')}-${(this.date?.day+'').padStart(2, '0')}`;
-    this.model2 = this.dateAdapter.toModel(this.ngbCalendar.getToday())!;
-    console.log(this.selectedDate);
+    this.model2 = this.dateAdapter.toModel(this.ngbCalendar.getToday());
+
     this.loadItemTypes();
     this.dailyRateService.getDailyRatesByDate(day).subscribe((data)=>{
       this.itemList = data;
-      console.log(this.itemList);
+
       this.showContainer(0);
-    }, error =>{
+    }, () =>{
       this.toastr.info('No rates for this date');
-      console.log(this.toastr);
+
       
     });
   }
 
   //datepicker methods
   onDateSelect(dp: any) {
-    console.log(dp._inputValue);
-    console.log(typeof dp._inputValue);
+
     this.selectedDate = `${this.date?.year}-${(this.date?.month+'').padStart(2, '0')}-${(this.date?.day+'').padStart(2, '0')}`;
     const day:string = dp._inputValue.slice(6)+'-'+dp._inputValue.slice(3,5)+'-'+dp._inputValue.slice(0,2);
-    console.log('format : ',day);
     this.selectedDate =day;
     this.showContainer(0);
   }
@@ -93,21 +100,14 @@ export class UserRatesComponent implements OnInit{
       console.log(this.itemList);
       if(this.itemList.length == 0)
         this.toastr.info('No data found');
-      // console.log(this.itemList);
-      
     }, () =>{
       this.toastr.error('No data found');
     });
-    // this.loadItem(a)
-    //   .then(() => this.initForm())
-    //   .catch((error) => {
-    //     console.log(error);
-    //     alert(error);
-    //   });
     this.activateSearch = true;
   }
 
 
+  protected readonly of = of;
 }
 
 
