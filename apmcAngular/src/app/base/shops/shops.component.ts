@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Agent } from 'src/app/models/agent.model';
 import { ModalService } from 'src/app/services/modal.service';
 import { ShopService } from 'src/app/services/shop.service';
-import {StorageService} from "../../utils/storage.service";
+import {StorageService} from '../../utils/storage.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Shop } from 'src/app/models/shop.model';
@@ -34,7 +34,8 @@ export class ShopsComponent implements OnInit {
   password = '';
   user!:User;
   agentId!: number;
-
+  title = 'datatables';
+  dtOptions: DataTables.Settings = {};
 
   constructor(
     private shopService : ShopService,
@@ -49,14 +50,19 @@ export class ShopsComponent implements OnInit {
     private router : Router){}
 
     
-    open(content: any) {
-      return this.shopModal.open(content, { centered: true });
-    }
+  open(content: any) {
+    return this.shopModal.open(content, { centered: true });
+  }
     
   ngOnInit(): void {
+    //dataTable options
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      processing: true
+    };
     //list population 
     this.shopService.getAllShops().subscribe((data: any) => {
-      // this.shops = data; 
 
       //for getting roles
       this.storageService.role$.subscribe(data => {
@@ -73,18 +79,18 @@ export class ShopsComponent implements OnInit {
       shopNo : ['', [Validators.required, Validators.pattern('[A-Z]-[0-9]{1,3}')]]
     });
 
-      this.agentForm = this.formBuilder.group({
-        userId: [null],
-        shopNo: [null, Validators.required],
-        agentName: [null, Validators.required],
-        companyName: [null, Validators.required],
-        contact: [null, [Validators.required, Validators.pattern('^[789]{1}[0-9]{9}$')]],
-      });
-      this.shopService.getAllShopNo().subscribe((data) => {
-        this.shopNo = data;
-        this.availableShopNo = this.shopNo.filter(this.filterShops);
-        console.log(data);
-      });
+    this.agentForm = this.formBuilder.group({
+      userId: [null],
+      shopNo: [null, Validators.required],
+      agentName: [null, Validators.required],
+      companyName: [null, Validators.required],
+      contact: [null, [Validators.required, Validators.pattern('^[789]{1}[0-9]{9}$')]],
+    });
+    this.shopService.getAllShopNo().subscribe((data) => {
+      this.shopNo = data;
+      this.availableShopNo = this.shopNo.filter(this.filterShops);
+      console.log(data);
+    });
     
       
   }
@@ -110,13 +116,13 @@ export class ShopsComponent implements OnInit {
 
     if(shopForm.valid){
       this.shopService.createShop(shopForm.value).subscribe(data=>{
-        this.toaster.success("Shop added successfully");
+        this.toaster.success('Shop added successfully');
       },(error)=>{
  
         this.toaster.error(error.error['message']);
       });
 
-      this.shopModal.dismissAll("done");
+      this.shopModal.dismissAll('done');
       this.shopModal.dismissAll();
     }
   }
@@ -128,7 +134,7 @@ export class ShopsComponent implements OnInit {
     if (agentForm.valid) {
       // username, password generation
       // this.registerAgent(agentForm)
-        this.addAgent(agentForm)
+      this.addAgent(agentForm)
         .then(()=>{
           this.modalService2.close();
           this.router.navigate(['shops']);
@@ -142,23 +148,23 @@ export class ShopsComponent implements OnInit {
   }
 
 
-  registerAgent(agentForm: FormGroup) {
-    return new Promise((res, rej) => {
-
-      this.userName = this.agentForm.value.agentName + (String)(Date.now()).slice(-4);
-      this.password = this.userName;
-      const user = new User(0,this.userName,this.password,agentForm.value.contact,['agent']);
-      this.authervice.register(user).subscribe(
-        data => {
-          this.agentId = data;
-          res(data);
-          this.tosterService.success("Registered successully!");
-        }, error => {
-          rej(error);
-        }
-      );
-    });
-  }
+  // registerAgent(agentForm: FormGroup) {
+  //   return new Promise((res, rej) => {
+  //
+  //     this.userName = this.agentForm.value.agentName + (String)(Date.now()).slice(-4);
+  //     this.password = this.userName;
+  //     const user = new User(0,this.userName,this.password,agentForm.value.contact,['agent']);
+  //     this.authervice.register(user).subscribe(
+  //       data => {
+  //         this.agentId = data;
+  //         res(data);
+  //         this.tosterService.success('Registered successully!');
+  //       }, error => {
+  //         rej(error);
+  //       }
+  //     );
+  //   });
+  // }
 
   addAgent(agentForm: FormGroup) {
 
@@ -175,7 +181,7 @@ export class ShopsComponent implements OnInit {
 
       this.agentService.createAgent(agent).subscribe((data: any) => {
         res(data);
-        this.tosterService.success("Agent added successfully!");
+        this.tosterService.success('Agent added successfully!');
 
       }, (error: any) => {
         this.tosterService.error(error.error['message']);

@@ -33,7 +33,11 @@
     border-color: #80bdff;
     box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .25);
   }
-  
+
+  .btn{
+    margin-top: 30px;
+  }
+
   .btn-primary {
     color: #fff;
     background-color: #007bff;
@@ -139,4 +143,8 @@
 
   h6{
     margin-bottom: 0;
+  }
+
+  .tb{
+        margin-top: 25px;
   }

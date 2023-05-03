@@ -100,6 +100,28 @@
 //
 //
 
+#btn {
+  display: block;
+}
+
+.layout--horiz p {
+  display: inline;
+}
+.layout--vert p {
+  display: block;
+}
+
+@media screen and (min-width: 600px) {
+  #btn {
+    display: none;
+  }
+
+  .layout p {
+    display: block;
+  }
+}
+
+//
 $header-height: 80px; // Set the height of the header
 $header-padding: 20px;
 .header {
