@@ -2,9 +2,9 @@ import { AuthService } from '../service/auth.service';
 import {Component, OnInit} from '@angular/core';
 import {Router } from '@angular/router';
 import { StorageService } from 'src/app/utils/storage.service';
-import {FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SocialAuthService, SocialUser} from '@abacritt/angularx-social-login';
-import {ToastrService} from "ngx-toastr";
+import {ToastrService} from 'ngx-toastr';
 
 
 
@@ -15,6 +15,9 @@ import {ToastrService} from "ngx-toastr";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit{
+
+
+
 
 
 
@@ -36,9 +39,13 @@ export class LoginComponent implements OnInit{
       this.user = user;
       this.authService.googleSignin(user.idToken).subscribe({
         next: data => {
+          if(data.id == null){
+            this.toastService.error('Incorrect Username or Password');
+          }
           this.storageService.saveUser(data);
           this.storageService.emitRole();
           this.router.navigate(['home']);
+
         }
       });
     });
@@ -48,27 +55,31 @@ export class LoginComponent implements OnInit{
 
     //
     this.loginForm = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(5)]]!,
-      password: ['', [Validators.required, Validators.minLength(8)]]!
+      username: ['username', [Validators.required, Validators.minLength(4)]]!,
+      password: ['password', [Validators.required, Validators.minLength(6)]]!
     });
   }
 
   onSubmit() {
+
     if (this.loginForm.valid) {
       const{username,password} = this.loginForm.value;
       this.authService.login(username, password).subscribe({
         next: data => {
+          if(data.id == null){
+            this.toastService.error('Incorrect Username or Password');
+          }
+          else {
+            this.storageService.saveUser(data);
+            this.roles = this.storageService.getUser().roles;
+            this.router.navigate(['home']);
+            // this.toastService.success('Login Successfully');
+          }
 
-          this.storageService.saveUser(data);
-
-
-          this.roles = this.storageService.getUser().roles;
-          this.router.navigate(['home']);
-          this.toastService.success('Login Successfully');
         },
         error: err => {
           this.errorMessage = err.error.message;
-          this.toastService.error('Incorrect Username or Password');
+
         }
       });
     }

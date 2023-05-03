@@ -172,13 +172,14 @@ export class ShopsComponent implements OnInit {
       agentForm.value.userId = this.agentId;
 
       const agent: Agent = new Agent(
-        new User(this.agentId, '', '',agentForm.value['contact'],   ['admin']),
+        new User(this.agentId, '', '',agentForm.value['contact'],  ['admin']),
         agentForm.value['agentName'],
         agentForm.value['companyName'],
         agentForm.value['contact'],
         new Shop('', agentForm.value['shopNo'], new Owner(0)),
       );
 
+      console.log(agent);
       this.agentService.createAgent(agent).subscribe((data: any) => {
         res(data);
         this.tosterService.success('Agent added successfully!');

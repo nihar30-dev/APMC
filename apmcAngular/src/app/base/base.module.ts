@@ -34,7 +34,7 @@ const routes : Routes = [
     SharedModule,
     ReactiveFormsModule,
     FormsModule,
-    NgbModule,
+    NgbModule
    
   ]
 })

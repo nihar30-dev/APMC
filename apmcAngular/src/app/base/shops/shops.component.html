@@ -80,7 +80,7 @@
   </thead>
   <tbody>
   <tr *ngFor="let agent of agents; let i = index">
-    <td>{{ agent['companyName'] }}</td>
+    <td>{{ agent['agentName'] }}</td>
     <td>{{ agent['companyName'] }}</td>
     <td *ngIf="role==='ADMIN'">{{ agent['user']['username'] }}</td>
     <td>{{ agent['shop']['shopNo'] }}</td>

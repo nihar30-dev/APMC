@@ -45,7 +45,7 @@ export class AuthService{
     const  password:string = user.getpassword;
     const contact = user.getcontact;
     const role = user.getrole;
-    console.log(user)
+    console.log(user);
     this.isLoggedIn = true;
     return this.http.post(
       this.authApi + 'signup',

@@ -14,7 +14,9 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class AgentServiceImpl implements AgentService {
@@ -55,7 +57,9 @@ public class AgentServiceImpl implements AgentService {
 
             System.out.println(agent.getAgentName());
             String userName = agent.getAgentName() + Long.toString(System.currentTimeMillis()).substring(9, 13);
-            SignupRequest signUpRequest = new SignupRequest(userName, userName, agent.getContact());
+            Set<String> role= new HashSet<>();
+            role.add("agent");
+            SignupRequest signUpRequest = new SignupRequest(userName, userName, agent.getContact(),role);
             Long userId =  authSerive.signupUtil(signUpRequest);
             agent.setUser(new User(userId));
 
@@ -69,7 +73,6 @@ public class AgentServiceImpl implements AgentService {
                 System.out.println(userId);
                 agent.setUser(new User(userId));
                 Shop s = shopRepository.findById(agent.getShop().getShopId()).get();
-//            if(s.getOwner().getId()==null ){
                 s.setOwner(agent.getUser());
                 shopRepository.save(s);
                 agentRepository.save(agent);

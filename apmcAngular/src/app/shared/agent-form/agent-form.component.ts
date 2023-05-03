@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ShopService } from 'src/app/services/shop.service';
 import { ToastrService } from 'ngx-toastr';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-agent-form',
@@ -63,7 +63,7 @@ export class AgentFormComponent implements OnInit{
     if (agentForm.valid) {
       // username, password generation
       // this.registerAgent(agentForm)
-        this.addAgent(agentForm)
+      this.addAgent(agentForm)
         .then(()=>{
           this.modalService.close();
           this.router.navigate(['shops']);
@@ -87,7 +87,7 @@ export class AgentFormComponent implements OnInit{
         data => {
           this.agentId = data;
           res(data);
-          this.tosterService.success("Registered successully!");
+          this.tosterService.success('Registered successully!');
         }, error => {
           rej(error);
         }
@@ -101,7 +101,7 @@ export class AgentFormComponent implements OnInit{
       agentForm.value.userId = this.agentId;
 
       const agent: Agent = new Agent(
-        new User(this.agentId, '', '',agentForm.value['contact'],   ['admin']),
+        new User(this.agentId, '', '',agentForm.value['contact'],['admin']),
         agentForm.value['agentName'],
         agentForm.value['companyName'],
         agentForm.value['contact'],
@@ -110,7 +110,7 @@ export class AgentFormComponent implements OnInit{
 
       this.agentService.createAgent(agent).subscribe((data: any) => {
         res(data);
-        this.tosterService.success("Agent added successfully!");
+        this.tosterService.success('Agent added successfully!');
 
       }, (error: any) => {
         this.tosterService.error(error.error['message']);

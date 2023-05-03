@@ -68,7 +68,7 @@
                 <div class="form-group">
                     <label for="username">Username</label>
                     <input type="text" id="username" formControlName="username" class="form-control"/>
-                    <div class='invalid-feedback' *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched" class="error">
+                    <div  *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched" class="error">
                         <p *ngIf="loginForm.get('username')?.errors?.['required']">Username is required</p>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" id="password" formControlName="password" class="form-control"/>
-                    <div class='invalid-feedback' *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error">
+                    <div  *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error">
                         <p *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</p>
                     </div>
                 </div>
@@ -84,5 +84,15 @@
             </div>
         </form>
 
+        <div>
+            <div class="text-center">
 
+                <span>Not a member? </span><a routerLink="/signup">Register</a>
+                <div>
+                    <span><asl-google-signin-button class="d-inline-block" theme="filled_blue" type='icon' shape="circle" size='large'></asl-google-signin-button></span>
+                </div>
+
+
+</div>
+        </div>
 </div>

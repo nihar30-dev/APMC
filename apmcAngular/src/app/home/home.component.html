@@ -17,6 +17,10 @@
     </div>
   </marquee>
 
+  <div class="container" *ngIf="role==='ADMIN'">
+    <button class="btn btn-success" (click)="createChart()">Show chart</button>
+  </div>
+
 <div class="container" *ngIf="role !== 'ADMIN' ">
   <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">

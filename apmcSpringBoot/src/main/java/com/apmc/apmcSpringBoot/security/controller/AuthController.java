@@ -46,7 +46,7 @@ public class AuthController {
     // Login authentication
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser( @RequestBody LoginRequest loginRequest) {
-        return authService.loginUtil(loginRequest);
+            return authService.loginUtil(loginRequest);
     }
     @PostMapping("/google")
     public ResponseEntity<?> googleSignup(@RequestParam String idToken) throws GeneralSecurityException, IOException {

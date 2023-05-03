@@ -71,7 +71,7 @@ public class AuthService {
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
 
-        if (strRoles == null) {
+        if (strRoles == null || strRoles.isEmpty())  {
             Role userRole = roleRepository.findByName(Erole.USER)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
@@ -79,7 +79,6 @@ public class AuthService {
             strRoles.forEach(role -> {
                 switch (role) {
                     case "admin":
-                        System.out.println(roleRepository.findByName(Erole.ADMIN));
                         Role adminRole = roleRepository.findByName(Erole.ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(adminRole);

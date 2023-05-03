@@ -1,43 +1,43 @@
 
     <div class="container">
 
-      <form name="form" class="card bg-light mb-3" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+      <form name="form" class="card bg-light mb-3" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
         <h2 class="text-center mb-4 card-header">Sign Up</h2>
         <div class="card-body">
               <div class="form-group">
                 <label>Username:</label>
-                <input type="text" class="form-control" name="username" [(ngModel)]="form.username" required minlength="3" maxlength="20" #username="ngModel" [ngClass]="{ 'is-invalid': f.submitted && username.errors }">
-                <div *ngIf="username.errors && f.submitted" class="invalid-feedback">
-                  <div *ngIf="username.errors['required']">Username is required.</div>
-                  <div *ngIf="username.errors['minlength']">Username must be at least 3 characters.</div>
-                  <div *ngIf="username.errors['maxlength']">Username cannot be more than 20 characters.</div>
-                </div>
+                  <input type="text" class="form-control" id="username" formControlName="username">
+                  <div *ngIf="signupForm.get('username')?.touched && signupForm.get('username')?.invalid" class="error">
+                      <div *ngIf="signupForm.get('username')?.errors?.['required']">Username is required</div>
+                      <div *ngIf="signupForm.get('username')?.errors?.['minlength']">Username must be at least 3 characters long</div>
+                  </div>
               </div>
 
               <div class="form-group">
                 <label >Password:</label>
-                <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required minlength="6" #password="ngModel" [ngClass]="{ 'is-invalid': f.submitted && password.errors }">
-                <div *ngIf="password.errors && f.submitted" class="invalid-feedback">
-                  <div *ngIf="password.errors['required']">Password is required.</div>
-                  <div *ngIf="password.errors['minlength']">Password must be at least 6 characters.</div>
-                </div>
+                  <input type="password" class="form-control" id="password" formControlName="password">
+                  <div *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid" class="error">
+                      <div *ngIf="signupForm.get('password')?.errors?.['required']">Password is required</div>
+                      <div *ngIf="signupForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters long</div>
+                  </div>
               </div>
 
-<!--            <div class="form-group">-->
-<!--                <label>Confirm Password:</label>-->
-<!--                <input type="password" class="form-control" name="confirmPassword" [(ngModel)]="form.password2" required #confirmPassword="ngModel" [ngClass]="{ 'is-invalid': f.submitted && confirmPassword.errors }">-->
-<!--                <div *ngIf="confirmPassword.errors && f.submitted" class="invalid-feedback">-->
-<!--                    <div *ngIf="confirmPassword.errors['required']">Confirm Password is required.</div>-->
-<!--                    <div *ngIf="form.password !== form.password2">Passwords do not match.</div>-->
-<!--                </div>-->
-<!--            </div>-->
+            <div class="form-group">
+                <label>Confirm Password:</label>
+                <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword">
+                <div *ngIf="signupForm.get('confirmPassword')?.touched && signupForm.get('confirmPassword')?.invalid" class="error">
+                    <div *ngIf="signupForm.get('confirmPassword')?.errors?.['required']">Confirm Password is required</div>
+                    <div *ngIf="signupForm.get('confirmPassword')?.hasError('mismatch')">Passwords do not match</div>
+                </div>
+            </div>
 
               <div class="form-group">
                 <label >Contact:</label>
-                <input type="text" class="form-control" name="contact" [(ngModel)]="form.contact" required #contact="ngModel" [ngClass]="{ 'is-invalid': f.submitted && contact.errors }">
-                <div *ngIf="contact.errors && f.submitted" class="invalid-feedback">
-                  <div *ngIf="contact.errors['required']">Contact is required.</div>
-                </div>
+                  <input type="text" class="form-control" id="contact" formControlName="contact">
+                  <div *ngIf="signupForm.get('contact')?.touched && signupForm.get('contact')?.invalid" class="error">
+                      <div *ngIf="signupForm.get('contact')?.errors?.['required']">Contact is required</div>
+                      <div *ngIf="signupForm.get('contact')?.errors?.['pattern']">Contact must be a valid phone number</div>
+                  </div>
               </div>
 
               <div class="form-group text-center">
@@ -45,7 +45,7 @@
                 <button type="reset" class="btn btn-secondary ml-2"><i class="fa fa-eraser"></i> Clear</button>
               </div>
                 <span>Already a member?</span><a routerLink="/login">Login</a>
-              <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
+              <div class="alert alert-warning" *ngIf="isSignUpFailed">
                 Signup failed! {{ errorMessage }}
               </div>
             </div>
@@ -56,59 +56,51 @@
   </div>
 
 <!--<div class="container">-->
-<!--    <form [formGroup]="signupForm" class="card bg-light mb-3" (ngSubmit)="onSubmit()">-->
-<!--        <h2 class="text-center mb-4 card-header">Sign Up</h2>-->
-<!--        <div class="card-body">-->
+
+<!--    &lt;!&ndash;      <form name="form" class="card bg-light mb-3" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>&ndash;&gt;-->
+<!--<div class="card">-->
+<!--    <div class="card-body">-->
+<!--        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">-->
+<!--            <h2 class="card bg-light mb-3">Sign Up</h2>-->
 <!--            <div class="form-group">-->
-<!--                <label>Username:</label>-->
-<!--                <input type="text" class="form-control" formControlName="username" [ngClass]="{ 'is-invalid': signupForm.controls.username.errors }">-->
-<!--                <div *ngIf="  signupForm.controls.username.errors" class="invalid-feedback">-->
-<!--                    <div *ngIf="signupForm.controls.username.errors">Username is required.</div>-->
-<!--                    <div *ngIf="signupForm.controls.username.errors">Username must be at least 3 characters.</div>-->
-<!--                    <div *ngIf="signupForm.controls.username.errors">Username cannot be more than 20 characters.</div>-->
+<!--                <label for="username">Username</label>-->
+<!--                <input type="text" class="form-control" id="username" formControlName="username">-->
+<!--                <div *ngIf="signupForm.get('username')?.touched && signupForm.get('username')?.invalid" class="alert alert-danger">-->
+<!--                    <div *ngIf="signupForm.get('username')?.errors?.['required']">Username is required</div>-->
+<!--                    <div *ngIf="signupForm.get('username')?.errors?.['minlength']">Username must be at least 3 characters long</div>-->
 <!--                </div>-->
 <!--            </div>-->
 
 <!--            <div class="form-group">-->
-<!--                <label>Password:</label>-->
-<!--                <input type="password" class="form-control" formControlName="password" [ngClass]="{ 'is-invalid':  signupForm.controls.password.errors }">-->
-<!--                <div *ngIf=" signupForm.controls.password.errors" class="invalid-feedback">-->
-<!--                    <div *ngIf="signupForm.controls.password.errors">Password is required.</div>-->
-<!--                    <div *ngIf="signupForm.controls.password.errors">Password must be at least 6 characters.</div>-->
+<!--                <label for="password">Password</label>-->
+<!--                <input type="password" class="form-control" id="password" formControlName="password">-->
+<!--                <div *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid" class="alert alert-danger">-->
+<!--                    <div *ngIf="signupForm.get('password')?.errors?.['required']">Password is required</div>-->
+<!--                    <div *ngIf="signupForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters long</div>-->
 <!--                </div>-->
 <!--            </div>-->
 
 <!--            <div class="form-group">-->
-<!--                <label>Confirm Password:</label>-->
-<!--                <input type="password" class="form-control" formControlName="confirmPassword" [ngClass]="{ 'is-invalid':  signupForm.controls.confirmPassword.errors }">-->
-<!--                <div *ngIf=" signupForm.controls.confirmPassword.errors" class="invalid-feedback">-->
-<!--                    <div *ngIf="signupForm.controls.confirmPassword.errors">Confirm Password is required.</div>-->
-<!--                    <div *ngIf="signupForm.get('password').value !== signupForm.get('confirmPassword').value">Passwords do not match.</div>-->
+<!--                <label for="confirmPassword">Confirm Password</label>-->
+<!--                <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword">-->
+<!--                <div *ngIf="signupForm.get('confirmPassword')?.touched && signupForm.get('confirmPassword')?.invalid" class="alert alert-danger">-->
+<!--                    <div *ngIf="signupForm.get('confirmPassword')?.errors?.['required']">Confirm Password is required</div>-->
+<!--                    <div *ngIf="signupForm.get('confirmPassword')?.hasError('mismatch')">Passwords do not match</div>-->
 <!--                </div>-->
 <!--            </div>-->
 
 <!--            <div class="form-group">-->
-<!--                <label>Contact:</label>-->
-<!--                <input type="text" class="form-control" formControlName="contact" [ngClass]="{ 'is-invalid':  signupForm.controls.contact.errors }">-->
-<!--                <div *ngIf=" signupForm.controls.contact.errors" class="invalid-feedback">-->
-<!--                    <div *ngIf="signupForm.controls.contact.errors">Contact is required.</div>-->
+<!--                <label for="contact">Contact</label>-->
+<!--                <input type="text" class="form-control" id="contact" formControlName="contact">-->
+<!--                <div *ngIf="signupForm.get('contact')?.touched && signupForm.get('contact')?.invalid" class="alert alert-danger">-->
+<!--                    <div *ngIf="signupForm.get('contact')?.errors?.['required']">Contact is required</div>-->
+<!--                    <div *ngIf="signupForm.get('contact')?.errors?.['pattern']">Contact must be a valid phone number</div>-->
 <!--                </div>-->
 <!--            </div>-->
 
-<!--            <div class="form-group text-center">-->
-<!--                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Sign Up</button>-->
-<!--                <button type="button" class="btn btn-secondary ml-2" (click)="onReset()"><i class="fa fa-eraser"></i> Clear</button>-->
-<!--            </div>-->
-
-<!--            <span>Already a member?</span><a routerLink="/login">Login</a>-->
-
-<!--            <div class="alert alert-warning" *ngIf=" isSignUpFailed">-->
-<!--                Signup failed! {{ errorMessage }}-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </form>-->
-
-<!--    <div class="alert alert-success" *ngIf="isSuccessful">-->
-<!--        Your registration is successful!-->
+<!--            <button type="submit" class="btn btn-primary" [disabled]="signupForm.invalid">Sign up</button>-->
+<!--        </form>-->
 <!--    </div>-->
+<!--</div>-->
+
 <!--</div>-->
