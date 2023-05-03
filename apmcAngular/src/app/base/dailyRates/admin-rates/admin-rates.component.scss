@@ -1,8 +1,9 @@
-// modal panel button styling 
 
 .itemBtn{
   padding: 5px 10px;
   margin-right: 4px;
+  margin-bottom: 10px;
+  border-color: black;
 }
 
 h6{
@@ -13,12 +14,12 @@ h6{
 .parent {
   display: flex;
   justify-content: flex-start;
+  margin-bottom: 10px;
 }
 
 .dateContainer{
   max-width: 30%;
   margin: 0;
-  padding: 20px;
   background-color: #f8f8f8;
   border-radius: 10px;
   text-align: left;
@@ -28,8 +29,7 @@ h6{
 .container {
   max-width:100%;
   margin: 0 auto;
-  padding: 20px;
-
+  padding: 0px;
   border-radius: 10px;
 }
 
@@ -74,14 +74,14 @@ button:hover {
 
 .btn-primary {
   margin-left: 1%;
-  background-color: #325c32;
+  background-color: #1a381adc;
   color: #fff;
 }
 
 .btn {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #325c32;
+  background-color:#1a381a9d;
   color: #fff;
   border-radius: 3px;
   font-size: 16px;
@@ -91,7 +91,7 @@ button:hover {
 }
 
 .btn:hover {
-  background-color: #325c32;
+  background-color: #1a381adc;
 }
 
 
@@ -144,4 +144,8 @@ a{
 
 a:hover{
   color: #325c32;
+}
+
+.cardNav{
+  font-weight: 500;
 }

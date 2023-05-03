@@ -1,45 +1,21 @@
-<!--<header class="header">-->
-<!--  <div class="container">-->
-<!--    <div class="header__left">-->
-<!--      <div class="header__logo">-->
-<!--        <img-->
-<!--          src="../../../../assets/images/123.png"-->
-<!--          loading="lazy"-->
-<!--          style="margin-top: -1px;"-->
-<!--          alt="APMC Logo"-->
-<!--          class="header__logo-img rounded-circle"-->
-<!--        />-->
-<!--      </div>-->
-<!--      <h1 class="header__company-name"><a class="apmcHome" routerLink="/home">APMC Gondal</a></h1>-->
-<!--    </div>-->
-<!--    <div class="header__right">-->
-
-<!--      <a href="#" class="header__headerLinks" target="_blank">Download App</a>-->
-<!--      <a routerLink="login" class="header__headerLinks" *ngIf="!isLoggedIn">Log In</a>-->
-<!--      <a href="#" class="header__headerLinks" *ngIf="isLoggedIn" (click)="logout()">Log Out</a>-->
-
-<!--    </div>-->
-<!--  </div>-->
-<!--</header>-->
-
 <header class="header">
     <div class="container">
-        <div class="header__left">
-            <div class="header__logo">
-                <img src="../../../../assets/images/123.png" loading="lazy" style="margin-top: -1px" alt="APMC Logo"
-                     class="header__logo-img rounded-circle" />
+        <div class="left">
+            <div class="logo">
+                <img src="../../../../assets/images/123.png" loading="lazy" alt="APMC Logo"
+                     class="logo-img rounded-circle" />
             </div>
-            <h1 class="header__company-name">
+            <h1 class="company-name">
                 <a class="apmcHome" routerLink="/home">APMC Gondal</a>
             </h1>
         </div>
-        <div class="header__right">
+        <div class="right">
             <span class="material-icons-outlined"> download </span>
-            <a href="#" class="header__headerLinks">Download App</a>
+            <a href="#" class="headerLinks">Download App</a>
             <span class="material-icons-outlined" *ngIf="!isLoggedIn"> login </span>
-            <a routerLink="login" class="header__headerLinks" *ngIf="!isLoggedIn">Log In</a>
+            <a routerLink="login" class="headerLinks" *ngIf="!isLoggedIn">Log In</a>
             <span class="material-icons-outlined" *ngIf="isLoggedIn"> logout </span>
-            <a href="#" class="header__headerLinks" *ngIf="isLoggedIn" (click)="logout()">Log Out</a>
+            <a href="#" class="headerLinks" *ngIf="isLoggedIn" (click)="logout()">Log Out</a>
 
             <nav>
                 <ul>

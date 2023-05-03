@@ -1,206 +1,3 @@
-//$header-height: 80px; // Set the height of the header
-//$header-padding: 20px;
-//.header {
-//
-//    position: fixed;
-//    top: 0;
-//    left: 0;
-//    width: 100%;
-//    z-index: 9999;
-//    padding: 10px;
-//    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-//
-//
-//  height: $header-height;
-//  background-color: #325c32;
-//  border-bottom: 1px solid #ccc;
-//
-//  .container {
-//    display: flex;
-//    align-items: center;
-//    justify-content: space-between;
-//    height: 100%;
-//    padding: 0 20px; // Add some padding to the left and right of the container
-//  }
-//
-//  &__left {
-//    display: flex;
-//    align-items: center;
-//    height: 100%;
-//    flex: 1;
-//  }
-//
-//  &__logo {
-//    height: $header-height - 20px; // Subtract some padding from the height of the logo container
-//    width: $header-height - 20px; // Subtract some padding from the width of the logo container
-//    overflow: hidden;
-//    margin-right: 10px; // Add some space between the logo and the company name
-//  }
-//
-//  &__logo-img {
-//    height: 100%;
-//    width: 100%;
-//    object-fit: cover;
-//  }
-//
-//  &__company-name {
-//
-//    margin: 0;
-//    font-size: 1.2rem;
-//    color: white;
-//  }
-//
-//  &__right {
-//    display: flex;
-//    align-items: center;
-//    height: 100%;
-//    flex:1;
-//    justify-content: flex-end;
-//  }
-//
-//  &__headerLinks{
-//    margin: 10px;
-//    font-size: 1rem;
-//    color: white;
-//    text-decoration: none;
-//  }
-//
-//@media (max-width: 576px) {
-//    .container {
-//      padding: 0 $header-padding / 2; // Decrease the padding on smaller screens
-//    }
-//
-//    &__left {
-//      flex-direction: column; // Stack the elements on smaller screens
-//      justify-content: center;
-//      flex: none; // Reset the flex value to allow the logo and company name to size independently
-//
-//      &__logo {
-//        margin-right: 0; // Remove the margin on smaller screens
-//        margin-bottom: 10px; // Add some space between the logo and the company name
-//      }
-//    }
-//    &__company-name {
-//        font-size: 1rem; // Decrease the font size on smaller screens
-//      }
-//
-//      &__right {
-//        justify-content: center; // Align the buttons to the center on smaller screens
-//        flex: none; // Reset the flex value to allow the buttons to size independently
-//      }
-//    }
-//
-//}
-//
-//.apmcHome{
-//    text-decoration: none;
-//    color: white;
-//}
-//
-//
-//
-
-$header-height: 80px; // Set the height of the header
-$header-padding: 20px;
-.header {
-
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 9999;
-  padding: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-  height: $header-height;
-  background-color: #325c32;
-  border-bottom: 1px solid #ccc;
-
-  .container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 100%;
-    padding: 0 20px; // Add some padding to the left and right of the container
-  }
-
-  &__left {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    flex: 1;
-  }
-
-  &__logo {
-    height: $header-height - 20px; // Subtract some padding from the height of the logo container
-    width: $header-height - 20px; // Subtract some padding from the width of the logo container
-    overflow: hidden;
-    margin-right: 10px; // Add some space between the logo and the company name
-  }
-
-  &__logo-img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-  }
-
-  &__company-name {
-
-    margin: 0;
-    font-size: 1.2rem;
-    color: white;
-  }
-
-  &__right {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    flex:1;
-    justify-content: flex-end;
-  }
-
-  &__headerLinks{
-    margin: 10px;
-    margin-left: 3px;
-    margin-right: 25px;
-    font-size: 1rem;
-    color: white;
-    text-decoration: none;
-  }
-
-  @media (max-width: 576px) {
-    .container {
-      padding: 0 $header-padding / 2; // Decrease the padding on smaller screens
-    }
-
-    &__left {
-      flex-direction: column; // Stack the elements on smaller screens
-      justify-content: center;
-      flex: none; // Reset the flex value to allow the logo and company name to size independently
-
-      &__logo {
-        margin-right: 0; // Remove the margin on smaller screens
-        margin-bottom: 10px; // Add some space between the logo and the company name
-      }
-    }
-    &__company-name {
-      font-size: 1rem; // Decrease the font size on smaller screens
-    }
-
-    &__right {
-      justify-content: center; // Align the buttons to the center on smaller screens
-      flex: none; // Reset the flex value to allow the buttons to size independently
-    }
-  }
-
-}
-
-.apmcHome{
-  text-decoration: none;
-  color: white;
-}
-
-
 
 img {
   max-width: 100%;
@@ -218,7 +15,7 @@ ul {
 li {
   list-style-type: none;
   position: relative;
-  padding: 0.625rem 0 0.5rem;
+  padding: 0.625rem 0 0.625rem;
 }
 
 li ul {
@@ -251,7 +48,7 @@ li ul {
 
 
 .profile{
-  height: 1.5rem;
+  height: 1.2rem;
   color: white;
   width: auto;
   cursor: pointer;
@@ -288,4 +85,124 @@ li ul {
   font-weight: 500;
   margin: 0.4rem 0;
   flex: 1;
+}
+
+.apmcHome{
+  text-decoration: none;
+  color: white;
+}
+
+$header-height: 80px; // Set the height of the header
+$header-padding: 20px;
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 15;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: $header-height;
+  background-color: #1a381adc;
+}
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0 $header-padding; // Add some padding to the left and right of the container
+  }
+
+  .left {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    flex: 1;
+  }
+
+  .logo {
+    height: $header-height - 20px; 
+    width: $header-height - 20px; 
+    overflow: hidden;
+    margin-right: 10px;
+  }
+
+  .logo-img {
+    height: 100%;
+    width: 100%;
+  }
+
+  .company-name {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+
+  .right {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    flex:1;
+    justify-content: flex-end;
+  }
+
+  .headerLinks{
+    margin: 10px;
+    margin-left: 3px;
+    margin-right: 15px;
+    font-size: 1rem;
+    color: white;
+    text-decoration: none;
+  }
+
+  @media (max-width: 576px) {
+    .container {
+      padding: 0 $header-padding / 2; // Decrease the padding on smaller screens
+    }
+
+    .left {
+      flex-direction: column;
+      justify-content: right;
+      flex: none
+    } 
+
+    .logo {
+        margin-right: 0;
+        height: $header-height - 10px; 
+        width: $header-height - 20px; 
+        overflow: hidden;
+      }
+    .logo-img {
+        height: 100%;
+        width: 100%;
+      }
+    .company-name {
+      font-size: 0.8rem;
+      margin-top: 3px;
+    }
+
+    .right {
+      justify-content: right; // Align the buttons to the center on smaller screens
+      flex: none; // Reset the flex value to allow the buttons to size independently
+    }
+
+    .headerLinks{
+      margin: 10px;
+      margin-left: 2px;
+      margin-right: 10px;
+      font-size: 0.8rem;
+    }
+
+    .material-icons-outlined{
+      size: 0.5rem;
+    }
+}
+@media (max-width : 768px) {
+    
+  .headerLinks{
+    margin: 10px;
+    margin-left: 2px;
+    margin-right: 15px;
+    font-size: 0.8rem;
+  }
 }

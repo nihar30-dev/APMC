@@ -7,7 +7,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -21,7 +21,8 @@ import { BrowserModule } from '@angular/platform-browser';
     AuthenticationModule,
     RouterModule,
     BrowserModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   exports: [
     CommonModule,
