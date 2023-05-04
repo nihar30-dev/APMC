@@ -6,11 +6,13 @@ import com.apmc.apmcSpringBoot.security.jwt.JwtUtils;
 import com.apmc.apmcSpringBoot.security.payload.request.LoginRequest;
 import com.apmc.apmcSpringBoot.security.payload.request.SignupRequest;
 import com.apmc.apmcSpringBoot.security.payload.response.JwtResponse;
+import com.apmc.apmcSpringBoot.slotDetail.SlotDetailRepository;
 import com.apmc.apmcSpringBoot.user.User;
 import com.apmc.apmcSpringBoot.user.UserRepository;
 import com.apmc.apmcSpringBoot.user.role.Erole;
 import com.apmc.apmcSpringBoot.user.role.Role;
 import com.apmc.apmcSpringBoot.user.role.RoleRepository;
+import com.apmc.apmcSpringBoot.userDetail.UserDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,10 +34,13 @@ public class AuthService {
     AuthenticationManager authenticationManager;
 
     @Autowired
-    UserRepository userRepository;
+    UserDetailsRepository userDetailsRepository;
 
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Autowired
     PasswordEncoder encoder;
@@ -56,9 +61,15 @@ public class AuthService {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
+
+
+
+        boolean userDetailsExist = userDetailsRepository.existsUserDetailByUserId(userDetails.getId());
+        System.out.println(userDetailsExist+"==============================================");
+
         return ResponseEntity.ok(new JwtResponse(jwt ,  userDetails.getId(),
                 userDetails.getUsername(),
-                roles));
+                roles,userDetailsExist));
     }
 
     public Long signupUtil(SignupRequest signUpRequest){
