@@ -45,7 +45,7 @@ export class AgentFormComponent implements OnInit{
       shopNo: [null, Validators.required],
       agentName: [null, Validators.required],
       companyName: [null, Validators.required],
-      contact: [null, [Validators.required, Validators.pattern('^[789]{1}[0-9]{9}$')]],
+      contact: [null, [Validators.required, Validators.pattern('^[6789]{1}[0-9]{9}$')]],
     });
     this.shopService.getAllShopNo().subscribe((data) => {
       this.shopNo = data;

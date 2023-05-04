@@ -78,9 +78,10 @@ public class AuthController {
         }
         return ResponseEntity.ok(authService.signupUtil(signUpRequest));
     }
-    @GetMapping("/normal")
-    public ResponseEntity<String> normalUser() {
-        return ResponseEntity.ok("This is normal user");
+
+    @GetMapping("/{username}")
+    public boolean usernameExists(@PathVariable String username) {
+        return userRepository.existsByUsername(username);
     }
 
 }

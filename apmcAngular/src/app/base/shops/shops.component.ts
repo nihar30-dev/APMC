@@ -84,7 +84,7 @@ export class ShopsComponent implements OnInit {
       shopNo: [null, Validators.required],
       agentName: [null, Validators.required],
       companyName: [null, Validators.required],
-      contact: [null, [Validators.required, Validators.pattern('^[789]{1}[0-9]{9}$')]],
+      contact: [null, [Validators.required, Validators.pattern('^[6789]{1}[0-9]{9}$')]],
     });
     this.shopService.getAllShopNo().subscribe((data) => {
       this.shopNo = data;
@@ -146,25 +146,6 @@ export class ShopsComponent implements OnInit {
     }
 
   }
-
-
-  // registerAgent(agentForm: FormGroup) {
-  //   return new Promise((res, rej) => {
-  //
-  //     this.userName = this.agentForm.value.agentName + (String)(Date.now()).slice(-4);
-  //     this.password = this.userName;
-  //     const user = new User(0,this.userName,this.password,agentForm.value.contact,['agent']);
-  //     this.authervice.register(user).subscribe(
-  //       data => {
-  //         this.agentId = data;
-  //         res(data);
-  //         this.tosterService.success('Registered successully!');
-  //       }, error => {
-  //         rej(error);
-  //       }
-  //     );
-  //   });
-  // }
 
   addAgent(agentForm: FormGroup) {
 

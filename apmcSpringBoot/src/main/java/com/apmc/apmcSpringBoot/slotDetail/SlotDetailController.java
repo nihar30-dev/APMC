@@ -44,5 +44,5 @@ public class SlotDetailController {
     public String deleteSlotDetail(@PathVariable("slotDetailId") int slotDetailId){
         return slotDetailService.deleteSlotDetail(slotDetailId);
     }
-
+    
 }

@@ -59,6 +59,10 @@ export class AuthService{
     );
   }
 
+  getusername(username:string):Observable<any>{
+    return this.http.get(this.authApi+username,
+      this.httpOptions);
+  }
 
 
 

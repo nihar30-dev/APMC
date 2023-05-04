@@ -55,8 +55,8 @@ export class LoginComponent implements OnInit{
 
     //
     this.loginForm = this.fb.group({
-      username: ['username', [Validators.required, Validators.minLength(4)]]!,
-      password: ['password', [Validators.required, Validators.minLength(6)]]!
+      username: [null, [Validators.required, Validators.minLength(4)]],
+      password: [null, [Validators.required, Validators.minLength(6)]]
     });
   }
 
@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit{
             this.storageService.saveUser(data);
             this.roles = this.storageService.getUser().roles;
             this.router.navigate(['home']);
-            // this.toastService.success('Login Successfully');
+            this.toastService.success('Login Successfully');
           }
 
         },
@@ -84,29 +84,6 @@ export class LoginComponent implements OnInit{
       });
     }
   }
-
-
-  // onSubmit(f:NgForm) {
-  //
-  //   //
-  //   const { username, password } = this.form;
-  //
-  //
-  //   this.authService.login(username, password).subscribe({
-  //     next: data => {
-  //
-  //       this.storageService.saveUser(data);
-  //
-  //       this.roles = this.storageService.getUser().roles;
-  //       this.router.navigate(['home']);
-  //
-  //     },
-  //     error: err => {
-  //       this.errorMessage = err.error.message;
-  //     }
-  //   });
-  //
-  // }
 
 
 }
