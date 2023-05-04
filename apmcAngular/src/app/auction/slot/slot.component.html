@@ -57,5 +57,79 @@
       (click)="slotAddForm.form.reset()">Reset</button>
     <button style="background-color: #325c32; color: white;" type="button" class="btn btn-outline-dark btn-sm mx-1 my-1"
       [disabled]="slotAddForm.form.invalid" (click)="slotAddForm.ngSubmit.emit()">Add Slot</button>
+    </div>
+  </ng-template>
+  
+  
+<button class="btn btn-lg btn-outline-primary itemBtn" style="background-color: #1a381adc; color: white;" (click)="openModal(content)" *ngIf="role!=='ADMIN'">Add User Details</button>
+
+  <ng-template #content let-modal>
+  <div class="modal-header" style="background-color: #325c32; color: white;">
+    <h4 class="modal-title" id="modal-basic-title">Add user details</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')" style="font: white;"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="userDetailForm" (ngSubmit)="onSubmitDetails(userDetailForm)" #saveFromOutside="ngForm" novalidate>
+      <div class="mb-3">
+        <div class="input-group">
+          <div class="col-12 form-group">
+            <label for="fullName">Name:</label>
+            <input type="text" class="form-control" id="fullName" formControlName="fullName" placeholder="Full Name" />
+            <div *ngIf="userDetailForm.get('fullName')?.invalid && !userDetailForm.get('fullName')?.untouched"
+              class="alert alert-danger">
+              Full name is required.
+            </div>
+          </div>
+          <div class="col-12 form-group">
+            <label for="district">District</label>
+            <select class="form-select form-control" id="district" formControlName="district">
+              <option selected disabled>Select district</option>
+              <option [value]="district" *ngFor="let district of districts">
+                {{ district }}
+              </option>
+            </select>
+            <div *ngIf="userDetailForm.controls['district'].invalid && userDetailForm.controls['district'].touched"
+              class="alert alert-danger">
+              District is required.
+            </div>
+          </div>
+          <div class="col-12 form-group">
+            <label for="taluka">Taluka</label>
+            <select class="form-select form-control" id="taluka" formControlName="taluka">
+              <option selected disabled>Select taluka</option>
+              <option [value]="taluka" *ngFor="let taluka of talukas">
+                {{ taluka }}
+              </option>
+            </select>
+            <div *ngIf="userDetailForm.controls['taluka'].invalid && userDetailForm.controls['taluka'].touched"
+              class="alert alert-danger">
+              Taluka is required.
+            </div>
+          </div>
+          <div class="col-12 form-group">
+            <label for="village">Village:</label>
+            <input type="text" class="form-control" id="village" formControlName="village" placeholder="Village"/>
+            <div *ngIf="userDetailForm.get('village')?.invalid && !userDetailForm.get('village')?.untouched"
+              class="alert alert-danger">
+              Village is required.
+            </div>
+          </div>
+          <div class="col-12 form-group">
+            <label for="crops">Crops:</label>
+            <input type="text" class="form-control" id="crops" formControlName="crops" placeholder="Add Crops"/>
+            <div *ngIf="userDetailForm.get('crops')?.invalid && !userDetailForm.get('crops')?.untouched"
+              class="alert alert-danger">
+              At least one crop is required.
+              Crops must be seperated by comma's.
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button style="background-color: #325c32; color: white; "type="reset" class="btn btn-outline reset" (click)="saveFromOutside.form.reset()">Reset</button>
+    <button style="background-color: #325c32; color: white;" type="button" class="btn btn-outline save" [disabled]="saveFromOutside.form.invalid"
+      (click)="saveFromOutside.ngSubmit.emit()">Save details</button>
   </div>
 </ng-template>

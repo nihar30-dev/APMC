@@ -44,7 +44,6 @@ export class ShopsComponent implements OnInit {
     public shopModal: NgbModal,
     private toaster: ToastrService,
     private storageService:StorageService,
-    private authervice: AuthService, 
     private agentService: AgentService,
     private tosterService: ToastrService,
     private router : Router){}

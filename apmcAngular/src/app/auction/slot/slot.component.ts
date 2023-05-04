@@ -11,6 +11,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Slot } from 'src/app/models/slot.model';
 import { SlotService } from 'src/app/services/slot.service';
 import { StorageService } from 'src/app/utils/storage.service';
+import { UserDetail } from 'src/app/models/user-detail.model';
+import { userDetailService } from 'src/app/services/user-detail.service';
 
 @Component({
   selector: 'app-admin-slot',
@@ -28,7 +30,6 @@ export class SlotComponent implements OnInit{
   day = '';
   role = '';
   date1 : Date| null = null;
-  // date: NgbDateStruct | null = null;
   itemTypes!: ItemType[];
   itemsList!: Item[];
   allSlots: Slot[] = [];
@@ -38,18 +39,24 @@ export class SlotComponent implements OnInit{
   protected readonly indexedDB = indexedDB;
   activateSearch!: boolean;
 
+  userDetailForm!: FormGroup;
+  districts: String[] = ['xyz'];
+  talukas: String[] = ['xyz'];
+
   constructor(
     
     private ngbCalendar: NgbCalendar, 
     private dateAdapter: NgbDateAdapter<string>, 
     private dateFormatter: DateFormatter, 
     private fb: FormBuilder, 
-    public slotModal: NgbModal, 
+    public  slotModal: NgbModal, 
     private itemService : ItemService, 
     private slotService: SlotService,
     private calendar: NgbCalendar,
-    private toaster:ToastrService,
-    private storageService: StorageService
+    private toasterService: ToastrService,
+    private storageService: StorageService,
+    private modal: NgbModal,
+    private userDetailService: userDetailService
   ) {
     this.minDate = this.calendar.getToday();
     this.maxDate = this.calendar.getNext(this.calendar.getToday(), 'm', 2);
@@ -75,6 +82,14 @@ export class SlotComponent implements OnInit{
       date: ['', Validators.required]
     });
 
+    this.userDetailForm = this.fb.group({
+      fullName: [null, Validators.required],
+      district: [null, Validators.required],
+      taluka: [null, Validators.required],
+      village: [null, Validators.required],
+      crops: [null, [Validators.required, Validators.pattern('^[a-zA-Z]+(,[a-zA-Z]+)*$')]]
+    });
+
     this.loadItemTypes();
   }
 
@@ -82,7 +97,7 @@ export class SlotComponent implements OnInit{
       this.itemService.getItemTypes().subscribe((data) => {
         this.itemTypes = data;
       }, (error) => {
-          this.toaster.error("Error loading Item Types");
+          this.toasterService.error("Error loading Item Types");
       });
   }
 
@@ -92,7 +107,7 @@ export class SlotComponent implements OnInit{
       this.itemService.getAllItemsByTypeId(n).subscribe((data) => {
         this.itemsList = data;
       }, error => {
-        this.toaster.error("Error loading Item");
+        this.toasterService.error("Error loading Item");
       });
   }
 
@@ -127,10 +142,10 @@ export class SlotComponent implements OnInit{
     }
 
     this.slotService.addSlot(slot).subscribe((data: any) => {
-      this.toaster.success("Slot added successfully!");
+      this.toasterService.success("Slot added successfully!");
 
     }, (error: any) => {
-      this.toaster.error(error.error['message']);
+      this.toasterService.error(error.error['message']);
     });
 
   }
@@ -152,9 +167,9 @@ export class SlotComponent implements OnInit{
       this.allSlots = data;
       console.log(this.allSlots);
       if(this.allSlots.length == 0)
-        this.toaster.info('No data found');
+        this.toasterService.info('No data found');
     }, () =>{
-      this.toaster.error('No data found');
+      this.toasterService.error('No data found');
     });
     this.activateSearch = true;
   }
@@ -163,9 +178,25 @@ export class SlotComponent implements OnInit{
   getAllSlots(){
     this.slotService.getAllSlots().subscribe((data) => {
       this.allSlots = data;
-      this.toaster.success("Slot fetched successfully!");
+      this.toasterService.success("Slot fetched successfully!");
     }, (error: any) => {
-      this.toaster.error(error.error['message']);
+      this.toasterService.error(error.error['message']);
     });
+  }
+
+  onSubmitDetails(userDetailForm: FormGroup){
+    if(userDetailForm.valid){
+      const userDetail : UserDetail = new UserDetail({id: this.storageService.getUser().id}, userDetailForm.value['fullName'], userDetailForm.value['district'], userDetailForm.value['taluka'], userDetailForm.value['village'], userDetailForm.value['crops']);  
+      this.userDetailService.addUserDetail(userDetail).subscribe(()=>{
+        this.toasterService.success('Details added successfully');
+      });
+      this.userDetailForm.reset();
+      this.modal.dismissAll();
+    }
+
+  }
+
+  openModal(content : any) {
+    this.modal.open(content, { ariaLabelledBy: 'modal-basic-title', centered : true } );
   }
 }

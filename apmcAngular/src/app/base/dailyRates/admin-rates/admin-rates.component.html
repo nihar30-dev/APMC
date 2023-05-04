@@ -13,6 +13,7 @@
                     ngbDatepicker
                     (ngModelChange)="onDateSelect(d2)"
                     #d2="ngbDatepicker"
+                    [maxDate]="maxDate"
             />
             <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d2.toggle()" type="button"></button>
           </div>

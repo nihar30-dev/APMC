@@ -16,7 +16,7 @@ import { ItemType } from 'src/app/models/itemType.model';
 import { DailyRatesService } from 'src/app/services/daily-rates.service';
 import { ItemService } from 'src/app/services/item.service';
 import { DateFormatter } from 'src/app/utils/dateFormatter';
-import {CustomDateParserFormatter} from '../CustomDateParserFormatter';
+import { CustomDateParserFormatter } from '../CustomDateParserFormatter';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -66,10 +66,12 @@ export class AdminRatesComponent implements OnInit{
     }, ()=>{
       this.tosterService.error('Error loading ItemTypes');
     });
+
     this.itemForm = this.fb.group({
       itemTypeId : [null, Validators.required],
       itemName: [null, Validators.required]
     });
+    
     const date = new Date();
     this.model2 = this.dateAdapter.toModel(this.ngbCalendar.getToday())!;
     this.day = this.dateFormatter.dateinyyyymmdd(date);
