@@ -100,7 +100,7 @@ export class AgentFormComponent implements OnInit{
     return new Promise((res, rej) => {
       agentForm.value.userId = this.agentId;
 
-      const agent: Agent = new Agent(
+      const agent: Agent = new Agent(0,
         new User(this.agentId, '', '',agentForm.value['contact'],['admin']),
         agentForm.value['agentName'],
         agentForm.value['companyName'],

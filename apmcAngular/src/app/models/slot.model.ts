@@ -8,5 +8,4 @@ export interface Slot{
     bookedQuantity:number;
     slotDate:string;
 
-
 }

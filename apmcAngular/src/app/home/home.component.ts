@@ -7,14 +7,14 @@ import {StorageService} from '../utils/storage.service';
 import { DatePipe } from '@angular/common';
 import { DateFormatter } from '../utils/dateFormatter';
 import { ToastrService } from 'ngx-toastr';
-import {Chart, ChartType} from 'chart.js';
+// import {Chart, ChartType} from 'chart.js';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit{
-  public chart!: Chart<ChartType, string[], string>;
+  // public chart!: Chart<ChartType, string[], string>;
   
   constructor(private dailyRates : DailyRatesService, public datepipe: DatePipe,private dateformatter: DateFormatter,private storageService:StorageService, 
     private toster:ToastrService){
@@ -82,31 +82,31 @@ export class HomeComponent implements OnInit{
 
   createChart(){
 
-    this.chart = new Chart('MyChart', {
-      type: 'line', //this denotes tha type of chart
+    // this.chart = new Chart('MyChart', {
+    //   type: 'line', //this denotes tha type of chart
 
-      data: {// values on X-Axis
-        labels: ['2022-05-10', '2022-05-11', '2022-05-12','2022-05-13',
-          '2022-05-14', '2022-05-15', '2022-05-16','2022-05-17', ],
-        datasets: [
-          {
-            label: 'Sales',
-            data: ['467','576', '572', '79', '92',
-              '574', '573', '576'],
-            backgroundColor: 'blue'
-          },
-          {
-            label: 'Profit',
-            data: ['542', '542', '536', '327', '17',
-              '0.00', '538', '541'],
-            backgroundColor: 'limegreen'
-          }
-        ]
-      },
-      options: {
-        aspectRatio:2.5
-      }
+    //   data: {// values on X-Axis
+    //     labels: ['2022-05-10', '2022-05-11', '2022-05-12','2022-05-13',
+    //       '2022-05-14', '2022-05-15', '2022-05-16','2022-05-17', ],
+    //     datasets: [
+    //       {
+    //         label: 'Sales',
+    //         data: ['467','576', '572', '79', '92',
+    //           '574', '573', '576'],
+    //         backgroundColor: 'blue'
+    //       },
+    //       {
+    //         label: 'Profit',
+    //         data: ['542', '542', '536', '327', '17',
+    //           '0.00', '538', '541'],
+    //         backgroundColor: 'limegreen'
+    //       }
+    //     ]
+    //   },
+    //   options: {
+    //     aspectRatio:2.5
+    //   }
 
-    });
+    // });
   }
 }

@@ -6,7 +6,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { DataTablesModule } from 'angular-datatables';
+import { BootstrapIconsModule } from 'ng-bootstrap-icons';
+import { allIcons } from 'ng-bootstrap-icons/icons';
 const routes: Routes = [
   {path : 'notice', component : NoticeComponent },
   {path : 'slot', component : SlotComponent}
@@ -22,7 +24,9 @@ const routes: Routes = [
     ReactiveFormsModule,
     SharedModule,
     NgbDatepickerModule,
-    FormsModule
+    FormsModule,
+    DataTablesModule,
+    BootstrapIconsModule.pick(allIcons)
   ]
 })
 export class AuctionModule { }

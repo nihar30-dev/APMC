@@ -123,7 +123,7 @@
 	</div>
 	<div class="modal-footer">
     <button type="reset" class="btn btn-secondary" style="background-color: #325c32; color: white;" (click)="shopAddForm.form.reset()" >Reset</button>
-		<button type="button" class="btn btn-outline-dark"  style="background-color: #325c32; color: white;" (click)="shopAddForm.ngSubmit.emit()">Save</button>
+		<button type="button" class="btn btn-outline-dark"  style="background-color: #325c32; color: white;" [disabled]="shopAddForm.form.invalid" (click)="shopAddForm.ngSubmit.emit()">Save</button>
 	</div>
 </ng-template> 
 

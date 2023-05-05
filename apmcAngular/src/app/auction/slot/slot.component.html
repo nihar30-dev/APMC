@@ -3,6 +3,35 @@
 </button>
 
 
+<!-- Data table to display Slots -->
+<table datatable [dtOptions]="dtOptions" class="table table-striped" style="background-color: white" *ngIf="allSlots">
+  <thead>
+  <tr>
+      <th scope="col">Item Type</th>
+      <th scope="col">Item</th>
+      <th scope="col">Date</th>
+      <th scope="col">Total Quantity</th>
+      <th scope="col">Available Quantity</th>
+      <th scope="col">Delete</th>
+      <th scope="col">Update Slot</th>
+      <th scope="col">Book Slot</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let slots of allSlots; let i = index">
+      <td>{{ slots['item']['itemType']['itemTypeName'] }}</td>
+      <td>{{ slots['item']['itemName'] }}</td>
+      <td>{{ slots['slotDate'] }}</td>
+      <td>{{ slots['totalQuantity'] }}</td>
+      <td>{{ slots['totalQuantity']-slots['bookedQuantity'] }}</td>
+      <td><bi name="trash-fill" class="" style="color: red; width: 1.5rem;"></bi></td>
+      <td (click)="openslotEdit(editSlotModalForm, i)" ><bi name="pencil-square" class="" style="width: 1.5rem;"></bi></td>
+      <td (click)="openslotBook(bookSlotModalForm, i)">Book Now</td>  
+  </tr>
+  </tbody>
+</table>
+
+
 <!-- Add Slot Modal -->
 <ng-template #slot let-modal>
   <div class="modal-header" style="background-color: #325c32; color: white;">
@@ -56,24 +85,121 @@
     <button style="background-color: #325c32; color: white;" type="reset" class="btn btn-outline-dark btn-sm mx-1 my-1"
       (click)="slotAddForm.form.reset()">Reset</button>
     <button style="background-color: #325c32; color: white;" type="button" class="btn btn-outline-dark btn-sm mx-1 my-1"
-      [disabled]="slotAddForm.form.invalid" (click)="slotAddForm.ngSubmit.emit()">Add Item</button>
+      [disabled]="slotAddForm.form.invalid" (click)="slotAddForm.ngSubmit.emit()">Add Slot</button>
   </div>
 </ng-template>
 
 
 
 
-<!-- 
-  <div class="input-group">
-    <input
-            class="form-control"
-            placeholder="dd/mm/yyyy"
-            name="d2"
-            #c2="ngModel"
-            [(ngModel)]="model2"
-            ngbDatepicker
-            (ngModelChange)="onDateSelect(d2)"
-            #d2="ngbDatepicker"
-    />
-    <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d2.toggle()" type="button"></button>
-  </div> -->
+<!-- Book Slot Modal for users -->
+<ng-template #bookSlotModalForm let-modal>
+  <div class="modal-header" style="background-color: #325c32; color: white;">
+    <h4 class="modal-title" id="modal-basic-title">Book Slot</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+
+    <form [formGroup]="bookSlot" (ngSubmit)="bookSlotForm(bookSlot)" #slotBookForm="ngForm" novalidate>
+      <div class="form-group">
+
+        <label for="slotDate">Selected Date:</label>
+        <div class="d-flex">
+          <input id="slotDate" type="date" class="form-control" placeholder="yyyy-mm-dd" formControlName="date" />
+        </div>
+        
+        <label for="itemType">Item Type:</label>
+        
+          <input id="itemType" type="text" class="form-control" formControlName="itemType" />
+         
+        <div *ngIf="bookSlot.controls['itemType'].invalid && bookSlot.controls['itemType'].touched"
+          class="alert alert-danger">
+          Item type is required.
+        </div>
+
+        <label for="item">Item:</label>
+        <input id="item" type="text" class="form-control" formControlName="item" />
+        <div *ngIf="bookSlot.controls['item'].invalid && bookSlot.controls['item'].touched" class="alert alert-danger">
+          Item is required.
+        </div>
+
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" formControlName="quantity" class="form-control" required>
+        <div *ngIf="bookSlot.controls['quantity'].invalid && bookSlot.controls['quantity'].touched"
+          class="alert alert-danger">
+          Valid quantity is required.
+        </div>
+        
+          <label>Select Agent</label>
+          <select class="form-select form-control" name="agent" id="agent" formControlName="agent"
+            aria-label="Select a shop">
+            <option selected disabled>Select Company name</option>
+            <option [value]="agent['agentId']" *ngFor="let agent of allAgents">
+              {{ agent['companyName'] }}
+            </option>
+          </select>
+       
+      </div>
+    </form>
+
+  </div>
+  <div class="modal-footer my-0">
+    <button style="background-color: #325c32; color: white;" type="reset" class="btn btn-outline-dark btn-sm mx-1 my-1"
+      (click)="slotBookForm.form.reset()">Reset</button>
+    <button style="background-color: #325c32; color: white;" type="button" class="btn btn-outline-dark btn-sm mx-1 my-1"
+      [disabled]="slotBookForm.form.invalid" (click)="slotBookForm.ngSubmit.emit()">Book Slot</button>
+  </div>
+</ng-template>
+
+
+<!-- Edit Slot Modal for Admin -->
+<ng-template #editSlotModalForm let-modal>
+  <div class="modal-header" style="background-color: #325c32; color: white;">
+    <h4 class="modal-title" id="modal-basic-title">Edit Slot</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+
+    <form [formGroup]="editSlot" (ngSubmit)="submitEditSlot(editSlot)" #slotEditForm="ngForm" novalidate>
+      <div class="form-group">
+
+        <label for="itemType">Item Type:</label>
+          <input id="itemType" type="text" class="form-control" formControlName="itemType" />
+        <div *ngIf="editSlot.controls['itemType'].invalid && editSlot.controls['itemType'].touched"
+          class="alert alert-danger">
+          Item type is required.
+        </div>
+
+        <label for="item">Item:</label>
+        <input value="itemName" formControlName="item" class="form-control" >
+        <div *ngIf="editSlot.controls['item'].invalid && editSlot.controls['item'].touched" class="alert alert-danger">
+          Item is required.
+        </div>
+
+        <label for="slotDate">Select Date:</label>
+        <div class="d-flex">
+          <input id="slotDate" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker"
+            formControlName="date" [(ngModel)]="model2" [maxDate]="maxDate" [minDate]="minDate" />
+          <button class="btn btn-outline-secondary bi bi-calendar3 mx-0 my-0" (click)="dp.toggle()"
+            type="button"></button>
+        </div>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" formControlName="quantity" class="form-control" required>
+        <div *ngIf="editSlot.controls['quantity'].invalid && editSlot.controls['quantity'].touched"
+          class="alert alert-danger">
+          Valid quantity is required.
+        </div>
+       
+      </div>
+    </form>
+
+  </div>
+  <div class="modal-footer my-0">
+    <button style="background-color: #325c32; color: white;" type="reset" class="btn btn-outline-dark btn-sm mx-1 my-1"
+      (click)="slotEditForm.form.reset()">Reset</button>
+    <button style="background-color: #325c32; color: white;" type="button" class="btn btn-outline-dark btn-sm mx-1 my-1"
+      [disabled]="slotEditForm.form.invalid" (click)="slotEditForm.ngSubmit.emit()">Edit Slot</button>
+  </div>
+</ng-template>

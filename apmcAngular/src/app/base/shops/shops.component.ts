@@ -40,8 +40,8 @@ export class ShopsComponent implements OnInit {
   constructor(
     private shopService : ShopService,
     private formBuilder: FormBuilder, 
-    public modalService2: ModalService,
     public shopModal: NgbModal,
+    public agentModal : NgbModal,
     private toaster: ToastrService,
     private storageService:StorageService,
     private authervice: AuthService, 
@@ -121,8 +121,7 @@ export class ShopsComponent implements OnInit {
  
         this.toaster.error(error.error['message']);
       });
-
-      this.shopModal.dismissAll('done');
+      shopForm.reset();
       this.shopModal.dismissAll();
     }
   }
@@ -136,9 +135,9 @@ export class ShopsComponent implements OnInit {
       // this.registerAgent(agentForm)
       this.addAgent(agentForm)
         .then(()=>{
-          this.modalService2.close();
-          this.router.navigate(['shops']);
+          this.agentModal.dismissAll();
           this.agentForm.reset();
+          this.agentModal.dismissAll();
         })
         .catch((error)=>{
           this.tosterService.error(error.error['message']);
@@ -152,7 +151,7 @@ export class ShopsComponent implements OnInit {
     return new Promise((res, rej) => {
       agentForm.value.userId = this.agentId;
 
-      const agent: Agent = new Agent(
+      const agent: Agent = new Agent(0,
         new User(this.agentId, '', '',agentForm.value['contact'],  ['admin']),
         agentForm.value['agentName'],
         agentForm.value['companyName'],
