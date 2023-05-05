@@ -256,9 +256,10 @@ export class AdminRatesComponent implements OnInit{
     const income = this.dailyRates.value['dailyRateArray'][i]['income'];
     // let day = this.day;
 
-    const avgPrice = (+minPrice + +maxPrice)/2;    
+    const avgPrice = (+minPrice + +maxPrice)/2;
 
-    const itemRates = new DailyRates(0, item, minPrice, maxPrice, avgPrice, quantity, income, this.day);
+    // const itemRates = new DailyRates(, item, minPrice, maxPrice, avgPrice, quantity, income, this.day);
+    const itemRates:DailyRates = {rateId:0 , item:item , minPrice:minPrice ,avgPrice:avgPrice, maxPrice:maxPrice , quantity:quantity , income:income , day:this.day}
     console.log(itemRates);
     // console.log(this.dailyRates.value['dailyRateArray'][i]);
 

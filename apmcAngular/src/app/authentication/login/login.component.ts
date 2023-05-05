@@ -72,7 +72,12 @@ export class LoginComponent implements OnInit{
           else {
             this.storageService.saveUser(data);
             this.roles = this.storageService.getUser().roles;
-            this.router.navigate(['home']);
+            if(this.roles=='ADMIN'){
+              this.router.navigate(['dashboard']);
+            }
+            else {
+              this.router.navigate(['home']);
+            }
             this.toastService.success('Login Successfully');
           }
 

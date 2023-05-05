@@ -12,6 +12,7 @@ import { BaseModule } from './base/base.module';
 import { AuctionModule } from './auction/auction.module';
 import { LayoutModule } from './layout/layout.module';
 import { StaticModule } from './static/static.module';
+import {NgChartsModule } from 'ng2-charts';
 
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -19,13 +20,16 @@ import { GoogleLoginProvider, SocialAuthServiceConfig,SocialLoginModule } from '
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './utils/interceptor.service';
 import { StorageService } from './utils/storage.service';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import {NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    DashboardComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -39,8 +43,11 @@ import { StorageService } from './utils/storage.service';
     LayoutModule,
     AuctionModule,
     StaticModule,
+    NgChartsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    NgbInputDatepicker,
+
   ],
   bootstrap: [AppComponent],
   providers :[
@@ -53,7 +60,7 @@ import { StorageService } from './utils/storage.service';
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-                '238985952076-ip1l9j07bci4474ajuklhed9nvp3rskc.apps.googleusercontent.com'
+              '238985952076-ip1l9j07bci4474ajuklhed9nvp3rskc.apps.googleusercontent.com'
             )
           }
         ],

@@ -19,6 +19,16 @@ public class DailyRatesController {
     @Autowired
     private DailyRateService dailyRateService;
 
+
+    @GetMapping("/all")
+    public List<DailyRates> getAllDailyRates(){
+        List<DailyRates> dailyRates = dailyRateService.getAllDailyRates();
+        if(dailyRates == null){
+            throw new ResponseException("No Rates found");
+        }
+        return dailyRates;
+    }
+
     @GetMapping("")
     public List<DailyRates> getDailyRatesByDate(@RequestParam String day) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

@@ -1,0 +1,37 @@
+<div class="container">
+<form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)" #chartForm="ngForm" novalidate>
+    <div class="form-group">
+        <select  formControlName="itemType" (change)="loadItem()" id="itemTypeId" class="form-control"
+                required >
+            <option value="" disabled selected>Select item type</option>
+            <option [value]="itemtype['itemTypeId']" *ngFor="let itemtype of itemTypes">
+                {{ itemtype['itemTypeName'] }}
+            </option>
+        </select>
+        <div *ngIf="myForm.controls['itemType'].invalid && myForm.controls['itemType'].touched"
+             class="alert">
+            Item type is required.
+        </div>
+        <label for="item">Item:</label>
+        <select id="item" formControlName="item" class="form-control" required>
+            <option value="" disabled selected>Select item :</option>
+            <option [value]="item['itemId']" *ngFor="let item of itemsList">
+                {{ item['itemName'] }}
+            </option>
+        </select>
+        <div *ngIf="myForm.controls['item'].invalid && myForm.controls['item'].touched" class="alert alert-danger">
+            Item is required.
+        </div>
+
+        <button style="background-color: #325c32; color: white;" type="reset" class="btn btn-outline-dark btn-sm mx-1 my-1"
+                (click)="chartForm.form.reset()">Reset</button>
+        <button style="background-color: #325c32; color: white;" type="button" class="btn btn-outline-dark btn-sm mx-1 my-1"
+                [disabled]="chartForm.form.invalid" (click)="chartForm.ngSubmit.emit()">Add Item</button>
+    </div>
+</form>
+</div>
+
+<div class="container" *ngIf="role==='ADMIN' && showChart">
+    <canvas #myChart height="500px" width="500px"></canvas>
+    <canvas></canvas>
+</div>

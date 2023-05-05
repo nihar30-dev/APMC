@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import {ModalService} from '../../services/modal.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbCalendar, NgbDate, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct, NgbInputDatepicker, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ItemService } from 'src/app/services/item.service';
-import { DateFormatter } from 'src/app/utils/dateFormatter';
-import { CustomDateParserFormatter } from 'src/app/base/dailyRates/CustomDateParserFormatter';
-import { ItemType } from 'src/app/models/itemType.model';
-import { Item } from 'src/app/models/item.model';
-import { ToastrService } from 'ngx-toastr';
-import { Slot } from 'src/app/models/slot.model';
-import { SlotService } from 'src/app/services/slot.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {
+  NgbCalendar,
+  NgbDate,
+  NgbDateAdapter,
+  NgbDateParserFormatter,
+  NgbDateStruct,
+  NgbModal
+} from '@ng-bootstrap/ng-bootstrap';
+import {ItemService} from 'src/app/services/item.service';
+import {DateFormatter} from 'src/app/utils/dateFormatter';
+import {CustomDateParserFormatter} from 'src/app/base/dailyRates/CustomDateParserFormatter';
+import {ItemType} from 'src/app/models/itemType.model';
+import {Item} from 'src/app/models/item.model';
+import {ToastrService} from 'ngx-toastr';
+import {Slot} from 'src/app/models/slot.model';
+import {SlotService} from 'src/app/services/slot.service';
 
 @Component({
   selector: 'app-admin-slot',
@@ -22,7 +28,6 @@ export class SlotComponent implements OnInit{
   myForm !: FormGroup;
   maxDate: NgbDate;
   minDate : NgbDate;
-  datemodel : any;
   model2:any;
   day = '';
   date1 : Date| null = null;
@@ -32,8 +37,6 @@ export class SlotComponent implements OnInit{
   allSlots: Slot[] = [];
   active = 0;
   date: NgbDateStruct = new NgbDate(new Date().getFullYear(), new Date().getMonth()+1, new Date().getDate());
-  selectedDate = '';
-  protected readonly indexedDB = indexedDB;
   activateSearch!: boolean;
 
   constructor(
@@ -56,7 +59,7 @@ export class SlotComponent implements OnInit{
   ngOnInit(): void {
     this.active = 0;
     const date = new Date();
-    this.model2 = this.dateAdapter.toModel(this.ngbCalendar.getToday())!;
+    this.model2 = this.dateAdapter.toModel(this.ngbCalendar.getToday());
     this.day = this.dateFormatter.dateinyyyymmdd(date);
 
     this.myForm = this.fb.group({
@@ -70,21 +73,21 @@ export class SlotComponent implements OnInit{
   }
 
   loadItemTypes() {
-      this.itemService.getItemTypes().subscribe((data) => {
-        this.itemTypes = data;
-      }, (error) => {
-          this.toaster.error("Error loading Item Types");
-      });
+    this.itemService.getItemTypes().subscribe((data) => {
+      this.itemTypes = data;
+    }, () => {
+      this.toaster.error('Error loading Item Types');
+    });
   }
 
   loadItem() {
-    let n = +(<HTMLInputElement>document.getElementById('itemTypeId')).value;    
+    const n = +(<HTMLInputElement>document.getElementById('itemTypeId')).value;    
     this.itemsList = [];
-      this.itemService.getAllItemsByTypeId(n).subscribe((data) => {
-        this.itemsList = data;
-      }, error => {
-        this.toaster.error("Error loading Item");
-      });
+    this.itemService.getAllItemsByTypeId(n).subscribe((data) => {
+      this.itemsList = data;
+    }, () => {
+      this.toaster.error('Error loading Item');
+    });
   }
 
   open(content: any) {
@@ -92,13 +95,11 @@ export class SlotComponent implements OnInit{
   }
 
   onSubmitSlot(myForm : FormGroup) {
-    let date = myForm.value['date'];
-    let month = date.month+'';
-    let day = date.day+'';
-    let year = date.year+'';
-    let formattedDay = year+'-'+month.padStart(2,'0')+'-'+day.padStart(2,'0');
-    
-    myForm.value['date']=formattedDay;
+    const date = myForm.value['date'];
+    const month = date.month+'';
+    const day = date.day+'';
+    const year = date.year+'';
+    myForm.value['date']=year + '-' + month.padStart(2, '0') + '-' + day.padStart(2, '0');
     
     if(myForm.valid){
       this.addSlot(myForm);
@@ -108,26 +109,22 @@ export class SlotComponent implements OnInit{
 
   addSlot(myForm : FormGroup){
 
-    const items : Item = {itemId : myForm.value['item'], itemName: "", itemType: new ItemType(0, ''), dailyRates : []};
+    const items : Item = {itemId : myForm.value['item'], itemName: '', itemType: new ItemType(0, ''), dailyRates : []};
     const slot : Slot = {
       slotId: 0,
       item: items,
       totalQuantity: myForm.value['quantity'],
       bookedQuantity: 0,
       slotDate : myForm.value['date']
-    }
+    };
 
-    this.slotService.addSlot(slot).subscribe((data: any) => {
-      this.toaster.success("Slot added successfully!");
+    this.slotService.addSlot(slot).subscribe((data) => {
+      this.toaster.success('Slot added successfully!');
 
-    }, (error: any) => {
+    }, (error) => {
       this.toaster.error(error.error['message']);
     });
 
-  }
-  
-  onClick(id : number){
-    this.itemService.getAllItemsByTypeId(id);
   }
 
   onDateSelect(dp: any) {
@@ -154,7 +151,7 @@ export class SlotComponent implements OnInit{
   getAllSlots(){
     this.slotService.getAllSlots().subscribe((data) => {
       this.allSlots = data;
-      this.toaster.success("Slot fetched successfully!");
+      this.toaster.success('Slot fetched successfully!');
     }, (error: any) => {
       this.toaster.error(error.error['message']);
     });

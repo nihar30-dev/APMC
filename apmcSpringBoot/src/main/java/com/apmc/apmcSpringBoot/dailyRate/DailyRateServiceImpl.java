@@ -18,6 +18,12 @@ public class DailyRateServiceImpl implements DailyRateService {
 
     @Autowired
     private DailyRateRepository dailyRateRepository;
+
+    @Override
+    public List<DailyRates> getAllDailyRates() {
+        return dailyRateRepository.findAll();
+    }
+
     @Override
     public List<DailyRates> getAllItemsByDate(Date date) {
         return dailyRateRepository.getDailyRatesForAllItems(date);
