@@ -1,4 +1,4 @@
-
+<!-- 
 <div class="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2 text-white">
   <ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-md-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start" id="menu">
     <li class="nav-item" ngbTooltip="Go to home page" placement="bottom">
@@ -47,9 +47,117 @@
       </a>
     </li>
   </ul>
+</div> -->
+
+<div class="sidebar" [ngClass]="{ 'expanded': isExpanded }">
+  <div class="header">
+    <div class="toggle" (click)="handleSidebarToggle()">
+      <span class="chevron"></span>
+    </div>
+  </div>
+  <div class="content">
+    <div class="link" ngbTooltip="Go to home page" placement="bottom">
+      <a (click)="onClickHome()" class="nav-link">
+        <div class="content" [class.active]="activePage === 'home'">
+          <div class="icon"><i class="fs-5 bi-house"></i></div>
+          <div class="title">
+            <span>Home</span>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="link"  ngbTooltip="learn more about us" placement="bottom">
+      <a (click)="onClickAbout()" class="nav-link">
+        <div class="content" [class.active]="activePage === 'aboutUs'">
+          <div class="icon"><i class="bi bi-info-circle"></i></div>
+          <div class="title">
+            <span>About Us </span>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="link" *ngIf="role!=='ADMIN'" ngbTooltip="View today's rates" placement="bottom">
+      <a (click)="onClickDailyRates()" class="nav-link">
+        <div class="content" [class.active]="activePage.includes('Rates')">
+          <div class="icon"><i class="bi bi-eye"></i></div>
+          <div class="title">
+            <span>Daily Rates</span>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="link" *ngIf="role==='ADMIN'" ngbTooltip="Add today's rates" placement="bottom">
+      <a (click)="onClickAdminRates()" class="nav-link">
+        <div class="content" [class.active]="activePage.includes('Rates')">
+          <div class="icon"><i class="bi bi-plus-circle"></i></div>
+          <div class="title">
+            <span>Admin Rates</span>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="link" *ngIf="role==='ADMIN'|| role==='USER' || role==='AGENT'" ngbTooltip="View/Book the slots" placement="bottom">
+      <a (click)="onClickSlot()" class="nav-link ">
+        <div class="content" [class.active]="activePage === 'slot'">
+          <div class="icon"><i class="fs-5 bi-grid"></i></div>
+          <div class="title">
+            <span>Slot</span>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="link" *ngIf="role==='ADMIN'|| role==='USER' || role==='AGENT'" ngbTooltip="check the shop list" placement="bottom">
+      <a (click)="onClickShops()" class="nav-link">
+        <div class="content" [class.active]="activePage === 'shops'">
+          <div class="icon"><i class="bi bi-shop-window"></i></div>
+          <div class="title">
+            <span>Shops</span>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="link" ngbTooltip="View the Notices" placement="bottom">
+      <a (click)="onClickNotice()" class="nav-link">
+        <div class="content" [class.active]="activePage === 'notice'">
+          <div class="icon"><i class="bi bi-bell"></i></div>
+          <div class="title">
+            <span>Notice</span>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="link" ngbTooltip="Contact us from here" placement="bottom">
+      <a (click)="onClickContact()" class="nav-link">
+        <div class="content" [class.active]="activePage === 'contact'">
+          <div class="icon"><i class="bi bi-telephone"></i></div>
+          <div class="title">
+            <span>Contact Us</span>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="link" ngbTooltip="Browse the gallery" placement="bottom">
+      <a (click)="onClickGallery()" class="nav-link">
+        <div class="content" [class.active]="activePage === 'gallery'">
+          <div class="icon"><i class="bi bi-card-image"></i></div>
+          <div class="title">
+            <span>Gallery</span>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="link" *ngIf="role==='USER' || role==='AGENT'" ngbTooltip="View your Profile" placement="bottom">
+      <a (click)="onClickProfile()" class="nav-link">
+        <div class="content" [class.active]="activePage === 'profile'">
+          <div class="icon"><i class="bi bi-person"></i></div>
+          <div class="title">
+            <span>Profile</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
 </div>
-
-
 
 
 

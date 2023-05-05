@@ -4,11 +4,10 @@ import { Agent } from 'src/app/models/agent.model';
 import { ModalService } from 'src/app/services/modal.service';
 import { ShopService } from 'src/app/services/shop.service';
 import {StorageService} from '../../utils/storage.service';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Shop } from 'src/app/models/shop.model';
 import { AgentService } from 'src/app/services/agent.service';
-import { AuthService } from 'src/app/authentication/service/auth.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { Owner } from 'src/app/models/owner.model';
@@ -139,7 +138,7 @@ export class ShopsComponent implements OnInit {
       agentForm.value.userId = this.agentId;
 
       const agent: Agent = new Agent(
-        new User(this.agentId, '', '',agentForm.value['contact'],   ['admin']),
+        new User(this.agentId, '', '',agentForm.value['contact'],['admin']),
         agentForm.value['agentName'],
         agentForm.value['companyName'],
         agentForm.value['contact'],

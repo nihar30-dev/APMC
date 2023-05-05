@@ -14,10 +14,10 @@ import { StaticModule } from './static/static.module';
 
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './utils/interceptor.service';
 import { StorageService } from './utils/storage.service';
+import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 
 
 

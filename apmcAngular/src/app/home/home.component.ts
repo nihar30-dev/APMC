@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit{
     }
     this.getPrices()
     .then(()=>{this.drFilter();})
-    .catch((error)=>{ this.toster.error("SOmethng went wrong") })
+    .catch((error)=>{ this.toster.error("No prices for yesterday") })
   
   }
   

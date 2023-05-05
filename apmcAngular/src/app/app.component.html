@@ -1,4 +1,4 @@
-<div class="container-fluid overflow-hidden">
+<!-- <div class="container-fluid overflow-hidden">
   <app-header></app-header>
   <div class="row vh-100">
     <div class="col-12 col-sm-3 col-xl-2 px-sm-2 px-0 d-flex margin-extra bg-color ">
@@ -14,5 +14,11 @@
       </main>
     </div>
   </div>
+</div> -->
+<div class="container-fluid">
+  <app-header></app-header>
+<app-sidebar [isExpanded]="sidebarExpanded" (toggleSidebar)="sidebarExpanded = !sidebarExpanded"></app-sidebar>
+<div class="content margin-router" [ngClass]="{ 'sidebarExpanded': sidebarExpanded }">
+  <router-outlet></router-outlet>
 </div>
-
+</div>

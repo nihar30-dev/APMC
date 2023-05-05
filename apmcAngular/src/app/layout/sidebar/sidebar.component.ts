@@ -1,5 +1,6 @@
 
-import { Component, OnInit } from '@angular/core';
+import { outputAst } from '@angular/compiler';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { StorageService } from 'src/app/utils/storage.service';
 
@@ -11,8 +12,11 @@ import { StorageService } from 'src/app/utils/storage.service';
 export class SidebarComponent implements OnInit{
 
   role = 'default';
-  
   activePage  = '';
+  @Input() isExpanded: boolean = false;
+  @Output() toggleSidebar: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  handleSidebarToggle = () => this.toggleSidebar.emit(!this.isExpanded);
 
   constructor(private router : Router , private storageService:StorageService){}
 
@@ -52,7 +56,16 @@ export class SidebarComponent implements OnInit{
   }
   onClickSlot(){
     this.activePage = 'slot';
-    this.router.navigate(['slot']);
+    console.log(this.role!=='ADMIN')
+    if(this.storageService.getUser().userDetailsExist){
+      this.router.navigate(['slot']);
+    }else{
+      if(this.role==='ADMIN'){
+        this.router.navigate(['slot']);
+      }else{
+        alert("Please complete your profile to proceed.");
+      }
+    }
   }
 
   onClickShops(){
@@ -73,6 +86,12 @@ export class SidebarComponent implements OnInit{
   onClickGallery(){
     this.activePage = 'gallery';
     this.router.navigate(['gallery']);
+  }
+
+  onClickProfile(){
+    console.log(this.storageService.getUser());
+    this.activePage = 'profile';
+    this.router.navigate(['profile']);
   }
 
 }

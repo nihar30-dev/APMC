@@ -1,7 +1,3 @@
-import { Component, OnInit } from '@angular/core';
-import {ModalService} from '../../services/modal.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbCalendar, NgbDate, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct, NgbInputDatepicker, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ItemService } from 'src/app/services/item.service';
 import { DateFormatter } from 'src/app/utils/dateFormatter';
 import { CustomDateParserFormatter } from 'src/app/base/dailyRates/CustomDateParserFormatter';
@@ -11,8 +7,9 @@ import { ToastrService } from 'ngx-toastr';
 import { Slot } from 'src/app/models/slot.model';
 import { SlotService } from 'src/app/services/slot.service';
 import { StorageService } from 'src/app/utils/storage.service';
-import { UserDetail } from 'src/app/models/user-detail.model';
-import { userDetailService } from 'src/app/services/user-detail.service';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgbCalendar, NgbDate, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-admin-slot',
@@ -39,9 +36,7 @@ export class SlotComponent implements OnInit{
   protected readonly indexedDB = indexedDB;
   activateSearch!: boolean;
 
-  userDetailForm!: FormGroup;
-  districts: String[] = ['xyz'];
-  talukas: String[] = ['xyz'];
+
 
   constructor(
     
@@ -54,9 +49,7 @@ export class SlotComponent implements OnInit{
     private slotService: SlotService,
     private calendar: NgbCalendar,
     private toasterService: ToastrService,
-    private storageService: StorageService,
-    private modal: NgbModal,
-    private userDetailService: userDetailService
+    private storageService: StorageService
   ) {
     this.minDate = this.calendar.getToday();
     this.maxDate = this.calendar.getNext(this.calendar.getToday(), 'm', 2);
@@ -80,14 +73,6 @@ export class SlotComponent implements OnInit{
       itemType: ['', Validators.required],
       item: ['', Validators.required],
       date: ['', Validators.required]
-    });
-
-    this.userDetailForm = this.fb.group({
-      fullName: [null, Validators.required],
-      district: [null, Validators.required],
-      taluka: [null, Validators.required],
-      village: [null, Validators.required],
-      crops: [null, [Validators.required, Validators.pattern('^[a-zA-Z]+(,[a-zA-Z]+)*$')]]
     });
 
     this.loadItemTypes();
@@ -184,19 +169,4 @@ export class SlotComponent implements OnInit{
     });
   }
 
-  onSubmitDetails(userDetailForm: FormGroup){
-    if(userDetailForm.valid){
-      const userDetail : UserDetail = new UserDetail({id: this.storageService.getUser().id}, userDetailForm.value['fullName'], userDetailForm.value['district'], userDetailForm.value['taluka'], userDetailForm.value['village'], userDetailForm.value['crops']);  
-      this.userDetailService.addUserDetail(userDetail).subscribe(()=>{
-        this.toasterService.success('Details added successfully');
-      });
-      this.userDetailForm.reset();
-      this.modal.dismissAll();
-    }
-
-  }
-
-  openModal(content : any) {
-    this.modal.open(content, { ariaLabelledBy: 'modal-basic-title', centered : true } );
-  }
 }
