@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { NoticeService } from '../../services/notice.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbDate, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {StorageService} from '../../utils/storage.service';
-import {Notice} from '../../models/notice.model';
-import {ToastrService} from 'ngx-toastr';
+import { StorageService} from '../../utils/storage.service';
+import { Notice } from '../../models/notice.model';
+import { ToastrService} from 'ngx-toastr';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { LoaderService } from 'src/app/services/loader.service';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class NoticeComponent implements OnInit{
   model2:any;
 
   constructor(private fb: FormBuilder, private noticeService: NoticeService,  private modalService: NgbModal,
-              private storageService:StorageService, private toster: ToastrService) { }
+              private storageService:StorageService, private toster: ToastrService, public loaderService: LoaderService) { }
 
   ngOnInit(): void {
     this.noticeForm = this.fb.group({
@@ -37,13 +38,12 @@ export class NoticeComponent implements OnInit{
 
     //for getting role
     this.role = this.storageService.getRole();
-
+    this.loaderService.show();
     this.noticeService.getNotice().subscribe((data : any) => {
       this.notifications = data;
       this.length = data.length;
       this.panels = Array.from({ length: this.length }, (_, i) => i);
-
-
+      this.loaderService.hide();
     });
   }
 
