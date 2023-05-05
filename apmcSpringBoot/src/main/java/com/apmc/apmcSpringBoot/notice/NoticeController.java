@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/notice")
@@ -21,16 +23,21 @@ public class NoticeController {
         return ResponseEntity.ok(noticeService.getAllNotices());
     }
 
-//    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping("/notExpired")
+    public ResponseEntity<?> getNoticeBeforeEndDate() throws ResponseException{
+        return ResponseEntity.ok(noticeService.getBeforeDate());
+    }
+    //    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping("")
     public Response createNotice(@RequestBody Notice notice){
         return noticeService.createNotice(notice);
     }
 
-//    @PreAuthorize("hasAnyAuthority('ADMIN)")
+    //    @PreAuthorize("hasAnyAuthority('ADMIN)")
     @DeleteMapping("/{noticeId}")
     public ResponseEntity<?> deleteSlot(@PathVariable int noticeId){
-     return ResponseEntity.ok(noticeService.deleteNotice(noticeId));
+        return ResponseEntity.ok(noticeService.deleteNotice(noticeId));
     }
 
 }
+

@@ -8,6 +8,9 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -19,6 +22,11 @@ public class NoticeServiceImpl implements NoticeService{
     @Transactional
     public List<Notice> getAllNotices() {
         return noticeRepository.findAll();
+    }
+
+    @Override
+    public List<Notice> getBeforeDate() {
+        return noticeRepository.getNoticeBeforeEndDate();
     }
 
     @Override
@@ -49,7 +57,17 @@ public class NoticeServiceImpl implements NoticeService{
             return new Response(400, validatorResponse.getMessage() ,System.currentTimeMillis(), false);
         }
         try{
+            if (notice.getStartDate() == null) {
+                notice.setStartDate(new Date()); // Set startDate as current date
+            }
+            if (notice.getEndDate() == null) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(notice.getStartDate());
+                calendar.add(Calendar.DAY_OF_MONTH, 7); // Add 7 days to startDate
+                notice.setEndDate(calendar.getTime());
+            }
             noticeRepository.save(notice);
+
             return new Response(200,"Ok", System.currentTimeMillis(), true);
         }catch(Exception e){
             System.out.println(e.getMessage());

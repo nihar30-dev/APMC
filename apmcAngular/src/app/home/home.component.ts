@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import * as bootstrap from 'bootstrap';
 import { DailyRatesService } from '../services/daily-rates.service';
 import { DailyRates } from '../models/dailyRates.model';
@@ -7,14 +7,16 @@ import {StorageService} from '../utils/storage.service';
 import { DatePipe } from '@angular/common';
 import { DateFormatter } from '../utils/dateFormatter';
 import { ToastrService } from 'ngx-toastr';
-import {Chart, ChartType} from 'chart.js';
+import Chart from 'chart.js/auto';
+import {ChartType} from "chart.js";
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit{
-  public chart!: Chart<ChartType, string[], string>;
+  @ViewChild('myChart') lineChart = {nativeElement:true};
   
   constructor(private dailyRates : DailyRatesService, public datepipe: DatePipe,private dateformatter: DateFormatter,private storageService:StorageService, 
     private toster:ToastrService){
@@ -82,16 +84,20 @@ export class HomeComponent implements OnInit{
 
   createChart(){
 
-    this.chart = new Chart('MyChart', {
+    const canvas = this.lineChart.nativeElement;
+
+
+    let chart: Chart<ChartType, string[], string>;
+    chart = new Chart('myCanvas', {
       type: 'line', //this denotes tha type of chart
 
       data: {// values on X-Axis
-        labels: ['2022-05-10', '2022-05-11', '2022-05-12','2022-05-13',
-          '2022-05-14', '2022-05-15', '2022-05-16','2022-05-17', ],
+        labels: ['2022-05-10', '2022-05-11', '2022-05-12', '2022-05-13',
+          '2022-05-14', '2022-05-15', '2022-05-16', '2022-05-17',],
         datasets: [
           {
             label: 'Sales',
-            data: ['467','576', '572', '79', '92',
+            data: ['467', '576', '572', '79', '92',
               '574', '573', '576'],
             backgroundColor: 'blue'
           },
@@ -104,7 +110,7 @@ export class HomeComponent implements OnInit{
         ]
       },
       options: {
-        aspectRatio:2.5
+        aspectRatio: 2.5
       }
 
     });

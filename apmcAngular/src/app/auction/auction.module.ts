@@ -5,7 +5,8 @@ import { SlotComponent } from './slot/slot.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
-import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAccordionModule, NgbDatepickerModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 const routes: Routes = [
   {path : 'notice', component : NoticeComponent },
@@ -22,7 +23,10 @@ const routes: Routes = [
     ReactiveFormsModule,
     SharedModule,
     NgbDatepickerModule,
-    FormsModule
+    FormsModule,
+    NgbAccordionModule,
+    NgbModule,
+    NgbDatepickerModule
   ]
 })
 export class AuctionModule { }
