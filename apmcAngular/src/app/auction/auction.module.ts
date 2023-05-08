@@ -6,7 +6,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { NgbAccordionModule, NgbDatepickerModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { LoaderMaskComponent } from '../shared/loader-mask/loader-mask.component';
+
 import {AuthGuard} from '../auth/auth.guard';
+
 
 
 const routes: Routes = [
@@ -16,17 +20,17 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     NoticeComponent,
-    SlotComponent,
+    SlotComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
     CommonModule,
     ReactiveFormsModule,
-    SharedModule,
     NgbDatepickerModule,
     FormsModule,
     NgbAccordionModule,
     NgbModule,
+    SharedModule,
     NgbDatepickerModule
   ]
 })
