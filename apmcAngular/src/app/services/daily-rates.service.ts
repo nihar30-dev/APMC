@@ -20,7 +20,10 @@ export class DailyRatesService{
   }
 
   addDailyItemRate(itemRate: DailyRates, date:string){
-
     return this.http.post<DailyRates[]>('http://localhost:8099/dailyRates?day='+date, itemRate);
+  }
+
+  getAlldailyRates(){
+    return this.http.get<DailyRates[]>('http://localhost:8099/dailyRates/all');
   }
 }

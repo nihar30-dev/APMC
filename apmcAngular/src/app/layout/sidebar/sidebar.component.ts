@@ -30,9 +30,14 @@ export class SidebarComponent implements OnInit{
   }
 
   onClickHome(){
-    
     this.activePage = 'home';
-    this.router.navigate(['home']);
+    if(this.role!=='ADMIN') {
+      this.router.navigate(['home']);
+      console.log('inside home');
+    }
+    else {
+      this.router.navigate(['dashboard']);
+    }
   }
 
   onClickAbout(){

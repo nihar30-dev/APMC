@@ -20,7 +20,7 @@ export class UserRatesComponent implements OnInit{
   items: DailyRates[] = [];
   itemList! : DailyRates[];
   itemTypes! : ItemType[];
-  
+  isDateSelected = false;
   activateSearch = false;
   searchQuery = '';
   date: NgbDateStruct = new NgbDate(new Date().getFullYear(), new Date().getMonth()+1, new Date().getDate());
@@ -70,7 +70,7 @@ export class UserRatesComponent implements OnInit{
 
   //datepicker methods
   onDateSelect(dp: any) {
-
+    this.isDateSelected = true;
     this.selectedDate = `${this.date?.year}-${(this.date?.month+'').padStart(2, '0')}-${(this.date?.day+'').padStart(2, '0')}`;
     const day:string = dp._inputValue.slice(6)+'-'+dp._inputValue.slice(3,5)+'-'+dp._inputValue.slice(0,2);
     this.selectedDate =day;

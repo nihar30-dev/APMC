@@ -6,12 +6,16 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { NgbAccordionModule, NgbDatepickerModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { LoaderMaskComponent } from '../shared/loader-mask/loader-mask.component';
+
+import {AuthGuard} from '../auth/auth.guard';
+
 
 
 const routes: Routes = [
   {path : 'notice', component : NoticeComponent },
-  {path : 'slot', component : SlotComponent}
+  {path : 'slot', component : SlotComponent ,canActivate:[AuthGuard] , data:{role:['AGENT','ADMIN','USER']}}
 ];
 @NgModule({
   declarations: [

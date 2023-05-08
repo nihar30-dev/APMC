@@ -43,6 +43,7 @@
         </div>
         <label for="slotDate">Select Date:</label>
         <div class="d-flex">
+
           <input id="slotDate" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker"
             formControlName="date" [(ngModel)]="model2" [maxDate]="maxDate" [minDate]="minDate" />
           <button class="btn btn-outline-secondary bi bi-calendar3 mx-0 my-0" (click)="dp.toggle()"

@@ -87,9 +87,12 @@ export class ShopsComponent implements OnInit {
       contact: [null, [Validators.required, Validators.pattern('^[6789]{1}[0-9]{9}$')]],
     });
     this.shopService.getAllShopNo().subscribe((data) => {
-      this.shopNo = data;
+
+      if(this.shopNo == null){
+        this.shopNo = data;
+      }
       this.availableShopNo = this.shopNo.filter(this.filterShops);
-      console.log(data);
+
     });
     
       
@@ -120,6 +123,10 @@ export class ShopsComponent implements OnInit {
       },(error)=>{
  
         this.toaster.error(error.error['message']);
+      });
+
+      this.shopService.getAllShopNo().subscribe(data => {
+        this.shopNo = data;
       });
 
       this.shopModal.dismissAll('done');

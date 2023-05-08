@@ -11,6 +11,8 @@ import java.util.List;
 @Service
 public interface DailyRateService {
 
+    public List<DailyRates> getAllDailyRates();
+
     public List<DailyRates> getAllItemsByDate(Date date);
 
     public Response addDailyItemRates(DailyRates dailyRate) throws ParseException;

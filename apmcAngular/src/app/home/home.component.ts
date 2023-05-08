@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import * as bootstrap from 'bootstrap';
 import { DailyRatesService } from '../services/daily-rates.service';
 import { DailyRates } from '../models/dailyRates.model';
@@ -8,7 +8,7 @@ import { DatePipe } from '@angular/common';
 import { DateFormatter } from '../utils/dateFormatter';
 import { ToastrService } from 'ngx-toastr';
 import Chart from 'chart.js/auto';
-import {ChartType} from "chart.js";
+
 
 @Component({
   selector: 'app-home',
@@ -16,8 +16,7 @@ import {ChartType} from "chart.js";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit{
-  @ViewChild('myChart') lineChart = {nativeElement:true};
-  
+
   constructor(private dailyRates : DailyRatesService, public datepipe: DatePipe,private dateformatter: DateFormatter,private storageService:StorageService, 
     private toster:ToastrService){
   }
@@ -27,11 +26,12 @@ export class HomeComponent implements OnInit{
   DRFruits : DailyRates[] = [];
   DRVegetables : DailyRates[] = [];
   role='';
+  rates:DailyRates[] = [];
 
 
 
   ngOnInit(): void {
-    this.createChart();
+
     this.storageService.role$.subscribe(data => {
       this.role =data;
     });
@@ -82,37 +82,5 @@ export class HomeComponent implements OnInit{
     });
   }
 
-  createChart(){
 
-    const canvas = this.lineChart.nativeElement;
-
-
-    let chart: Chart<ChartType, string[], string>;
-    chart = new Chart('myCanvas', {
-      type: 'line', //this denotes tha type of chart
-
-      data: {// values on X-Axis
-        labels: ['2022-05-10', '2022-05-11', '2022-05-12', '2022-05-13',
-          '2022-05-14', '2022-05-15', '2022-05-16', '2022-05-17',],
-        datasets: [
-          {
-            label: 'Sales',
-            data: ['467', '576', '572', '79', '92',
-              '574', '573', '576'],
-            backgroundColor: 'blue'
-          },
-          {
-            label: 'Profit',
-            data: ['542', '542', '536', '327', '17',
-              '0.00', '538', '541'],
-            backgroundColor: 'limegreen'
-          }
-        ]
-      },
-      options: {
-        aspectRatio: 2.5
-      }
-
-    });
-  }
 }
