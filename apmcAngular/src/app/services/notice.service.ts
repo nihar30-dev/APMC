@@ -18,8 +18,8 @@ export class NoticeService{
     return this.http.post(environment.ApiURL+'notice',notice);
   }
 
-  getNotice(){
-    return this.http.get(environment.ApiURL+'notice/notExpired');
+  getNotice(pageNumber: number, pageSize: number) {
+    return this.http.get(environment.ApiURL + `notice/notExpired?pageNumber=${pageNumber}&pageSize=${pageSize}`);
   }
 }
 

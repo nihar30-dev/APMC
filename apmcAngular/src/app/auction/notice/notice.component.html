@@ -44,13 +44,13 @@
   </form>
 </div>
 
-<div class="accordian" >
+<!-- <div class="accordian" >
   <ngb-accordion [closeOthers]="true" activeIds="static-1" *ngFor="let notice of notifications">
     <ngb-panel id="static-1">
       <ng-template ngbPanelTitle>
         <div class="d-flex justify-content-around">
           <p>{{ notice.noticeHeading }}</p>
-          <!-- <p> {{notice.createdAt | date : 'MMM d, y'}}</p> -->
+   
         </div>
       </ng-template>
       <ng-template ngbPanelContent>
@@ -58,4 +58,21 @@
       </ng-template>
     </ngb-panel>
   </ngb-accordion>
+</div> -->
+<div class="accordian" (scroll)="onScroll($event)">
+
+
+    <ngb-accordion [closeOthers]="true" *ngFor="let notice of notifications">
+      <ngb-panel id="{{ notice.noticeId }}">
+        <ng-template ngbPanelTitle>
+          <div class="d-flex justify-content-around">
+            <p>{{ notice.noticeHeading }}</p>
+          </div>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        {{ notice.noticeContent }}
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
 </div>
+

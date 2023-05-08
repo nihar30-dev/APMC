@@ -6,9 +6,12 @@ import com.apmc.apmcSpringBoot.Exception.ValidatorResponse;
 import com.apmc.apmcSpringBoot.notice.validation.NoticeValidatorImpl;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -25,8 +28,14 @@ public class NoticeServiceImpl implements NoticeService{
     }
 
     @Override
-    public List<Notice> getBeforeDate() {
-        return noticeRepository.getNoticeBeforeEndDate();
+    @Transactional
+    public List<Notice> getBeforeDate(int pageNumber, int pageSize) {
+//        return noticeRepository.getNoticeBeforeEndDate();
+        Pageable p = PageRequest.of(pageNumber, pageSize);
+        Page<Notice> noticePage = this.noticeRepository.findAll(p);
+        List<Notice>  allNotice = noticePage.getContent();
+
+        return allNotice;
     }
 
     @Override
