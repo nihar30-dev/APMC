@@ -1,0 +1,200 @@
+
+
+<!--<div class="container mt-5"  *ngIf="role==='ADMIN' ">-->
+
+  <button *ngIf="role==='ADMIN'" style="background-color: #325c32; color: white;" (click)="open(content)" class="btn btn-outline-primary btn-sm shopBtn">
+    <h6>Add Shops</h6>
+  </button>
+
+
+<button *ngIf="role==='ADMIN'" style="background-color: #325c32; color: white;" (click)="open(addAgent)" class="btn btn-outline-primary btn-sm agentBtn">
+  <h6>Add Agents</h6>
+</button>
+
+<!--</div>-->
+
+<!--<div>-->
+<!--  <div class="container listContainer">-->
+<!--    <div class="card-body card">-->
+<!--      <div class="row">-->
+<!--        <div class="col text-center title">-->
+<!--          <h5>Sr. No.</h5>-->
+<!--        </div>-->
+<!--        <div class="col text-center title" *ngIf="role==='ADMIN'">-->
+<!--          <h5>UserName</h5>-->
+<!--        </div>-->
+<!--        <div class="col text-center title">-->
+<!--          <h5>Agent Name</h5>-->
+<!--        </div>-->
+<!--        <div class="col text-center title">-->
+<!--          <h5>Shop Number</h5>-->
+<!--        </div>-->
+<!--        <div class="col text-center title">-->
+<!--          <h5>Company Name</h5>-->
+<!--        </div>-->
+<!--        <div class="col text-center title">-->
+<!--          <h5>Contact No.</h5>-->
+<!--        </div>-->
+<!--        -->
+<!--      </div>-->
+<!--      <div-->
+<!--        class="card-body card bg-light mb-3"-->
+<!--        *ngFor="let agent of agents; let i = index"-->
+<!--      >-->
+<!--        <div class="row">-->
+<!--          <div class="col text-center">-->
+<!--            <p>{{ i + 1 }}</p>-->
+<!--          </div>-->
+<!--          <div class="col text-center">-->
+<!--            <p>{{ agent['user']['username'] }}</p>-->
+<!--          </div>-->
+<!--          <div class="col text-center">-->
+<!--            <p>{{ agent['agentName'] }}</p>-->
+<!--          </div>-->
+<!--          <div class="col text-center">-->
+<!--            <p>{{ agent['shop']['shopNo'] }}</p>-->
+<!--          </div>-->
+<!--          <div class="col text-center">-->
+<!--            <p>{{ agent['companyName'] }}</p>-->
+<!--          </div>-->
+<!--          <div class="col text-center">-->
+<!--            <p>{{ agent['contact'] }}</p>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--Table-->
+<div class="tb">
+<table *ngIf="dtOptions && agents" datatable [dtOptions] = "dtOptions"  class="table table-striped" style="background-color: white; border-collapse: collapse">
+  <thead>
+  <tr>
+    <th scope="col">Company  </th>
+    <th scope="col">Agent Name</th>
+    <th scope="col" *ngIf="role==='ADMIN'">UserName</th>
+    <th scope="col">Shop Number</th>
+    <th scope="col">Contact No.</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let agent of agents; let i = index">
+    <td>{{ agent['agentName'] }}</td>
+    <td>{{ agent['companyName'] }}</td>
+    <td *ngIf="role==='ADMIN'">{{ agent['user']['username'] }}</td>
+    <td>{{ agent['shop']['shopNo'] }}</td>
+    <td>{{ agent['contact'] }}</td>
+  </tr>
+  </tbody>
+</table>
+</div>
+
+
+<ng-template #content let-modal>
+	<div class="modal-header" style="background-color: #325c32; color: white;">
+		<h4 class="modal-title" id="modal-basic-title">Add New Shop</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+          <form [formGroup]="f" (ngSubmit)="onSubmitShop(f)" #shopAddForm = "ngForm" novalidate>
+            <div class="form-group">
+              <label for="shopNumber">Shop Number:</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="shopNo"
+                id="shopNumber"
+                name="shopNumber"
+              />
+        
+              <div
+                *ngIf="
+                  f.controls['shopNo']?.invalid &&
+                  f.controls['shopNo']?.touched &&
+                  f.controls['shopNo']?.dirty
+                "
+                class="alert alert-danger"
+              >
+                Shop number should be in the format of A-12, B-123, C-16, F-37.
+              </div>
+            </div>
+          </form>
+	</div>
+	<div class="modal-footer">
+    <button type="reset" class="btn btn-secondary" style="background-color: #325c32; color: white;" (click)="shopAddForm.form.reset()" >Reset</button>
+		<button type="button" class="btn btn-outline-dark"  style="background-color: #325c32; color: white;" (click)="shopAddForm.ngSubmit.emit()">Save</button>
+	</div>
+</ng-template> 
+
+
+
+
+
+
+
+<ng-template #addAgent let-modal>
+  <div class="modal-header" style="background-color: #325c32; color: white;">
+    <h4 class="modal-title" id="modal-basic-title" >Add Agent</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="agentForm" (ngSubmit)="onSubmit(agentForm)" #addAgentForm="ngForm" novalidate>
+
+          <div class="row">
+            <div class="form-group">
+              <label>Shop Number:</label>
+              <select class="form-select form-control" name="shopNo" id="shopNo" formControlName="shopNo"
+                aria-label="Select a shop">
+                <option selected disabled>Select Shop</option>
+                <option [value]="shopno['shopId']" *ngFor="let shopno of availableShopNo">
+                  {{ shopno['shopNo'] }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Agent Name:</label>
+              <input type="text" class="form-control" formControlName="agentName" placeholder="Agent Name" />
+              <div *ngIf="
+                  agentForm.get('agentName')?.invalid &&
+                  !agentForm.get('agentName')?.untouched
+                " class="alert alert-danger">
+                Agent name is required.
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Company:</label>
+              <input type="text" class="form-control" formControlName="companyName" placeholder="Company Name" />
+              <div *ngIf="
+                  agentForm.get('companyName')?.invalid &&
+                  !agentForm.get('companyName')?.untouched
+                " class="alert alert-danger">
+                Company name is required.
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Contact:</label>
+              <input type="text" class="form-control" formControlName="contact" placeholder="Contact" />
+
+              <div *ngIf="
+                  agentForm.get('contact')?.invalid &&
+                  agentForm.get('contact')?.touched
+                " class="alert alert-danger">
+                Contact number should be 10 digits.
+              </div>
+            </div>
+          </div>
+
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="reset" class="btn btn-danger">Reset</button>
+    <button type="submit" class="btn btn-primary" style="background-color: #325c32; color: white;" [disabled]="addAgentForm.form.invalid" (click)="addAgentForm.ngSubmit.emit()">
+      <i class="fa fa-save"></i> Save Agents
+    </button>
+  </div>
+</ng-template>

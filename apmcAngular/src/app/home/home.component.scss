@@ -1,0 +1,25 @@
+.marquee{
+    margin-top: 15px;
+}
+
+$carousel-height: auto;
+
+.carousel {
+  height: $carousel-height;
+  overflow: hidden;
+
+  .carousel-item {
+    height: $carousel-height;
+  }
+
+  img {
+    width: 100%;
+    height: $carousel-height;
+    object-fit: cover;
+  }
+}
+
+.container{
+    // padding: 100px;
+    height: 250px;
+}
