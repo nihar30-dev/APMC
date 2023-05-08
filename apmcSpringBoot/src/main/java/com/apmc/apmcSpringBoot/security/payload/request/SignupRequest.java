@@ -24,6 +24,7 @@ public class SignupRequest {
     this.contact = contact;
   }
 
+
   public SignupRequest(String username,String password, String contact, Set<String> role) {
     this.username = username;
     this.role = role;
@@ -33,6 +34,7 @@ public class SignupRequest {
 
   public SignupRequest() {
   }
+
 
   public String getUsername() {
     return username;

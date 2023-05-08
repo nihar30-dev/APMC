@@ -2,12 +2,14 @@
 package com.apmc.apmcSpringBoot.security.controller;
 
 import com.apmc.apmcSpringBoot.security.config.GoogleAuthentication;
+
 import com.apmc.apmcSpringBoot.security.service.AuthService;
 import com.apmc.apmcSpringBoot.user.role.RoleRepository;
 import com.apmc.apmcSpringBoot.user.UserRepository;
 import com.apmc.apmcSpringBoot.security.jwt.JwtUtils;
 
 import com.apmc.apmcSpringBoot.user.User;
+
 import com.apmc.apmcSpringBoot.security.payload.request.LoginRequest;
 import com.apmc.apmcSpringBoot.security.payload.request.SignupRequest;
 
@@ -21,8 +23,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 
+
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+
 
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -37,8 +41,10 @@ public class AuthController {
     UserRepository userRepository;
     @Autowired
     RoleRepository roleRepository;
+
     @Autowired
     AuthService authService;
+
     @Autowired
     PasswordEncoder encoder;
     @Autowired
@@ -46,10 +52,12 @@ public class AuthController {
     // Login authentication
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser( @RequestBody LoginRequest loginRequest) {
+
             return authService.loginUtil(loginRequest);
     }
     @PostMapping("/google")
     public ResponseEntity<?> googleSignup(@RequestParam String idToken) throws GeneralSecurityException, IOException {
+
         GoogleAuthentication googleAuthentication = new GoogleAuthentication();
         String email = googleAuthentication.isVerified(idToken);
         if(email!=null){
@@ -61,13 +69,16 @@ public class AuthController {
                 return authenticateUser(loginRequest);
             }
             else{
+
                 SignupRequest signupRequest = new SignupRequest(username,username,"9999999999");
                 if(authService.signupUtil(signupRequest) != null){
+
                     return authenticateUser(new LoginRequest(signupRequest.getUsername(), signupRequest.getPassword()));
                 }
             }
         }
         return  ResponseEntity.ok(email);
+
     }
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser( @RequestBody SignupRequest signUpRequest) {
@@ -83,5 +94,6 @@ public class AuthController {
     public boolean usernameExists(@PathVariable String username) {
         return userRepository.existsByUsername(username);
     }
+
 
 }
