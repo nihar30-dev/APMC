@@ -138,7 +138,6 @@ export class SlotComponent implements OnInit{
     this.allSlots = [];
     this.slotService.getSlotByItemType(1).subscribe((data)=>{
       this.allSlots = data;
-      console.log(this.allSlots);
       if(this.allSlots.length == 0)
         this.toaster.info('No data found');
     }, () =>{

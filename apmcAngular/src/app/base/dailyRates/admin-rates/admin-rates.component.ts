@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import {AfterViewInit, Component, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {
   NgbCalendar,
@@ -7,18 +7,18 @@ import {
   NgbDateAdapter,
   NgbDateParserFormatter,
   NgbDateStruct,
-  NgbInputDatepicker, NgbNavChangeEvent
+  NgbModal,
+  NgbNavChangeEvent
 } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrService } from 'ngx-toastr';
-import { DailyRates } from 'src/app/models/dailyRates.model';
-import { Item } from 'src/app/models/item.model';
-import { ItemType } from 'src/app/models/itemType.model';
-import { DailyRatesService } from 'src/app/services/daily-rates.service';
-import { ItemService } from 'src/app/services/item.service';
-// import { ModalService } from 'src/app/services/modal.service';
-import { DateFormatter } from 'src/app/utils/dateFormatter';
+import {ToastrService} from 'ngx-toastr';
+import {DailyRates} from 'src/app/models/dailyRates.model';
+import {Item} from 'src/app/models/item.model';
+import {ItemType} from 'src/app/models/itemType.model';
+import {DailyRatesService} from 'src/app/services/daily-rates.service';
+import {ItemService} from 'src/app/services/item.service';
+
+import {DateFormatter} from 'src/app/utils/dateFormatter';
 import {CustomDateParserFormatter} from '../CustomDateParserFormatter';
-import { ModalDismissReasons, NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-admin-rates',
@@ -62,8 +62,6 @@ export class AdminRatesComponent implements OnInit{
   ItemTypes! : ItemType[];
      
   ngOnInit() {
-    // this.active = 'ngb-nav-0';
-    console.log('Oninit : ',this.active);
     this.itemService.getItemTypes().subscribe((data)=>{
       this.ItemTypes = data;
     }, ()=>{
@@ -74,20 +72,19 @@ export class AdminRatesComponent implements OnInit{
       itemName: [null, Validators.required]
     });
     const date = new Date();
-    this.model2 = this.dateAdapter.toModel(this.ngbCalendar.getToday())!;
+    this.model2 = this.dateAdapter.toModel(this.ngbCalendar.getToday());
     this.day = this.dateFormatter.dateinyyyymmdd(date);
     this.loadItemTypes()
       .then(() => this.loadItem(1))
       .then(() => this.loadDailyRates())
       .then(() => this.getRateObj())
       .then(() => this.initForm())
-      .catch((error) => {
+      .catch(() => {
         this.toster.error('Something went wrong');
       });
   }
 
   onNavChange(e:NgbNavChangeEvent){
-    console.log(e);
     e.nextId='ngb-nav-0';
   }
 
@@ -119,7 +116,7 @@ export class AdminRatesComponent implements OnInit{
 
   loadItemTypes() {
 
-    const promise = new Promise((res, rej) => {
+    return new Promise((res, rej) => {
       this.itemService.getItemTypes().subscribe((data) => {
         this.itemTypes = data;
         res(this.itemTypes);
@@ -127,47 +124,40 @@ export class AdminRatesComponent implements OnInit{
         rej(error);
       });
     });
-    return promise;
   }
 
   loadItem(n: number) {
-    const promise = new Promise((res, rej) => {
+    return new Promise((res, rej) => {
       this.itemService.getAllItemsByTypeId(n).subscribe((data) => {
         this.itemsList = data;
-        console.log(this.itemsList);
         res(this.itemsList);
       }, error => {
         rej(error);
       });
     });
-    return promise;
   }
 
   loadDailyRates() {
-    const promise = new Promise((res, rej) => {
+    return new Promise((res, rej) => {
       this.itemService.getAllItemsByDate(this.day).subscribe((data) => {
         this.rates = data;
-        console.log(this.rates);
         res(this.rates);
       }, error => {
         this.toster.error('Error loading Rates');
         rej(error);
       });
     });
-    return promise;
   }
 
   getRateObj() {
     let i = 0;
-    const promise = new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.rates.forEach(rate => {
         this.rateObj.set(rate['item']['itemId'], i);
         i += 1;
       });
-      console.log(this.rateObj);
       resolve(this.rateObj);
     });
-    return promise;
   }
 
   initForm() {
@@ -239,10 +229,7 @@ export class AdminRatesComponent implements OnInit{
     this.showContainer(0);
   }
 
-  mapperRateToItem(item: Item) {
-    const itemId = item['itemId'];
-    return this.rateObj.get(itemId);
-  }
+
 
   onFormSubmit(i: number) {
 
@@ -259,8 +246,8 @@ export class AdminRatesComponent implements OnInit{
     const avgPrice = (+minPrice + +maxPrice)/2;
 
     // const itemRates = new DailyRates(, item, minPrice, maxPrice, avgPrice, quantity, income, this.day);
-    const itemRates:DailyRates = {rateId:0 , item:item , minPrice:minPrice ,avgPrice:avgPrice, maxPrice:maxPrice , quantity:quantity , income:income , day:this.day}
-    console.log(itemRates);
+    const itemRates:DailyRates = {rateId:0 , item:item , minPrice:minPrice ,avgPrice:avgPrice, maxPrice:maxPrice , quantity:quantity , income:income , day:this.day};
+
     // console.log(this.dailyRates.value['dailyRateArray'][i]);
 
     this.dailyRateService.addDailyItemRate(itemRates, this.day).subscribe(data => {
@@ -279,8 +266,7 @@ export class AdminRatesComponent implements OnInit{
   showContainer(a: any) {
     this.loadItem(a+1)
       .then(() => this.initForm())
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
         this.toster.error('Something went wrong');
       });
   }

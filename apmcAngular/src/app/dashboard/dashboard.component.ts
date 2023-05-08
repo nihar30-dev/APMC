@@ -1,4 +1,4 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {DailyRates} from '../models/dailyRates.model';
 import Chart from 'chart.js/auto';
 import {StorageService} from '../utils/storage.service';
@@ -9,10 +9,9 @@ import {ItemService} from '../services/item.service';
 import {ToastrService} from 'ngx-toastr';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NgbCalendar, NgbDate, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
-import {Slot} from '../models/slot.model';
 import {CustomDateParserFormatter} from '../base/dailyRates/CustomDateParserFormatter';
 import {DateFormatter} from '../utils/dateFormatter';
-import {asapScheduler, async, asyncScheduler} from 'rxjs';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -20,8 +19,9 @@ import {asapScheduler, async, asyncScheduler} from 'rxjs';
   styleUrls: ['./dashboard.component.scss'],
   providers: [{ provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter }]
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit{
   @ViewChild('myChart') lineChart :ElementRef | undefined;
+  @ViewChild('incomeChart') linechart2:ElementRef | undefined;
   showChart = false;
   role = '';
   rates:DailyRates[] = [];
@@ -29,7 +29,9 @@ export class DashboardComponent {
   model2:any;
   day = '';
   chart:any;
+  incomeChart:any;
   itemTypes!: ItemType[];
+
   itemsList!: Item[];
   active = 0;
   date: NgbDateStruct = new NgbDate(new Date().getFullYear(), new Date().getMonth()+1, new Date().getDate());
@@ -61,6 +63,7 @@ export class DashboardComponent {
     this.role = this.storageService.getRole();
   }
 
+  // ItemTypes loading API
   loadItemTypes() {
     this.itemService.getItemTypes().subscribe((data) => {
       this.itemTypes = data;
@@ -69,6 +72,8 @@ export class DashboardComponent {
     });
   }
 
+
+  // Item loading API
   loadItem() {
     const n = +(<HTMLInputElement>document.getElementById('itemTypeId')).value;
     this.itemsList = [];
@@ -80,80 +85,109 @@ export class DashboardComponent {
   }
 
   onSubmit(myForm:FormGroup){
-    console.log(myForm.value);
+    this.myForm = myForm;
     this.dailyRatesSerivce.getAlldailyRates().subscribe((data) => {
       this.rates = data;
-      this.createChart(myForm);
+      this.createChart();
+      this.showChart = true;
     });
-
-
-
-
-
   }
 
   
-  
-  createChart(myForm:FormGroup) {
-
+  //creation of chart
+  createChart() {
     const rates1: DailyRates[] = [];
-
     this.rates.forEach((dr) => {
-      if (dr['item']['itemId'] == myForm.value.item) {
+      if (dr['item']['itemId'] == this.myForm.value.item) {
         rates1.push(dr);
       }
     }
     );
 
 
-
-  
-
-    console.log(myForm.value.item);
-    console.log(rates1);
-
-    const day: string[] =[],minPrice: number[]=[],maxPrice: number[]=[];
+    const day: string[] =[],
+      minPrice: number[]=[],
+      maxPrice: number[]=[],
+      income:number[] = [];
     rates1.forEach((r) => {
       day.push(r.day);
       maxPrice.push(r.maxPrice);
       minPrice.push(r.minPrice);
+      income.push(r.quantity);
     });
 
 
-    console.log('inside create chart');
-    this.showChart = true;
-    this.chart = new Chart(this.lineChart?.nativeElement, {
-      type: 'line',
+    setTimeout(() => {
+      this.showChart = true;
+      if(this.chart || this.incomeChart){
+        this.chart.destroy();
+        this.incomeChart.destroy();
+      }
+      this.chart = new Chart(this.lineChart?.nativeElement, {
+        type: 'line',
 
-      data: {
-        labels:day,
-        datasets: [
-          {
-            label: 'Max Price',
-            data:maxPrice,
-            backgroundColor: 'green'
-          },
-          {
-            label: 'Min Price',
-            data:minPrice,
-            backgroundColor: 'red'
-          }
-        ]
-      },
-      options: {
-        aspectRatio: 2.5,
-        plugins:{
-          title: {
-            display: true,
-            text: 'apple' ,
-            padding: {
-              top: 10,
-              bottom: 30
+        data: {
+          labels:day,
+          datasets: [
+            {
+              label: 'Max Price',
+              data:maxPrice,
+              backgroundColor: 'green'
+            },
+            {
+              label: 'Min Price',
+              data:minPrice,
+              backgroundColor: 'red'
+            }
+          ]
+        },
+        options: {
+          aspectRatio: 2.5,
+          responsive:true,
+          plugins:{
+            title: {
+              display: true,
+              text:  rates1[0].item.itemName,
+              padding: {
+                top: 10,
+                bottom: 30
+              }
             }
           }
-        }
 
-      },});
+        },});
+
+      //income chart
+      this.incomeChart = new Chart(this.linechart2?.nativeElement, {
+        type: 'line',
+
+        data: {
+          labels:day,
+          datasets: [
+            {
+              label: 'income',
+              data:income,
+              backgroundColor: 'green'
+            }
+          ]
+        },
+        options: {
+          aspectRatio: 2.5,
+          plugins:{
+            title: {
+              display: true,
+              text:  rates1[0].item.itemName,
+              padding: {
+                top: 10,
+                bottom: 30
+              }
+            }
+          }
+
+        },});
+
+
+    },500);
   }
 
 

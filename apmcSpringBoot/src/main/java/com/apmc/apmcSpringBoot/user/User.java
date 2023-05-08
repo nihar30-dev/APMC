@@ -52,7 +52,7 @@ public class User {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler",})
     private Agent agent;
 
-    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler","user"})
     private UserDetail userDetail;
 

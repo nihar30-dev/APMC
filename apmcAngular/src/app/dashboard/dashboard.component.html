@@ -1,5 +1,5 @@
 <div class="container">
-<form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)" #chartForm="ngForm" novalidate>
+<form [formGroup]="myForm"  #chartForm="ngForm" novalidate>
     <div class="form-group">
         <select  formControlName="itemType" (change)="loadItem()" id="itemTypeId" class="form-control"
                 required >
@@ -12,7 +12,6 @@
              class="alert">
             Item type is required.
         </div>
-        <label for="item">Item:</label>
         <select id="item" formControlName="item" class="form-control" required>
             <option value="" disabled selected>Select item :</option>
             <option [value]="item['itemId']" *ngFor="let item of itemsList">
@@ -26,12 +25,18 @@
         <button style="background-color: #325c32; color: white;" type="reset" class="btn btn-outline-dark btn-sm mx-1 my-1"
                 (click)="chartForm.form.reset()">Reset</button>
         <button style="background-color: #325c32; color: white;" type="button" class="btn btn-outline-dark btn-sm mx-1 my-1"
-                [disabled]="chartForm.form.invalid" (click)="chartForm.ngSubmit.emit()">Add Item</button>
+                [disabled]="chartForm.form.invalid" (click)="onSubmit(myForm)">Show chart</button>
     </div>
 </form>
 </div>
 
-<div class="container" *ngIf="role==='ADMIN' && showChart">
-    <canvas #myChart height="500px" width="500px"></canvas>
-    <canvas></canvas>
+<div class="container" *ngIf="role==='ADMIN' && showChart ">
+    <div class="row">
+    <div class="col-6">
+    <canvas #myChart style="min-height:250px"></canvas>
+    </div>
+    <div class="col-6">
+    <canvas #incomeChart style="min-height:250px"></canvas>
+    </div>
+    </div>
 </div>
