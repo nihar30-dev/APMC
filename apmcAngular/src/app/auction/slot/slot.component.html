@@ -12,9 +12,9 @@
       <th scope="col">Date</th>
       <th scope="col">Total Quantity</th>
       <th scope="col">Available Quantity</th>
-      <th scope="col">Delete</th>
-      <th scope="col">Update Slot</th>
-      <th scope="col">Book Slot</th>
+      <th scope="col" *ngIf="role==='ADMIN'">Delete</th>
+      <th scope="col" *ngIf="role==='ADMIN'">Update Slot</th>
+      <th scope="col" *ngIf="role==='USER'">Book Slot</th>
   </tr>
   </thead>
   <tbody>
@@ -24,9 +24,9 @@
       <td>{{ slots['slotDate'] }}</td>
       <td>{{ slots['totalQuantity'] }}</td>
       <td>{{ slots['totalQuantity']-slots['bookedQuantity'] }}</td>
-      <td (click)="deleteSlot(i)"><bi name="trash-fill" class="" style="color: red; width: 1.5rem;"></bi></td>
-      <td (click)="openslotEdit(editSlotModalForm, i)" ><bi name="pencil-square" class="" style="width: 1.5rem;"></bi></td>
-      <td (click)="openslotBook(bookSlotModalForm, i)">Book Now</td>  
+      <td (click)="deleteSlot(i)" *ngIf="role==='ADMIN'"><bi name="trash-fill" class="" style="color: red; width: 1.5rem;"></bi></td>
+      <td (click)="openslotEdit(editSlotModalForm, i)" *ngIf="role==='ADMIN'" ><bi name="pencil-square" class="" style="width: 1.5rem;"></bi></td>
+      <td (click)="openslotBook(bookSlotModalForm, i)" *ngIf="role==='USER'">Book Now</td>  
   </tr>
   </tbody>
 </table>

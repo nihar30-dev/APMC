@@ -47,7 +47,7 @@ export class SlotComponent implements OnInit{
   protected readonly indexedDB = indexedDB;
   activateSearch!: boolean;
   dtOptions: DataTables.Settings = {};
-
+  role='';
   constructor(
     
     private ngbCalendar: NgbCalendar, 
@@ -92,6 +92,7 @@ export class SlotComponent implements OnInit{
 
     this.loadItemTypes();
     this.getAllSlots();
+    this.role = this.storageService.getRole();
   }
 
   loadItemTypes() {
