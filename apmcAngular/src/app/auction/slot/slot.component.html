@@ -24,7 +24,7 @@
       <td>{{ slots['slotDate'] }}</td>
       <td>{{ slots['totalQuantity'] }}</td>
       <td>{{ slots['totalQuantity']-slots['bookedQuantity'] }}</td>
-      <td><bi name="trash-fill" class="" style="color: red; width: 1.5rem;"></bi></td>
+      <td (click)="deleteSlot(i)"><bi name="trash-fill" class="" style="color: red; width: 1.5rem;"></bi></td>
       <td (click)="openslotEdit(editSlotModalForm, i)" ><bi name="pencil-square" class="" style="width: 1.5rem;"></bi></td>
       <td (click)="openslotBook(bookSlotModalForm, i)">Book Now</td>  
   </tr>

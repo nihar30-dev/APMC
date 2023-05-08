@@ -76,13 +76,13 @@ public class SlotServiceImpl implements SlotService {
     }
     @Override
     @Transactional
-    public String deleteSlot(int slotId) {
+    public boolean deleteSlot(int slotId) {
         Slots slot = slotsRepository.findById(slotId).orElse(null);
         if(slot == null){
-            return "Slot doesn't exist";
+            return false;
         }
         slotsRepository.deleteById(slotId);
-        return "deleted";
+        return true;
     }
 
     @Override

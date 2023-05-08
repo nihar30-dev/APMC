@@ -309,5 +309,22 @@ export class SlotComponent implements OnInit{
     this.editModal.dismissAll();
   }
 
+  deleteSlot(i: number){
+    const slot = this.allSlots[i];
+    console.log(slot);
+    
+    if(slot['bookedQuantity']==0){
+      this.slotService.deleteSlot(slot['slotId']).subscribe((data)=>{
+        this.toaster.success("Slot deleted successfully");
+      },(error)=>{
+        this.toaster.error("Something went wrong");
+        console.log(error);
+      })
+    }
+    else{
+      this.toaster.error("Could not delete Slot!");
+    }
+  }
+
 
 }

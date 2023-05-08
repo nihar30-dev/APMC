@@ -71,7 +71,11 @@ export class ShopsComponent implements OnInit {
       this.role = this.storageService.getRole();
 
       this.agents = data;
+      console.log("0000000000000000000000");
+      
       console.log(data);
+    }, error=>{      
+      console.log(error.error);
     });
     // form builder
 
