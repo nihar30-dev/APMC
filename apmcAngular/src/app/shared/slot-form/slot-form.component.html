@@ -1,0 +1,46 @@
+<div class="form-container">
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)" novalidate>
+    <h2>OPEN SLOT</h2>
+    <div class="form-group">
+      <label for="quantity">Quantity:</label>
+      <input type="number" id="quantity" formControlName="quantity" class="form-control" required>
+      <div *ngIf="myForm.controls['quantity'].invalid && myForm.controls['quantity'].touched" class="alert alert-danger">
+        Quantity is required.
+      </div>
+      <label for="itemType">Item Type:</label>
+      <select id="itemType" formControlName="itemType" class="form-control" required>
+        <option value="" disabled selected>Select item type</option>
+        <option value="1" (click)="onClick(1)">Commodities</option>
+        <option value="2" (click)="onClick(2)">Vegetables</option>
+        <option value="3" (click)="onClick(3)">Fruits</option>
+      </select>
+      <div *ngIf="myForm.controls['itemType'].invalid && myForm.controls['itemType'].touched" class="alert alert-danger">
+        Item type is required.
+      </div>
+      <label for="item">Item:</label>
+      <select id="item" formControlName="item" class="form-control" required>
+        <option value="" disabled selected>Select item :</option>
+        <option value="1" (click)="onClick(1)">Tomato</option>
+        <option value="2" (click)="onClick(2)">Potato</option>
+        <option value="3" (click)="onClick(3)">Carrot</option>
+      </select>
+      <div *ngIf="myForm.controls['item'].invalid && myForm.controls['item'].touched" class="alert alert-danger">
+        Item is required.
+      </div>
+      <label for="item">Select Date:</label>
+      <div class="input-group" (click)="dp.toggle()" >
+        <input type="text" class="form-control" placeholder="yyyy-mm-dd" formControlName="date" ngbDatepicker
+          #dp="ngbDatepicker" (select)="onDateSelect(dp)" [minDate]="minDate" [maxDate]="maxDate" [autoClose]="false" />
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button">
+            <i class="bi bi-calendar"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <button class="btn btn-primary" [disabled]="!myForm.valid">Open Slot</button>
+    </div>
+  </form>
+</div>

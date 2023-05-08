@@ -1,15 +1,25 @@
 <div class="marquee">
-
   <marquee>
-
-    <span *ngFor="let rates of dailyRate">{{rates.item.itemName}} <span style="color: red;">{{rates.minPrice}}</span>
-      &nbsp;<span style="color: green;">{{rates.maxPrice}}</span> &nbsp;</span>
-
+    <div class="d-block">
+      <span *ngFor="let rates of DRCommodities">{{rates['item']['itemName']}} <span
+          style="color: red;">{{rates['minPrice']}}</span>
+        &nbsp;<span style="color: green;">{{rates['maxPrice']}}</span> &nbsp;</span>
+    </div>
+    <div class="d-block">
+      <span *ngFor="let rates of DRFruits">{{rates['item']['itemName']}} <span
+          style="color: red;">{{rates['minPrice']}}</span>
+        &nbsp;<span style="color: green;">{{rates['maxPrice']}}</span> &nbsp;</span>
+    </div>
+    <div class="d-block">
+      <span *ngFor="let rates of DRVegetables">{{rates['item']['itemName']}} <span
+          style="color: red;">{{rates['minPrice']}}</span>
+        &nbsp;<span style="color: green;">{{rates['maxPrice']}}</span> &nbsp;</span>
+    </div>
   </marquee>
 
-</div>
 
-<div class="container">
+
+<div class="container" *ngIf="role !== 'ADMIN' ">
   <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true"
@@ -41,4 +51,5 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
+</div>
 </div>

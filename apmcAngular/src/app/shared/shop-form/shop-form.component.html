@@ -1,0 +1,44 @@
+ <div class="container mt-5">
+
+ <form [formGroup]="f" (ngSubmit)="onSubmit(f)" novalidate>
+    <div class="form-group">
+      <h3 class="text-center">Add New Shop</h3>
+      <label for="shopNumber">Shop Number:</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="shopNo"
+        id="shopNumber"
+        name="shopNumber"
+      />
+
+      <div
+        *ngIf="
+          f.controls['shopNo']?.invalid &&
+          f.controls['shopNo']?.touched &&
+          f.controls['shopNo']?.dirty
+        "
+        class="alert alert-danger"
+      >
+        Shop number should be in the format of A-12, B-123, C-16, F-37.
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-6">
+        <button
+          type="submit"
+          class="btn btn-primary btn-block"
+          [disabled]="f.controls['shopNo'].invalid"
+          style="background-color: #325c32;"
+        >
+          Submit
+        </button>
+      </div>
+      <div class="col-6">
+        <button type="reset" class="btn btn-secondary btn-block">Clear</button>
+      </div>
+    </div>
+  </form>
+  
+</div>

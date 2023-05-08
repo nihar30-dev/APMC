@@ -1,0 +1,30 @@
+
+<div class="content">
+    <div class="container">
+      <div class="sidebar">
+        <ul class="sidebar__nav">
+            <li><a (click)="onClickHome()" [ngClass]="activePage === 'home' ? 'active' : ''">Home </a></li>
+<!--            <li><a (click)="onClickDashboard()" [ngClass]="activePage === 'home' ? 'active' : ''">Dashboard</li>-->
+            <li><a (click)="onClickAbout()" [ngClass]="activePage === 'aboutUs' ? 'active' : ''">About Us </a></li>
+            <li *ngIf="role!=='ADMIN'"><a (click)="onClickDailyRates()" [ngClass]="activePage.includes('Rates') ? 'active' : ''">Daily Rates </a></li>
+            <li *ngIf="role==='ADMIN'"><a (click)="onClickAdminRates()" [ngClass]="activePage.includes('Rates') ? 'active' : ''">Daily Rates</a></li>
+            <li *ngIf="role==='ADMIN'|| role==='USER' || role==='AGENT' "><a (click)="onClickSlot()" [ngClass]="activePage === 'slot' ? 'active' : ''">Slot Booking </a></li>
+            <li *ngIf="role==='ADMIN'|| role==='USER' || role==='AGENT'"><a (click)="onClickShops()" [ngClass]="activePage === 'shops' ? 'active' : ''">Shops </a></li>
+            <li><a (click)="onClickNotice()" [ngClass]="activePage === 'notice' ? 'active' : ''">Notice </a></li>
+            <li><a (click)="onClickContact()" [ngClass]="activePage === 'contact' ? 'active' : ''">Contact </a></li>
+            <li><a (click)="onClickGallery()" [ngClass]="activePage === 'gallery' ? 'active' : ''">Gallery </a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+  
+
+
+
+
+
+
+

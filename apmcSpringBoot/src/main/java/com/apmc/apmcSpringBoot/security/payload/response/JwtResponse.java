@@ -11,11 +11,14 @@ public class JwtResponse {
 
     private List<String> roles;
 
-    public JwtResponse(String token, Long id, String username, List<String> roles) {
+    private boolean userDetailsExist;
+
+    public JwtResponse(String token, Long id, String username, List<String> roles, boolean userDetailsExist) {
         this.token = token;
         this.id = id;
         this.username = username;
         this.roles = roles;
+        this.userDetailsExist = userDetailsExist;
     }
 
     public String getToken() {
@@ -48,5 +51,13 @@ public class JwtResponse {
 
     public void setRoles(List<String> roles) {
         this.roles = roles;
+    }
+
+    public boolean isUserDetailsExist() {
+        return userDetailsExist;
+    }
+
+    public void setUserDetailsExist(boolean userDetailsExist) {
+        this.userDetailsExist = userDetailsExist;
     }
 }
