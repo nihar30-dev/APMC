@@ -26,12 +26,12 @@ const routes : Routes = [
     FilterPipe
   ],
   imports: [
-    RouterModule.forRoot(routes),
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
-    DataTablesModule   
+    DataTablesModule,  
+    RouterModule.forRoot(routes)
   ]
 })
 export class BaseModule { }

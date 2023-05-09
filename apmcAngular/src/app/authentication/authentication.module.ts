@@ -11,7 +11,7 @@ import {GoogleSigninButtonModule} from "@abacritt/angularx-social-login";
   
 const routes: Routes = [
   {path : 'login', component : LoginComponent },
-  {path : 'signup', component : SignupComponent}
+  {path : 'signup', component : SignupComponent},
 ];
 
 @NgModule({
@@ -20,13 +20,13 @@ const routes: Routes = [
     SignupComponent
   ],
     imports: [
-        RouterModule.forRoot(routes),
-        CommonModule,
-        HttpClientModule,
-        OAuthModule.forRoot(),
-        FormsModule,
-        GoogleSigninButtonModule,
-        ReactiveFormsModule
+      CommonModule,
+      HttpClientModule,
+      OAuthModule.forRoot(),
+      FormsModule,
+      GoogleSigninButtonModule,
+      ReactiveFormsModule,
+      RouterModule.forRoot(routes)
     ],
   exports:[],
   schemas : [CUSTOM_ELEMENTS_SCHEMA]

@@ -13,4 +13,9 @@ export class UserDetailService{
   addUserDetail(userDetail: UserDetail){
     return this.http.post<UserDetail>(environment.ApiURL+'userDetail', userDetail);
   }
+
+  getDetailByUserId(userId: number){
+    return this.http.get<UserDetail>(environment.ApiURL+'userDetail/'+userId);
+  }
+
 }

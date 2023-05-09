@@ -5,10 +5,11 @@ import { SlotComponent } from './slot/slot.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { AuthGuard } from '../auth/auth.guard';
 
 const routes: Routes = [
   {path : 'notice', component : NoticeComponent },
-  {path : 'slot', component : SlotComponent}
+  {path : 'slot', component : SlotComponent , canActivate:[AuthGuard] , data:{role:['AGENT','ADMIN','USER']}}
 ];
 @NgModule({
   declarations: [
@@ -16,11 +17,11 @@ const routes: Routes = [
     SlotComponent,
   ],
   imports: [
-    RouterModule.forRoot(routes),
     CommonModule,
     ReactiveFormsModule,
     NgbDatepickerModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forRoot(routes)
   ]
 })
 export class AuctionModule { }

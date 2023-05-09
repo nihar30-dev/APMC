@@ -106,8 +106,6 @@ export class ShopsComponent implements OnInit {
  
         this.toaster.error(error.error['message']);
       });
-
-      this.shopModal.dismissAll('done');
       this.shopModal.dismissAll();
     }
   }

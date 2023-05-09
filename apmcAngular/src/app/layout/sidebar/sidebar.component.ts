@@ -56,7 +56,6 @@ export class SidebarComponent implements OnInit{
   }
   onClickSlot(){
     this.activePage = 'slot';
-    console.log(this.role!=='ADMIN')
     if(this.storageService.getUser().userDetailsExist){
       this.router.navigate(['slot']);
     }else{
@@ -89,7 +88,6 @@ export class SidebarComponent implements OnInit{
   }
 
   onClickProfile(){
-    console.log(this.storageService.getUser());
     this.activePage = 'profile';
     this.router.navigate(['profile']);
   }
