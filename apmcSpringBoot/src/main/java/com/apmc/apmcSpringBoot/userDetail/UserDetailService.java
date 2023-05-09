@@ -8,7 +8,7 @@ import java.util.List;
 public interface UserDetailService {
     public List<UserDetail> getAllUserDetail();
 
-    public UserDetail getUserDetailById(int userDetailId);
+    public UserDetail getUserDetailByUserId(Long userId);
 
     public ResponseEntity<UserDetail> addUserDetail(UserDetail userDetail);
 

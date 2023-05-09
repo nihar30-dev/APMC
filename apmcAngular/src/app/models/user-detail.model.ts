@@ -1,10 +1,34 @@
-import { User } from "./user.model";
 
 export class UserDetail{
-    constructor(private user: {id: number},
-        private fullName: string,
-        private district: string,
-        private taluka: string,
-        private village: string,
-        private crops: string){}
+    constructor(
+        public id: number|null,
+        public user: 
+                        {
+                            id: number
+                        },
+        public fullName: string,
+        public district: string,
+        public taluka: string,
+        public village: string,
+        public crops: string){}
+
+
+        // public getUserId(): number{
+        //     return this.user.id;
+        // }
+        // public getFullName(): String{
+        //     return this.fullName;
+        // }
+        // public getDistrict(): String{
+        //     return this.district;
+        // }
+        // public getTaluka(): String{
+        //     return this.taluka;
+        // }
+        // public getVillage(): String{
+        //     return this.village;
+        // }
+        // public getcrops(): String{
+        //     return this.crops;
+        // }
 }

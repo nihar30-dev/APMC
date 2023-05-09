@@ -1,28 +1,4 @@
 
-// .nav-link.active {
-//     color: #becebe;
-//     background-color: transparent !important;
-//   }
-
-// .nav-link {
-//     display: block;
-//     padding: 0.5rem 1rem;
-//     color: white;
-//     text-decoration: none;
-//     cursor: pointer;
-//     font-weight: 500;
-//   }
-  
-//   .nav-link:hover, .nav-link:focus {
-//     color: #becebe;
-//     text-decoration: none;
-//   }
-  
-//   .nav-link.disabled {
-//     color: black;
-//     pointer-events: none;
-//     cursor: default;
-//   }
 
   .ngb-tooltip {
     position: relative;
@@ -82,6 +58,7 @@
   transition: 0.3s;
 
   width: 60px;
+
   &.expanded {
     width: 150px;
 
@@ -95,6 +72,7 @@
     }
     .content {
       .link {
+        height: 44px;
         .content {
           .title {
             max-width: 100px;
@@ -165,12 +143,14 @@
           align-items: center;
           justify-content: center;
           margin-right: 0px;
+          max-height: 24px;
         }
         .title {
           flex: 1;
           color: #020202;
           transition: 0.3s;
           max-width: 0px;
+          max-height: 24px;
           overflow: hidden;
         }
       }

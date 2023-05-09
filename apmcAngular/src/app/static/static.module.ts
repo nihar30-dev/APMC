@@ -3,15 +3,16 @@ import { CommonModule } from '@angular/common';
 import { GalleryComponent } from './gallery/gallery.component';
 import { ContactComponent } from './contact/contact.component';
 import { AboutUsComponent } from './about-us/about-us.component';
-import { RouterModule, Routes } from '@angular/router';
 import { ProfileComponent } from './profile/profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AuthGuard } from '../auth/auth.guard';
+import { RouterModule, Routes } from '@angular/router';
 
 const routes : Routes = [
   { path: 'aboutUs', component: AboutUsComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'gallery', component: GalleryComponent },
-  { path: 'profile', component: ProfileComponent }
+  { path: 'profile', component: ProfileComponent, canActivate:[AuthGuard] , data:{role:['AGENT','ADMIN','USER']} }
 ];
 
 
@@ -23,9 +24,9 @@ const routes : Routes = [
     ProfileComponent
   ],
   imports: [
-    RouterModule.forRoot(routes),
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule.forRoot(routes)
   ]
 })
 export class StaticModule { }

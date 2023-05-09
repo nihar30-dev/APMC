@@ -5,7 +5,8 @@ import { SlotComponent } from './slot/slot.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbAccordionModule, NgbDatepickerModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {AuthGuard} from '../auth/auth.guard';
+import { AuthGuard } from '../auth/auth.guard';
+
 
 
 const routes: Routes = [
@@ -18,7 +19,6 @@ const routes: Routes = [
     SlotComponent,
   ],
   imports: [
-    RouterModule.forRoot(routes),
     CommonModule,
     ReactiveFormsModule,
     NgbDatepickerModule,

@@ -22,10 +22,10 @@ public class UserDetailServiceImpl implements UserDetailService {
     }
 
     @Override
-    public UserDetail getUserDetailById(int userDetailId) {
+    public UserDetail getUserDetailByUserId(Long userId) {
         UserDetail userDetail = null;
         try{
-            userDetail = userDetailsRepository.findById(userDetailId).get();
+            userDetail = userDetailsRepository.findByUserId(userId);
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
@@ -41,7 +41,17 @@ public class UserDetailServiceImpl implements UserDetailService {
         if(!validatorResponse.isStatus())
             throw new ValidatorException(validatorResponse.getMessage());
         try{
-            userDetailsRepository.save(userDetail);
+            System.out.println(userDetail.getUser().getId());
+
+            UserDetail detail = userDetailsRepository.findByUserId(userDetail.getUser().getId());
+            if(detail == null){
+                userDetailsRepository.save(userDetail);
+                System.out.println("detail not present");
+            }else{
+                detail.updateDetails(userDetail.getFullName(), userDetail.getDistrict(), userDetail.getTaluka(), userDetail.getVillage(), userDetail.getCrops());
+                userDetailsRepository.save(detail);
+                System.out.println("detail present");
+            }
         }catch (Exception e){
             System.out.println(e.getMessage());
         }

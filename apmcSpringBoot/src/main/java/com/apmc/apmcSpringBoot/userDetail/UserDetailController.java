@@ -20,9 +20,9 @@ public class UserDetailController {
         return ResponseEntity.ok(userDetailService.getAllUserDetail());
     }
 
-    @GetMapping("/{userDetailId}")
-    public UserDetail getAgentById(@PathVariable("userDetailId") int userDetailId){
-        UserDetail userDetail = userDetailService.getUserDetailById(userDetailId);
+    @GetMapping("/{userId}")
+    public UserDetail getAgentById(@PathVariable("userId") Long userId){
+        UserDetail userDetail = userDetailService.getUserDetailByUserId(userId);
         if(userDetail == null){
             throw new ResponseException("Not user details found for this Id");
         }

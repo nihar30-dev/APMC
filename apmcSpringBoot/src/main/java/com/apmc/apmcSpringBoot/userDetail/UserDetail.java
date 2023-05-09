@@ -101,4 +101,11 @@ public class UserDetail {
         this.crops = crops;
     }
 
+    public void updateDetails(String fullName, String district, String taluka, String village, String crops){
+        this.fullName = fullName;
+        this.district = district;
+        this.taluka = taluka;
+        this.village = village;
+        this.crops = crops;
+    }
 }
