@@ -18,7 +18,9 @@ export class Agent {
     this.companyName = companyName;
     this.contact = contact;
     this.shop = shop;
-      
   }
     
 }
+
+
+

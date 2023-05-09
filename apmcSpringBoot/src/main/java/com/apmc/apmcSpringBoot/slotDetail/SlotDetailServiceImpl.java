@@ -3,13 +3,19 @@ package com.apmc.apmcSpringBoot.slotDetail;
 import com.apmc.apmcSpringBoot.Exception.Response;
 import com.apmc.apmcSpringBoot.Exception.ValidatorException;
 import com.apmc.apmcSpringBoot.Exception.ValidatorResponse;
+import com.apmc.apmcSpringBoot.agent.AgentRepository;
 import com.apmc.apmcSpringBoot.slot.SlotsRepository;
 import com.apmc.apmcSpringBoot.slotDetail.validation.SlotDetailValidator;
 import com.apmc.apmcSpringBoot.slotDetail.validation.SlotDetailValidatorImpl;
 import com.apmc.apmcSpringBoot.slot.Slots;
+import com.zaxxer.hikari.pool.HikariProxyCallableStatement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -20,6 +26,9 @@ public class SlotDetailServiceImpl implements SlotDetailService {
 
     @Autowired
     private SlotsRepository slotsRepository;
+
+    @Autowired
+    private AgentRepository agentRepository;
 
     @Override
     public List<SlotDetail> getAllSlotDetail() {
@@ -76,5 +85,24 @@ public class SlotDetailServiceImpl implements SlotDetailService {
         }
         slotDetailRepository.delete(slotDetailRepository.findById(slotDetailId).get());
         return "deleted";
+    }
+
+    @Override
+    public List<SlotDetail> getSlotDetailByAgentId(int userId) throws ParseException {
+        int agentId = agentRepository.findAgentByUserId(userId);
+        String date = LocalDate.now().toString();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        java.sql.Date sqlDate = new Date(System.currentTimeMillis());
+        System.out.println(sqlDate);
+        return slotDetailRepository.getSlotDetailByAgentId(agentId ,  sqlDate);
+    }
+
+    @Override
+    public List<SlotDetail> getSlotDetailByUserId(int userId) throws ParseException {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date day = new Date(System.currentTimeMillis());
+        System.out.println(day);
+        return slotDetailRepository.getSlotDetailByUserId(userId,day);
     }
 }

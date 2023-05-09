@@ -8,6 +8,7 @@
             <li *ngIf="role!=='ADMIN'"><a (click)="onClickDailyRates()" [ngClass]="activePage.includes('Rates') ? 'active' : ''">Daily Rates </a></li>
             <li *ngIf="role==='ADMIN'"><a (click)="onClickAdminRates()" [ngClass]="activePage.includes('Rates') ? 'active' : ''">Daily Rates</a></li>
             <li *ngIf="role==='ADMIN'|| role==='USER' || role==='AGENT' "><a (click)="onClickSlot()" [ngClass]="activePage === 'slot' ? 'active' : ''">Slot Booking </a></li>
+            <li *ngIf="role==='AGENT' || role==='USER'" ><a (click)="onClickViewSlot()">View Slot</a></li>
             <li *ngIf="role==='ADMIN'|| role==='USER' || role==='AGENT'"><a (click)="onClickShops()" [ngClass]="activePage === 'shops' ? 'active' : ''">Shops </a></li>
             <li><a (click)="onClickNotice()" [ngClass]="activePage === 'notice' ? 'active' : ''">Notice </a></li>
             <li><a (click)="onClickContact()" [ngClass]="activePage === 'contact' ? 'active' : ''">Contact </a></li>

@@ -1,0 +1,25 @@
+
+<table datatable *ngIf="allSlots" [dtOptions]="dtOptions" class="table table-striped" style="background-color: white">
+    <thead>
+    <tr>
+
+        <th scope="col">Item</th>
+        <th scope="col">username</th>
+        <th scope="col">contact</th>
+        <th scope="col">Date</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Agent</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let slots of allSlots; let i = index">
+            <td>{{slots.slot.item.itemName}}</td>
+            <td>{{slots.user.userDetail.fullName}}</td>
+            <td>{{slots.user.contact}}</td>
+            <td>{{slots.slot.slotDate | date:'dd/MM/yyyy'}}</td>
+            <td>{{slots.quantity}}</td>
+            <td>{{slots.agent['companyName']}}</td>
+            
+        </tr>
+    </tbody>
+  </table>

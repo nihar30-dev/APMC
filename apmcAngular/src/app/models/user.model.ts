@@ -1,3 +1,6 @@
+import { UserDetail } from "./user-details.model";
+
+
 
 
 export class User  {
