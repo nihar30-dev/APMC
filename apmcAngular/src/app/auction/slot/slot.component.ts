@@ -16,6 +16,7 @@ import {Item} from 'src/app/models/item.model';
 import {ToastrService} from 'ngx-toastr';
 import {Slot} from 'src/app/models/slot.model';
 import {SlotService} from 'src/app/services/slot.service';
+import {StorageService} from '../../utils/storage.service';
 
 @Component({
   selector: 'app-admin-slot',
@@ -51,7 +52,7 @@ export class SlotComponent implements OnInit{
     private itemService : ItemService, 
     private slotService: SlotService,
     private calendar: NgbCalendar,
-    private toasterService: ToastrService,
+    private toaster: ToastrService,
     private storageService: StorageService
   ) {
     this.minDate = this.calendar.getToday();
@@ -148,9 +149,9 @@ export class SlotComponent implements OnInit{
     this.slotService.getSlotByItemType(1).subscribe((data)=>{
       this.allSlots = data;
       if(this.allSlots.length == 0)
-        this.toasterService.info('No data found');
+        this.toaster.info('No data found');
     }, () =>{
-      this.toasterService.error('No data found');
+      this.toaster.error('No data found');
     });
     this.activateSearch = true;
   }
@@ -161,7 +162,7 @@ export class SlotComponent implements OnInit{
       this.allSlots = data;
       this.toaster.success('Slot fetched successfully!');
     }, (error: any) => {
-      this.toasterService.error(error.error['message']);
+      this.toaster.error(error.error['message']);
     });
   }
 

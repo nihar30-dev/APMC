@@ -32,7 +32,8 @@ const routes : Routes = [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    DataTablesModule
    
   ]
 })

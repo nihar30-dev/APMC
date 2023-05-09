@@ -8,6 +8,7 @@ import { FooterComponent } from './footer/footer.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {DataTablesModule} from 'angular-datatables';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     RouterModule,
     BrowserModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    DataTablesModule
   ],
   exports: [
     CommonModule,

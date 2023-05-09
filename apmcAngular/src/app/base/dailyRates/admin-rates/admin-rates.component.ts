@@ -18,7 +18,7 @@ import { DailyRatesService } from 'src/app/services/daily-rates.service';
 import { ItemService } from 'src/app/services/item.service';
 import { DateFormatter } from 'src/app/utils/dateFormatter';
 import { CustomDateParserFormatter } from '../CustomDateParserFormatter';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-admin-rates',

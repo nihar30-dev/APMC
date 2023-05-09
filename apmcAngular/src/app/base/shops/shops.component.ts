@@ -12,8 +12,8 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { Owner } from 'src/app/models/owner.model';
 import jsPDF from 'jspdf';
-import {PdfgeneratorService} from "./pdf-generator/service/pdfgenerator.service";
-import {PdfGeneratorComponent} from "./pdf-generator/pdf-generator.component";
+import {PdfgeneratorService} from './pdf-generator/service/pdfgenerator.service';
+import {PdfGeneratorComponent} from './pdf-generator/pdf-generator.component';
 
 @Component({
   selector: 'app-shops',
