@@ -1,6 +1,6 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Slot } from "../models/slot.model";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Slot } from '../models/slot.model';
 
 
 @Injectable({providedIn:'root'})

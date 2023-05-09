@@ -11,63 +11,10 @@
   <h6>Add Agents</h6>
 </button>
 
-<!--</div>-->
-
-<!--<div>-->
-<!--  <div class="container listContainer">-->
-<!--    <div class="card-body card">-->
-<!--      <div class="row">-->
-<!--        <div class="col text-center title">-->
-<!--          <h5>Sr. No.</h5>-->
-<!--        </div>-->
-<!--        <div class="col text-center title" *ngIf="role==='ADMIN'">-->
-<!--          <h5>UserName</h5>-->
-<!--        </div>-->
-<!--        <div class="col text-center title">-->
-<!--          <h5>Agent Name</h5>-->
-<!--        </div>-->
-<!--        <div class="col text-center title">-->
-<!--          <h5>Shop Number</h5>-->
-<!--        </div>-->
-<!--        <div class="col text-center title">-->
-<!--          <h5>Company Name</h5>-->
-<!--        </div>-->
-<!--        <div class="col text-center title">-->
-<!--          <h5>Contact No.</h5>-->
-<!--        </div>-->
-<!--        -->
-<!--      </div>-->
-<!--      <div-->
-<!--        class="card-body card bg-light mb-3"-->
-<!--        *ngFor="let agent of agents; let i = index"-->
-<!--      >-->
-<!--        <div class="row">-->
-<!--          <div class="col text-center">-->
-<!--            <p>{{ i + 1 }}</p>-->
-<!--          </div>-->
-<!--          <div class="col text-center">-->
-<!--            <p>{{ agent['user']['username'] }}</p>-->
-<!--          </div>-->
-<!--          <div class="col text-center">-->
-<!--            <p>{{ agent['agentName'] }}</p>-->
-<!--          </div>-->
-<!--          <div class="col text-center">-->
-<!--            <p>{{ agent['shop']['shopNo'] }}</p>-->
-<!--          </div>-->
-<!--          <div class="col text-center">-->
-<!--            <p>{{ agent['companyName'] }}</p>-->
-<!--          </div>-->
-<!--          <div class="col text-center">-->
-<!--            <p>{{ agent['contact'] }}</p>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-
 <!--Table-->
-<div class="tb">
+
+<button class="btn btn-primary" (click)="makePdf(agents)">Download PDF</button>
+<div class="tb" #pdf>
 <table *ngIf="dtOptions && agents" datatable [dtOptions] = "dtOptions"  class="table table-striped" style="background-color: white; border-collapse: collapse">
   <thead>
   <tr>

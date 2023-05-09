@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Agent } from 'src/app/models/agent.model';
 import { ModalService } from 'src/app/services/modal.service';
@@ -12,6 +12,9 @@ import { AuthService } from 'src/app/authentication/service/auth.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { Owner } from 'src/app/models/owner.model';
+import jsPDF from 'jspdf';
+import {PdfgeneratorService} from "./pdf-generator/service/pdfgenerator.service";
+import {PdfGeneratorComponent} from "./pdf-generator/pdf-generator.component";
 
 @Component({
   selector: 'app-shops',
@@ -20,6 +23,8 @@ import { Owner } from 'src/app/models/owner.model';
 })
 
 export class ShopsComponent implements OnInit {
+
+  @ViewChild('pdf') elementref!:ElementRef;
   agents! : Agent[];
   f!: FormGroup;
   role = '';
@@ -47,8 +52,18 @@ export class ShopsComponent implements OnInit {
     private authervice: AuthService, 
     private agentService: AgentService,
     private tosterService: ToastrService,
-    private router : Router){}
+    private router : Router,
+    private pdfGeneratorService:PdfgeneratorService,
+    private pdfGenerator:PdfGeneratorComponent){}
 
+
+  makePdf(agents:Agent[]){
+
+    const data = agents;
+
+    this.pdfGenerator.makePdf(agents);
+
+  }
     
   open(content: any) {
     return this.shopModal.open(content, { centered: true });
@@ -71,7 +86,6 @@ export class ShopsComponent implements OnInit {
       this.role = this.storageService.getRole();
 
       this.agents = data;
-      console.log(data);
     });
     // form builder
 
@@ -101,19 +115,6 @@ export class ShopsComponent implements OnInit {
   filterShops(shop: Shop) {
     return shop['owner'] == null;
   }
-
-  // onSubmit(f : FormGroup) {
-  //   if(f.valid){
-  //     this.shopService.createShop(f.value);
-  //   }
-  // }
-
-  //modal panel render methods 
-
-  // open(formName : string){
-  //   return  this.modalService.open(formName);
-
-  // } 
 
   onSubmitShop(shopForm : FormGroup) {
 

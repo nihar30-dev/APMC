@@ -33,6 +33,7 @@ export class StorageService {
   public saveUser(user: any) {
     window.sessionStorage.removeItem(UserKey);
     window.sessionStorage.setItem(UserKey, JSON.stringify(user));
+    window.sessionStorage.setItem('userExists',user.userDetailsExist);
     this.isLoggedInSubject.next(true);
   }
 

@@ -10,6 +10,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ShopsComponent } from './shops/shops.component';
 import {AuthGuard} from '../auth/auth.guard';
 import {DataTablesModule} from 'angular-datatables';
+import {PdfGeneratorComponent} from './shops/pdf-generator/pdf-generator.component';
 
 
 const routes : Routes = [
@@ -24,7 +25,8 @@ const routes : Routes = [
     ShopsComponent,
     AdminRatesComponent,
     UserRatesComponent,
-    FilterPipe
+    FilterPipe,
+    PdfGeneratorComponent
   ],
   imports: [
 
