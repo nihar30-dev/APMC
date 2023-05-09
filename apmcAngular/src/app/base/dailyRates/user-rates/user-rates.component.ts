@@ -33,13 +33,12 @@ export class UserRatesComponent implements OnInit{
 
   constructor( 
     private itemService : ItemService,
-    private dateformatter: DateFormatter, 
-    private calendar : NgbCalendar,
+    private dateformatter: DateFormatter,
     private dailyRateService: DailyRatesService,
     private toastr: ToastrService,
     private ngbCalendar: NgbCalendar, private dateAdapter: NgbDateAdapter<string>)
   {
-    this.maxDate = calendar.getToday();
+    this.maxDate = ngbCalendar.getToday();
   }
 
   ngOnInit(){

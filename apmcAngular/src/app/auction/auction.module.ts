@@ -4,7 +4,6 @@ import { NoticeComponent } from './notice/notice.component';
 import { SlotComponent } from './slot/slot.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from '../shared/shared.module';
 import { NgbAccordionModule, NgbDatepickerModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {AuthGuard} from '../auth/auth.guard';
 
@@ -22,7 +21,6 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     CommonModule,
     ReactiveFormsModule,
-    SharedModule,
     NgbDatepickerModule,
     FormsModule,
     NgbAccordionModule,

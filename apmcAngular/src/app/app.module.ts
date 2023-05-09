@@ -7,7 +7,6 @@ import { HomeComponent } from './home/home.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationModule } from './authentication/authentication.module';
-import { SharedModule } from './shared/shared.module';
 import { BaseModule } from './base/base.module';
 import { AuctionModule } from './auction/auction.module';
 import { LayoutModule } from './layout/layout.module';
@@ -16,12 +15,12 @@ import {NgChartsModule } from 'ng2-charts';
 
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { GoogleLoginProvider, SocialAuthServiceConfig,SocialLoginModule } from '@abacritt/angularx-social-login';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './utils/interceptor.service';
 import { StorageService } from './utils/storage.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
+import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 
 
 
@@ -38,7 +37,6 @@ import {NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
     FormsModule,
     CommonModule,
     AuthenticationModule,
-    SharedModule,
     BaseModule,
     LayoutModule,
     AuctionModule,
@@ -64,7 +62,7 @@ import {NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
             )
           }
         ],
-        onError: (err) => {
+        onError: (err: any) => {
           console.error(err);
         }
       } as SocialAuthServiceConfig,

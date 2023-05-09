@@ -10,15 +10,15 @@ import {
   NgbModal,
   NgbNavChangeEvent
 } from '@ng-bootstrap/ng-bootstrap';
-import {ToastrService} from 'ngx-toastr';
-import {DailyRates} from 'src/app/models/dailyRates.model';
-import {Item} from 'src/app/models/item.model';
-import {ItemType} from 'src/app/models/itemType.model';
-import {DailyRatesService} from 'src/app/services/daily-rates.service';
-import {ItemService} from 'src/app/services/item.service';
-
-import {DateFormatter} from 'src/app/utils/dateFormatter';
-import {CustomDateParserFormatter} from '../CustomDateParserFormatter';
+import { ToastrService } from 'ngx-toastr';
+import { DailyRates } from 'src/app/models/dailyRates.model';
+import { Item } from 'src/app/models/item.model';
+import { ItemType } from 'src/app/models/itemType.model';
+import { DailyRatesService } from 'src/app/services/daily-rates.service';
+import { ItemService } from 'src/app/services/item.service';
+import { DateFormatter } from 'src/app/utils/dateFormatter';
+import { CustomDateParserFormatter } from '../CustomDateParserFormatter';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-admin-rates',
@@ -46,16 +46,14 @@ export class AdminRatesComponent implements OnInit{
   constructor(
     private itemService: ItemService,
     private dailyRateService: DailyRatesService,
-    private http: HttpClient,
     private dateFormatter: DateFormatter,
     private toster:ToastrService,
-    private calendar : NgbCalendar,
     private ngbCalendar: NgbCalendar,
     private dateAdapter: NgbDateAdapter<string>,
     private modal: NgbModal,
     private fb : FormBuilder,
     private tosterService: ToastrService ) { 
-    this.maxDate = calendar.getToday();
+    this.maxDate = ngbCalendar.getToday();
 
   }
   itemForm! : FormGroup;
@@ -67,10 +65,12 @@ export class AdminRatesComponent implements OnInit{
     }, ()=>{
       this.tosterService.error('Error loading ItemTypes');
     });
+
     this.itemForm = this.fb.group({
       itemTypeId : [null, Validators.required],
       itemName: [null, Validators.required]
     });
+    
     const date = new Date();
     this.model2 = this.dateAdapter.toModel(this.ngbCalendar.getToday());
     this.day = this.dateFormatter.dateinyyyymmdd(date);

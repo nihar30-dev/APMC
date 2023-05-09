@@ -2,19 +2,13 @@
 
 export class User  {
 
-  private id: number;
-  private username: string;
-  private password: string;
-  private contact: string;
-  private role: string[];
-  constructor(id : number, username: string, password : string,contact:string,role:string[]){
-    this.id = id;
-    this.username = username;
-    this.password = password;
-    this.role=role;
-    this.contact = contact;
-  }
 
+  constructor( private id : number,
+               private username: string, 
+               private password: string,
+               private contact: string,
+               private role: string[]){
+  }
 
   get getid(): number {
     return this.id;
@@ -55,5 +49,6 @@ export class User  {
   set setrole(value: string[]) {
     this.role = value;
   }
+
 }
 

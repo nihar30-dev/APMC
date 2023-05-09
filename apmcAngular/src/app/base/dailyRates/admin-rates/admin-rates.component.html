@@ -11,8 +11,10 @@
 <!--        </div>-->
 <!--    </div>-->
 <div class="dateContainer mt-5" xmlns="http://www.w3.org/1999/html">
+<div class="parent">      
+<div class="dateContainer mt-5">
       <form >
-        <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="col-12">
           <div class="input-group">
             <input
                     class="form-control"
@@ -22,6 +24,7 @@
                     ngbDatepicker
                     (ngModelChange)="onDateSelect(d2)"
                     #d2="ngbDatepicker"
+                    [maxDate]="maxDate"
             />
             <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d2.toggle()" type="button"></button>
           </div>
@@ -34,9 +37,8 @@
 
 
 
+  </div>
 
-
-<!-- Add item form for admin to add new item -->
 
   <ng-template #content let-modal>
     <div class="modal-header" style="background-color: #325c32; color: white;">

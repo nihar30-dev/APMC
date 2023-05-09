@@ -1,14 +1,24 @@
-<app-header ></app-header>
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-2">
-      <app-sidebar ></app-sidebar>
+<!-- <div class="container-fluid overflow-hidden">
+  <app-header></app-header>
+  <div class="row vh-100">
+    <div class="col-12 col-sm-3 col-xl-2 px-sm-2 px-0 d-flex margin-extra bg-color ">
+      <app-sidebar></app-sidebar>
     </div>
-    <div class="col-md-10">
-
-      <router-outlet></router-outlet>
+    <div class="col d-flex flex-column h-100">
+      <main class="row">
+        <div class="col margin-router">
+          <div class="container">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+      </main>
     </div>
   </div>
+</div> -->
+<div class="container-fluid">
+  <app-header></app-header>
+<app-sidebar [isExpanded]="sidebarExpanded" (toggleSidebar)="sidebarExpanded = !sidebarExpanded"></app-sidebar>
+<div class="content margin-router" [ngClass]="{ 'sidebarExpanded': sidebarExpanded }">
+  <router-outlet></router-outlet>
 </div>
-
+</div>

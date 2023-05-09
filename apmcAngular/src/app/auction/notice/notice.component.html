@@ -48,6 +48,7 @@
     <button type="submit" class="btn btn-primary" [disabled]="!noticeForm.controls['heading'].valid || !noticeForm.controls['details'].valid">
       Submit
     </button>
+    <button type="submit" class="btn btn-primary" [disabled]="!noticeForm.valid">Create Notice</button>
   </form>
 </div>
 

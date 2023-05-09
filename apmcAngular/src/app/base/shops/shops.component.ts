@@ -4,11 +4,10 @@ import { Agent } from 'src/app/models/agent.model';
 import { ModalService } from 'src/app/services/modal.service';
 import { ShopService } from 'src/app/services/shop.service';
 import {StorageService} from '../../utils/storage.service';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Shop } from 'src/app/models/shop.model';
 import { AgentService } from 'src/app/services/agent.service';
-import { AuthService } from 'src/app/authentication/service/auth.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { Owner } from 'src/app/models/owner.model';
@@ -26,7 +25,7 @@ export class ShopsComponent implements OnInit {
 
   @ViewChild('pdf') elementref!:ElementRef;
   agents! : Agent[];
-  f!: FormGroup;
+  shopForm!: FormGroup;
   role = '';
   closeResult = '';
   shops!: Shop;
@@ -49,7 +48,6 @@ export class ShopsComponent implements OnInit {
     public shopModal: NgbModal,
     private toaster: ToastrService,
     private storageService:StorageService,
-    private authervice: AuthService, 
     private agentService: AgentService,
     private tosterService: ToastrService,
     private router : Router,
@@ -89,7 +87,7 @@ export class ShopsComponent implements OnInit {
     });
     // form builder
 
-    this.f = this.formBuilder.group({
+    this.shopForm = this.formBuilder.group({
       shopNo : ['', [Validators.required, Validators.pattern('[A-Z]-[0-9]{1,3}')]]
     });
 

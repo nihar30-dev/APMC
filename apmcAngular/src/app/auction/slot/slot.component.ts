@@ -30,8 +30,8 @@ export class SlotComponent implements OnInit{
   minDate : NgbDate;
   model2:any;
   day = '';
+  role = '';
   date1 : Date| null = null;
-  // date: NgbDateStruct | null = null;
   itemTypes!: ItemType[];
   itemsList!: Item[];
   allSlots: Slot[] = [];
@@ -39,17 +39,20 @@ export class SlotComponent implements OnInit{
   date: NgbDateStruct = new NgbDate(new Date().getFullYear(), new Date().getMonth()+1, new Date().getDate());
   activateSearch!: boolean;
 
+
+
   constructor(
     
     private ngbCalendar: NgbCalendar, 
     private dateAdapter: NgbDateAdapter<string>, 
     private dateFormatter: DateFormatter, 
     private fb: FormBuilder, 
-    public slotModal: NgbModal, 
+    public  slotModal: NgbModal, 
     private itemService : ItemService, 
     private slotService: SlotService,
     private calendar: NgbCalendar,
-    private toaster:ToastrService
+    private toasterService: ToastrService,
+    private storageService: StorageService
   ) {
     this.minDate = this.calendar.getToday();
     this.maxDate = this.calendar.getNext(this.calendar.getToday(), 'm', 2);
@@ -61,6 +64,12 @@ export class SlotComponent implements OnInit{
     const date = new Date();
     this.model2 = this.dateAdapter.toModel(this.ngbCalendar.getToday());
     this.day = this.dateFormatter.dateinyyyymmdd(date);
+
+
+    this.storageService.role$.subscribe(data => {
+      this.role =data;
+    });
+    this.role = this.storageService.getRole();
 
     this.myForm = this.fb.group({
       quantity: ['', Validators.required],
@@ -139,9 +148,9 @@ export class SlotComponent implements OnInit{
     this.slotService.getSlotByItemType(1).subscribe((data)=>{
       this.allSlots = data;
       if(this.allSlots.length == 0)
-        this.toaster.info('No data found');
+        this.toasterService.info('No data found');
     }, () =>{
-      this.toaster.error('No data found');
+      this.toasterService.error('No data found');
     });
     this.activateSearch = true;
   }
@@ -152,7 +161,8 @@ export class SlotComponent implements OnInit{
       this.allSlots = data;
       this.toaster.success('Slot fetched successfully!');
     }, (error: any) => {
-      this.toaster.error(error.error['message']);
+      this.toasterService.error(error.error['message']);
     });
   }
+
 }

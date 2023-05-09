@@ -1,4 +1,4 @@
-<button (click)="open(slot)" style="background-color: #325c32; color: white;" class="btn ">
+<button (click)="open(slot)" style="background-color: #1a381adc; color: white;" class="btn" *ngIf="role==='ADMIN'">
   <h6>Add Slots</h6>
 </button>
 
@@ -57,24 +57,7 @@
     <button style="background-color: #325c32; color: white;" type="reset" class="btn btn-outline-dark btn-sm mx-1 my-1"
       (click)="slotAddForm.form.reset()">Reset</button>
     <button style="background-color: #325c32; color: white;" type="button" class="btn btn-outline-dark btn-sm mx-1 my-1"
-      [disabled]="slotAddForm.form.invalid" (click)="slotAddForm.ngSubmit.emit()">Add Item</button>
-  </div>
-</ng-template>
-
-
-
-
-<!-- 
-  <div class="input-group">
-    <input
-            class="form-control"
-            placeholder="dd/mm/yyyy"
-            name="d2"
-            #c2="ngModel"
-            [(ngModel)]="model2"
-            ngbDatepicker
-            (ngModelChange)="onDateSelect(d2)"
-            #d2="ngbDatepicker"
-    />
-    <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d2.toggle()" type="button"></button>
-  </div> -->
+      [disabled]="slotAddForm.form.invalid" (click)="slotAddForm.ngSubmit.emit()">Add Slot</button>
+    </div>
+  </ng-template>
+  
