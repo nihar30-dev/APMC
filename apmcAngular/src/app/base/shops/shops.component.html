@@ -1,5 +1,5 @@
 
-
+<app-loader-mask *ngIf="(loaderService.getLoaderVisibility() | async)"></app-loader-mask>
 <button *ngIf="role==='ADMIN'" style="background-color: #1a381adc; color: white;" (click)="open(content)" class="btn btn-outline-primary btn-sm shopBtn">
     <h6>Add Shops</h6>
   </button>
@@ -11,7 +11,7 @@
 
 <!--Table-->
 
-<button class="btn btn-primary" (click)="makePdf(agents)">Download PDF</button>
+<!--<button class="btn btn-primary" (click)="makePdf(agents)">Download PDF</button>-->
 <div class="tb" #pdf>
 <table *ngIf="dtOptions && agents" datatable [dtOptions] = "dtOptions"  class="table table-striped" style="background-color: white; border-collapse: collapse">
   <thead>
@@ -66,8 +66,8 @@
     </form>
 </div>
 	<div class="modal-footer">
-    <button type="reset" class="btn btn-secondary" style="background-color: #325c32; color: white; margin: 4px;" (click)="shopAddForm.form.reset()" >Reset</button>
-		<button type="button" class="btn btn-outline-dark"  style="background-color: #325c32; color: white; margin: 4px;" (click)="shopAddForm.ngSubmit.emit()" [disabled]="shopAddForm.form.invalid">Add shop</button>
+    <button type="reset" class="btn btn-secondary" style="background-color: #325c32; color: white;" (click)="shopAddForm.form.reset()" >Reset</button>
+		<button type="button" class="btn btn-outline-dark"  style="background-color: #325c32; color: white;" [disabled]="shopAddForm.form.invalid" (click)="shopAddForm.ngSubmit.emit()">Save</button>
 	</div>
 </ng-template> 
 
@@ -79,7 +79,7 @@
 
 <ng-template #addAgent let-modal>
   <div class="modal-header" style="background-color: #325c32; color: white;">
-    <h4 class="modal-title" id="modal-basic-title" >Add Agent</h4>
+    <h4 class="modal-title" >Add Agent</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">

@@ -1,19 +1,18 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Agent } from 'src/app/models/agent.model';
 import { ModalService } from 'src/app/services/modal.service';
 import { ShopService } from 'src/app/services/shop.service';
 import {StorageService} from '../../utils/storage.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Shop } from 'src/app/models/shop.model';
 import { AgentService } from 'src/app/services/agent.service';
+import { AuthService } from 'src/app/authentication/service/auth.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { Owner } from 'src/app/models/owner.model';
-import jsPDF from 'jspdf';
-import {PdfgeneratorService} from './pdf-generator/service/pdfgenerator.service';
-import {PdfGeneratorComponent} from './pdf-generator/pdf-generator.component';
+import {LoaderService} from "../../services/loader.service";
 
 @Component({
   selector: 'app-shops',
@@ -22,16 +21,15 @@ import {PdfGeneratorComponent} from './pdf-generator/pdf-generator.component';
 })
 
 export class ShopsComponent implements OnInit {
-
-  @ViewChild('pdf') elementref!:ElementRef;
   agents! : Agent[];
-  shopForm!: FormGroup;
+  // f!: FormGroup;
   role = '';
   closeResult = '';
   shops!: Shop;
 
 
   agentForm!: FormGroup;
+  shopForm! : FormGroup;
   shopNo! : Shop[];
   availableShopNo! : Shop[];
   userName = '';
@@ -41,32 +39,25 @@ export class ShopsComponent implements OnInit {
   title = 'datatables';
   dtOptions: DataTables.Settings = {};
 
+
   constructor(
-    private shopService : ShopService,
-    private formBuilder: FormBuilder, 
-    public modalService2: ModalService,
-    public shopModal: NgbModal,
-    private toaster: ToastrService,
-    private storageService:StorageService,
-    private agentService: AgentService,
-    private tosterService: ToastrService,
-    private router : Router,
-    private pdfGeneratorService:PdfgeneratorService,
-    private pdfGenerator:PdfGeneratorComponent){}
+      private shopService : ShopService,
+      private formBuilder: FormBuilder,
+      public shopModal: NgbModal,
+      public agentModal : NgbModal,
+      private toaster: ToastrService,
+      private storageService:StorageService,
+      private authervice: AuthService,
+      private agentService: AgentService,
+      private tosterService: ToastrService,
+      private router : Router,
+      public loaderService:LoaderService){}
 
 
-  makePdf(agents:Agent[]){
-
-    const data = agents;
-
-    this.pdfGenerator.makePdf(agents);
-
-  }
-    
   open(content: any) {
     return this.shopModal.open(content, { centered: true });
   }
-    
+
   ngOnInit(): void {
     //dataTable options
     this.dtOptions = {
@@ -74,17 +65,16 @@ export class ShopsComponent implements OnInit {
       pageLength: 5,
       processing: true
     };
-    //list population 
-    this.shopService.getAllShops().subscribe((data: any) => {
 
-      //for getting roles
-      this.storageService.role$.subscribe(data => {
-        this.role =data;
-      });
-      this.role = this.storageService.getRole();
-
-      this.agents = data;
+    //for getting roles
+    this.storageService.role$.subscribe(data => {
+      this.role =data;
     });
+    this.role = this.storageService.getRole();
+
+    //list Agent
+    this.getAllAgent();
+
     // form builder
 
     this.shopForm = this.formBuilder.group({
@@ -98,37 +88,44 @@ export class ShopsComponent implements OnInit {
       companyName: [null, Validators.required],
       contact: [null, [Validators.required, Validators.pattern('^[6789]{1}[0-9]{9}$')]],
     });
-    this.shopService.getAllShopNo().subscribe((data) => {
-
-      if(this.shopNo == null){
-        this.shopNo = data;
-      }
-      this.availableShopNo = this.shopNo.filter(this.filterShops);
-
-    });
     
-      
+    this.getAllShops();
+
+
   }
 
   filterShops(shop: Shop) {
     return shop['owner'] == null;
   }
 
+  getAllAgent(){
+    this.loaderService.show();
+    this.shopService.getAllShops().subscribe((data: any) => {
+
+      this.agents = data;
+    });
+    this.loaderService.hide();
+  }
+
+
+  getAllShops(){
+
+    this.shopService.getAllShopNo().subscribe((data) => {
+      this.shopNo = data;
+      this.availableShopNo = this.shopNo.filter(this.filterShops);
+    });
+  }
   onSubmitShop(shopForm : FormGroup) {
 
     if(shopForm.valid){
       this.shopService.createShop(shopForm.value).subscribe(data=>{
         this.toaster.success('Shop added successfully');
       },(error)=>{
- 
+
         this.toaster.error(error.error['message']);
       });
-
-      this.shopService.getAllShopNo().subscribe(data => {
-        this.shopNo = data;
-      });
-
-      this.shopModal.dismissAll('done');
+      this.getAllShops();
+      shopForm.reset();
       this.shopModal.dismissAll();
     }
   }
@@ -138,18 +135,17 @@ export class ShopsComponent implements OnInit {
 
   onSubmit(agentForm: FormGroup) {
     if (agentForm.valid) {
-      // username, password generation
-      // this.registerAgent(agentForm)
+
       this.addAgent(agentForm)
         .then(()=>{
-          this.modalService2.close();
-          this.router.navigate(['shops']);
+          this.agentModal.dismissAll();
           this.agentForm.reset();
         })
         .catch((error)=>{
           this.tosterService.error(error.error['message']);
         });
     }
+    this.getAllAgent();
 
   }
 
@@ -158,7 +154,7 @@ export class ShopsComponent implements OnInit {
     return new Promise((res, rej) => {
       agentForm.value.userId = this.agentId;
 
-      const agent: Agent = new Agent(
+      const agent: Agent = new Agent(0,
         new User(this.agentId, '', '',agentForm.value['contact'],  ['admin']),
         agentForm.value['agentName'],
         agentForm.value['companyName'],
@@ -166,7 +162,6 @@ export class ShopsComponent implements OnInit {
         new Shop('', agentForm.value['shopNo'], new Owner(0)),
       );
 
-      console.log(agent);
       this.agentService.createAgent(agent).subscribe((data: any) => {
         res(data);
         this.tosterService.success('Agent added successfully!');
@@ -176,6 +171,5 @@ export class ShopsComponent implements OnInit {
         rej(error);
       });
     });
-  } 
+  }
 }
-

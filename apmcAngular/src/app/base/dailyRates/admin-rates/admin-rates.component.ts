@@ -96,8 +96,10 @@ export class AdminRatesComponent implements OnInit{
     if(itemForm.valid){
       
       const item : Item = {itemId:0, itemName: itemForm.value['itemName'],itemType: new ItemType(itemForm.value['itemTypeId'], ''), dailyRates : []};  
-      this.itemService.createItem(item).subscribe(()=>{
+      this.itemService.createItem(item).subscribe((data)=>{
         this.tosterService.success('Item added successfully');
+      }, (error)=> {
+        this.tosterService.error("Could not save agent");
       });
       itemForm.reset();
       this.modal.dismissAll();
@@ -119,6 +121,9 @@ export class AdminRatesComponent implements OnInit{
     return new Promise((res, rej) => {
       this.itemService.getItemTypes().subscribe((data) => {
         this.itemTypes = data;
+        console.log("------------------------");
+        
+        console.log(this.itemsList);
         res(this.itemTypes);
       }, (error) => {
         rej(error);

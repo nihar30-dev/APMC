@@ -12,6 +12,6 @@ public interface SlotService {
     public Response addItemSlot(Slots slot) throws ParseException;
     public Slots findBySlotId(int slotId);
     public List<Slots> getAllSlots();
-    public String deleteSlot(int slotId);
+    public boolean deleteSlot(int slotId);
     public Slots slotExistForDateAndItem(Date date, int itemId);
 }

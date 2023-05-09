@@ -19,9 +19,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './utils/interceptor.service';
 import { StorageService } from './utils/storage.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import {NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
+import {NgbInputDatepicker} from '@ng-bootstrap/ng-bootstrap';
 import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
-
 
 
 @NgModule({
@@ -62,8 +61,7 @@ import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx
             )
           }
         ],
-        onError: (err: any) => {
-          console.error(err);
+        onError: (err) => {
         }
       } as SocialAuthServiceConfig,
     },

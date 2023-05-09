@@ -41,6 +41,7 @@ h2 {
 }
 
 .btn {
+  margin-top: 30px;
   display: inline-block;
   padding: 10px 20px;
   background-color: #4CAF50;
@@ -75,25 +76,20 @@ h2 {
   transform: scale(1.08) translateY(-2px);
 }
 
+
+
+
+.justify-content-around{
+  margin-top: 15px;
+}
+
+
 .accordian{
+  margin: auto;
   margin-top: 30px;
+  width: 70vw;
+  height: 90vh;
+  overflow: auto;
+  // display: inherit !important;
 }
 
-.loader-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.loader {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.loader .spinner-border {
-  width: 6rem;
-  height: 6rem;
-  margin-bottom: 1rem;
-}

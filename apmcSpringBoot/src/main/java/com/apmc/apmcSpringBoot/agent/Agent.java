@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="agent")
 public class Agent {
@@ -25,9 +27,9 @@ public class Agent {
     @Column(name="agent_name")
     private String agentName;
 
-    @OneToOne(mappedBy = "agent")
+    @OneToMany(mappedBy = "agent")
     @JsonIgnore
-    private SlotDetail slotDetail;
+    private List<SlotDetail> slotDetail;
 
     @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id")
@@ -99,12 +101,11 @@ public class Agent {
         this.shop = shop;
     }
 
-    public SlotDetail getSlotDetail() {
+    public List<SlotDetail> getSlotDetail() {
         return slotDetail;
     }
 
-    public void setSlotDetail(SlotDetail slotDetail) {
+    public void setSlotDetail(List<SlotDetail> slotDetail) {
         this.slotDetail = slotDetail;
     }
-
 }

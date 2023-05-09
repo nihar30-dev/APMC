@@ -4,9 +4,11 @@ import com.apmc.apmcSpringBoot.Exception.Response;
 import com.apmc.apmcSpringBoot.Exception.ResponseException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -33,7 +35,7 @@ public class SlotDetailController {
     }
 
 
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN') OR hasAnyAuthority('USER') OR hasAnyAuthority('AGENT')")
     @PostMapping("")
     public Response addSlotDetail(@RequestBody SlotDetail slotDetail){
         return slotDetailService.addSlotDetail(slotDetail);
@@ -44,5 +46,18 @@ public class SlotDetailController {
     public String deleteSlotDetail(@PathVariable("slotDetailId") int slotDetailId){
         return slotDetailService.deleteSlotDetail(slotDetailId);
     }
-    
+
+    @GetMapping("/agent/{agentId}")
+    public List<SlotDetail> getSlotDetailsByAgentId(@PathVariable int agentId) throws ParseException {
+
+
+
+        return slotDetailService.getSlotDetailByAgentId(agentId);
+    }
+
+    @GetMapping("/user/{userId}")
+    public List<SlotDetail> getSlotDetailByUserId(@PathVariable int userId) throws ParseException {
+        List<SlotDetail> id = slotDetailService.getSlotDetailByUserId(userId);
+        return slotDetailService.getSlotDetailByUserId(userId);
+    }
 }

@@ -21,4 +21,8 @@ export class SlotService{
   getSlotByItemType(itemTypeId: number){
     return this.http.get<Slot[]>('http://localhost:8099/slots/'+itemTypeId);
   }
+
+  deleteSlot(i:number){
+    return this.http.delete('http://localhost:8099/slots/'+i);
+  }
 }

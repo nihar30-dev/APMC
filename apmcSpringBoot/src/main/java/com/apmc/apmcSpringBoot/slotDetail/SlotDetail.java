@@ -19,10 +19,10 @@ public class SlotDetail {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "password", "contact", "userDetail", "shops", "roles", "agent"})
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "password", "shops", "roles", "agent"})
     private User user;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "agent_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "user", "contact", "shop", "slotDetail"})
     private Agent agent;

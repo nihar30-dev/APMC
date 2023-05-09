@@ -56,6 +56,16 @@
         </div>
       </a>
     </div>
+    <div class="link" *ngIf="role==='USER' || role==='AGENT'" ngbTooltip="View/Book the slots" placement="bottom">
+      <a (click)="onClickViewSlot()" class="nav-link ">
+        <div class="content" [class.active]="activePage === 'viewSlot'">
+          <div class="icon"><i class="fs-5 bi-grid"></i></div>
+          <div class="title">
+            <span>View Slot</span>
+          </div>
+        </div>
+      </a>
+    </div>
     <div class="link" *ngIf="role==='ADMIN'|| role==='USER' || role==='AGENT'" ngbTooltip="check the shop list" placement="bottom">
       <a (click)="onClickShops()" class="nav-link">
         <div class="content" [class.active]="activePage === 'shops'">

@@ -69,7 +69,6 @@ export class ProfileComponent implements OnInit {
       const user = this.storageService.getUser();
       user.userDetailsExist = true;
       this.storageService.saveUser(user);
-      this.userDetailForm.reset();
     }
   }
 

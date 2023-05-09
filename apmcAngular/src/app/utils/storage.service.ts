@@ -16,15 +16,9 @@ export class StorageService {
   public isLoggedIn$: Observable<boolean> = this.isLoggedInSubject.asObservable();
 
 
-
-
-
   constructor() {
     this.isLoggedInSubject.next(this.isLoggedIn());
   }
-
-
-
 
   clean(): void {
     window.sessionStorage.clear();
@@ -45,8 +39,6 @@ export class StorageService {
 
     return {};
   }
-
-
 
   public isLoggedIn() : boolean{
     const user = window.sessionStorage.getItem(UserKey);
@@ -83,6 +75,15 @@ export class StorageService {
       return 'default';
     }
 
+  }
+
+  public getUserId(): number {
+    const user = window.sessionStorage.getItem(UserKey);
+    if (user) {
+      return JSON.parse(user).id;
+    }else {
+      return 0;
+    }
   }
 
 }

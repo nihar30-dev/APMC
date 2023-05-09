@@ -54,8 +54,14 @@ export class SidebarComponent implements OnInit{
       this.router.navigate(['userRates']);
   }
 
+  onClickViewSlot(){
+    this.activePage = 'viewSlot';
+    this.router.navigate(['viewSlot']);
+  }
+
   onClickAdminRates()
   {
+
     this.activePage = 'dailyRates';
     this.router.navigate(['adminRates']);
   }

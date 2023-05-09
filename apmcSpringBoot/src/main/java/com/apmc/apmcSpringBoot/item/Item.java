@@ -28,7 +28,7 @@ public class Item {
 
     @ManyToOne()
     @JoinColumn(name="item_type_id")
-    @JsonIgnoreProperties({"itemTypeName", "hibernateLazyInitializer", "handler"})
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private ItemType itemType;
 
     @OneToMany( mappedBy = "item",cascade = CascadeType.REMOVE)

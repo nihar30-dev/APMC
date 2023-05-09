@@ -34,9 +34,9 @@ public class ItemController {
     @GetMapping("/itemType/{itemTypeId}")
     public ResponseEntity<List<Item>> getItemByTypeId(@PathVariable int itemTypeId){
         List<Item> items = itemService.findByItemTypeId(itemTypeId);
-        if (items.size() == 0){
-            throw new ResponseException("No items in this ItemType Id");
-        }
+//        if (items.size() == 0){
+//            throw new ResponseException("No items in this ItemType Id");
+//        }
         return ResponseEntity.ok(items);
     }
     @PreAuthorize("hasAnyAuthority('ADMIN')")

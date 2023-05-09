@@ -21,6 +21,7 @@ public class AgentController {
 
     @GetMapping("")
     public ResponseEntity<List<Agent>> getAllAgents(){
+        System.out.println(agentService.getAllAgent());
         return ResponseEntity.ok(agentService.getAllAgent());
     }
 
