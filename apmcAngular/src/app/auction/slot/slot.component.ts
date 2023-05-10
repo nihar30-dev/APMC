@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { NgbCalendar, NgbDate, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {ModalService} from '../../services/modal.service';
+import { FormBuilder, FormControl, FormGroup, MaxValidator, Validators } from '@angular/forms';
+import { NgbCalendar, NgbDate, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct, NgbInputDatepicker, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ItemService } from 'src/app/services/item.service';
 import { DateFormatter } from 'src/app/utils/dateFormatter';
 import { CustomDateParserFormatter } from 'src/app/base/dailyRates/CustomDateParserFormatter';
@@ -17,7 +18,6 @@ import { StorageService } from 'src/app/utils/storage.service';
 import { Shop } from 'src/app/models/shop.model';
 import { Owner } from 'src/app/models/owner.model';
 import { SlotDetailsService } from 'src/app/services/slot-details.service';
-import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-admin-slot',
@@ -26,7 +26,7 @@ import Swal from "sweetalert2";
   providers: [{ provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter }]
 })
 export class SlotComponent implements OnInit{
-  
+
   myForm !: FormGroup;
   bookSlot! : FormGroup;
   editSlot! : FormGroup;
@@ -44,23 +44,24 @@ export class SlotComponent implements OnInit{
   date: NgbDateStruct = new NgbDate(new Date().getFullYear(), new Date().getMonth()+1, new Date().getDate());
   activateSearch!: boolean;
   dtOptions: DataTables.Settings = {};
-
+  itemId!: number;
+  slotDate!: any;
   constructor(
-    
-    private ngbCalendar: NgbCalendar, 
-    private dateAdapter: NgbDateAdapter<string>, 
-    private dateFormatter: DateFormatter, 
-    private fb: FormBuilder, 
-    public slotModal: NgbModal,
-    private bookModal : NgbModal,
-    private editModal: NgbModal,
-    private itemService : ItemService, 
-    private slotService: SlotService,
-    private calendar: NgbCalendar,
-    private toaster:ToastrService,
-    private shopService: ShopService,
-    private storageService : StorageService,
-    private slotDetailService:SlotDetailsService
+
+      private ngbCalendar: NgbCalendar,
+      private dateAdapter: NgbDateAdapter<string>,
+      private dateFormatter: DateFormatter,
+      private fb: FormBuilder,
+      public slotModal: NgbModal,
+      private bookModal : NgbModal,
+      private editModal: NgbModal,
+      private itemService : ItemService,
+      private slotService: SlotService,
+      private calendar: NgbCalendar,
+      private toaster:ToastrService,
+      private shopService: ShopService,
+      private storageService : StorageService,
+      private slotDetailService:SlotDetailsService
   ) {
     this.minDate = this.calendar.getToday();
     this.maxDate = this.calendar.getNext(this.calendar.getToday(), 'm', 2);
@@ -107,7 +108,7 @@ export class SlotComponent implements OnInit{
   }
 
   loadItem() {
-    const n = +(<HTMLInputElement>document.getElementById('itemTypeId')).value;    
+    const n = +(<HTMLInputElement>document.getElementById('itemTypeId')).value;
     this.itemsList = [];
     this.itemService.getAllItemsByTypeId(n).subscribe((data) => {
       this.itemsList = data;
@@ -127,7 +128,7 @@ export class SlotComponent implements OnInit{
     const day = date.day+'';
     const year = date.year+'';
     myForm.value['date']=year + '-' + month.padStart(2, '0') + '-' + day.padStart(2, '0');
-    
+
     if(myForm.valid){
       this.addSlot(myForm);
       this.slotModal.dismissAll();
@@ -172,11 +173,15 @@ export class SlotComponent implements OnInit{
   getAllAgents(){
     this.shopService.getAllShops().subscribe((data) => {
       this.allAgents = data;
-      
+
     }, (error)=>{
       this.toaster.error('Error loading agents');
     });
   }
+
+  //delete Agent
+
+
 
   openslotBook(content: any, i : number){
     this.initSlotBookForm(i);
@@ -198,7 +203,7 @@ export class SlotComponent implements OnInit{
   }
 
   bookSlotForm(bookSlot : FormGroup){
-    
+
     const user = new User(this.storageService.getUserId(), '', '', '', []);
     const item : Item = {itemId : 0, itemName: '', itemType: new ItemType(0,''), dailyRates: []};
     const slot : Slot = {slotId: bookSlot.controls['slotId'].value, item: item, totalQuantity:0, bookedQuantity: 0, slotDate: ''};
@@ -207,11 +212,20 @@ export class SlotComponent implements OnInit{
 
 
     this.slotDetailService.bookSlot(slotDetail).subscribe((data)=>{
-      this.toaster.success('Slot Booked Successfully');
+      if(data.success == true)
+      {
+        console.log(data);
+        this.getAllSlots();
+        this.toaster.success('Slot Booked Successfully');
+      }
+      else
+      {
+        this.toaster.error(data.message);
+      }
     }, (error)=>{
       this.toaster.error('Something went wrong');
     });
-    this.getAllSlots();
+
     this.bookModal.dismissAll();
 
   }
@@ -228,37 +242,23 @@ export class SlotComponent implements OnInit{
 
 
   initEditSlot(i:number){
-    
-    this.editSlot = this.fb.group({
-      quantity: ['', Validators.required],
-      itemType: ['', Validators.required],
-      item: ['', Validators.required],
-      date: ['', Validators.required]
-    });
 
     const slot = this.allSlots[i];
+    this.itemId = slot['item']['itemId'];
+    this.slotDate = slot['slotDate'];
 
     this.editSlot = new FormGroup({
       slotId : new FormControl(slot['slotId']),
       itemType: new FormControl({value:slot['item']['itemType']['itemTypeName'], disabled:true}, Validators.required),
       item: new FormControl({value:slot['item']['itemName'], disabled:true}, Validators.required),
       quantity: new FormControl(null, [Validators.required, Validators.min(slot['bookedQuantity'])]),
-      date: new FormControl('', Validators.required)
+      date: new FormControl({value:slot['slotDate'], disabled:true}, Validators.required)
     });
 
   }
 
   submitEditSlot(editSlot : FormGroup){
 
-    console.log(editSlot);
-    const date = editSlot.value['date'];
-    const month = date.month+'';
-    const day = date.day+'';
-    const year = date.year+'';
-    const formattedDay = year+'-'+month.padStart(2,'0')+'-'+day.padStart(2,'0');
-    
-    editSlot.value['date']=formattedDay;
-    console.log(editSlot);
 
     if(editSlot.valid){
       const items : Item = {itemId : this.itemId, itemName: '', itemType: new ItemType(0, ''), dailyRates : []};
@@ -267,12 +267,19 @@ export class SlotComponent implements OnInit{
         item: items,
         totalQuantity: editSlot.value['quantity'],
         bookedQuantity: 0,
-        slotDate : editSlot.value['date']
+        slotDate : this.slotDate
       };
-  
+
+      console.log(editSlot);
+
       this.slotService.addSlot(slot).subscribe((data: any) => {
-        this.toaster.success('Slot updated successfully!');
-  
+        if(data['success']==false){
+          this.toaster.error(data['message']);
+        } else{
+          this.toaster.success('Slot updated successfully!');
+          this.getAllSlots();
+        }
+
       }, (error: any) => {
         this.toaster.error(error.error['message']);
       });
@@ -285,19 +292,19 @@ export class SlotComponent implements OnInit{
   deleteSlot(i: number){
     const slot = this.allSlots[i];
     console.log(slot);
-    
+
     if(slot['bookedQuantity']==0){
       this.slotService.deleteSlot(slot['slotId']).subscribe((data)=>{
+        this.getAllSlots();
+        console.log(data);
         this.toaster.success('Slot deleted successfully');
+        this.getAllSlots();
       },(error)=>{
         this.toaster.error('Something went wrong');
-        console.log(error);
       });
     }
     else{
       this.toaster.error('Could not delete Slot!');
     }
   }
-
-
 }

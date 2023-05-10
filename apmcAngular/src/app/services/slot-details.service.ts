@@ -14,7 +14,7 @@ export class SlotDetailsService{
   }
 
   bookSlot(slotdetails : SlotDetails){
-    return this.http.post<SlotDetails>('http://localhost:8099/slotDetail', slotdetails);
+    return this.http.post<response>('http://localhost:8099/slotDetail', slotdetails);
   }
 
   getSlotDetailByAgentId(agentId:number):Observable<any>{
