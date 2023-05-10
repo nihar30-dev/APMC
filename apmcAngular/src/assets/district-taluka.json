@@ -1,0 +1,417 @@
+{ 
+  "state": "Gujarat",
+  "districts": [
+    {
+      "name": "Ahmedabad",
+      "talukas": [
+        "Ahmedabad City",
+        "Daskroi",
+        "Detroj-Rampura",
+        "Dhandhuka",
+        "Mandal",
+        "Sanand",
+        "Viramgam"
+      ]
+    },
+    {
+      "name": "Amreli",
+      "talukas": [
+        "Amreli",
+        "Babra",
+        "Bagasara",
+        "Dhari",
+        "Jafrabad",
+        "Khambha",
+        "Kunkavav Vadia",
+        "Lathi",
+        "Lilia",
+        "Savar Kundla"
+      ]
+    },
+    {
+      "name": "Anand",
+      "talukas": [
+        "Anand",
+        "Anklav",
+        "Borsad",
+        "Khambhat",
+        "Petlad",
+        "Sojitra",
+        "Tarapur",
+        "Umreth"
+      ]
+    },
+    {
+      "name": "Aravalli",
+      "talukas": [
+        "Aravalli",
+        "Bayad",
+        "Malpur",
+        "Modasa",
+        "Meghraj"
+      ]
+    },
+    {
+      "name": "Banaskantha (Palanpur)",
+      "talukas": [
+        "Amirgadh",
+        "Bhabhar",
+        "Danta",
+        "Dantiwada",
+        "Deesa",
+        "Deodar",
+        "Dhanera",
+        "Kankrej",
+        "Palanpur",
+        "Tharad",
+        "Vadgam",
+        "Vav"
+      ]
+    },
+    {
+      "name": "Bharuch",
+      "talukas": [
+        "Amod",
+        "Anklesvar",
+        "Bharuch",
+        "Hansot",
+        "Jambusar",
+        "Jhagadia",
+        "Netrang",
+        "Valia",
+        "Vagra"
+      ]
+    },
+    {
+      "name": "Bhavnagar",
+      "talukas": [
+        "Bhavnagar",
+        "Gadhada",
+        "Gariadhar",
+        "Ghogha",
+        "Mahuva",
+        "Palitana",
+        "Sihor",
+        "Talaja",
+        "Umrala",
+        "Vallabhipur"
+      ]
+    },
+    {
+      "name": "Botad",
+      "talukas": [
+        "Botad",
+        "Gadhada",
+        "Barwala"
+      ]
+    },
+    {
+      "name": "Chhota Udepur",
+      "talukas": [
+        "Chhota Udepur",
+        "Sankheda",
+        "Jetpur Pavi",
+        "Kavant",
+        "Nasvadi",
+        "Bodeli",
+        "Jhalod",
+        "Dabhoi",
+        "Chhuchhapura"
+      ]
+    },
+    {
+      "name": "Dahod",
+      "talukas": [
+        "Dahod",
+        "Devgadh Baria",
+        "Dhanpur",
+        "Fatepura",
+        "Garbada",
+        "Jhalod",
+        "Limkheda",
+        "Sanjeli"
+      ]
+    },
+    {
+      "name": "Dangs (Ahwa)",
+      "talukas": [
+        "Ahwa",
+        "Subir"
+      ]
+    },
+    {
+      "name": "Devbhoomi Dwarka",
+      "talukas": [
+        "Bhanvad",
+        "Kalyanpur",
+        "Khambhalia",
+        "Okhamandal",
+        "Dwarka"
+      ]
+    },
+    {
+      "name": "Gandhinagar",
+      "talukas": [
+        "Dehgam",
+        "Gandhinagar",
+        "Kalol",
+        "Mansa"
+      ]
+    },
+    {
+      "name": "Gir Somnath",
+      "talukas": [
+        "Gir Gadhada",
+        "Kodinar",
+        "Sutrapada",
+        "Talala",
+        "Una",
+        "Veraval"
+      ]
+    },
+    {
+      "name": "Jamnagar",
+      "talukas": [
+        "Jamjodhpur",
+        "Jamnagar",
+        "Jodiya",
+        "Kalavad",
+        "Khambhalia",
+        "Lalpur"
+      ]
+    },
+    {
+      "name": "Junagadh",
+      "talukas": [
+        "Bhesan",
+        "Junagadh",
+        "Keshod",
+        "Malia",
+        "Mangrol",
+        "Manavadar",
+        "Mendarda",
+        "Patan-Veraval",
+        "Sutrapada",
+        "Talala",
+        "Una",
+        "Visavadar"
+      ]
+    },
+    {
+      "name": "Kachchh",
+      "talukas": [
+        "Abdasa",
+        "Anjar",
+        "Bhachau",
+        "Bhuj",
+        "Gandhidham",
+        "Lakhpat",
+        "Mandvi",
+        "Mundra",
+        "Nakhatrana",
+        "Rapar"
+      ]
+    },
+    {
+      "name": "Kheda (Nadiad)",
+      "talukas": [
+        "Balasinor",
+        "Kapadvanj",
+        "Kathlal",
+        "Kheda",
+        "Mahudha",
+        "Matar",
+        "Mehmedabad",
+        "Nadiad",
+        "Thasra",
+        "Virpur"
+      ]
+    },
+    {
+      "name": "Mahisagar",
+      "talukas": [
+        "Balasinor",
+        "Kadana",
+        "Khanpur",
+        "Santrampur",
+        "Virpur",
+        "Mahisagar"
+      ]
+    },
+    {
+      "name": "Mehsana",
+      "talukas": [
+        "Becharaji",
+        "Jotana",
+        "Kadi",
+        "Kheralu",
+        "Mehsana",
+        "Satlasana",
+        "Unjha",
+        "Vadnagar",
+        "Vijapur",
+        "Visnagar"
+      ]
+    },
+    {
+      "name": "Morbi",
+      "talukas": [
+        "Halvad",
+        "Morbi",
+        "Tankara",
+        "Wankaner"
+      ]
+    },
+    {
+      "name": "Narmada (Rajpipla)",
+      "talukas": [
+        "Dediapada",
+        "Nandod",
+        "Sagbara",
+        "Tilakwada"
+      ]
+    },
+    {
+      "name": "Navsari",
+      "talukas": [
+        "Chikhli",
+        "Gandevi",
+        "Jalalpore",
+        "Navsari"
+      ]
+    },
+    {
+      "name": "Panchmahal (Godhra)",
+      "talukas": [
+        "Ghoghamba",
+        "Godhra",
+        "Halol",
+        "Jambughoda",
+        "Kalol",
+        "Morwa (Hadaf)",
+        "Santrampur",
+        "Shehera"
+      ]
+    },
+    {
+      "name": "Patan",
+      "talukas": [
+        "Chanasma",
+        "Harij",
+        "Patan",
+        "Radhanpur",
+        "Sami",
+        "Siddhpur"
+      ]
+    },
+    {
+      "name": "Porbandar",
+      "talukas": [
+        "Kutiyana",
+        "Porbandar",
+        "Ranavav"
+      ]
+    },
+    {
+      "name": "Rajkot",
+      "talukas": [
+        "Dhoraji",
+        "Gondal",
+        "Jamkandorna",
+        "Jasdan",
+        "Jetpur",
+        "Kotda Sangani",
+        "Maliya",
+        "Morvi",
+        "Paddhari",
+        "Rajkot",
+        "Tankara",
+        "Upleta",
+        "Wankaner"
+      ]
+    },
+    {
+      "name": "Sabarkantha (Himmatnagar)",
+      "talukas": [
+        "Bayad",
+        "Bhiloda",
+        "Himatnagar",
+        "Idar",
+        "Khedbrahma",
+        "Malpur",
+        "Meghraj",
+        "Prantij",
+        "Talod",
+        "Vadali",
+        "Vijaynagar"
+      ]
+    },
+    {
+      "name": "Surat",
+      "talukas": [
+        "Bardoli",
+        "Chorasi",
+        "Kamrej",
+        "Mahua",
+        "Mandvi",
+        "Mangrol",
+        "Olpad",
+        "Palsana",
+        "Surat",
+        "Umarpada",
+        "Umbergaon",
+        "Valod",
+        "Vyara"
+      ]
+    },
+    {
+      "name": "Surendranagar",
+      "talukas": [
+        "Chotila",
+        "Chuda",
+        "Dasada",
+        "Dhrangadhra",
+        "Halvad",
+        "Lakhtar",
+        "Limbdi",
+        "Muli",
+        "Sayla",
+        "Wadhwan"
+      ]
+    },
+    {
+      "name": "Tapi (Vyara)",
+      "talukas": [
+        "Songadh",
+        "Uchchhal",
+        "Valod",
+        "Vyara"
+      ]
+    },
+    {
+      "name": "Vadodara",
+      "talukas": [
+        "Dabhoi",
+        "Jetpur Pavi",
+        "Karjan",
+        "Padra",
+        "Savli",
+        "Sinor",
+        "Vadodara",
+        "Vaghodia"
+      ]
+    },
+    {
+      "name": "Valsad",
+      "talukas": [
+        "Dharampur",
+        "Kaprada",
+        "Pardi",
+        "Umbergaon",
+        "Valsad",
+        "Vapi"
+      ]
+    }
+  ]
+}
+    

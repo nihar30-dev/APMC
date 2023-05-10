@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ModalService} from '../../services/modal.service';
-import { FormBuilder, FormControl, FormGroup, MaxValidator, Validators } from '@angular/forms';
-import { NgbCalendar, NgbDate, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct, NgbInputDatepicker, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgbCalendar, NgbDate, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ItemService } from 'src/app/services/item.service';
 import { DateFormatter } from 'src/app/utils/dateFormatter';
 import { CustomDateParserFormatter } from 'src/app/base/dailyRates/CustomDateParserFormatter';
@@ -45,8 +44,7 @@ export class SlotComponent implements OnInit{
   date: NgbDateStruct = new NgbDate(new Date().getFullYear(), new Date().getMonth()+1, new Date().getDate());
   activateSearch!: boolean;
   dtOptions: DataTables.Settings = {};
-  itemId!: number;
-  slotDate!: any;
+
   constructor(
     
     private ngbCalendar: NgbCalendar, 
@@ -162,7 +160,7 @@ export class SlotComponent implements OnInit{
 
   getAllSlots(){
     this.slotService.getAllSlots().subscribe((data) => {
-      this.allSlots = data;      
+      this.allSlots = data;
     }, (error: any) => {
       this.toaster.error(error.error['message']);
     });
@@ -179,10 +177,6 @@ export class SlotComponent implements OnInit{
       this.toaster.error('Error loading agents');
     });
   }
-
-  //delete Agent
-
-
 
   openslotBook(content: any, i : number){
     this.initSlotBookForm(i);
@@ -213,20 +207,11 @@ export class SlotComponent implements OnInit{
 
 
     this.slotDetailService.bookSlot(slotDetail).subscribe((data)=>{
-      if(data.success == true)
-      {
-        console.log(data);
-        this.getAllSlots();
-        this.toaster.success('Slot Booked Successfully');
-      }
-      else
-      {
-        this.toaster.error(data.message);
-      }
+      this.toaster.success('Slot Booked Successfully');
     }, (error)=>{
       this.toaster.error('Something went wrong');
     });
-    
+    this.getAllSlots();
     this.bookModal.dismissAll();
 
   }
@@ -243,23 +228,37 @@ export class SlotComponent implements OnInit{
 
 
   initEditSlot(i:number){
+    
+    this.editSlot = this.fb.group({
+      quantity: ['', Validators.required],
+      itemType: ['', Validators.required],
+      item: ['', Validators.required],
+      date: ['', Validators.required]
+    });
 
     const slot = this.allSlots[i];
-    this.itemId = slot['item']['itemId'];    
-    this.slotDate = slot['slotDate'];
 
     this.editSlot = new FormGroup({
       slotId : new FormControl(slot['slotId']),
       itemType: new FormControl({value:slot['item']['itemType']['itemTypeName'], disabled:true}, Validators.required),
       item: new FormControl({value:slot['item']['itemName'], disabled:true}, Validators.required),
       quantity: new FormControl(null, [Validators.required, Validators.min(slot['bookedQuantity'])]),
-      date: new FormControl({value:slot['slotDate'], disabled:true}, Validators.required)
+      date: new FormControl('', Validators.required)
     });
 
   }
 
   submitEditSlot(editSlot : FormGroup){
 
+    console.log(editSlot);
+    const date = editSlot.value['date'];
+    const month = date.month+'';
+    const day = date.day+'';
+    const year = date.year+'';
+    const formattedDay = year+'-'+month.padStart(2,'0')+'-'+day.padStart(2,'0');
+    
+    editSlot.value['date']=formattedDay;
+    console.log(editSlot);
 
     if(editSlot.valid){
       const items : Item = {itemId : this.itemId, itemName: '', itemType: new ItemType(0, ''), dailyRates : []};
@@ -268,18 +267,11 @@ export class SlotComponent implements OnInit{
         item: items,
         totalQuantity: editSlot.value['quantity'],
         bookedQuantity: 0,
-        slotDate : this.slotDate
+        slotDate : editSlot.value['date']
       };
-
-      console.log(editSlot);
-      
+  
       this.slotService.addSlot(slot).subscribe((data: any) => {
-        if(data['success']==false){
-          this.toaster.error(data['message']);          
-        } else{
-          this.toaster.success('Slot updated successfully!');
-          this.getAllSlots();
-        }
+        this.toaster.success('Slot updated successfully!');
   
       }, (error: any) => {
         this.toaster.error(error.error['message']);
@@ -292,33 +284,20 @@ export class SlotComponent implements OnInit{
 
   deleteSlot(i: number){
     const slot = this.allSlots[i];
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#314731',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-
-        if(slot['bookedQuantity']==0){
-          this.slotService.deleteSlot(slot['slotId']).subscribe((data)=>{
-            this.getAllSlots();
-
-            this.toaster.success('Slot deleted successfully');
-            this.getAllSlots();
-          },(error)=>{
-            this.toaster.error('Something went wrong');
-          });
-        }
-        else{
-          this.toaster.error('Could not delete Slot!');
-        }
-      }
-    });
+    console.log(slot);
     
-
+    if(slot['bookedQuantity']==0){
+      this.slotService.deleteSlot(slot['slotId']).subscribe((data)=>{
+        this.toaster.success('Slot deleted successfully');
+      },(error)=>{
+        this.toaster.error('Something went wrong');
+        console.log(error);
+      });
+    }
+    else{
+      this.toaster.error('Could not delete Slot!');
+    }
   }
+
+
 }
