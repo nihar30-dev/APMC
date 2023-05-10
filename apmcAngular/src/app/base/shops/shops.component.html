@@ -39,7 +39,9 @@
 <ng-template #content let-modal>
 	<div class="modal-header" style="background-color: #325c32; color: white;">
 		<h4 class="modal-title" id="modal-basic-title">Add New Shop</h4>
-		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    <a type="button" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <i class="bi bi-x" style="font-size: xx-large;"></i>
+    </a>
 	</div>
   <div class="modal-body">
     <form [formGroup]="shopForm" (ngSubmit)="onSubmitShop(shopForm)" #shopAddForm = "ngForm" novalidate>
@@ -80,7 +82,9 @@
 <ng-template #addAgent let-modal>
   <div class="modal-header" style="background-color: #325c32; color: white;">
     <h4 class="modal-title" >Add Agent</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    <a type="button" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <i class="bi bi-x" style="font-size: xx-large;"></i>
+    </a>
   </div>
   <div class="modal-body">
     <form [formGroup]="agentForm" (ngSubmit)="onSubmit(agentForm)" #addAgentForm="ngForm" novalidate>

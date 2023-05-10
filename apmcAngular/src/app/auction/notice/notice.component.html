@@ -9,7 +9,9 @@
 <ng-template #content let-modal>
   <div class="modal-header" style="background-color: #325c32; color: white;">
     <h4 class="modal-title" id="modal-basic-title">Add New Notice</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    <a type="button" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <i class="bi bi-x" style="font-size: xx-large;"></i>
+    </a>
   </div>
   <div class="form-container modal-body">
     <form [formGroup]="noticeForm" #nf="ngForm" (ngSubmit)="onSubmit(noticeForm)" novalidate>
@@ -32,15 +34,18 @@
       </div>
       <div class="form-group">
         <label >Starting date for notice: </label>
-
-        <input class="form-control" formControlName="startDate" placeholder="yyyy/mm/dd" name="d2" ngbDatepicker #d2="ngbDatepicker" />
-        <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d2.toggle()" type="button"></button>
+        <div class="d-flex justify-content-around">
+          <input class="form-control" formControlName="startDate" name="d2" ngbDatepicker #d2="ngbDatepicker" placeholder="dd/MM/yyyy"/>
+          <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d2.toggle()" type="button"></button>
+        </div>
 
       </div>
       <div class="form-group">
         <label >Expiration date for notice:</label>
-        <input class="form-control" formControlName="endDate" placeholder="yyyy/mm/dd" name="d3" ngbDatepicker #d3="ngbDatepicker" />
-        <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d3.toggle()" type="button"></button>
+        <div class="d-flex justify-content-around">
+          <input class="form-control" formControlName="endDate" placeholder="dd/MM/yyyy" name="d3" ngbDatepicker #d3="ngbDatepicker" />
+          <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d3.toggle()" type="button"></button>
+        </div>
       </div>
 
 

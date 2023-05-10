@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { NoticeService } from '../../services/notice.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbDate, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDate, NgbDateParserFormatter, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { StorageService } from '../../utils/storage.service';
 import { Notice } from '../../models/notice.model';
 import { ToastrService } from 'ngx-toastr';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { LoaderService } from 'src/app/services/loader.service';
+import { CustomDateParserFormatter } from 'src/app/base/dailyRates/CustomDateParserFormatter';
 
 
 
 @Component({
   selector: 'app-notice',
   templateUrl: './notice.component.html',
-  styleUrls: ['./notice.component.scss']
+  styleUrls: ['./notice.component.scss'],
+  providers: [{ provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter }]
 })
 export class NoticeComponent implements OnInit {
   noticeForm!: FormGroup;
@@ -77,7 +79,7 @@ export class NoticeComponent implements OnInit {
       this.noticeService.getNotice(this.pageNumber, this.pageSize)
         .subscribe(
           (notifications: any) => {
-            if (notifications.length > 0) {
+            if (notifications.length >= this.notifications.length) {
               this.notifications.push(...notifications);
             } else {
               // no more data, stop loading
