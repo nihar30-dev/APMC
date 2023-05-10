@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ModalService} from '../../services/modal.service';
-import { FormBuilder, FormControl, FormGroup, MaxValidator, Validators } from '@angular/forms';
-import { NgbCalendar, NgbDate, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct, NgbInputDatepicker, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgbCalendar, NgbDate, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ItemService } from 'src/app/services/item.service';
 import { DateFormatter } from 'src/app/utils/dateFormatter';
 import { CustomDateParserFormatter } from 'src/app/base/dailyRates/CustomDateParserFormatter';
@@ -11,7 +10,6 @@ import { ToastrService } from 'ngx-toastr';
 import { Slot } from 'src/app/models/slot.model';
 import { SlotService } from 'src/app/services/slot.service';
 import { Agent } from 'src/app/models/agent.model';
-import { AgentService } from 'src/app/services/agent.service';
 import { ShopService } from 'src/app/services/shop.service';
 import { SlotDetails } from 'src/app/models/slot-details.model';
 import { User } from 'src/app/models/user.model';
@@ -61,8 +59,7 @@ export class SlotComponent implements OnInit{
     private toaster:ToastrService,
     private shopService: ShopService,
     private storageService : StorageService,
-    private slotDetailService:SlotDetailsService
-  ) {
+    private slotDetailService:SlotDetailsService) {
     this.minDate = this.calendar.getToday();
     this.maxDate = this.calendar.getNext(this.calendar.getToday(), 'm', 2);
   }
@@ -132,6 +129,7 @@ export class SlotComponent implements OnInit{
     if(myForm.valid){
       this.addSlot(myForm);
       this.slotModal.dismissAll();
+      this.getAllSlots();
     }
   }
 
@@ -261,9 +259,9 @@ export class SlotComponent implements OnInit{
     editSlot.value['date']=formattedDay;
     console.log(editSlot);
 
-    if(editSlot.value['quantity']<0){
+    // if(editSlot.value['quantity']<0){
       
-    }
+    // }
     
     if(editSlot.valid){
       const items : Item = {itemId : editSlot.value['item'], itemName: '', itemType: new ItemType(0, ''), dailyRates : []};

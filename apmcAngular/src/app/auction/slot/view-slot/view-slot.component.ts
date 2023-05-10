@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { UserAgent } from 'src/app/models/dto/agent-user.model';
-import { Slot } from 'src/app/models/slot.model';
 import { ItemService } from 'src/app/services/item.service';
 import { SlotDetailsService } from 'src/app/services/slot-details.service';
 import { SlotService } from 'src/app/services/slot.service';

@@ -1,4 +1,3 @@
-import {HttpClient} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {
@@ -99,7 +98,7 @@ export class AdminRatesComponent implements OnInit{
       this.itemService.createItem(item).subscribe((data)=>{
         this.tosterService.success('Item added successfully');
       }, (error)=> {
-        this.tosterService.error("Could not save agent");
+        this.tosterService.error('Could not save agent');
       });
       itemForm.reset();
       this.modal.dismissAll();
@@ -121,7 +120,6 @@ export class AdminRatesComponent implements OnInit{
     return new Promise((res, rej) => {
       this.itemService.getItemTypes().subscribe((data) => {
         this.itemTypes = data;
-        console.log("------------------------");
         
         console.log(this.itemsList);
         res(this.itemTypes);
