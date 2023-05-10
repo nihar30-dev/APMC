@@ -37,7 +37,7 @@
             <select class="form-select form-control" id="itemType" formControlName="itemTypeId">
               <option selected disabled>Select ItemType</option>
               <option [value]="itemtype['itemTypeId']" *ngFor="let itemtype of ItemTypes">
-                {{ itemtype['itemTypeName'] }}
+                {{ itemtype['itemTypeName'] | titlecase}}
               </option>
             </select>
           </div>
@@ -63,9 +63,9 @@
 <button class="btn btn-lg btn-outline-primary itemBtn" style="background-color: #1a381adc; color: white;" (click)="openModal(content)">Add Item</button>
 
 <div class="container">
-  <ul ngbNav #nav="ngbNav" class="nav-tabs cardNav"  [(activeId)]="active" (navChange)="onNavChange($event)" [destroyOnHide]="true">
+  <ul ngbNav #nav="ngbNav" class="nav-tabs cardNav "  [(activeId)]="active" (navChange)="onNavChange($event)" [destroyOnHide]="true">
     <li [ngbNavItem]="i" *ngFor="let itemType of itemTypes; let i= index ">
-      <a ngbNavLink (click)="showContainer(i)">{{itemType['itemTypeName']}}</a>
+      <a class="navText" ngbNavLink (click)="showContainer(i)">{{itemType['itemTypeName']}}</a>
     </li>
   </ul>
   <div class="card-body card">

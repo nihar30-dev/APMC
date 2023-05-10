@@ -3,7 +3,7 @@ import { User } from './user.model';
 
 export class Agent {
   
-  private agentId: number
+  private agentId: number;
   private shop: Shop;
   private user: User; 
   private agentName: string;
@@ -18,8 +18,13 @@ export class Agent {
     this.companyName = companyName;
     this.contact = contact;
     this.shop = shop;
+
+
   }
-    
+
+  get _agentId(){
+    return this.agentId;
+  }
 }
 
 

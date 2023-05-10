@@ -5,7 +5,7 @@
                 required >
             <option value="" disabled selected>Select item type</option>
             <option [value]="itemtype['itemTypeId']" *ngFor="let itemtype of itemTypes">
-                {{ itemtype['itemTypeName'] }}
+                {{ itemtype['itemTypeName'] | titlecase }}
             </option>
         </select>
         <div *ngIf="myForm.controls['itemType'].invalid && myForm.controls['itemType'].touched"
@@ -15,7 +15,7 @@
         <select id="item" formControlName="item" class="form-control" required>
             <option value="" disabled selected>Select item :</option>
             <option [value]="item['itemId']" *ngFor="let item of itemsList">
-                {{ item['itemName'] }}
+                {{ item['itemName'] | titlecase }}
             </option>
         </select>
         <div *ngIf="myForm.controls['item'].invalid && myForm.controls['item'].touched" class="alert alert-danger">

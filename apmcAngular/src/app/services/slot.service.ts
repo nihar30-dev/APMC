@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Slot } from '../models/slot.model';
+import {response} from "../models/dto/response.model";
 
 
 @Injectable({providedIn:'root'})
@@ -11,7 +12,7 @@ export class SlotService{
   }
 
   addSlot(itemRate: Slot){
-    return this.http.post<Slot>('http://localhost:8099/slots', itemRate);
+    return this.http.post<response>('http://localhost:8099/slots', itemRate);
   }
 
   getAllSlots(){

@@ -28,6 +28,10 @@ export class ShopService {
   getAllShops() {
     return this.http.get<Agent[]>(environment.ApiURL+'agent');
   }
+
+  deleteAgent(i:number){
+    return this.http.delete(environment.ApiURL+'agent/'+i);
+  }
     
   // checkShopExists(shopNumber : string){        
   //     return of(this.shops.some(shop => shop.getShopNo() === shopNumber));

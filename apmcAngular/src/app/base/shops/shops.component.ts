@@ -12,7 +12,7 @@ import { AuthService } from 'src/app/authentication/service/auth.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { Owner } from 'src/app/models/owner.model';
-import {LoaderService} from "../../services/loader.service";
+import {LoaderService} from '../../services/loader.service';
 
 @Component({
   selector: 'app-shops',
@@ -140,6 +140,8 @@ export class ShopsComponent implements OnInit {
         .then(()=>{
           this.agentModal.dismissAll();
           this.agentForm.reset();
+          this.getAllAgent();
+          this.tosterService.success('Agent added successfully!');
         })
         .catch((error)=>{
           this.tosterService.error(error.error['message']);
@@ -163,13 +165,28 @@ export class ShopsComponent implements OnInit {
       );
 
       this.agentService.createAgent(agent).subscribe((data: any) => {
-        res(data);
-        this.tosterService.success('Agent added successfully!');
-
+        console.log(data);
+        return res(data);
       }, (error: any) => {
-        this.tosterService.error(error.error['message']);
         rej(error);
       });
+    });
+  }
+
+
+  //delete Agent
+
+  deleteAgent(agentId: number){
+    console.log(agentId);
+    this.shopService.deleteAgent(agentId).subscribe(data => {
+      console.log(data);
+      if(data){
+        this.getAllAgent();
+        this.toaster.success('Agent deleted Successfully');
+      }
+      else {
+        this.toaster.error('Agent can\'t be deleted');
+      }
     });
   }
 }

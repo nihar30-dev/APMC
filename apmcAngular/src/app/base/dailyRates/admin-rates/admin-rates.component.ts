@@ -97,6 +97,7 @@ export class AdminRatesComponent implements OnInit{
       
       const item : Item = {itemId:0, itemName: itemForm.value['itemName'],itemType: new ItemType(itemForm.value['itemTypeId'], ''), dailyRates : []};  
       this.itemService.createItem(item).subscribe((data)=>{
+        console.log(item);
         this.tosterService.success('Item added successfully');
       }, (error)=> {
         this.tosterService.error("Could not save agent");

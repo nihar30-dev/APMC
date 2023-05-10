@@ -21,15 +21,17 @@
     <th scope="col" *ngIf="role==='ADMIN'">UserName</th>
     <th scope="col">Shop Number</th>
     <th scope="col">Contact No.</th>
+    <th scope="col">Delete</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let agent of agents; let i = index">
-    <td>{{ agent['agentName'] }}</td>
     <td>{{ agent['companyName'] }}</td>
+    <td>{{ agent['agentName'] }}</td>
     <td *ngIf="role==='ADMIN'">{{ agent['user']['username'] }}</td>
     <td>{{ agent['shop']['shopNo'] }}</td>
     <td>{{ agent['contact'] }}</td>
+    <td (click)="deleteAgent(agent['agentId'])" *ngIf="role==='ADMIN'"><bi name="trash-fill" class="" style="color: red; width: 1.5rem; cursor:pointer"></bi></td>
   </tr>
   </tbody>
 </table>
