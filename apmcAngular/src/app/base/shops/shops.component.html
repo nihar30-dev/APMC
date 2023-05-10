@@ -21,7 +21,7 @@
     <th scope="col" *ngIf="role==='ADMIN'">UserName</th>
     <th scope="col">Shop Number</th>
     <th scope="col">Contact No.</th>
-    <th scope="col">Delete</th>
+    <th scope="col" *ngIf="role==='ADMIN'">Delete</th>
   </tr>
   </thead>
   <tbody>

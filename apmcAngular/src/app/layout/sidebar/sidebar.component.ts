@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { StorageService } from 'src/app/utils/storage.service';
+import Swal from "sweetalert2";
 
 
 @Component({
@@ -72,7 +73,15 @@ export class SidebarComponent implements OnInit{
       if(this.role==='ADMIN'){
         this.router.navigate(['slot']);
       }else{
-        alert('Please complete your profile to proceed.');
+        Swal.fire({
+          icon: 'info',
+          title: 'Profile Error',
+          text: 'complete profile first!',
+          confirmButtonColor:'#314731',
+          confirmButtonText:'Go to Profile'
+        }).then(() => {
+          this.router.navigate(['profile']);
+        });
       }
     }
   }

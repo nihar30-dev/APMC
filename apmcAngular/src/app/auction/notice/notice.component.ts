@@ -28,7 +28,7 @@ export class NoticeComponent implements OnInit {
   maxDate!: NgbDate;
   model2: any;
   pageNumber = 0;
-  pageSize = 10;
+  pageSize = 12;
   isLoading = false;
 
   constructor(
@@ -87,8 +87,7 @@ export class NoticeComponent implements OnInit {
             }
             this.loaderService.hide();
           },
-          (error: any) => {
-            console.error(error);
+          () => {
             this.isLoading = false;
             this.loaderService.hide();
           },
@@ -115,7 +114,6 @@ export class NoticeComponent implements OnInit {
     this.noticeService.addNotice(notice).subscribe(
       (data) => {
         this.toster.success('Notice added');
-        console.log(data);
       },
       (error) => {
         this.toster.error(error.error['message']);
@@ -129,10 +127,7 @@ export class NoticeComponent implements OnInit {
   length = 0;
   panels: number[] = [];
 
-  openAll() {
-    this.activeIds = this.panels.map((p) => 'panel-' + p);
-    console.log(this.activeIds);
-  }
+
 }
 
 

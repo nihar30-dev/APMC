@@ -22,7 +22,7 @@
                   <input type="password" class="form-control" id="password" formControlName="password">
                   <div *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid" class="error">
                       <div *ngIf="signupForm.get('password')?.errors?.['required']">Password is required</div>
-                      <div *ngIf="signupForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters long</div>
+                      <div *ngIf="signupForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters long</div>
                   </div>
               </div>
 

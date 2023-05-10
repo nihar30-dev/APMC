@@ -24,8 +24,8 @@ public class NoticeController {
     }
 
     @GetMapping("/notExpired")
-    public ResponseEntity<?> getNoticeBeforeEndDate() throws ResponseException{
-        return ResponseEntity.ok(noticeService.getBeforeDate());
+    public ResponseEntity<?> getNoticeBeforeEndDate(@RequestParam(value = "pageNumber",defaultValue = "5", required = false) int pageNumber, @RequestParam(value = "pageSize", defaultValue = "0", required = false) int pageSize) throws ResponseException{
+        return ResponseEntity.ok(noticeService.getBeforeDate(pageNumber, pageSize));
     }
     //    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping("")
@@ -40,4 +40,3 @@ public class NoticeController {
     }
 
 }
-

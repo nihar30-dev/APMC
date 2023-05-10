@@ -107,4 +107,3 @@ public class Notice {
         this.slot = slot;
     }
 }
-

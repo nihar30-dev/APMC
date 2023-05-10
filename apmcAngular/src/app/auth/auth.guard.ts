@@ -25,7 +25,9 @@ export class AuthGuard implements CanActivate {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'You don\'t have access to this page!'
+        text: 'You don\'t have access to this page!',
+        confirmButtonColor:'#314731',
+        confirmButtonText:'Back to Home'
       }).then(() => {
         this.router.navigate(['home']);
       });
