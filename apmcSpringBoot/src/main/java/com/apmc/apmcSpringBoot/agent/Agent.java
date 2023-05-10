@@ -27,7 +27,7 @@ public class Agent {
     @Column(name="agent_name")
     private String agentName;
 
-    @OneToMany(mappedBy = "agent")
+    @OneToMany(mappedBy = "agent" , cascade = CascadeType.REMOVE)
     @JsonIgnore
     private List<SlotDetail> slotDetail;
 

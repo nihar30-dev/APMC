@@ -11,7 +11,6 @@ import { ToastrService } from 'ngx-toastr';
 import { Slot } from 'src/app/models/slot.model';
 import { SlotService } from 'src/app/services/slot.service';
 import { Agent } from 'src/app/models/agent.model';
-import { AgentService } from 'src/app/services/agent.service';
 import { ShopService } from 'src/app/services/shop.service';
 import { SlotDetails } from 'src/app/models/slot-details.model';
 import { User } from 'src/app/models/user.model';
@@ -179,6 +178,10 @@ export class SlotComponent implements OnInit{
     });
   }
 
+  //delete Agent
+
+
+
   openslotBook(content: any, i : number){
     this.initSlotBookForm(i);
     return this.bookModal.open(content, { centered: true });
@@ -208,7 +211,16 @@ export class SlotComponent implements OnInit{
 
 
     this.slotDetailService.bookSlot(slotDetail).subscribe((data)=>{
-      this.toaster.success('Slot Booked Successfully');
+      if(data.success == true)
+      {
+        console.log(data);
+        this.getAllSlots();
+        this.toaster.success('Slot Booked Successfully');
+      }
+      else
+      {
+        this.toaster.error(data.message);
+      }
     }, (error)=>{
       this.toaster.error('Something went wrong');
     });
@@ -238,6 +250,7 @@ export class SlotComponent implements OnInit{
     });
 
     const slot = this.allSlots[i];
+    console.log(slot);
 
     this.editSlot = new FormGroup({
       slotId : new FormControl(slot['slotId']),
@@ -259,14 +272,15 @@ export class SlotComponent implements OnInit{
     const formattedDay = year+'-'+month.padStart(2,'0')+'-'+day.padStart(2,'0');
     
     editSlot.value['date']=formattedDay;
-    console.log(editSlot);
+    console.log(editSlot,'====================');
 
     if(editSlot.value['quantity']<0){
       
     }
     
     if(editSlot.valid){
-      const items : Item = {itemId : editSlot.value['item'], itemName: '', itemType: new ItemType(0, ''), dailyRates : []};
+      const items : Item = {itemId : this.editSlot.value['item'], itemName: '', itemType: new ItemType(0, ''), dailyRates : []};
+      console.log(items);
       const slot : Slot = {
         slotId: editSlot.value['slotId'],
         item: items,
@@ -274,10 +288,15 @@ export class SlotComponent implements OnInit{
         bookedQuantity: 0,
         slotDate : editSlot.value['date']
       };
+      console.log(editSlot.value['item']);
   
       this.slotService.addSlot(slot).subscribe((data: any) => {
-        this.toaster.success('Slot updated successfully!');
-  
+        if(data.success === true ){
+          this.toaster.success('Slot updated successfully!');
+        }
+        else{
+          this.toaster.error(data.message);
+        }
       }, (error: any) => {
         this.toaster.error(error.error['message']);
       });
@@ -293,10 +312,11 @@ export class SlotComponent implements OnInit{
     
     if(slot['bookedQuantity']==0){
       this.slotService.deleteSlot(slot['slotId']).subscribe((data)=>{
+        this.getAllSlots();
+        console.log(data);
         this.toaster.success('Slot deleted successfully');
       },(error)=>{
         this.toaster.error('Something went wrong');
-        console.log(error);
       });
     }
     else{

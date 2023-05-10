@@ -57,8 +57,8 @@ public class AgentController {
     }
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @DeleteMapping("/{agentId}")
-    public String deleteAgent(@PathVariable("agentId") int agentId){
-        return agentService.deleteAgentById(agentId);
+    public ResponseEntity<?> deleteAgent(@PathVariable("agentId") int agentId){
+        return ResponseEntity.ok(agentService.deleteAgentById(agentId));
     }
 
 

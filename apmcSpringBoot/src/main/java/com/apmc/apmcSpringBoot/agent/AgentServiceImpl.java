@@ -12,6 +12,7 @@ import com.apmc.apmcSpringBoot.shop.Shop;
 import com.apmc.apmcSpringBoot.user.User;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -88,7 +89,7 @@ public class AgentServiceImpl implements AgentService {
 
     @Override
     @Transactional
-    public String deleteAgentById(int agentId) {
+    public ResponseEntity<?> deleteAgentById(int agentId) {
         Agent a = agentRepository.findById(agentId).get();
         Shop s = shopRepository.findById(a.getShop().getShopId()).get();
 
@@ -98,7 +99,7 @@ public class AgentServiceImpl implements AgentService {
         shopRepository.save(s);
 
         agentRepository.delete(agentRepository.findById(agentId).get());
-        return "deleted";
+        return ResponseEntity.ok(agentId);
     }
 
     @Override

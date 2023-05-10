@@ -11,6 +11,7 @@ import {AuthGuard} from '../auth/auth.guard';
 import {DataTablesModule} from 'angular-datatables';
 import {PdfGeneratorComponent} from './shops/pdf-generator/pdf-generator.component';
 import {SharedModule} from '../shared/shared.module';
+import {BootstrapIconsModule} from "ng-bootstrap-icons";
 
 
 const routes : Routes = [
@@ -28,14 +29,15 @@ const routes : Routes = [
     FilterPipe,
     PdfGeneratorComponent
   ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    FormsModule,
-    NgbModule,
-    DataTablesModule,
-    SharedModule,
-    RouterModule.forRoot(routes),
-  ]
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        FormsModule,
+        NgbModule,
+        DataTablesModule,
+        SharedModule,
+        RouterModule.forRoot(routes),
+        BootstrapIconsModule,
+    ]
 })
 export class BaseModule { }

@@ -1,8 +1,7 @@
-
-import { outputAst } from '@angular/compiler';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { StorageService } from 'src/app/utils/storage.service';
+
 
 @Component({
   selector: 'app-sidebar',
@@ -13,7 +12,7 @@ export class SidebarComponent implements OnInit{
 
   role = 'default';
   activePage  = '';
-  @Input() isExpanded: boolean = false;
+  @Input() isExpanded = false;
   @Output() toggleSidebar: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   handleSidebarToggle = () => this.toggleSidebar.emit(!this.isExpanded);
@@ -51,7 +50,7 @@ export class SidebarComponent implements OnInit{
 
   onClickDailyRates(){
     this.activePage = 'dailyRates';
-      this.router.navigate(['userRates']);
+    this.router.navigate(['userRates']);
   }
 
   onClickViewSlot(){
@@ -73,7 +72,7 @@ export class SidebarComponent implements OnInit{
       if(this.role==='ADMIN'){
         this.router.navigate(['slot']);
       }else{
-        alert("Please complete your profile to proceed.");
+        alert('Please complete your profile to proceed.');
       }
     }
   }

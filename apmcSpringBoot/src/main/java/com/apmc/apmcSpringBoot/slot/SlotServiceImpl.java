@@ -42,8 +42,6 @@ public class SlotServiceImpl implements SlotService {
     public Response addItemSlot(Slots slot) throws ParseException, ValidatorException {
 
         Date date = slot.getSlotDate();
-//        slot.setSlotDate(date);
-//        Slots slot = slotsRepository.save(slots);
         SlotsValidator slotsValidator = new SlotsValidatorImpl();
         ValidatorResponse validatorResponse = slotsValidator.checkSlot(slot);
         System.out.println(date);

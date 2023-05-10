@@ -8,10 +8,11 @@
   <div class="content">
     <div class="link" ngbTooltip="Go to home page" placement="bottom">
       <a (click)="onClickHome()" class="nav-link">
-        <div class="content" [class.active]="activePage === 'home'">
+        <div class="content" [class.active]="activePage === 'home' || activePage === 'dashboard'">
           <div class="icon"><i class="fs-5 bi-house"></i></div>
           <div class="title">
-            <span>Home</span>
+            <span *ngIf="role!=='ADMIN'">Home</span>
+            <span *ngIf="role==='ADMIN'">Dashboard</span>
           </div>
         </div>
       </a>
