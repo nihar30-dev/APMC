@@ -25,7 +25,7 @@ public class SlotsValidatorImpl implements SlotsValidator {
     }
 
     @Override
-    public ValidatorResponse checkSlot(Slots slot) {
+    public ValidatorResponse checkSlot(Slots slot, boolean f) {
         String msg = "";
         ValidatorResponse vr = checkQuantity(slot);
         if (!vr.isStatus()){
@@ -33,7 +33,7 @@ public class SlotsValidatorImpl implements SlotsValidator {
         }
 
         LocalDate NewlocalDate = LocalDate.parse( new SimpleDateFormat("yyyy-MM-dd").format(slot.getSlotDate()));
-        vr = checkDate(NewlocalDate);
+        vr = checkDate(NewlocalDate, f);
         if (!vr.isStatus()){
             msg += ", "+ vr.getMessage();
         }
@@ -51,9 +51,11 @@ public class SlotsValidatorImpl implements SlotsValidator {
     }
 
     @Override
-    public ValidatorResponse checkDate(LocalDate date) {
+    public ValidatorResponse checkDate(LocalDate date, boolean f) {
         LocalDate currentDate = LocalDate.now();
-        int a = date.compareTo(currentDate);
+        int a=0;
+        if(f)
+            a = date.compareTo(currentDate);
         try{
             if (a<0) {
                 return new ValidatorResponse(false, "Valid Date");

@@ -8,6 +8,6 @@ import java.time.LocalDate;
 
 public interface SlotsValidator {
     public ValidatorResponse checkItem(Item item);
-    public ValidatorResponse checkSlot(Slots slot);
-    public ValidatorResponse checkDate(LocalDate date);
+    public ValidatorResponse checkSlot(Slots slot, boolean f);
+    public ValidatorResponse checkDate(LocalDate date, boolean f);
 }

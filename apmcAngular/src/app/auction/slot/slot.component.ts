@@ -44,7 +44,8 @@ export class SlotComponent implements OnInit{
   date: NgbDateStruct = new NgbDate(new Date().getFullYear(), new Date().getMonth()+1, new Date().getDate());
   activateSearch!: boolean;
   dtOptions: DataTables.Settings = {};
-
+  itemId!: number;
+  slotDate!: any;
   constructor(
     
     private ngbCalendar: NgbCalendar, 
@@ -160,7 +161,7 @@ export class SlotComponent implements OnInit{
 
   getAllSlots(){
     this.slotService.getAllSlots().subscribe((data) => {
-      this.allSlots = data;
+      this.allSlots = data;      
     }, (error: any) => {
       this.toaster.error(error.error['message']);
     });
@@ -224,7 +225,7 @@ export class SlotComponent implements OnInit{
     }, (error)=>{
       this.toaster.error('Something went wrong');
     });
-    this.getAllSlots();
+    
     this.bookModal.dismissAll();
 
   }
@@ -241,62 +242,44 @@ export class SlotComponent implements OnInit{
 
 
   initEditSlot(i:number){
-    
-    this.editSlot = this.fb.group({
-      quantity: ['', Validators.required],
-      itemType: ['', Validators.required],
-      item: ['', Validators.required],
-      date: ['', Validators.required]
-    });
 
     const slot = this.allSlots[i];
-    console.log(slot);
+    this.itemId = slot['item']['itemId'];    
+    this.slotDate = slot['slotDate'];
 
     this.editSlot = new FormGroup({
       slotId : new FormControl(slot['slotId']),
       itemType: new FormControl({value:slot['item']['itemType']['itemTypeName'], disabled:true}, Validators.required),
       item: new FormControl({value:slot['item']['itemName'], disabled:true}, Validators.required),
       quantity: new FormControl(null, [Validators.required, Validators.min(slot['bookedQuantity'])]),
-      date: new FormControl('', Validators.required)
+      date: new FormControl({value:slot['slotDate'], disabled:true}, Validators.required)
     });
 
   }
 
   submitEditSlot(editSlot : FormGroup){
 
-    console.log(editSlot);
-    const date = editSlot.value['date'];
-    const month = date.month+'';
-    const day = date.day+'';
-    const year = date.year+'';
-    const formattedDay = year+'-'+month.padStart(2,'0')+'-'+day.padStart(2,'0');
-    
-    editSlot.value['date']=formattedDay;
-    console.log(editSlot,'====================');
 
-    if(editSlot.value['quantity']<0){
-      
-    }
-    
     if(editSlot.valid){
-      const items : Item = {itemId : this.editSlot.value['item'], itemName: '', itemType: new ItemType(0, ''), dailyRates : []};
-      console.log(items);
+      const items : Item = {itemId : this.itemId, itemName: '', itemType: new ItemType(0, ''), dailyRates : []};
       const slot : Slot = {
         slotId: editSlot.value['slotId'],
         item: items,
         totalQuantity: editSlot.value['quantity'],
         bookedQuantity: 0,
-        slotDate : editSlot.value['date']
+        slotDate : this.slotDate
       };
-      console.log(editSlot.value['item']);
-  
+
+      console.log(editSlot);
+      
       this.slotService.addSlot(slot).subscribe((data: any) => {
-        if(data.success === true ){
+        if(data['success']==false){
+          this.toaster.error(data['message']);          
+        } else{
           this.toaster.success('Slot updated successfully!');
+          this.getAllSlots();
         }
-        else{
-          this.toaster.error(data.message);
-        }
+  
       }, (error: any) => {
         this.toaster.error(error.error['message']);
       });
@@ -315,6 +298,7 @@ export class SlotComponent implements OnInit{
         this.getAllSlots();
         console.log(data);
         this.toaster.success('Slot deleted successfully');
+        this.getAllSlots();
       },(error)=>{
         this.toaster.error('Something went wrong');
       });
@@ -323,6 +307,4 @@ export class SlotComponent implements OnInit{
       this.toaster.error('Could not delete Slot!');
     }
   }
-
-
 }
