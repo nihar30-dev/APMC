@@ -49,6 +49,7 @@ export class ViewSlotComponent implements OnInit{
   loadSlotDetailsforUser(){
     this.slotDetailsService.getSlotDetailByUserId(this.storageService.getUserId()).subscribe((data) => {
       this.allSlots = data;
+      console.log(data);
     });
   }
 

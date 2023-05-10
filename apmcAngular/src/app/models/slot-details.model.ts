@@ -1,7 +1,6 @@
-import { Agent } from "./agent.model";
-import {Item} from "./item.model";
-import { Slot } from "./slot.model";
-import { User } from "./user.model";
+import { Agent } from './agent.model';
+import { Slot } from './slot.model';
+import { User } from './user.model';
 
 export interface SlotDetails{
 

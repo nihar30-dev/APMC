@@ -8,7 +8,6 @@ import com.apmc.apmcSpringBoot.slot.SlotsRepository;
 import com.apmc.apmcSpringBoot.slotDetail.validation.SlotDetailValidator;
 import com.apmc.apmcSpringBoot.slotDetail.validation.SlotDetailValidatorImpl;
 import com.apmc.apmcSpringBoot.slot.Slots;
-import com.zaxxer.hikari.pool.HikariProxyCallableStatement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -93,16 +92,14 @@ public class SlotDetailServiceImpl implements SlotDetailService {
         String date = LocalDate.now().toString();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         java.sql.Date sqlDate = new Date(System.currentTimeMillis());
-        System.out.println(sqlDate);
         return slotDetailRepository.getSlotDetailByAgentId(agentId ,  sqlDate);
     }
 
     @Override
     public List<SlotDetail> getSlotDetailByUserId(int userId) throws ParseException {
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date day = new Date(System.currentTimeMillis());
-        System.out.println(day);
         return slotDetailRepository.getSlotDetailByUserId(userId,day);
+
     }
 }

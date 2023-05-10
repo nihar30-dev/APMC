@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-// import { Shop } from "../models/agent.model";
 import { HttpClient } from '@angular/common/http';
 import { Agent } from '../models/agent.model';
 import { Shop } from '../models/shop.model';
@@ -30,6 +29,7 @@ export class ShopService {
   }
 
   deleteAgent(i:number){
+    console.log(i);
     return this.http.delete(environment.ApiURL+'agent/'+i);
   }
     

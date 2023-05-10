@@ -30,7 +30,8 @@ public class ItemValidatorImpl implements ItemValidator {
     public ValidatorResponse checkItemName(String itemName) {
         if (itemName.length() > 0) {
             return new ValidatorResponse(true, "Ok");
-        } else {
+        }
+      else {
             return new ValidatorResponse(false, "Item Name");
         }
     }

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { UserDetail } from 'src/app/models/user-detail.model';
 import { UserDetailService } from 'src/app/services/user-detail.service';
@@ -13,17 +12,16 @@ import { StorageService } from 'src/app/utils/storage.service';
 })
 export class ProfileComponent implements OnInit {
 
-  role: string ='';
+  role ='';
   userDetailForm!: FormGroup;
-  districts: String[] = ['xyz'];
-  talukas: String[] = ['xyz'];
+  districts: string[] = ['xyz'];
+  talukas: string[] = ['xyz'];
   private userDetails!: UserDetail;
 
   constructor(private fb: FormBuilder, 
               private userDetailService: UserDetailService, 
               private storageService: StorageService,
-              private toasterService: ToastrService,
-              private modal: NgbModal){}
+              private toasterService: ToastrService){}
 
   ngOnInit(){
     this.role = this.storageService.getRole();
@@ -38,9 +36,6 @@ export class ProfileComponent implements OnInit {
     this.userDetailService.getDetailByUserId(this.storageService.getUser().id).subscribe(
       data => {
         this.userDetails = data;
-        console.log(typeof this.userDetails); // should print "object"
-        console.log(this.userDetails); // should print the object properties and values
-        console.log(typeof this.userDetails.fullName); // should print "function"
         this.userDetailForm.patchValue({
           fullName: this.userDetails.fullName,
           district: this.userDetails.district,

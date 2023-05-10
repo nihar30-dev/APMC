@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { StorageService } from 'src/app/utils/storage.service';
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -37,7 +37,7 @@ export class SidebarComponent implements OnInit{
     this.activePage = 'home';
     if(this.role!=='ADMIN') {
       this.router.navigate(['home']);
-      console.log('inside home');
+
     }
     else {
       this.router.navigate(['dashboard']);

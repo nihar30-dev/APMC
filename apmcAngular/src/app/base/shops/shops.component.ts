@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { Owner } from 'src/app/models/owner.model';
 import {LoaderService} from '../../services/loader.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-shops',
@@ -177,16 +178,28 @@ export class ShopsComponent implements OnInit {
   //delete Agent
 
   deleteAgent(agentId: number){
-    console.log(agentId);
-    this.shopService.deleteAgent(agentId).subscribe(data => {
-      console.log(data);
-      if(data){
-        this.getAllAgent();
-        this.toaster.success('Agent deleted Successfully');
-      }
-      else {
-        this.toaster.error('Agent can\'t be deleted');
+
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#314731',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.shopService.deleteAgent(agentId).subscribe(data => {
+          if(data){
+            this.getAllAgent();
+            this.toaster.success('Agent deleted Successfully');
+          }
+          else {
+            this.toaster.error('Agent can\'t be deleted');
+          }
+        });
       }
     });
+
   }
 }

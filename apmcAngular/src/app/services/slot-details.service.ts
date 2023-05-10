@@ -1,10 +1,10 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Slot } from "../models/slot.model";
-import { SlotDetails } from "../models/slot-details.model";
-import { environment } from "environment";
-import { Observable } from "rxjs";
-import {response} from "../models/dto/response.model";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+
+import { SlotDetails } from '../models/slot-details.model';
+import { environment } from 'environment';
+import { Observable } from 'rxjs';
+import {response} from '../models/dto/response.model';
 
 
 @Injectable({providedIn:'root'})

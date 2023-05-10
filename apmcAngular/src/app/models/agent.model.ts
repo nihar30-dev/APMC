@@ -22,9 +22,6 @@ export class Agent {
 
   }
 
-  get _agentId(){
-    return this.agentId;
-  }
 }
 
 

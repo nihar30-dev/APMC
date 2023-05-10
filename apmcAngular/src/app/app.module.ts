@@ -60,9 +60,7 @@ import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx
               '238985952076-ip1l9j07bci4474ajuklhed9nvp3rskc.apps.googleusercontent.com'
             )
           }
-        ],
-        onError: (err) => {
-        }
+        ]
       } as SocialAuthServiceConfig,
     },
     {

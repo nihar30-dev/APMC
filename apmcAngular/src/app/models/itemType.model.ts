@@ -1,17 +1,4 @@
-// export class ItemType{
 
-//     constructor(private itemTypeName:string){
-//     }
-
-    
-//     getItemTypeName() {
-//         return this.itemTypeName;
-//     }
-
-//     setItemTypeName(itemTypeName: string){
-//         this.itemTypeName = itemTypeName;
-//     }
-// }
 
 export class ItemType{
 

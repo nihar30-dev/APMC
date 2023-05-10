@@ -1,4 +1,4 @@
-import {HttpClient} from '@angular/common/http';
+
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {
@@ -97,11 +97,19 @@ export class AdminRatesComponent implements OnInit{
       
       const item : Item = {itemId:0, itemName: itemForm.value['itemName'],itemType: new ItemType(itemForm.value['itemTypeId'], ''), dailyRates : []};  
       this.itemService.createItem(item).subscribe((data)=>{
-        console.log(item);
-        this.tosterService.success('Item added successfully');
-      }, (error)=> {
-        this.tosterService.error("Could not save agent");
+
+        if(data.status===200){
+          this.loadItem(item.itemType['itemTypeId']);
+          this.tosterService.success('Item added successfully');
+
+        }
+        else {
+          this.tosterService.error(data.message);
+        }
+      }, ()=> {
+        this.tosterService.error('Could not save agent');
       });
+      this.loadItem(item.itemType['itemTypeId']);
       itemForm.reset();
       this.modal.dismissAll();
     }
@@ -122,9 +130,7 @@ export class AdminRatesComponent implements OnInit{
     return new Promise((res, rej) => {
       this.itemService.getItemTypes().subscribe((data) => {
         this.itemTypes = data;
-        console.log("------------------------");
-        
-        console.log(this.itemsList);
+
         res(this.itemTypes);
       }, (error) => {
         rej(error);
@@ -239,7 +245,7 @@ export class AdminRatesComponent implements OnInit{
 
   onFormSubmit(i: number) {
 
-    // console.log(this.dailyRates);
+    
     
     const item:Item = {itemId :this.dailyRates.value['dailyRateArray'][i]['itemId'],itemName :this.dailyRates.value['dailyRateArray'][i]['itemName'],itemType: new ItemType(0, ''), dailyRates: []};
 
@@ -254,12 +260,12 @@ export class AdminRatesComponent implements OnInit{
     // const itemRates = new DailyRates(, item, minPrice, maxPrice, avgPrice, quantity, income, this.day);
     const itemRates:DailyRates = {rateId:0 , item:item , minPrice:minPrice ,avgPrice:avgPrice, maxPrice:maxPrice , quantity:quantity , income:income , day:this.day};
 
-    // console.log(this.dailyRates.value['dailyRateArray'][i]);
+    
 
-    this.dailyRateService.addDailyItemRate(itemRates, this.day).subscribe(data => {
+    this.dailyRateService.addDailyItemRate(itemRates, this.day).subscribe(() => {
       this.toster.success('Rate added successfully');
     }, error => {
-      this.toster.error('Something went wrong');
+      this.toster.error(error.error.message());
     });
     
     return;
@@ -269,7 +275,7 @@ export class AdminRatesComponent implements OnInit{
     this.modal.open(formName);
   }
 
-  showContainer(a: any) {
+  showContainer(a: number) {
     this.loadItem(a+1)
       .then(() => this.initForm())
       .catch(() => {

@@ -1,6 +1,6 @@
 
 export class UserDetail{
-    constructor(
+  constructor(
         public id: number|null,
         public user: 
                         {
@@ -13,22 +13,22 @@ export class UserDetail{
         public crops: string){}
 
 
-        // public getUserId(): number{
-        //     return this.user.id;
-        // }
-        // public getFullName(): String{
-        //     return this.fullName;
-        // }
-        // public getDistrict(): String{
-        //     return this.district;
-        // }
-        // public getTaluka(): String{
-        //     return this.taluka;
-        // }
-        // public getVillage(): String{
-        //     return this.village;
-        // }
-        // public getcrops(): String{
-        //     return this.crops;
-        // }
+  // public getUserId(): number{
+  //     return this.user.id;
+  // }
+  // public getFullName(): String{
+  //     return this.fullName;
+  // }
+  // public getDistrict(): String{
+  //     return this.district;
+  // }
+  // public getTaluka(): String{
+  //     return this.taluka;
+  // }
+  // public getVillage(): String{
+  //     return this.village;
+  // }
+  // public getcrops(): String{
+  //     return this.crops;
+  // }
 }

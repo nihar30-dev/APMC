@@ -2,6 +2,8 @@ package com.apmc.apmcSpringBoot.slot;
 
 import com.apmc.apmcSpringBoot.Exception.Response;
 import com.apmc.apmcSpringBoot.Exception.ResponseException;
+import com.apmc.apmcSpringBoot.notice.Notice;
+import com.apmc.apmcSpringBoot.notice.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,6 +21,9 @@ public class SlotsController {
 
     @Autowired
     private SlotService slotService;
+
+    @Autowired
+    private NoticeService noticeService;
 
     @GetMapping("")
     public ResponseEntity<?> getAllSlots() throws ResponseException
@@ -58,6 +63,13 @@ public class SlotsController {
     public Response addItemSlot( @RequestBody Slots slot )throws ParseException, ResponseException{
 //        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 //        Date date = dateFormat.parse(slot.getSlotDate().toString());
+//        Notice notice = new Notice();
+//        notice.setEndDate(slot.getSlotDate());
+//        notice.setSlot(slot);
+//        notice.setNoticeHeading("Slot Opened");
+//        notice.setNoticeContent("Slot is opened for " + slot.getItem() + ", total " + slot.getTotalQuantity() + " is opened on the date : " + slot.getSlotDate() + ", you can book your slot for this item by clicking this notice...");
+//        notice.setCreatedAt(new Date());
+//        noticeService.createNotice(notice);
         return slotService.addItemSlot(slot);
     }
 

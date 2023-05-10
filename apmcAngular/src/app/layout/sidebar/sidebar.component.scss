@@ -145,14 +145,14 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          margin-right: 0px;
+          margin-right: 0;
           max-height: 24px;
         }
         .title {
           flex: 1;
           color: #020202;
           transition: 0.3s;
-          max-width: 0px;
+          max-width: 0;
           max-height: 24px;
           overflow: hidden;
         }

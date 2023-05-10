@@ -18,6 +18,7 @@ import { StorageService } from 'src/app/utils/storage.service';
 import { Shop } from 'src/app/models/shop.model';
 import { Owner } from 'src/app/models/owner.model';
 import { SlotDetailsService } from 'src/app/services/slot-details.service';
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-admin-slot',
@@ -291,20 +292,33 @@ export class SlotComponent implements OnInit{
 
   deleteSlot(i: number){
     const slot = this.allSlots[i];
-    console.log(slot);
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#314731',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        if(slot['bookedQuantity']==0){
+          this.slotService.deleteSlot(slot['slotId']).subscribe((data)=>{
+            this.getAllSlots();
+
+            this.toaster.success('Slot deleted successfully');
+            this.getAllSlots();
+          },(error)=>{
+            this.toaster.error('Something went wrong');
+          });
+        }
+        else{
+          this.toaster.error('Could not delete Slot!');
+        }
+      }
+    });
     
-    if(slot['bookedQuantity']==0){
-      this.slotService.deleteSlot(slot['slotId']).subscribe((data)=>{
-        this.getAllSlots();
-        console.log(data);
-        this.toaster.success('Slot deleted successfully');
-        this.getAllSlots();
-      },(error)=>{
-        this.toaster.error('Something went wrong');
-      });
-    }
-    else{
-      this.toaster.error('Could not delete Slot!');
-    }
+
   }
 }

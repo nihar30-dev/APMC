@@ -43,12 +43,7 @@ export class StorageService {
   public isLoggedIn() : boolean{
     const user = window.sessionStorage.getItem(UserKey);
 
-    if(user){
-      return true;
-    }
-    else{
-      return false;
-    }
+    return !!user;
   }
 
   public getToken():string|null{

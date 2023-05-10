@@ -50,8 +50,6 @@ public class SlotDetailController {
     @GetMapping("/agent/{agentId}")
     public List<SlotDetail> getSlotDetailsByAgentId(@PathVariable int agentId) throws ParseException {
 
-
-
         return slotDetailService.getSlotDetailByAgentId(agentId);
     }
 

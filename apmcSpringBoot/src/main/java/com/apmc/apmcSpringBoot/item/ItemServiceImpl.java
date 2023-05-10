@@ -49,6 +49,9 @@ public class ItemServiceImpl implements ItemService {
             throw new ValidatorException(validatorResponse.getMessage());
         }
         try{
+            if(itemRepository.existsByItemName(item.getItemName())){
+                return new Response(400,"Item already exists",System.currentTimeMillis(),true);
+            }
             itemRepository.save(item);
             return new Response(200, "Ok", System.currentTimeMillis(), true);
         }catch (Exception e){

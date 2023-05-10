@@ -16,7 +16,7 @@ export class ItemService {
     
   createItem(item: Item) {
     // this.shops.push(shop);
-    return this.http.post<Item>(environment.ApiURL+'item', item);
+    return this.http.post<any>(environment.ApiURL+'item', item);
   }
 
   getItemTypes(){
@@ -25,7 +25,7 @@ export class ItemService {
 
 
   getAllItemsByDate(day : string) {
-    return this.http.get<DailyRates[]>('http://localhost:8099/dailyRates?day='+day);
+    return this.http.get<DailyRates[]>(environment.ApiURL+'dailyRates?day='+day);
   }
 
   getAllItemsByTypeId(typeId: number){
