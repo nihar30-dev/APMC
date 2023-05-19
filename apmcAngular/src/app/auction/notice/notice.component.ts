@@ -28,7 +28,7 @@ export class NoticeComponent implements OnInit {
   maxDate!: NgbDate;
   model2: any;
   pageNumber = 0;
-  pageSize = 12;
+  pageSize = 25;
   isLoading = false;
 
   constructor(

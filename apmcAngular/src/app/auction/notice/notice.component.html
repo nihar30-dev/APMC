@@ -1,7 +1,8 @@
-<button *ngIf="role==='ADMIN'" style="background-color: #325c32; color: white;" (click)="open(content)" class="btn btn-outline-primary btn-sm shopBtn">
+<div class="shopFlex">
+<button *ngIf="role==='ADMIN'" style="background-color: #325c32; color: white;" (click)="open(content)" class="btn btn-outline-primary btn-sm shopBtn ">
   <h6>Add Notice</h6>
 </button>
-
+</div>
 
 
 <app-loader-mask *ngIf="(loaderService.getLoaderVisibility() | async) && notifications===null"></app-loader-mask>

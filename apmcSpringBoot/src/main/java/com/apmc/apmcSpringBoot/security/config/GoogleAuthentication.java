@@ -31,7 +31,6 @@ public class GoogleAuthentication {
 
 
         // Use or store profile information
-
                     return payload.getEmail();
 
     } else {

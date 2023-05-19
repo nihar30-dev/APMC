@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit{
           this.storageService.saveUser(data);
           this.storageService.emitRole();
           this.router.navigate(['home']);
+          this.toastService.success('Login Successfully');
 
         }
       });

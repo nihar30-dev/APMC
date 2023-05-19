@@ -11,7 +11,7 @@ import {User} from '../../models/user.model';
 export class AuthService{
 
   private isLoggedIn = false;
-  constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {}
   private authApi = environment.ApiURL+'api/auth/';
   private httpOptions = {
     headers: new HttpHeaders({'contentType': 'application/json' })
@@ -28,7 +28,6 @@ export class AuthService{
       this.httpOptions
     );
   }
-
 
   googleSignin(accessToken:string):Observable<any>{
     this.isLoggedIn = true;

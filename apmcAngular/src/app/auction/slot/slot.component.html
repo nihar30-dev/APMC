@@ -10,8 +10,8 @@
       <th scope="col">Item Type</th>
       <th scope="col">Item</th>
       <th scope="col">Date</th>
-      <th scope="col">Total Quantity</th>
-      <th scope="col">Available Quantity</th>
+      <th scope="col" *ngIf="role==='ADMIN'">Total Quantity</th>
+      <th scope="col" *ngIf="role==='ADMIN'">Booked Quantity</th>
       <th scope="col" *ngIf="role==='ADMIN'">Delete</th>
       <th scope="col" *ngIf="role==='ADMIN'">Update Slot</th>
       <th scope="col" *ngIf="role==='USER'">Book Slot</th>
@@ -22,8 +22,8 @@
       <td>{{ slots['item']['itemType']['itemTypeName'] }}</td>
       <td>{{ slots['item']['itemName'] }}</td>
       <td>{{ slots['slotDate'] }}</td>
-      <td>{{ slots['totalQuantity'] }}</td>
-      <td>{{ slots['totalQuantity']-slots['bookedQuantity'] }}</td>
+      <td *ngIf="role==='ADMIN'">{{ slots['totalQuantity'] }}</td>
+      <td *ngIf="role==='ADMIN'">{{ slots['bookedQuantity'] }}</td>
       <td (click)="deleteSlot(i)" *ngIf="role==='ADMIN'"><bi name="trash-fill" class="" style="color: red; width: 1.5rem; cursor:pointer"></bi></td>
       <td (click)="openslotEdit(editSlotModalForm, i)" *ngIf="role==='ADMIN'" ><bi name="pencil-square" class="" style="width: 1.5rem; cursor: pointer"></bi></td>
       <td (click)="openslotBook(bookSlotModalForm, i)" *ngIf="role==='USER'"><i class="bi bi-calendar-check" style="color:#1A381ADC; width: 1.5rem; cursor: pointer"></i></td>
