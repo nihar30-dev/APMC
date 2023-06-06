@@ -11,8 +11,8 @@
         <div class="content" [class.active]="activePage === 'home' || activePage === 'dashboard'">
           <div class="icon"><i class="fs-5 bi-house"></i></div>
           <div class="title">
-            <span *ngIf="role!=='ADMIN'">Home</span>
-            <span *ngIf="role==='ADMIN'">Dashboard</span>
+            <span *ngIf="role!=='ADMIN'">{{'sidebar.home' | translate}}</span>
+            <span *ngIf="role==='ADMIN'">{{'sidebar.dashboard' | translate}}</span>
           </div>
         </div>
       </a>
@@ -22,7 +22,7 @@
         <div class="content" [class.active]="activePage === 'aboutUs'">
           <div class="icon"><i class="bi bi-info-circle"></i></div>
           <div class="title">
-            <span>About Us </span>
+            <span>{{'sidebar.aboutUs' | translate}} </span>
           </div>
         </div>
       </a>
@@ -32,7 +32,7 @@
         <div class="content" [class.active]="activePage.includes('Rates')">
           <div class="icon"><i class="bi bi-eye"></i></div>
           <div class="title">
-            <span>Daily Rates</span>
+            <span>{{'sidebar.dailyRates' | translate}}</span>
           </div>
         </div>
       </a>
@@ -42,7 +42,7 @@
         <div class="content" [class.active]="activePage.includes('Rates')">
           <div class="icon"><i class="bi bi-plus-circle"></i></div>
           <div class="title">
-            <span>Admin Rates</span>
+            <span>{{'sidebar.adminRates' | translate}}</span>
           </div>
         </div>
       </a>
@@ -52,7 +52,7 @@
         <div class="content" [class.active]="activePage === 'slot'">
           <div class="icon"><i class="fs-5 bi-grid"></i></div>
           <div class="title">
-            <span>Slot</span>
+            <span>{{'sidebar.slot' | translate}}</span>
           </div>
         </div>
       </a>
@@ -62,7 +62,7 @@
         <div class="content" [class.active]="activePage === 'viewSlot'">
           <div class="icon"><i class="fs-5 bi-grid"></i></div>
           <div class="title">
-            <span>View Slot</span>
+            <span>{{'sidebar.viewSlot' | translate}}</span>
           </div>
         </div>
       </a>
@@ -72,7 +72,7 @@
         <div class="content" [class.active]="activePage === 'shops'">
           <div class="icon"><i class="bi bi-shop-window"></i></div>
           <div class="title">
-            <span>Shops</span>
+            <span>{{'sidebar.shops' | translate}}</span>
           </div>
         </div>
       </a>
@@ -82,7 +82,7 @@
         <div class="content" [class.active]="activePage === 'notice'">
           <div class="icon"><i class="bi bi-bell"></i></div>
           <div class="title">
-            <span>Notice</span>
+            <span>{{'sidebar.notice' | translate}}</span>
           </div>
         </div>
       </a>
@@ -92,7 +92,7 @@
         <div class="content" [class.active]="activePage === 'contact'">
           <div class="icon"><i class="bi bi-telephone"></i></div>
           <div class="title">
-            <span>Contact Us</span>
+            <span>{{'sidebar.contactUs' | translate}}</span>
           </div>
         </div>
       </a>
@@ -102,7 +102,7 @@
         <div class="content" [class.active]="activePage === 'gallery'">
           <div class="icon"><i class="bi bi-card-image"></i></div>
           <div class="title">
-            <span>Gallery</span>
+            <span>{{'sidebar.gallery' | translate }}</span>
           </div>
         </div>
       </a>
@@ -112,7 +112,7 @@
         <div class="content" [class.active]="activePage === 'profile'">
           <div class="icon"><i class="bi bi-person"></i></div>
           <div class="title">
-            <span>Profile</span>
+            <span>{{'sidebar.profile' | translate}}</span>
           </div>
         </div>
       </a>

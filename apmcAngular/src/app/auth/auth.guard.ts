@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot):  boolean {
 
     const currentRole = this.storageService.getRole();
-    const requiredRole:string[] = route.data['role'];
+  const requiredRole:string[] = route.data['role'];
 
 
     if(requiredRole.includes(currentRole)){

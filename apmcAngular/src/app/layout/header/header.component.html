@@ -7,16 +7,22 @@
                      class="logo-img rounded-circle" />
             </div>
             <h1 class="company-name">
-                <a class="apmcHome" routerLink="/home">APMC Gondal</a>
+                <a class="apmcHome" routerLink="/home">APMC {{'home.gondal'|translate}}</a>
             </h1>
         </div>
         <div class="right">
+            <div class="language-dropdown headerLinks">
+                <select [(ngModel)]="selectedLanguage" (ngModelChange)="switchLanguage($event)">
+                    <option selected value="en">English</option>
+                    <option value="gu">ગુજરાતી</option>
+                </select>
+            </div>
             <span class="material-icons-outlined"> download </span>
-            <a href="#" class="headerLinks">Download App</a>
+            <a href="#" class="headerLinks">{{'home.downloadApp' | translate}}</a>
             <span class="material-icons-outlined" *ngIf="!isLoggedIn"> login </span>
-            <a routerLink="login" class="headerLinks" *ngIf="!isLoggedIn">Log In</a>
+            <a routerLink="login" class="headerLinks" *ngIf="!isLoggedIn">{{'home.login'|translate}}</a>
             <span class="material-icons-outlined" *ngIf="isLoggedIn"> logout </span>
-            <a href="#" class="headerLinks" *ngIf="isLoggedIn" (click)="logout()">Log Out</a>
+            <a href="#" class="headerLinks" *ngIf="isLoggedIn" (click)="logout()">{{'home.logout'|translate}}</a>
         </div>
     </div>
 </header>

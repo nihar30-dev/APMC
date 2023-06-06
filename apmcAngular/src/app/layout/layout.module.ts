@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {DataTablesModule} from 'angular-datatables';
+import {TranslateModule} from '@ngx-translate/core';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {DataTablesModule} from 'angular-datatables';
     BrowserModule,
     FormsModule,
     NgbModule,
-    DataTablesModule
+    DataTablesModule,
+    TranslateModule
   ],
   exports: [
     CommonModule,

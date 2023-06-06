@@ -1,0 +1,16 @@
+{
+  "sidebar": {
+    "home": "Home",
+    "aboutUs": "About Us",
+    "dashboard": "Dashboard",
+    "dailyRates": "Daily Rates",
+    "notice" : "Notice",
+    "contactUs": "Contact Us",
+    "adminRates": "Admin Rates",
+    "shops": "Shops",
+    "gallery": "Gallery",
+    "slot": "Slot",
+    "viewSlot": "View Slot",
+    "profile": "Profile"
+  }
+}

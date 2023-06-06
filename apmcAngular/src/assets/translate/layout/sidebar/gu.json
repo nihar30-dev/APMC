@@ -1,0 +1,16 @@
+{
+  "sidebar": {
+    "home": "હોમ",
+    "aboutUs": "અમારા વિશે",
+    "dashboard": "ડેશબોર્ડ",
+    "dailyRates": "દૈનિક ભાવ",
+    "notice" : "નોટિસ",
+    "contactUs": "સંપર્ક",
+    "adminRates": "એડમિન ભાવ",
+    "shops": "દુકાનો",
+    "gallery": "ગેલેરી",
+    "slot": "સ્લોટ",
+    "viewSlot": "સ્લોટ જુઓ",
+    "profile": "પ્રોફાઇલ"
+  }
+}

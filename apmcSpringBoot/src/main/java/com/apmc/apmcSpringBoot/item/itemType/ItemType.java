@@ -34,6 +34,10 @@ public class ItemType {
         this.itemTypeName = itemTypeName;
     }
 
+    public ItemType(int itemTypeId) {
+        this.itemTypeId = itemTypeId;
+    }
+
     public int getItemTypeId() {
         return itemTypeId;
     }

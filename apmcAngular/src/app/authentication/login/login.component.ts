@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit{
       this.user = user;
       this.authService.googleSignin(user.idToken).subscribe({
         next: data => {
+          console.log(user);
           if(data.id == null){
             this.toastService.error('Incorrect Username or Password');
           }

@@ -21,6 +21,7 @@ import { StorageService } from './utils/storage.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {NgbInputDatepicker} from '@ng-bootstrap/ng-bootstrap';
 import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import {LangTranslateModule} from './lang-translate.module';
 
 
 @NgModule({
@@ -44,6 +45,8 @@ import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     NgbInputDatepicker,
+    LangTranslateModule
+
 
   ],
   bootstrap: [AppComponent],
